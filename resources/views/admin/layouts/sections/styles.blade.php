@@ -24,3 +24,108 @@
 @yield('page-style')
 
 <!-- app CSS removed to avoid Tailwind conflict with Bootstrap -->
+
+<style>
+    :root,
+    [data-bs-theme=light],
+    [data-bs-theme=dark] {
+        --bs-primary:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        --bs-primary-rgb:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColorRgb() }}
+            !important;
+        --bs-link-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        --bs-link-hover-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+
+        /* Font and Background */
+        --bs-body-color:
+            {{ \App\Helpers\ThemeHelper::getFontColor() }}
+            !important;
+        --bs-body-bg:
+            {{ \App\Helpers\ThemeHelper::getBackgroundColor() }}
+            !important;
+
+        /* Dark Mode Overrides to keep same color */
+        --bs-primary-text-emphasis:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        --bs-primary-bg-subtle: rgba({{ \App\Helpers\ThemeHelper::getPrimaryColorRgb() }}, 0.1) !important;
+        --bs-primary-border-subtle: rgba({{ \App\Helpers\ThemeHelper::getPrimaryColorRgb() }}, 0.4) !important;
+    }
+
+    /* Ensure body bg is applied */
+    body {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getBackgroundColor() }}
+            !important;
+        color:
+            {{ \App\Helpers\ThemeHelper::getFontColor() }}
+            !important;
+    }
+
+    .btn-primary {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        border-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+
+    .btn-outline-primary {
+        color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        border-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+
+    .btn-outline-primary:hover {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        color: #fff !important;
+    }
+
+    .text-primary {
+        color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+
+    .bg-primary {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+
+    /* Pagination active state */
+    .page-item.active .page-link {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        border-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+
+    /* Menu active state */
+    .menu-item.active>.menu-link {
+        color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+        background-color: rgba({{ \App\Helpers\ThemeHelper::getPrimaryColorRgb() }}, 0.16) !important;
+    }
+
+    .menu-item.active>.menu-link:before {
+        background-color:
+            {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+            !important;
+    }
+</style>

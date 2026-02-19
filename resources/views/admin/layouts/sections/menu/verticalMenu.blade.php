@@ -73,6 +73,17 @@
                 </li>
             @endif
         @endforeach
+
+        {{-- Settings --}}
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Settings</span>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() === 'admin.settings.theme' ? 'active' : '' }}">
+            <a href="{{ route('admin.settings.theme') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div data-i18n="Theme Settings">Theme Settings</div>
+            </a>
+        </li>
     </ul>
 
 </aside>

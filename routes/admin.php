@@ -37,6 +37,12 @@ Route::prefix('content')->name('content.')->group(function () {
 // Careers
 Route::get('/careers', [PortfolioAdminController::class, 'careers'])->name('portfolio.careers');
 
+// Settings
+Route::prefix('settings')->name('settings.')->group(function () {
+  Route::get('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
+  Route::post('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
+});
+
 // ============================================================
 // ACCOUNT & AUTH PAGES — Kept for admin use
 // ============================================================

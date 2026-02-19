@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', 'VMCore - Creative Digital Agency')</title>
-    <meta name="description" content="@yield('meta_description', 'VMCore - Creative Digital Agency & Technology Solutions')">
+    <meta name="description"
+        content="@yield('meta_description', 'VMCore - Creative Digital Agency & Technology Solutions')">
     <meta name="keywords" content="@yield('meta_keywords', 'VMCore, Digital Agency, Web Development, Technology')">
     <meta name="robots" content="INDEX,FOLLOW">
 
@@ -36,6 +37,49 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @stack('styles')
+
+    <style>
+        :root {
+            --theme-color:
+                {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+                !important;
+            --body-color:
+                {{ \App\Helpers\ThemeHelper::getFontColor() }}
+                !important;
+            --title-color:
+                {{ \App\Helpers\ThemeHelper::getFontColor() }}
+                !important;
+        }
+
+        body {
+            background-color:
+                {{ \App\Helpers\ThemeHelper::getBackgroundColor() }}
+                !important;
+            color:
+                {{ \App\Helpers\ThemeHelper::getFontColor() }}
+                !important;
+        }
+
+        .text-sky-500 {
+            color:
+                {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+                !important;
+        }
+
+        .bg-sky-500 {
+            background-color:
+                {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+                !important;
+        }
+
+        .border-sky-500 {
+            border-color:
+                {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
+                !important;
+        }
+
+        /* Override Tailwind bg-white/black if they conflict with user choice, though usually we want specific components to stay white/black */
+    </style>
 </head>
 
 <body>
@@ -67,8 +111,7 @@
             <div class="widget footer-widget">
                 <div class="widget-about">
                     <div class="footer-logo">
-                        <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo-white.svg') }}"
-                                alt="VMCore"></a>
+                        <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo-white.svg') }}" alt="VMCore"></a>
                     </div>
                     <p class="about-text">We are digital agency that helps businesses develop immersive and engaging</p>
                     <div class="sidebar-wrap">
