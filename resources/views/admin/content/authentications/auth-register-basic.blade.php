@@ -3,7 +3,7 @@
 @section('title', 'Register Basic - Pages')
 
 @section('page-style')
-<link rel="stylesheet" href="{{ asset('admin/page-auth-BET8THlp.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-assets/page-auth-BET8THlp.css') }}">
 @endsection
 
 @section('content')

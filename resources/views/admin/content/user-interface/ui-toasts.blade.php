@@ -4,7 +4,7 @@
 
 <!-- Page Script -->
 @section('page-script')
-<script src="{{ asset('admin/ui-toasts-D2tjOEuf.js') }}"></script>
+<script src="{{ asset('admin-assets/ui-toasts-D2tjOEuf.js') }}"></script>
 @endsection
 
 @section('content')

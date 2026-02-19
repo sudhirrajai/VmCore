@@ -3,7 +3,7 @@
 @section('title', 'Cards basic - UI elements')
 
 @section('vendor-script')
-<script src="{{ asset('admin/masonry-Di3k0CUD.js') }}"></script>
+<script src="{{ asset('admin-assets/masonry-Di3k0CUD.js') }}"></script>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="row mb-12 g-6">
     <div class="col-md-6 col-lg-4">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/2.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/2.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -25,7 +25,7 @@
                 <h5 class="card-title">Card title</h5>
                 <h6 class="card-subtitle">Support card subtitle</h6>
             </div>
-            <img class="img-fluid" src="{{ asset('admin/img/elements/5.png') }}" alt="Card image cap" />
+            <img class="img-fluid" src="{{ asset('admin-assets/img/elements/5.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
                 <a href="javascript:void(0);" class="card-link">Card link</a>
@@ -38,7 +38,7 @@
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <h6 class="card-subtitle">Support card subtitle</h6>
-                <img class="img-fluid d-flex mx-auto my-6 rounded" src="{{ asset('admin/img/elements/4.png') }}" alt="Card image cap" />
+                <img class="img-fluid d-flex mx-auto my-6 rounded" src="{{ asset('admin-assets/img/elements/4.png') }}" alt="Card image cap" />
                 <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
                 <a href="javascript:void(0);" class="card-link">Card link</a>
                 <a href="javascript:void(0);" class="card-link">Another link</a>
@@ -81,7 +81,7 @@
     <div class="col-md-6 col-lg-4">
         <h6 class="mt-2 text-body-secondary">Images</h6>
         <div class="card">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/5.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/5.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <p class="card-text">Cookie topping caramels jujubes gingerbread. Lollipop apple pie cupcake candy canes cookie ice cream. Wafer chocolate bar carrot cake jelly-o.</p>
@@ -91,7 +91,7 @@
     <div class="col-md-6 col-lg-4">
         <h6 class="mt-2 text-body-secondary">Kitchen sink</h6>
         <div class="card">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/7.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/7.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title.</p>
@@ -186,7 +186,7 @@
 <div class="row mb-12 g-6">
     <div class="col-md-6 col-xl-4">
         <div class="card">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/5.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/5.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -205,12 +205,12 @@
                     <small class="text-body-secondary">Last updated 3 mins ago</small>
                 </p>
             </div>
-            <img class="card-img-bottom" src="{{ asset('admin/img/elements/6.png') }}" alt="Card image cap" />
+            <img class="card-img-bottom" src="{{ asset('admin-assets/img/elements/6.png') }}" alt="Card image cap" />
         </div>
     </div>
     <div class="col-md-6 col-xl-4">
         <div class="card text-bg-dark border-0">
-            <img class="card-img" src="{{ asset('admin/img/elements/14.png') }}" alt="Card image" />
+            <img class="card-img" src="{{ asset('admin-assets/img/elements/14.png') }}" alt="Card image" />
             <div class="card-img-overlay">
                 <h5 class="card-title text-white">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -228,7 +228,7 @@
         <div class="card">
             <div class="d-flex flex-md-row flex-column">
                 <div>
-                    <img class="card-img card-img-left" src="{{ asset('admin/img/elements/18.png') }}" alt="Card image" />
+                    <img class="card-img card-img-left" src="{{ asset('admin-assets/img/elements/18.png') }}" alt="Card image" />
                 </div>
                 <div>
                     <div class="card-body">
@@ -251,7 +251,7 @@
                     </div>
                 </div>
                 <div>
-                    <img class="card-img card-img-right" src="{{ asset('admin/img/elements/19.png') }}" alt="Card image" />
+                    <img class="card-img card-img-right" src="{{ asset('admin-assets/img/elements/19.png') }}" alt="Card image" />
                 </div>
             </div>
         </div>
@@ -374,7 +374,7 @@
 <h6 class="pb-1 mb-6 text-body-secondary">Card Groups</h6>
 <div class="card-group mb-12">
     <div class="card">
-        <img class="card-img-top" src="{{ asset('admin/img/elements/4.png') }}" alt="Card image cap" />
+        <img class="card-img-top" src="{{ asset('admin-assets/img/elements/4.png') }}" alt="Card image cap" />
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -384,7 +384,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img-top" src="{{ asset('admin/img/elements/5.png') }}" alt="Card image cap" />
+        <img class="card-img-top" src="{{ asset('admin-assets/img/elements/5.png') }}" alt="Card image cap" />
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -394,7 +394,7 @@
         </div>
     </div>
     <div class="card">
-        <img class="card-img-top" src="{{ asset('admin/img/elements/1.png') }}" alt="Card image cap" />
+        <img class="card-img-top" src="{{ asset('admin-assets/img/elements/1.png') }}" alt="Card image cap" />
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
@@ -410,7 +410,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-6 mb-12">
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/15.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/15.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -419,7 +419,7 @@
     </div>
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/16.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/16.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -428,7 +428,7 @@
     </div>
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/17.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/17.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
@@ -437,7 +437,7 @@
     </div>
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/11.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/11.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -446,7 +446,7 @@
     </div>
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/12.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/12.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -455,7 +455,7 @@
     </div>
     <div class="col">
         <div class="card h-100">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/13.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/13.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -469,7 +469,7 @@
 <div class="row g-6" data-masonry='{"percentPosition": true }'>
     <div class="col-sm-6 col-lg-4">
         <div class="card">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/5.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/5.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title that wraps to a new line</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -488,7 +488,7 @@
     </div>
     <div class="col-sm-6 col-lg-4">
         <div class="card">
-            <img class="card-img-top" src="{{ asset('admin/img/elements/3.png') }}" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset('admin-assets/img/elements/3.png') }}" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -517,7 +517,7 @@
     </div>
     <div class="col-sm-6 col-lg-4">
         <div class="card">
-            <img class="card-img" src="{{ asset('admin/img/elements/4.png') }}" alt="Card image cap" />
+            <img class="card-img" src="{{ asset('admin-assets/img/elements/4.png') }}" alt="Card image cap" />
         </div>
     </div>
     <div class="col-sm-6 col-lg-4">

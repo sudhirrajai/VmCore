@@ -57,6 +57,4 @@ Route::get('/error', function () {
     return view('error');
 })->name('error');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-});
+

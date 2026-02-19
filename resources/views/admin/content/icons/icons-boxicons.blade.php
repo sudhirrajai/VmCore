@@ -3,7 +3,7 @@
 @section('title', 'Boxicons - Icons')
 
 @section('page-style')
-  <link rel="stylesheet" href="{{ asset('admin/page-icons-Sjj5Avtp.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-assets/page-icons-Sjj5Avtp.css') }}">
 @endsection
 
 @section('content')

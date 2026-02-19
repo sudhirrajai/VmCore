@@ -3,15 +3,15 @@
 @section('title', 'Perfect Scrollbar - Extended UI')
 
 @section('vendor-style')
-<link rel="stylesheet" href="{{ asset('admin/perfect-scrollbar-CfyPsj0y.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-assets/perfect-scrollbar-CfyPsj0y.css') }}">
 @endsection
 
 @section('vendor-script')
-<script src="{{ asset('admin/perfect-scrollbar-uMurzE2-.js') }}"></script>
+<script src="{{ asset('admin-assets/perfect-scrollbar-uMurzE2-.js') }}"></script>
 @endsection
 
 @section('page-script')
-<script src="{{ asset('admin/extended-ui-perfect-scrollbar-87gYG_r1.js') }}"></script>
+<script src="{{ asset('admin-assets/extended-ui-perfect-scrollbar-87gYG_r1.js') }}"></script>
 @endsection
 
 @section('content')
@@ -55,7 +55,7 @@
         <div class="card overflow-hidden" style="height: 300px;">
             <h5 class="card-header">Horizontal Scrollbar</h5>
             <div class="card-body" id="horizontal-example">
-                <img src="{{ asset('admin/img/backgrounds/1.jpg') }}" alt="scrollbar-image" />
+                <img src="{{ asset('admin-assets/img/backgrounds/1.jpg') }}" alt="scrollbar-image" />
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
         <div class="card overflow-hidden" style="height: 500px;">
             <h5 class="card-header">Vertical & Horizontal Scrollbars</h5>
             <div class="card-body" id="both-scrollbars-example">
-                <img src="{{ asset('admin/img/backgrounds/1.jpg') }}" alt="scrollbar-image" />
+                <img src="{{ asset('admin-assets/img/backgrounds/1.jpg') }}" alt="scrollbar-image" />
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
 
 <!-- Page Scripts -->
 @section('page-script')
-<script src="{{ asset('admin/ui-modals-CYNbp-iO.js') }}"></script>
+<script src="{{ asset('admin-assets/ui-modals-CYNbp-iO.js') }}"></script>
 @endsection
 
 @section('content')

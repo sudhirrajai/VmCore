@@ -4,7 +4,7 @@
 
 <!-- Page Script -->
 @section('page-script')
-<script src="{{ asset('admin/ui-popover-CbvAU9Mu.js') }}"></script>
+<script src="{{ asset('admin-assets/ui-popover-CbvAU9Mu.js') }}"></script>
 @endsection
 
 @section('content')

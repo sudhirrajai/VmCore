@@ -4,7 +4,7 @@
 
 @section('page-style')
 <!-- Page -->
-<link rel="stylesheet" href="{{ asset('admin/page-misc-B3sUmsW1.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-assets/page-misc-B3sUmsW1.css') }}">
 @endsection
 
 
@@ -17,7 +17,7 @@
         <p class="mb-6 mx-2">we couldn't find the page you are looking for</p>
         <a href="{{ url('/') }}" class="btn btn-primary">Back to home</a>
         <div class="mt-6">
-            <img src="{{ asset('admin/img/illustrations/page-misc-error-light.png') }}" alt="page-misc-error-light" width="500" class="img-fluid" />
+            <img src="{{ asset('admin-assets/img/illustrations/page-misc-error-light.png') }}" alt="page-misc-error-light" width="500" class="img-fluid" />
         </div>
     </div>
 </div>

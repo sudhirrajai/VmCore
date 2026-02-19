@@ -3,7 +3,7 @@
 @section('title', 'Basic Inputs - Forms')
 
 @section('page-script')
-<script src="{{ asset('admin/form-basic-inputs-CjS8llQr.js') }}"></script>
+<script src="{{ asset('admin-assets/form-basic-inputs-CjS8llQr.js') }}"></script>
 @endsection
 
 @section('content')

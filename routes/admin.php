@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\authentications\ForgotPasswordBasic;
 // ============================================================
 
 // Dashboard
-Route::get('/admin', [PortfolioAdminController::class, 'dashboard'])->name('dashboard-analytics');
+Route::get('/', [PortfolioAdminController::class, 'dashboard'])->name('dashboard-analytics');
 
 // Portfolio Management
 Route::prefix('portfolio')->name('portfolio.')->group(function () {

@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/google.png') }}" alt="google" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/google.png') }}" alt="google" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 d-flex align-items-center justify-content-between">
                                 <div class="mb-sm-0 mb-2">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/slack.png') }}" alt="slack" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/slack.png') }}" alt="slack" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 d-flex align-items-center justify-content-between">
                                 <div class="mb-sm-0 mb-2">
@@ -60,7 +60,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/github.png') }}" alt="github" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/github.png') }}" alt="github" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 d-flex align-items-center justify-content-between">
                                 <div class="mb-sm-0 mb-2">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/mailchimp.png') }}" alt="mailchimp" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/mailchimp.png') }}" alt="mailchimp" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 d-flex align-items-center justify-content-between">
                                 <div class="mb-sm-0 mb-2">
@@ -92,7 +92,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/asana.png') }}" alt="asana" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/asana.png') }}" alt="asana" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 d-flex align-items-center justify-content-between">
                                 <div class="mb-sm-0 mb-2">
@@ -118,7 +118,7 @@
                         <!-- Social Accounts -->
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/facebook.png') }}" alt="facebook" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/facebook.png') }}" alt="facebook" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 row">
                                 <div class="col-7">
@@ -132,7 +132,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/twitter.png') }}" alt="twitter" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/twitter.png') }}" alt="twitter" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 row">
                                 <div class="col-7">
@@ -146,7 +146,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/instagram.png') }}" alt="instagram" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/instagram.png') }}" alt="instagram" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 row">
                                 <div class="col-7">
@@ -160,7 +160,7 @@
                         </div>
                         <div class="d-flex mb-4 align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/dribbble.png') }}" alt="dribbble" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/dribbble.png') }}" alt="dribbble" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 row">
                                 <div class="col-7">
@@ -174,7 +174,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('admin/img/icons/brands/behance.png') }}" alt="behance" class="me-4" height="32" />
+                                <img src="{{ asset('admin-assets/img/icons/brands/behance.png') }}" alt="behance" class="me-4" height="32" />
                             </div>
                             <div class="flex-grow-1 row  align-items-center">
                                 <div class="col-7">
