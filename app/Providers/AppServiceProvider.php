@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register admin views path so content.* blade paths resolve
+        view()->addLocation(resource_path('views/admin'));
     }
 }

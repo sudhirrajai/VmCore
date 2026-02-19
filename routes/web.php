@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('home');
@@ -50,6 +52,11 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+
 Route::get('/error', function () {
     return view('error');
 })->name('error');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+});

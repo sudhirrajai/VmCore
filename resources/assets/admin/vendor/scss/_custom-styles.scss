@@ -1,0 +1,30 @@
+// Custom Styles
+
+// Dark Mode Overrides
+[data-bs-theme="dark"] {
+  body,
+  .layout-wrapper,
+  .bg-body {
+    background-color: #000000 !important;
+  }
+
+  // Ensure cards are also black or slightly lighter to distinguish? 
+  // User asked for "black for dark", often implies deep black.
+  .card {
+     background-color: #000000;
+     border: 1px solid #333; // Add border for separation if bg is black
+  }
+  
+  .layout-navbar {
+    background-color: #000000 !important;
+    border-bottom: 1px solid #333;
+  }
+  
+  .menu {
+     background-color: #000000 !important;
+  }
+  
+  .footer {
+     background-color: #000000 !important;
+  }
+}

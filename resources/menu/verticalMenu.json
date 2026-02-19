@@ -1,0 +1,121 @@
+{
+  "menu": [
+    {
+      "menuHeader": "Portfolio Admin"
+    },
+    {
+      "url": "admin/",
+      "name": "Dashboard",
+      "icon": "menu-icon icon-base bx bx-home-smile",
+      "slug": "dashboard-analytics"
+    },
+    {
+      "menuHeader": "Portfolio"
+    },
+    {
+      "url": "admin/portfolio/projects",
+      "name": "Projects",
+      "icon": "menu-icon icon-base bx bx-briefcase",
+      "slug": "admin.portfolio.projects"
+    },
+    {
+      "url": "admin/portfolio/services",
+      "name": "Services",
+      "icon": "menu-icon icon-base bx bx-cog",
+      "slug": "portfolio.services"
+    },
+    {
+      "url": "admin/portfolio/case-studies",
+      "name": "Case Studies",
+      "icon": "menu-icon icon-base bx bx-file",
+      "slug": "portfolio.case-studies"
+    },
+    {
+      "url": "admin/portfolio/testimonials",
+      "name": "Testimonials",
+      "icon": "menu-icon icon-base bx bx-star",
+      "slug": "portfolio.testimonials"
+    },
+    {
+      "url": "admin/portfolio/team",
+      "name": "Team Members",
+      "icon": "menu-icon icon-base bx bx-group",
+      "slug": "portfolio.team"
+    },
+    {
+      "menuHeader": "Content"
+    },
+    {
+      "url": "admin/content/blog",
+      "name": "Blog Posts",
+      "icon": "menu-icon icon-base bx bx-news",
+      "slug": "content.blog"
+    },
+    {
+      "url": "admin/careers",
+      "name": "Careers",
+      "icon": "menu-icon icon-base bx bx-id-card",
+      "slug": "portfolio.careers"
+    },
+    {
+      "url": "admin/content/inquiries",
+      "name": "Inquiries",
+      "icon": "menu-icon icon-base bx bx-envelope",
+      "slug": "content.inquiries",
+      "badge": [
+        "danger",
+        "New"
+      ]
+    },
+    {
+      "menuHeader": "Account"
+    },
+    {
+      "name": "Account Settings",
+      "icon": "menu-icon icon-base bx bx-user-circle",
+      "slug": "pages-account-settings",
+      "submenu": [
+        {
+          "url": "admin/pages/account-settings-account",
+          "name": "Account",
+          "slug": "pages-account-settings-account"
+        },
+        {
+          "url": "admin/pages/account-settings-notifications",
+          "name": "Notifications",
+          "slug": "pages-account-settings-notifications"
+        },
+        {
+          "url": "admin/pages/account-settings-connections",
+          "name": "Connections",
+          "slug": "pages-account-settings-connections"
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "icon": "menu-icon icon-base bx bx-lock-open-alt",
+      "slug": "auth",
+      "submenu": [
+        {
+          "url": "admin/auth/login-basic",
+          "name": "Login",
+          "slug": "auth-login-basic",
+          "target": "_blank"
+        },
+        {
+          "url": "admin/auth/register-basic",
+          "name": "Register",
+          "slug": "auth-register-basic",
+          "target": "_blank"
+        },
+        {
+          "url": "admin/auth/forgot-password-basic",
+          "name": "Forgot Password",
+          "slug": "auth-reset-password-basic",
+          "target": "_blank"
+        }
+      ]
+    }
+  ]
+}
