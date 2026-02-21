@@ -1,8 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\dashboard\Analytics;
-use App\Http\Controllers\Admin\portfolio\PortfolioAdminController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HeroSectionController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\AwardController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\ContactSubmissionController;
+use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\pages\AccountSettingsAccount;
 use App\Http\Controllers\Admin\pages\AccountSettingsNotifications;
 use App\Http\Controllers\Admin\pages\AccountSettingsConnections;
@@ -13,32 +28,87 @@ use App\Http\Controllers\Admin\authentications\RegisterBasic;
 use App\Http\Controllers\Admin\authentications\ForgotPasswordBasic;
 
 // ============================================================
-// PORTFOLIO ADMIN PANEL — Main Routes
+// PORTFOLIO CMS ADMIN PANEL — Routes
 // ============================================================
 
 // Dashboard
-Route::get('/', [PortfolioAdminController::class, 'dashboard'])->name('dashboard-analytics');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Portfolio Management
-Route::prefix('portfolio')->name('portfolio.')->group(function () {
-  Route::get('/projects', [PortfolioAdminController::class, 'projects'])->name('projects');
-  Route::get('/services', [PortfolioAdminController::class, 'services'])->name('services');
-  Route::get('/case-studies', [PortfolioAdminController::class, 'caseStudies'])->name('case-studies');
-  Route::get('/testimonials', [PortfolioAdminController::class, 'testimonials'])->name('testimonials');
-  Route::get('/team', [PortfolioAdminController::class, 'team'])->name('team');
-});
+// ------------------------------------------------------------
+// Content Management — Hero, Services, Skills
+// ------------------------------------------------------------
+Route::resource('hero-sections', HeroSectionController::class)->except(['show']);
+Route::post('hero-sections/{heroSection}/toggle-status', [HeroSectionController::class, 'toggleStatus'])->name('hero-sections.toggle-status');
 
-// Content Management
-Route::prefix('content')->name('content.')->group(function () {
-  Route::get('/blog', [PortfolioAdminController::class, 'blog'])->name('blog');
-  Route::get('/inquiries', [PortfolioAdminController::class, 'inquiries'])->name('inquiries');
-});
+Route::resource('services', ServiceController::class)->except(['show']);
+Route::post('services/{service}/toggle-status', [ServiceController::class, 'toggleStatus'])->name('services.toggle-status');
 
-// Careers
-Route::get('/careers', [PortfolioAdminController::class, 'careers'])->name('portfolio.careers');
+Route::resource('skills', SkillController::class)->except(['show']);
+Route::post('skills/{skill}/toggle-status', [SkillController::class, 'toggleStatus'])->name('skills.toggle-status');
 
+// ------------------------------------------------------------
+// Portfolio — Categories & Projects
+// ------------------------------------------------------------
+Route::resource('project-categories', ProjectCategoryController::class)->except(['show']);
+Route::post('project-categories/{projectCategory}/toggle-status', [ProjectCategoryController::class, 'toggleStatus'])->name('project-categories.toggle-status');
+
+Route::resource('projects', ProjectController::class)->except(['show']);
+Route::post('projects/{project}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('projects.toggle-status');
+Route::post('projects/bulk-delete', [ProjectController::class, 'bulkDelete'])->name('projects.bulk-delete');
+Route::delete('projects/gallery/{id}', [ProjectController::class, 'deleteGalleryImage'])->name('projects.delete-gallery');
+
+// ------------------------------------------------------------
+// Blog — Categories & Posts
+// ------------------------------------------------------------
+Route::resource('blog-categories', BlogCategoryController::class)->except(['show']);
+Route::post('blog-categories/{blogCategory}/toggle-status', [BlogCategoryController::class, 'toggleStatus'])->name('blog-categories.toggle-status');
+
+Route::resource('blog', BlogPostController::class)->except(['show']);
+Route::post('blog/{blog}/toggle-status', [BlogPostController::class, 'toggleStatus'])->name('blog.toggle-status');
+
+// ------------------------------------------------------------
+// Team & Testimonials
+// ------------------------------------------------------------
+Route::resource('team', TeamMemberController::class)->except(['show']);
+Route::post('team/{team}/toggle-status', [TeamMemberController::class, 'toggleStatus'])->name('team.toggle-status');
+
+Route::resource('testimonials', TestimonialController::class)->except(['show']);
+Route::post('testimonials/{testimonial}/toggle-status', [TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
+
+// ------------------------------------------------------------
+// Awards, Clients, FAQs
+// ------------------------------------------------------------
+Route::resource('awards', AwardController::class)->except(['show']);
+Route::post('awards/{award}/toggle-status', [AwardController::class, 'toggleStatus'])->name('awards.toggle-status');
+
+Route::resource('clients', ClientController::class)->except(['show']);
+Route::post('clients/{client}/toggle-status', [ClientController::class, 'toggleStatus'])->name('clients.toggle-status');
+
+Route::resource('faqs', FaqController::class)->except(['show']);
+Route::post('faqs/{faq}/toggle-status', [FaqController::class, 'toggleStatus'])->name('faqs.toggle-status');
+
+// ------------------------------------------------------------
+// Inquiries & Newsletter
+// ------------------------------------------------------------
+Route::resource('inquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
+Route::post('inquiries/{inquiry}/mark-read', [ContactSubmissionController::class, 'markAsRead'])->name('inquiries.mark-read');
+
+Route::resource('newsletter', NewsletterController::class)->only(['index', 'destroy']);
+Route::get('newsletter/export', [NewsletterController::class, 'export'])->name('newsletter.export');
+
+// ------------------------------------------------------------
+// Social Links
+// ------------------------------------------------------------
+Route::resource('social-links', SocialLinkController::class)->except(['show']);
+Route::post('social-links/{socialLink}/toggle-status', [SocialLinkController::class, 'toggleStatus'])->name('social-links.toggle-status');
+
+// ------------------------------------------------------------
 // Settings
+// ------------------------------------------------------------
 Route::prefix('settings')->name('settings.')->group(function () {
+  Route::get('/', [SiteSettingController::class, 'index'])->name('index');
+  Route::post('/update', [SiteSettingController::class, 'update'])->name('update');
+  Route::post('/general', [SiteSettingController::class, 'updateGeneral'])->name('general.update');
   Route::get('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
   Route::post('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
 });

@@ -151,7 +151,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Brief project description..."></textarea>
+                            <textarea class="form-control ckeditor" rows="3" placeholder="Brief project description..."></textarea>
                         </div>
                     </div>
                 </form>
@@ -163,5 +163,9 @@
         </div>
     </div>
 </div>
+
+@push('page-scripts')
+@include('admin._partials.ckeditor')
+@endpush
 
 @endsection

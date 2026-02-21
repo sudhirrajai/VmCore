@@ -1,121 +1,125 @@
 {
   "menu": [
     {
-      "menuHeader": "Portfolio Admin"
+      "menuHeader": "CMS Admin"
     },
     {
       "url": "admin/",
       "name": "Dashboard",
       "icon": "menu-icon icon-base bx bx-home-smile",
-      "slug": "dashboard-analytics"
-    },
-    {
-      "menuHeader": "Portfolio"
-    },
-    {
-      "url": "admin/portfolio/projects",
-      "name": "Projects",
-      "icon": "menu-icon icon-base bx bx-briefcase",
-      "slug": "admin.portfolio.projects"
-    },
-    {
-      "url": "admin/portfolio/services",
-      "name": "Services",
-      "icon": "menu-icon icon-base bx bx-cog",
-      "slug": "portfolio.services"
-    },
-    {
-      "url": "admin/portfolio/case-studies",
-      "name": "Case Studies",
-      "icon": "menu-icon icon-base bx bx-file",
-      "slug": "portfolio.case-studies"
-    },
-    {
-      "url": "admin/portfolio/testimonials",
-      "name": "Testimonials",
-      "icon": "menu-icon icon-base bx bx-star",
-      "slug": "portfolio.testimonials"
-    },
-    {
-      "url": "admin/portfolio/team",
-      "name": "Team Members",
-      "icon": "menu-icon icon-base bx bx-group",
-      "slug": "portfolio.team"
+      "slug": "admin.dashboard"
     },
     {
       "menuHeader": "Content"
     },
     {
-      "url": "admin/content/blog",
+      "name": "Hero Sections",
+      "url": "admin/hero-sections",
+      "icon": "menu-icon icon-base bx bx-image",
+      "slug": "admin.hero-sections"
+    },
+    {
+      "name": "Services",
+      "url": "admin/services",
+      "icon": "menu-icon icon-base bx bx-cog",
+      "slug": "admin.services"
+    },
+    {
+      "name": "Skills",
+      "url": "admin/skills",
+      "icon": "menu-icon icon-base bx bx-bar-chart",
+      "slug": "admin.skills"
+    },
+    {
+      "menuHeader": "Portfolio"
+    },
+    {
+      "name": "Categories",
+      "url": "admin/project-categories",
+      "icon": "menu-icon icon-base bx bx-category",
+      "slug": "admin.project-categories"
+    },
+    {
+      "name": "Projects",
+      "url": "admin/projects",
+      "icon": "menu-icon icon-base bx bx-briefcase",
+      "slug": "admin.projects"
+    },
+    {
+      "menuHeader": "Blog"
+    },
+    {
+      "name": "Blog Categories",
+      "url": "admin/blog-categories",
+      "icon": "menu-icon icon-base bx bx-folder",
+      "slug": "admin.blog-categories"
+    },
+    {
       "name": "Blog Posts",
+      "url": "admin/blog",
       "icon": "menu-icon icon-base bx bx-news",
-      "slug": "content.blog"
+      "slug": "admin.blog"
     },
     {
-      "url": "admin/careers",
-      "name": "Careers",
-      "icon": "menu-icon icon-base bx bx-id-card",
-      "slug": "portfolio.careers"
+      "menuHeader": "People"
     },
     {
-      "url": "admin/content/inquiries",
+      "name": "Team Members",
+      "url": "admin/team",
+      "icon": "menu-icon icon-base bx bx-group",
+      "slug": "admin.team"
+    },
+    {
+      "name": "Testimonials",
+      "url": "admin/testimonials",
+      "icon": "menu-icon icon-base bx bx-star",
+      "slug": "admin.testimonials"
+    },
+    {
+      "menuHeader": "Extras"
+    },
+    {
+      "name": "Awards",
+      "url": "admin/awards",
+      "icon": "menu-icon icon-base bx bx-trophy",
+      "slug": "admin.awards"
+    },
+    {
+      "name": "Clients",
+      "url": "admin/clients",
+      "icon": "menu-icon icon-base bx bx-buildings",
+      "slug": "admin.clients"
+    },
+    {
+      "name": "FAQs",
+      "url": "admin/faqs",
+      "icon": "menu-icon icon-base bx bx-help-circle",
+      "slug": "admin.faqs"
+    },
+    {
+      "name": "Social Links",
+      "url": "admin/social-links",
+      "icon": "menu-icon icon-base bx bx-share-alt",
+      "slug": "admin.social-links"
+    },
+    {
+      "menuHeader": "Communication"
+    },
+    {
       "name": "Inquiries",
+      "url": "admin/inquiries",
       "icon": "menu-icon icon-base bx bx-envelope",
-      "slug": "content.inquiries",
+      "slug": "admin.inquiries",
       "badge": [
         "danger",
         "New"
       ]
     },
     {
-      "menuHeader": "Account"
-    },
-    {
-      "name": "Account Settings",
-      "icon": "menu-icon icon-base bx bx-user-circle",
-      "slug": "pages-account-settings",
-      "submenu": [
-        {
-          "url": "admin/pages/account-settings-account",
-          "name": "Account",
-          "slug": "pages-account-settings-account"
-        },
-        {
-          "url": "admin/pages/account-settings-notifications",
-          "name": "Notifications",
-          "slug": "pages-account-settings-notifications"
-        },
-        {
-          "url": "admin/pages/account-settings-connections",
-          "name": "Connections",
-          "slug": "pages-account-settings-connections"
-        }
-      ]
-    },
-    {
-      "name": "Authentication",
-      "icon": "menu-icon icon-base bx bx-lock-open-alt",
-      "slug": "auth",
-      "submenu": [
-        {
-          "url": "admin/auth/login-basic",
-          "name": "Login",
-          "slug": "auth-login-basic",
-          "target": "_blank"
-        },
-        {
-          "url": "admin/auth/register-basic",
-          "name": "Register",
-          "slug": "auth-register-basic",
-          "target": "_blank"
-        },
-        {
-          "url": "admin/auth/forgot-password-basic",
-          "name": "Forgot Password",
-          "slug": "auth-reset-password-basic",
-          "target": "_blank"
-        }
-      ]
+      "name": "Newsletter",
+      "url": "admin/newsletter",
+      "icon": "menu-icon icon-base bx bx-mail-send",
+      "slug": "admin.newsletter"
     }
   ]
 }

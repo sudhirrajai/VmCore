@@ -1,60 +1,22 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FrontendController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// ── Frontend Routes ──────────────────────────────────────────
+Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/services', [FrontendController::class, 'services'])->name('services');
+Route::get('/services/{service}', [FrontendController::class, 'serviceDetail'])->name('service.detail');
+Route::get('/team', [FrontendController::class, 'team'])->name('team');
+Route::get('/team/{member}', [FrontendController::class, 'teamDetail'])->name('team.detail');
+Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
+Route::get('/portfolio', [FrontendController::class, 'portfolio'])->name('portfolio');
+Route::get('/portfolio/{project}', [FrontendController::class, 'portfolioDetail'])->name('portfolio.detail');
+Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/blog/{post}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact', [FrontendController::class, 'contactStore'])->name('contact.store');
+Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/services', function () {
-    return view('services');
-})->name('services');
-
-Route::get('/service-details', function () {
-    return view('service-details');
-})->name('service-details');
-
-Route::get('/team', function () {
-    return view('team');
-})->name('team');
-
-Route::get('/team-details', function () {
-    return view('team-details');
-})->name('team-details');
-
-Route::get('/faq', function () {
-    return view('faq');
-})->name('faq');
-
-Route::get('/portfolio', function () {
-    return view('portfolio');
-})->name('portfolio');
-
-Route::get('/portfolio-details', function () {
-    return view('portfolio-details');
-})->name('portfolio-details');
-
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
-
-Route::get('/blog-details', function () {
-    return view('blog-details');
-})->name('blog-details');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-
-Route::get('/error', function () {
-    return view('error');
-})->name('error');
-
-
+Route::get('/error', fn() => view('error'))->name('error');

@@ -66,7 +66,7 @@
                         <div class="col-md-6"><label class="form-label fw-semibold">Department</label><select class="form-select"><option>Engineering</option><option>Design</option><option>Management</option><option>Marketing</option><option>Leadership</option></select></div>
                         <div class="col-md-8"><label class="form-label fw-semibold">Email</label><input type="email" class="form-control" placeholder="email@company.com"></div>
                         <div class="col-md-4"><label class="form-label fw-semibold">Status</label><select class="form-select"><option>Active</option><option>Inactive</option></select></div>
-                        <div class="col-12"><label class="form-label fw-semibold">Bio (optional)</label><textarea class="form-control" rows="3" placeholder="Short bio..."></textarea></div>
+                        <div class="col-12"><label class="form-label fw-semibold">Bio (optional)</label><textarea class="form-control ckeditor" rows="3" placeholder="Short bio..."></textarea></div>
                     </div>
                 </form>
             </div>
@@ -77,5 +77,9 @@
         </div>
     </div>
 </div>
+
+@push('page-scripts')
+@include('admin._partials.ckeditor')
+@endpush
 
 @endsection

@@ -20,6 +20,7 @@
 
 <!-- BEGIN: Page JS-->
 @yield('page-script')
+@stack('page-scripts')
 <!-- END: Page JS-->
 
 <!-- app JS removed to avoid conflicts -->

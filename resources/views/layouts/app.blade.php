@@ -4,17 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'VMCore - Creative Digital Agency')</title>
+    <title>@yield('title', $siteSettings['meta_title'] ?? 'VMCore - Creative Digital Agency')</title>
     <meta name="description"
-        content="@yield('meta_description', 'VMCore - Creative Digital Agency & Technology Solutions')">
-    <meta name="keywords" content="@yield('meta_keywords', 'VMCore, Digital Agency, Web Development, Technology')">
+        content="@yield('meta_description', $siteSettings['meta_description'] ?? 'VMCore - Creative Digital Agency & Technology Solutions')">
+    <meta name="keywords"
+        content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? 'VMCore, Digital Agency, Web Development, Technology')">
     <meta name="robots" content="INDEX,FOLLOW">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="@yield('title', $siteSettings['meta_title'] ?? 'VMCore')">
+    <meta property="og:description" content="@yield('meta_description', $siteSettings['meta_description'] ?? '')">
+    <meta property="og:image" content="@yield('og_image', asset($siteSettings['og_image'] ?? 'assets/img/logo.svg'))">
+    <meta property="og:type" content="website">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicons/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ asset($siteSettings['favicon'] ?? 'assets/img/favicons/favicon.png') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicons/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ffffff">
@@ -113,40 +121,30 @@
                     <div class="footer-logo">
                         <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo-white.svg') }}" alt="VMCore"></a>
                     </div>
-                    <p class="about-text">We are digital agency that helps businesses develop immersive and engaging</p>
+                    <p class="about-text">
+                        {{ $siteSettings['site_description'] ?? 'We are digital agency that helps businesses develop immersive and engaging' }}
+                    </p>
                     <div class="sidebar-wrap">
-                        <h6>27 Division St, New York,</h6>
-                        <h6>NY 10002, USA</h6>
+                        <h6>{{ $siteSettings['site_address'] ?? '' }}</h6>
                     </div>
                     <div class="sidebar-wrap">
-                        <h6><a href="tel:1800123654987">+1 800 123 654 987 </a></h6>
-                        <h6><a href="mailto:support@vmcore.in">support@vmcore.in</a></h6>
+                        @if(!empty($siteSettings['site_phone']))
+                            <h6><a
+                                    href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a>
+                        </h6>@endif
+                        @if(!empty($siteSettings['site_email']))
+                            <h6><a href="mailto:{{ $siteSettings['site_email'] }}">{{ $siteSettings['site_email'] }}</a>
+                        </h6>@endif
                     </div>
                     <div class="social-btn style2">
-                        <a href="https://www.facebook.com/">
-                            <span class="link-effect">
-                                <span class="effect-1"><i class="fab fa-facebook"></i></span>
-                                <span class="effect-1"><i class="fab fa-facebook"></i></span>
-                            </span>
-                        </a>
-                        <a href="https://instagram.com/">
-                            <span class="link-effect">
-                                <span class="effect-1"><i class="fab fa-instagram"></i></span>
-                                <span class="effect-1"><i class="fab fa-instagram"></i></span>
-                            </span>
-                        </a>
-                        <a href="https://twitter.com/">
-                            <span class="link-effect">
-                                <span class="effect-1"><i class="fab fa-twitter"></i></span>
-                                <span class="effect-1"><i class="fab fa-twitter"></i></span>
-                            </span>
-                        </a>
-                        <a href="https://dribbble.com/">
-                            <span class="link-effect">
-                                <span class="effect-1"><i class="fab fa-dribbble"></i></span>
-                                <span class="effect-1"><i class="fab fa-dribbble"></i></span>
-                            </span>
-                        </a>
+                        @foreach(($socialLinks ?? []) as $link)
+                            <a href="{{ $link->url }}" target="_blank">
+                                <span class="link-effect">
+                                    <span class="effect-1"><i class="{{ $link->icon_class }}"></i></span>
+                                    <span class="effect-1"><i class="{{ $link->icon_class }}"></i></span>
+                                </span>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -188,38 +186,25 @@
                 </ul>
             </div>
             <div class="sidebar-wrap">
-                <h6>27 Division St, New York,</h6>
-                <h6>NY 10002, USA</h6>
+                <h6>{{ $siteSettings['site_address'] ?? '' }}</h6>
             </div>
             <div class="sidebar-wrap">
-                <h6><a href="tel:1800123654987">+1 800 123 654 987 </a></h6>
-                <h6><a href="mailto:support@vmcore.in">support@vmcore.in</a></h6>
+                @if(!empty($siteSettings['site_phone']))
+                    <h6><a
+                            href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a>
+                </h6>@endif
+                @if(!empty($siteSettings['site_email']))
+                <h6><a href="mailto:{{ $siteSettings['site_email'] }}">{{ $siteSettings['site_email'] }}</a></h6>@endif
             </div>
             <div class="social-btn style3">
-                <a href="https://www.facebook.com/">
-                    <span class="link-effect">
-                        <span class="effect-1"><i class="fab fa-facebook"></i></span>
-                        <span class="effect-1"><i class="fab fa-facebook"></i></span>
-                    </span>
-                </a>
-                <a href="https://instagram.com/">
-                    <span class="link-effect">
-                        <span class="effect-1"><i class="fab fa-instagram"></i></span>
-                        <span class="effect-1"><i class="fab fa-instagram"></i></span>
-                    </span>
-                </a>
-                <a href="https://twitter.com/">
-                    <span class="link-effect">
-                        <span class="effect-1"><i class="fab fa-twitter"></i></span>
-                        <span class="effect-1"><i class="fab fa-twitter"></i></span>
-                    </span>
-                </a>
-                <a href="https://dribbble.com/">
-                    <span class="link-effect">
-                        <span class="effect-1"><i class="fab fa-dribbble"></i></span>
-                        <span class="effect-1"><i class="fab fa-dribbble"></i></span>
-                    </span>
-                </a>
+                @foreach(($socialLinks ?? []) as $link)
+                    <a href="{{ $link->url }}" target="_blank">
+                        <span class="link-effect">
+                            <span class="effect-1"><i class="{{ $link->icon_class }}"></i></span>
+                            <span class="effect-1"><i class="{{ $link->icon_class }}"></i></span>
+                        </span>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>
