@@ -4,11 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', $siteSettings['meta_title'] ?? 'VMCore - Creative Digital Agency')</title>
-    <meta name="description"
-        content="@yield('meta_description', $siteSettings['meta_description'] ?? 'VMCore - Creative Digital Agency & Technology Solutions')">
-    <meta name="keywords"
-        content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? 'VMCore, Digital Agency, Web Development, Technology')">
+    <title>@yield('title', $siteSettings['default_meta_title'] ?? ($siteSettings['site_name'] ?? 'VMCore'))</title>
+    <meta name="description" content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
+    <meta name="keywords" content="@yield('meta_keywords', '')">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Open Graph -->
@@ -119,7 +117,12 @@
             <div class="widget footer-widget">
                 <div class="widget-about">
                     <div class="footer-logo">
-                        <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo-white.svg') }}" alt="VMCore"></a>
+                        @php
+                            $footerLogoUrl = !empty($siteSettings['footer_logo']) ? asset($siteSettings['footer_logo']) : (!empty($siteSettings['logo_white']) ? asset($siteSettings['logo_white']) : asset('assets/img/logo-white.svg'));
+                        @endphp
+                        <a href="{{ url('/') }}"><img src="{{ $footerLogoUrl }}"
+                                alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"
+                                style="height: 45px; width: auto; object-fit: contain;"></a>
                     </div>
                     <p class="about-text">
                         {{ $siteSettings['site_description'] ?? 'We are digital agency that helps businesses develop immersive and engaging' }}
@@ -161,28 +164,22 @@
         <div class="mobile-menu-area">
             <button class="menu-toggle"><i class="fas fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo.svg') }}" alt="VMCore"></a>
+                @php
+                    $mobileLogoUrl = !empty($siteSettings['logo']) ? asset($siteSettings['logo']) : asset('assets/img/logo.svg');
+                @endphp
+                <a href="{{ url('/') }}"><img src="{{ $mobileLogoUrl }}"
+                        alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"
+                        style="height: 45px; width: auto; object-fit: contain;"></a>
             </div>
             <div class="mobile-menu">
                 <ul>
-                    <li>
-                        <a href="{{ url('/') }}">Home</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/about') }}">About</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/services') }}">Services</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/portfolio') }}">Portfolio</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/blog') }}">Blog</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/contact') }}">Contact</a>
-                    </li>
+                    @if(isset($headerMenu) && $headerMenu->count() > 0)
+                        @foreach($headerMenu as $item)
+                            <x-menu-item :item="$item" />
+                        @endforeach
+                    @else
+                        <li><a href="{{ url('/') }}">Home</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="sidebar-wrap">

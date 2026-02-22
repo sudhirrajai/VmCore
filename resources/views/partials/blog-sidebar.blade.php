@@ -65,7 +65,7 @@
             <div class="sidebar__tag-list">
                 <ul class="list-wrap">
                     @foreach($tags as $tag)
-                        <li><a href="#">{{ $tag->title }}</a></li>
+                        <li><a href="javascript:void(0)">{{ $tag->title }}</a></li>
                     @endforeach
                 </ul>
             </div>

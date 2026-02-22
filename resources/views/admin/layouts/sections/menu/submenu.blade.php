@@ -1,30 +1,28 @@
 @php
   use Illuminate\Support\Facades\Route;
+  use Illuminate\Support\Str;
 @endphp
 
 <ul class="menu-sub">
   @if (isset($menu))
     @foreach ($menu as $submenu)
 
-      {{-- active menu method --}}
       @php
         $activeClass = null;
-        $active = 'active open';
-        $currentRouteName = Route::currentRouteName();
+        $currentRouteName = Route::currentRouteName() ?? '';
 
-        if ($currentRouteName === $submenu->slug) {
-          $activeClass = 'active';
-        } elseif (isset($submenu->submenu)) {
-          if (gettype($submenu->slug) === 'array') {
-            foreach ($submenu->slug as $slug) {
-              if (str_contains($currentRouteName, $slug) and strpos($currentRouteName, $slug) === 0) {
-                $activeClass = $active;
-              }
+        if (is_array($submenu->slug ?? null)) {
+          foreach ($submenu->slug as $slug) {
+            if (Str::startsWith($currentRouteName, $slug)) {
+              $activeClass = isset($submenu->submenu) ? 'active open' : 'active';
+              break;
             }
-          } else {
-            if (str_contains($currentRouteName, $submenu->slug) and strpos($currentRouteName, $submenu->slug) === 0) {
-              $activeClass = $active;
-            }
+          }
+        } elseif (isset($submenu->slug)) {
+          if ($currentRouteName === $submenu->slug) {
+            $activeClass = 'active';
+          } elseif (Str::startsWith($currentRouteName, $submenu->slug . '.')) {
+            $activeClass = 'active';
           }
         }
       @endphp

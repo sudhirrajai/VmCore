@@ -1,11 +1,12 @@
 @php
     use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Str;
 @endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
     <!-- ! Hide app brand if navbar-full -->
     <div class="app-brand demo">
-        <a href="{{url('/')}}" class="app-brand-link">
+        <a href="{{url('admin/')}}" class="app-brand-link">
             <span class="app-brand-logo demo">@include('admin._partials.macros')</span>
             <span class="app-brand-text demo menu-text fw-bold ms-2">{{config('variables.templateName')}}</span>
         </a>
@@ -21,8 +22,6 @@
     <ul class="menu-inner py-1">
         @foreach ($menuData[0]->menu as $menu)
 
-            {{-- adding active and open class if child is active --}}
-
             {{-- menu headers --}}
             @if (isset($menu->menuHeader))
                 <li class="menu-header small text-uppercase">
@@ -35,18 +34,17 @@
                     $activeClass = null;
                     $currentRouteName = Route::currentRouteName();
 
-                    if ($currentRouteName === $menu->slug) {
-                        $activeClass = 'active';
-                    } elseif (isset($menu->submenu)) {
-                        if (gettype($menu->slug) === 'array') {
+                    if (isset($menu->slug)) {
+                        if (is_array($menu->slug)) {
                             foreach ($menu->slug as $slug) {
-                                if (str_contains($currentRouteName, $slug) and strpos($currentRouteName, $slug) === 0) {
-                                    $activeClass = 'active open';
+                                if ($currentRouteName === $slug || Str::startsWith($currentRouteName, $slug . '.')) {
+                                    $activeClass = isset($menu->submenu) ? 'active open' : 'active';
+                                    break;
                                 }
                             }
-                        } else {
-                            if (str_contains($currentRouteName, $menu->slug) and strpos($currentRouteName, $menu->slug) === 0) {
-                                $activeClass = 'active open';
+                        } elseif (is_string($menu->slug)) {
+                            if ($currentRouteName === $menu->slug || Str::startsWith($currentRouteName, $menu->slug . '.')) {
+                                $activeClass = isset($menu->submenu) ? 'active open' : 'active';
                             }
                         }
                     }
@@ -73,17 +71,6 @@
                 </li>
             @endif
         @endforeach
-
-        {{-- Settings --}}
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Settings</span>
-        </li>
-        <li class="menu-item {{ Route::currentRouteName() === 'admin.settings.theme' ? 'active' : '' }}">
-            <a href="{{ route('admin.settings.theme') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cog"></i>
-                <div data-i18n="Theme Settings">Theme Settings</div>
-            </a>
-        </li>
     </ul>
 
 </aside>

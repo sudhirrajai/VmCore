@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                Breadcumb
+                ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-5.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -17,8 +17,8 @@
     </div>
 
     <!--==============================
-            Portfolio Area
-            ==============================-->
+                Portfolio Area
+                ==============================-->
     <div class="portfolio-area-1 space overflow-hidden">
         <div class="container">
             {{-- Category filter --}}
@@ -71,13 +71,13 @@
     </div>
 
     <!--==============================
-            Marquee Area
-            ==============================-->
+                Marquee Area
+                ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
                 @for($i = 0; $i < 4; $i++)
-                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                    <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i>
                             {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
                 @endfor
             </div>

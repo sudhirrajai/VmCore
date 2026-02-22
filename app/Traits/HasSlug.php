@@ -16,7 +16,13 @@ trait HasSlug
                 // Ensure unique slug
                 $originalSlug = $model->slug;
                 $count = 1;
-                while (static::withTrashed()->where('slug', $model->slug)->exists()) {
+
+                $query = static::query();
+                if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive(static::class))) {
+                    $query->withTrashed();
+                }
+
+                while ((clone $query)->where('slug', $model->slug)->exists()) {
                     $model->slug = $originalSlug . '-' . $count++;
                 }
             }
@@ -29,7 +35,13 @@ trait HasSlug
 
                 $originalSlug = $model->slug;
                 $count = 1;
-                while (static::withTrashed()->where('slug', $model->slug)->where('id', '!=', $model->id)->exists()) {
+
+                $query = static::query();
+                if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses_recursive(static::class))) {
+                    $query->withTrashed();
+                }
+
+                while ((clone $query)->where('slug', $model->slug)->where('id', '!=', $model->id)->exists()) {
                     $model->slug = $originalSlug . '-' . $count++;
                 }
             }

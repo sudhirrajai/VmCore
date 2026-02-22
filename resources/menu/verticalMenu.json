@@ -10,6 +10,18 @@
       "slug": "admin.dashboard"
     },
     {
+      "name": "Pages",
+      "url": "admin/pages",
+      "icon": "menu-icon icon-base bx bx-file",
+      "slug": "admin.pages"
+    },
+    {
+      "name": "Menus",
+      "url": "admin/menus",
+      "icon": "menu-icon icon-base bx bx-list-ul",
+      "slug": "admin.menus"
+    },
+    {
       "menuHeader": "Content"
     },
     {
@@ -109,17 +121,34 @@
       "name": "Inquiries",
       "url": "admin/inquiries",
       "icon": "menu-icon icon-base bx bx-envelope",
-      "slug": "admin.inquiries",
-      "badge": [
-        "danger",
-        "New"
-      ]
+      "slug": "admin.inquiries"
     },
     {
       "name": "Newsletter",
       "url": "admin/newsletter",
       "icon": "menu-icon icon-base bx bx-mail-send",
       "slug": "admin.newsletter"
+    },
+    {
+      "menuHeader": "Settings"
+    },
+    {
+      "name": "Site Settings",
+      "url": "admin/settings",
+      "icon": "menu-icon icon-base bx bx-wrench",
+      "slug": "admin.settings.index"
+    },
+    {
+      "name": "Frontend Content",
+      "url": "admin/settings/frontend",
+      "icon": "menu-icon icon-base bx bx-text",
+      "slug": "admin.settings.frontend"
+    },
+    {
+      "name": "Theme Settings",
+      "url": "admin/settings/theme",
+      "icon": "menu-icon icon-base bx bx-palette",
+      "slug": "admin.settings.theme"
     }
   ]
 }

@@ -30,11 +30,16 @@
                         <h3 class="widget_title">Links</h3>
                         <div class="menu-all-pages-container list-column2">
                             <ul class="menu">
-                                <li><a href="{{ route('about') }}">About</a></li>
-                                <li><a href="{{ route('portfolio') }}">Portfolios</a></li>
-                                <li><a href="{{ route('services') }}">Services</a></li>
-                                <li><a href="{{ route('contact') }}">Contact</a></li>
-                                <li><a href="{{ route('blog') }}">Blog</a></li>
+                                @if(isset($footerMenu) && $footerMenu->count() > 0)
+                                    @foreach($footerMenu as $item)
+                                        @php
+                                            $url = $item->page_id ? url($item->page->slug) : ($item->custom_url ?: '#');
+                                        @endphp
+                                        <li><a href="{{ $url }}" target="{{ $item->target }}">{{ $item->title }}</a></li>
+                                    @endforeach
+                                @else
+                                    <li><a href="{{ route('home') }}">Home</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
