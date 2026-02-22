@@ -40,11 +40,6 @@ class Project extends Model
         'project_date' => 'date',
     ];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProjectCategory::class, 'category_id');

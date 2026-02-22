@@ -34,11 +34,6 @@ class TeamMember extends Model
         'social_links' => 'array',
     ];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function testimonials(): HasMany
     {
         return $this->hasMany(Testimonial::class);

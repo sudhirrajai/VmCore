@@ -12,6 +12,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Slug</th>
                         <th>Status</th>
@@ -22,6 +23,7 @@
                 <tbody class="table-border-bottom-0">
                     @forelse($pages as $page)
                         <tr>
+                            <td>#{{ $page->id }}</td>
                             <td><strong>{{ $page->title }}</strong></td>
                             <td>{{ $page->slug }}</td>
                             <td>

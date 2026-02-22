@@ -35,11 +35,6 @@ class BlogPost extends Model
         'published_at' => 'datetime',
     ];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'category_id');
