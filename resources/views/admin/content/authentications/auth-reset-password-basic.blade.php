@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Forgot Password')
+@section('title', 'Reset Password')
 
 @section('content')
     <style>
@@ -167,32 +167,11 @@
             margin-bottom: 2rem;
         }
 
-        .alert-premium.success {
-            background: #dcfce7;
-            border-left: 4px solid #22c55e;
-            color: #166534;
-        }
-
         .alert-premium ul {
             margin: 0;
             padding-left: 1.5rem;
             color: #991b1b;
             font-size: 0.875rem;
-        }
-
-        .back-to-login {
-            display: block;
-            text-align: center;
-            margin-top: 1.5rem;
-            color: var(--brand-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .back-to-login i {
-            vertical-align: middle;
-            margin-right: 0.25rem;
         }
     </style>
 
@@ -205,21 +184,9 @@
                 </a>
             </div>
 
-            <h2 class="auth-title">Forgot Password? 🔒</h2>
-            <p class="auth-subtitle">Enter your email and we'll send you instructions to reset your password</p>
+            <h2 class="auth-title">Reset Password 🔑</h2>
+            <p class="auth-subtitle">Enter your new secure password below</p>
 
-            @if(session('success'))
-                <div class="alert-premium success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if(session('error'))
-                <div class="alert-premium">
-                    <ul>
-                        <li>{{ session('error') }}</li>
-                    </ul>
-                </div>
-            @endif
             @if($errors->any())
                 <div class="alert-premium">
                     <ul>
@@ -230,25 +197,42 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.password.email') }}" method="POST">
+            <form action="{{ route('admin.password.update') }}" method="POST">
                 @csrf
+
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email Address</label>
                     <div class="input-wrapper">
-                        <input type="email" class="form-control-premium" id="email" name="email" value="{{ old('email') }}"
-                            placeholder="admin@example.com" autofocus required />
+                        <input type="email" class="form-control-premium" id="email" name="email"
+                            value="{{ old('email', $email ?? '') }}" readonly required />
                         <i class="bx bx-envelope"></i>
                     </div>
                 </div>
 
-                <button class="auth-btn" type="submit">
-                    <span>Send Reset Link</span>
-                </button>
+                <div class="form-group">
+                    <label class="form-label" for="password">New Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="form-control-premium" name="password"
+                            placeholder="••••••••" required autofocus />
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                </div>
 
-                <a href="{{ route('auth-login-basic') }}" class="back-to-login">
-                    <i class="bx bx-chevron-left"></i> Back to login
-                </a>
+                <div class="form-group">
+                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password_confirmation" class="form-control-premium"
+                            name="password_confirmation" placeholder="••••••••" required />
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                </div>
+
+                <button class="auth-btn" type="submit">
+                    <span>Reset Password</span>
+                    <i class="bx bx-right-arrow-alt"></i>
+                </button>
             </form>
         </div>
     </div>
