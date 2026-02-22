@@ -40,6 +40,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Menu Name</th>
                                 <th>Location</th>
                                 <th>Root Items</th>
@@ -49,6 +50,7 @@
                         <tbody class="table-border-bottom-0">
                             @forelse($menus as $menu)
                                 <tr>
+                                    <td>#{{ $menu->id }}</td>
                                     <td><strong>{{ $menu->name }}</strong></td>
                                     <td><span class="badge bg-label-primary">{{ $menu->location->label() }}</span></td>
                                     <td>{{ $menu->parent_items->count() }}</td>

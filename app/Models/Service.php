@@ -31,11 +31,6 @@ class Service extends Model
         'status' => 'boolean',
     ];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
