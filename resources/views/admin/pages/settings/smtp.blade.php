@@ -1,4 +1,4 @@
-@extends('layouts.layoutMaster')
+@extends('admin.layouts.contentNavbarLayout')
 
 @section('title', 'SMTP Settings')
 
@@ -36,7 +36,7 @@
             <div class="col-md-7">
                 <div class="card mb-4">
                     <h5 class="card-header">SMTP Server Details</h5>
-                    <form action="{{ route('settings.smtp.update') }}" method="POST">
+                    <form action="{{ route('admin.settings.smtp.update') }}" method="POST">
                         @csrf
                         <div class="card-body">
 
@@ -130,7 +130,7 @@
             <div class="col-md-5">
                 <div class="card mb-4">
                     <h5 class="card-header">Test SMTP Settings</h5>
-                    <form action="{{ route('settings.smtp.test') }}" method="POST">
+                    <form action="{{ route('admin.settings.smtp.test') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <p class="mb-4">Send a test email to verify that your SMTP settings are configured correctly.
