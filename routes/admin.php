@@ -24,14 +24,14 @@ use App\Http\Controllers\Admin\authentications\LoginBasic;
 // ============================================================
 // AUTHENTICATION (public — no middleware)
 // ============================================================
-Route::get('/login', [LoginBasic::class, 'index'])->name('auth-login-basic');
+Route::get('/login', [LoginBasic::class, 'index'])->name('login');
 Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
 
 // Forgot & Reset Password Routes
-Route::get('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
-Route::post('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
-Route::get('/reset-password/{token}', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
-Route::post('/reset-password', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'reset'])->name('admin.password.update');
+Route::get('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'reset'])->name('password.update');
 
 // ============================================================
 // ALL ADMIN ROUTES — Protected by auth middleware
