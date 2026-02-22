@@ -175,7 +175,7 @@
                 <ul>
                     @if(isset($headerMenu) && $headerMenu->count() > 0)
                         @foreach($headerMenu as $item)
-                            <x-menu-item :item="$item" />
+                            <x-menu-item :item="$item" :isMobile="true" />
                         @endforeach
                     @else
                         <li><a href="{{ url('/') }}">Home</a></li>
