@@ -1,179 +1,71 @@
 @extends('layouts.app')
 
-@section('title', 'Our Team - VMCore')
-@section('meta_description', 'Meet the talented team behind VMCore.')
+@section('title', 'Team - ' . ($siteSettings['site_name'] ?? 'VMCore'))
+@section('meta_description', 'Meet our talented team of professionals.')
 
 @section('content')
-<!--==============================
-    Breadcumb
-    ============================== -->
-    <div class="breadcumb-wrapper " data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
+
+    <!--==============================
+            Breadcumb
+            ============================== -->
+    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-4.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">Team</h1>
+                <h1 class="breadcumb-title">Our Team</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-    Team Area
-    ==============================-->
-    <div class="team-area-1 space overflow-hidden">
+            Team Area
+            ==============================-->
+    <div class="team-area space">
         <div class="container">
-            <div class="row gy-4 justify-content-center">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-1.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-2.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-3.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
+            <div class="row gy-40 justify-content-center">
+                @forelse($teamMembers as $member)
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="team-card text-center">
+                            <div class="team-card_img">
+                                <a href="{{ route('team.detail', $member->slug) }}">
+                                    <img src="{{ $member->image ? asset($member->image) : asset('assets/img/team/team_1_1.jpg') }}"
+                                        alt="{{ $member->name }}">
+                                </a>
+                            </div>
+                            <div class="team-card_content">
+                                <h4 class="team-card_title"><a
+                                        href="{{ route('team.detail', $member->slug) }}">{{ $member->name }}</a></h4>
+                                <span class="team-card_desig">{{ $member->designation }}</span>
+                                @if(is_array($member->social_links) && count($member->social_links))
+                                    <div class="social-btn mt-15">
+                                        @foreach($member->social_links as $platform => $url)
+                                            @if($url)
+                                                <a href="{{ $url }}" target="_blank"><i class="fab fa-{{ $platform }}"></i></a>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-4.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
+                @empty
+                    <div class="col-12 text-center">
+                        <p>No team members to display.</p>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-1.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-2.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-3.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-4.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>
 
     <!--==============================
-    Testimonial Area
-    ==============================-->
-    <div class="testimonial-area-1 space bg-theme">
-        <div class="testimonial-img-1-1 shape-mockup wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.2s" data-right="0" data-top="-100px" data-bottom="140px">
-            <img src="{{ asset('assets/img/testimonial/testi_thumb1_1.jpg') }}" alt="img">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="title-area">
-                        <h2 class="sec-title">Testimonials</h2>
-                    </div>
-                    <div class="quote-icon">
-                        <img src="{{ asset('assets/img/icon/quote.svg') }}" alt="icon">
-                    </div>
-                    <div class="row global-carousel testi-slider1" data-slide-show="1" data-dots="true" data-xl-dots="true" data-ml-dots="true">
-                        <div class="col-lg-4">
-                            <div class="testi-box">
-                                <p class="testi-box_text">“It’s a pleasure working with Bunker. They understood our new brand positioning guidelines and translated them beautifully and consistently into our on-going marketing comms. The team is responsive, quick and always willing help winning partnership”</p>
-                                <div class="testi-box_profile">
-                                    <h4 class="testi-box_name">Daniyel Karlos</h4>
-                                    <span class="testi-box_desig">Senior Director of Marketing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="testi-box">
-                                <p class="testi-box_text">“It’s a pleasure working with Bunker. They understood our new brand positioning guidelines and translated them beautifully and consistently into our on-going marketing comms. The team is responsive, quick and always willing help winning partnership”</p>
-                                <div class="testi-box_profile">
-                                    <h4 class="testi-box_name">Daniyel Karlos</h4>
-                                    <span class="testi-box_desig">Senior Director of Marketing</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="testi-box">
-                                <p class="testi-box_text">“It’s a pleasure working with Bunker. They understood our new brand positioning guidelines and translated them beautifully and consistently into our on-going marketing comms. The team is responsive, quick and always willing help winning partnership”</p>
-                                <div class="testi-box_profile">
-                                    <h4 class="testi-box_name">Daniyel Karlos</h4>
-                                    <span class="testi-box_desig">Senior Director of Marketing</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!--==============================
-    Marquee Area
-    ==============================-->
+            Marquee Area
+            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
+                @for($i = 0; $i < 4; $i++)
+                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                            {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
+                @endfor
             </div>
         </div>
     </div>

@@ -1,96 +1,144 @@
 @extends('layouts.app')
 
-@section('title', 'Project Details - VMCore')
-@section('meta_description', 'Detailed view of our project work at VMCore.')
+@section('title', ($project->meta_title ?? $project->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
+@section('meta_description', $project->meta_description ?? $project->short_description ?? '')
 
 @section('content')
-<!--==============================
-    Breadcumb
-    ============================== -->
-    <div class="breadcumb-wrapper style2 bg-smoke">
-        <div class="container-fluid">
-            <div class="breadcumb-content">
-                <ul class="breadcumb-menu">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{ url('/portfolio') }}">Porfolio</a></li>
-                    <li>Decentralized Platform</li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
     <!--==============================
-    Project Details Page Area
-    ==============================-->
-    <div class="project-details-page-area space">
+            Breadcumb
+            ============================== -->
+    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-5.jpg') }}">
         <div class="container">
-            <div class="row global-carousel default" data-arrows="true" data-xl-arrows="true" data-ml-arrows="true" data-lg-arrows="true" data-md-arrows="true">
-                <div class="col-xl-12">
-                    <div class="project-inner-thumb mb-80 wow img-custom-anim-top">
-                        <img class="w-100" src="{{ asset('assets/img/portfolio/portfolio_inner_1.png') }}" alt="img">
-                    </div>
-                </div>
-                <div class="col-xl-12">
-                    <div class="project-inner-thumb mb-80 wow img-custom-anim-top">
-                        <img class="w-100" src="{{ asset('assets/img/portfolio/portfolio_inner_2.png') }}" alt="img">
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-between flex-row-reverse">
-                <div class="col-xl-3 col-lg-4">
-                    <div class="project-details-info mb-lg-0 mb-40">
-                        <ul class="list-wrap">
-                            <li><span>Category:</span>Development</li>
-                            <li><span>Software:</span>WordPress, Figma</li>
-                            <li><span>Service:</span>Development</li>
-                            <li><span>Client:</span>Eunice Mills</li>
-                            <li><span>Date:</span>October 6, 2023</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="title-area mb-35">
-                        <h2 class="sec-title">Decentralized Platform</h2>
-                        <p class="sec-text mt-30">BaseCreate is pleased to announce that it has been commissioned by Leighton Asia reposition its brand. We will help Leighton Asia evolve its brand strategy, and will be responsible updating Leighton Asia’s brand identity, website, and other collaterals.</p>
-                        <p class="sec-text mt-30">For almost 50 years Leighton Asia, one of the region’s largest and most respected construction companies, has been progressively building for a better future by leveraging international expertise with local intelligence. In that time Leighton has delivered some of Asia’s prestigious buildings and transformational infrastructure projects.</p>
-                    </div>
-                    <h3>Challenge & Solution</h3>
-                    <p class="sec-text mb-n1">Future, as it seeks to lead the industry in technological innovation and sustainable building practices to deliver long-lasting value for its clients.</p>
-                    <h3 class="mt-35">Final Result</h3>
-                    <p class="sec-text mb-n1">For almost 50 years Leighton Asia, one of the region’s largest and most respected construction companies, has been progressively building for a better future by leveraging international expertise with local intelligence. In that time Leighton has delivered some of Asia’s prestigious buildings and transformational infrastructure projects.</p>
-                </div>
-                <div class="col-lg-12">
-                    <div class="inner__page-nav space-top mt-n1 mb-n1">
-                        <a href="#" class="nav-btn">
-                            <i class="fa fa-arrow-left"></i> <span><span class="link-effect">
-                                <span class="effect-1">Previous Post</span>
-                                <span class="effect-1">Previous Post</span>
-                            </span></span>
-                        </a>
-                        <a href="#" class="nav-btn"><span><span class="link-effect">
-                            <span class="effect-1">Next Post</span>
-                            <span class="effect-1">Next Post</span>
-                        </span></span>
-                            <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="breadcumb-content">
+                <h1 class="breadcumb-title">{{ $project->title }}</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-    Marquee Area
-    ==============================-->
-    <div class="container-fluid p-0 overflow-hidden">
-        <div class="slider__marquee clearfix marquee-wrap">
-            <div class="marquee_mode marquee__group">
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
+            Project Details
+            ==============================-->
+    <div class="project-details space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    @if($project->image)
+                        <div class="project-details-thumb mb-40">
+                            <img src="{{ asset($project->image) }}" alt="{{ $project->title }}" class="w-100">
+                        </div>
+                    @endif
+
+                    <h2>{{ $project->title }}</h2>
+                    @if($project->short_description)
+                        <p class="mt-15 mb-30">{{ $project->short_description }}</p>
+                    @endif
+                    @if($project->description)
+                        <div class="project-details-content mt-30">
+                            {!! $project->description !!}
+                        </div>
+                    @endif
+
+                    {{-- Gallery --}}
+                    @if($project->images->count())
+                        <div class="project-gallery mt-40">
+                            <h4 class="mb-20">Project Gallery</h4>
+                            <div class="row gy-20">
+                                @foreach($project->images as $img)
+                                    <div class="col-md-4 col-6">
+                                        <a href="{{ asset($img->image_path) }}" class="popup-image">
+                                            <img src="{{ asset($img->image_path) }}" alt="Gallery" class="w-100">
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-lg-4">
+                    <aside class="project-sidebar">
+                        <div class="widget project-info-box">
+                            <h4 class="widget_title">Project Info</h4>
+                            <ul class="project-info-list">
+                                @if($project->client)
+                                    <li><strong>Client:</strong> {{ $project->client }}</li>
+                                @endif
+                                @if($project->category)
+                                    <li><strong>Category:</strong> {{ $project->category->name }}</li>
+                                @endif
+                                @if($project->service)
+                                    <li><strong>Service:</strong> {{ $project->service->title }}</li>
+                                @endif
+                                @if($project->project_date)
+                                    <li><strong>Date:</strong> {{ $project->project_date->format('F Y') }}</li>
+                                @endif
+                                @if($project->project_url)
+                                    <li><strong>URL:</strong> <a href="{{ $project->project_url }}" target="_blank">Visit</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                        @if($project->tags->count())
+                            <div class="widget">
+                                <h4 class="widget_title">Tags</h4>
+                                <div class="sidebar__tag-list">
+                                    <ul class="list-wrap">
+                                        @foreach($project->tags as $tag)
+                                            <li><a href="#">{{ $tag->title }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+                    </aside>
+                </div>
             </div>
         </div>
     </div>
+
+    {{-- Testimonials for this project --}}
+    @if($project->testimonials->count())
+        <div class="testimonials-section space-bottom">
+            <div class="container">
+                <h3 class="mb-30">Client Testimonials</h3>
+                <div class="row gy-30">
+                    @foreach($project->testimonials as $testimonial)
+                        <div class="col-md-6">
+                            <div class="testi-card p-4 border rounded">
+                                <p class="mb-3">"{{ $testimonial->content }}"</p>
+                                <strong>{{ $testimonial->name }}</strong>
+                                @if($testimonial->designation)<br><small>{{ $testimonial->designation }},
+                                {{ $testimonial->company }}</small>@endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- Related Projects --}}
+    @if($relatedProjects->count())
+        <div class="related-projects space-bottom">
+            <div class="container">
+                <h3 class="mb-30">Related Projects</h3>
+                <div class="row gy-30">
+                    @foreach($relatedProjects as $related)
+                        <div class="col-lg-4 col-md-6">
+                            <a href="{{ route('portfolio.detail', $related->slug) }}" class="portfolio-wrap style2">
+                                <div class="portfolio-thumb">
+                                    <img src="{{ $related->image ? asset($related->image) : asset('assets/img/portfolio/portfolio2_1.jpg') }}"
+                                        alt="{{ $related->title }}">
+                                </div>
+                                <div class="portfolio-details">
+                                    <h3 class="portfolio-title">{{ $related->title }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
 
 @endsection

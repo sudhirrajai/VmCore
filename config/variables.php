@@ -1,0 +1,30 @@
+<?php
+// Variables
+return [
+    "creatorName" => "ThemeSelection",
+    "creatorUrl" => "https://themeselection.com",
+    "templateName" => "Sneat",
+    "templateSuffix" => "Bootstrap 5 HTML Admin Template",
+    "templateVersion" => "1.0.0",
+    "templateFree" => true,
+    "templateDescription" => "Most Powerful & Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!",
+    "templateKeyword" => "dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5",
+    "licenseUrl" => "https://themeselection.com/license/",
+    "livePreview" => "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/",
+    "productPage" => "https://themeselection.com/item/sneat-bootstrap-html-admin-template/",
+    "support" => "https://themeselection.com/support/",
+    "moreThemes" => "https://themeselection.com/",
+    "documentation" => "https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/",
+    "generator" => "",
+    "repository" => "https://github.com/themeselection/sneat-html-laravel-admin-template-free",
+    "gitRepo" => "sneat-html-laravel-admin-template-free",
+    "gitRepoAccess" => "public",
+    "githubFreeUrl" => "https://github.com/themeselection",
+    "facebookUrl" => "https://www.facebook.com/ThemeSelections/",
+    "twitterUrl" => "https://twitter.com/Theme_Selection",
+    "githubUrl" => "https://github.com/themeselection",
+    "dribbbleUrl" => "https://dribbble.com/themeselection",
+    "instagramUrl" => "https://www.instagram.com/themeselection/",
+    "adminTemplates" => "https://themeselection.com/item/category/admin-templates/",
+    "bootstrapDashboard" => "https://themeselection.com/item/category/bootstrap-dashboard/"
+];

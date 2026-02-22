@@ -1,99 +1,104 @@
 @extends('layouts.app')
 
-@section('title', 'Service Details - VMCore')
-@section('meta_description', 'Detailed information about our services at VMCore.')
+@section('title', ($service->meta_title ?? $service->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
+@section('meta_description', $service->meta_description ?? $service->short_description ?? '')
 
 @section('content')
-<!--==============================
-    Breadcumb
-    ============================== -->
-    <div class="breadcumb-wrapper style2 bg-smoke">
-        <div class="container-fluid">
-            <div class="breadcumb-content">
-                <ul class="breadcumb-menu">
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{ url('/services') }}">Services</a></li>
-                    <li>Branding Design</li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
     <!--==============================
-    Service Details Page Area
-    ==============================-->
-    <div class="service-details-page-area space">
+        Breadcumb
+        ============================== -->
+    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-2.jpg') }}">
         <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-12">
-                    <div class="service-inner-thumb mb-80 wow img-custom-anim-top">
-                        <img class="w-100" src="{{ asset('assets/img/service/service-details1-1.png') }}" alt="img">
+            <div class="breadcumb-content">
+                <h1 class="breadcumb-title">{{ $service->title }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <!--==============================
+        Service Details
+        ==============================-->
+    <div class="service-details space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    @if($service->image)
+                    <div class="service-details-thumb mb-40">
+                        <img src="{{ asset($service->image) }}" alt="{{ $service->title }}">
                     </div>
-                </div>
-                <div class="col-xl-8">
-                    <div class="title-area mb-35">
-                        <h2 class="sec-title">Branding Design</h2>
-                        <p class="sec-text mt-30">BaseCreate is pleased to announce that it has been commissioned by Leighton Asia reposition its brand. We will help Leighton Asia evolve its brand strategy, and will be responsible updating Leighton Asia’s brand identity, website, and other collaterals.</p>
-                        <p class="sec-text mt-30">For almost 50 years Leighton Asia, one of the region’s largest and most respected construction companies, has been progressively building for a better future by leveraging international expertise with local intelligence. In that time Leighton has delivered some of Asia’s prestigious buildings and transformational infrastructure projects.</p>
+                    @endif
+                    <h2 class="service-details-title">{{ $service->title }}</h2>
+                    @if($service->short_description)
+                    <p class="mt-15 mb-30">{{ $service->short_description }}</p>
+                    @endif
+                    @if($service->description)
+                    <div class="service-details-content mt-30">
+                        {!! $service->description !!}
                     </div>
-                    <h3>Remarking Services</h3>
-                    <p class="sec-text mb-n1">Leighton Asia’s brand refreshment will help position the company to meet the challenges of  future, as it seeks to lead the industry in technological innovation and sustainable building practices to deliver long-lasting value for its clients.</p>
+                    @endif
                 </div>
-                <div class="col-lg-12">
-                    <div class="video-area-1 mt-80 mb-80">
-                        <div class="video-wrap">
-                            <div class="jarallax" data-bg-src="{{ asset('assets/img/normal/video_2-2.png') }}">
-                            </div>
-                            <a href="https://www.youtube.com/watch?v=vvNwlRLjLkU" class="play-btn popup-video background-image">
-                            </a>
+                <div class="col-lg-4">
+                    <aside class="service-sidebar">
+                        <div class="widget">
+                            <h4 class="widget_title">All Services</h4>
+                            <ul class="service-menu list-wrap">
+                                @foreach($relatedServices as $related)
+                                <li><a href="{{ route('service.detail', $related->slug) }}">{{ $related->title }}</a></li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xl-8">
-                    <p class="sec-text mt-n1 mb-40">Leighton Asia’s brand refreshment will help position the company to meet the challenges of  future, as it seeks to lead the industry in technological innovation and sustainable building practices to deliver long-lasting value for its clients.</p>
-                    <h3>Making for Users Friendly</h3>
-                    <p class="sec-text mt-30">Leighton Asia’s brand refreshment will help position the company to meet the challenges of  future, as it seeks to lead the industry in technological innovation and sustainable building practices to deliver long-lasting value for its clients.</p>
-                    <p class="sec-text mb-40 mt-30">For almost 50 years Leighton Asia, one of the region’s largest and most respected construction companies, has been progressively building for a better future by leveraging international expertise with local intelligence. In that time Leighton has delivered some of Asia’s prestigious buildings and transformational infrastructure projects.</p>
-                    <div class="row gy-4">
-                        <div class="col-md-6">
-                            <div class="feature-card">
-                                <div class="feature-card-icon">
-                                    <img src="{{ asset('assets/img/icon/feature-icon1-3.svg') }}" alt="icon">
-                                </div>
-                                <h4 class="feature-card-title">
-                                    <a href="{{ url('/services') }}">Custom Solution</a>
-                                </h4>
-                                <p class="feature-card-text mb-n2">We care success relationships fuel success we love building</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-card">
-                                <div class="feature-card-icon">
-                                    <img src="{{ asset('assets/img/icon/feature-icon1-6.svg') }}" alt="icon">
-                                </div>
-                                <h4 class="feature-card-title">
-                                    <a href="{{ url('/services') }}">In-time Result</a>
-                                </h4>
-                                <p class="feature-card-text mb-n2">We care success relationships fuel success we love building</p>
+                        <div class="widget">
+                            <h4 class="widget_title">Need Help?</h4>
+                            <div class="sidebar-contact">
+                                @if(!empty($siteSettings['site_phone']))
+                                <p><i class="fas fa-phone"></i> <a href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a></p>
+                                @endif
+                                @if(!empty($siteSettings['site_email']))
+                                <p><i class="fas fa-envelope"></i> <a href="mailto:{{ $siteSettings['site_email'] }}">{{ $siteSettings['site_email'] }}</a></p>
+                                @endif
                             </div>
                         </div>
-                    </div>
-                    <p class="sec-text mb-n1 mt-40">Leighton Asia’s brand refreshment will help position the company to meet the challenges of  future, as it seeks to lead the industry in technological innovation and sustainable building practices to deliver long-lasting value for its clients.</p>
+                    </aside>
                 </div>
             </div>
         </div>
     </div>
 
     <!--==============================
-    Marquee Area
-    ==============================-->
+        Related Projects
+        ==============================-->
+    @if($service->projects->count())
+    <div class="related-projects space-bottom">
+        <div class="container">
+            <h3 class="mb-30">Related Projects</h3>
+            <div class="row gy-30">
+                @foreach($service->projects->take(3) as $project)
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{ route('portfolio.detail', $project->slug) }}" class="portfolio-wrap style2">
+                        <div class="portfolio-thumb">
+                            <img src="{{ $project->image ? asset($project->image) : asset('assets/img/portfolio/portfolio2_1.jpg') }}" alt="{{ $project->title }}">
+                        </div>
+                        <div class="portfolio-details">
+                            <h3 class="portfolio-title">{{ $project->title }}</h3>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <!--==============================
+        Marquee Area
+        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
+                @for($i = 0; $i < 4; $i++)
+                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
+                @endfor
             </div>
         </div>
     </div>

@@ -1,182 +1,40 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - VMCore')
-@section('meta_description', 'Learn about VMCore, our history, team, and values.')
+@section('title', 'About Us - ' . ($siteSettings['site_name'] ?? 'VMCore'))
+@section('meta_description', 'Learn about our team, skills, and achievements.')
 
 @section('content')
-<!--==============================
-    Breadcumb
-    ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-1.jpg') }}">
+
+    <!--==============================
+                Breadcumb
+                ============================== -->
+    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">About</h1>
+                <h1 class="breadcumb-title">About Us</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-    Counter Area 02
-    ==============================-->
-    <div class="counter-area-1 space overflow-hidden">
+                About Section
+                ==============================-->
+    <div class="about-area space">
         <div class="container">
-            <div class="row gy-40 align-items-center justify-content-lg-between justify-content-center">
-                <div class="col-xl-auto col-lg-4 col-md-6 counter-divider">
-                    <div class="counter-card">
-                        <h3 class="counter-card_number">
-                            <span class="counter-number">26</span>+
-                        </h3>
-                        <h4 class="counter-card_title">Years of Experience</h4>
-                        <p class="counter-card_text">We are a creative agency brands building insightful strategy, creating unique designs helping</p>
-                    </div>
-                </div>
-                <div class="col-xl-auto col-lg-4 col-md-6 counter-divider">
-                    <div class="counter-card">
-                        <h3 class="counter-card_number">
-                            <span class="counter-number">347</span>+
-                        </h3>
-                        <h4 class="counter-card_title">Successful Projects</h4>
-                        <p class="counter-card_text">We are a creative agency brands building insightful strategy, creating unique designs helping</p>
-                    </div>
-                </div>
-                <div class="col-xl-auto col-lg-4 col-md-6 counter-divider">
-                    <div class="counter-card">
-                        <h3 class="counter-card_number">
-                            <span class="counter-number">139</span>+
-                        </h3>
-                        <h4 class="counter-card_title">Satisfied Customers</h4>
-                        <p class="counter-card_text">We are a creative agency brands building insightful strategy, creating unique designs helping</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--==============================
-    Why Choose Us Area
-    ==============================-->
-    <div class="why-area-1 space bg-theme">
-        <div class="why-img-1-1 shape-mockup wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.2s" data-right="0" data-top="-100px" data-bottom="140px">
-            <img src="{{ asset('assets/img/normal/why_3-1.jpg') }}" alt="img">
-        </div>
-        <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <div class="title-area mb-45">
-                        <h2 class="sec-title">Passionate About Creating Quality Design</h2>
+                    <div class="about-thumb wow img-custom-anim-left">
+                        <img src="{{ asset('assets/img/normal/about_2-1.jpg') }}" alt="About us">
                     </div>
-                    <h4>We Love What We Do</h4>
-                    <p>We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value</p>
-                    <h4 class="mt-35">Why Work With Us</h4>
-                    <p class="mb-n1">If you ask our clients what it’s like working with 36, they’ll talk about how much we care about their success. For us, real relationships fuel real success. We love building brands</p>
                 </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!--==============================
-    Award Area
-    ==============================-->
-    <div class="award-area-1 space overflow-hidden">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <ul class="award-wrap-area">
-                        <li class="single-award-list">
-                            <span class="award-year">2017</span>
-                            <div class="award-details">
-                                <h4><a href="{{ url('/about') }}">New York Design Week</a></h4>
-                                <p>We bring to life the most complex projects, specialize</p>
-                            </div>
-                            <span class="award-tag">Main developer</span>
-                        </li>
-                        <li class="single-award-list">
-                            <span class="award-year">2019</span>
-                            <div class="award-details">
-                                <h4><a href="{{ url('/about') }}">The Blue Design Awards</a></h4>
-                                <p>We bring to life the most complex projects, specialize</p>
-                            </div>
-                            <span class="award-tag">Animator</span>
-                        </li>
-                        <li class="single-award-list">
-                            <span class="award-year">2019</span>
-                            <div class="award-details">
-                                <h4><a href="{{ url('/about') }}">Best Web Flow</a></h4>
-                                <p>We bring to life the most complex projects, specialize</p>
-                            </div>
-                            <span class="award-tag">Main developer</span>
-                        </li>
-                        <li class="single-award-list">
-                            <span class="award-year">2019</span>
-                            <div class="award-details">
-                                <h4><a href="{{ url('/about') }}">Berlin Interactive Award</a></h4>
-                                <p>We bring to life the most complex projects, specialize</p>
-                            </div>
-                            <span class="award-tag">Best innovations</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--==============================
-    Team Area
-    ==============================-->
-    <div class="team-area-1 space-bottom overflow-hidden">
-        <div class="container">
-            <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <div class="title-area text-center">
-                        <h2 class="sec-title">Our Team Behind The Studio</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row gy-4 justify-content-center">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-1.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-2.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-3.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-card">
-                        <div class="team-card_img">
-                            <img src="{{ asset('assets/img/team/team-1-4.png') }}" alt="Team Image">
-                        </div>
-                        <div class="team-card_content">
-                            <h3 class="team-card_title"><a href="{{ url('/team-details') }}">Daniyel Karlos</a></h3>
-                            <span class="team-card_desig">Web Developer</span>
+                    <div class="about-content-wrap">
+                        <div class="title-area mb-0">
+                            <h2 class="sec-title">{{ $siteSettings['about_title'] ?? 'We Are Creative Digital Agency' }}
+                            </h2>
+                            <p class="sec-text mt-30">
+                                {{ $siteSettings['about_description'] ?? 'We believe that building great things starts with a deep understanding and a commitment to quality.' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -185,147 +43,190 @@
     </div>
 
     <!--==============================
-    Contact Area
-    ==============================-->
-    <div class="contact-area-1 space bg-theme">
-        <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s" data-left="0" data-top="-100px" data-bottom="140px">
-            <iframe src="https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&t=m&z=10&output=embed&iwloc=near" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-        <div class="container">
-            <div class="row align-items-center justify-content-end">
-                <div class="col-lg-6">
-                    <div class="contact-form-wrap">
-                        <div class="title-area mb-30">
-                            <h2 class="sec-title">Have Any Project on Your Mind?</h2>
-                            <p>Great! We're excited to hear from you and let's start something</p>
-                        </div>
-                        <form action="{{ url('/contact') }}" method="POST" class="contact-form ajax-contact">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control style-border" name="name" id="name" placeholder="Full name*">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control style-border" name="email" id="email" placeholder="Email address*">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control style-border" name="website" id="website" placeholder="Website link">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <textarea name="message" placeholder="How Can We Help You*" id="contactForm" class="form-control style-border"></textarea>
-                                    </div>
+                Skills Area
+                ==============================-->
+    @if($skills->count())
+        <div class="service-area-1 space bg-theme">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="about-content-wrap">
+                            <div class="title-area mb-0">
+                                <h2 class="sec-title text-center">Our Expertise</h2>
+                                <div class="mt-40">
+                                    @foreach($skills as $skill)
+                                        <div class="skill-feature">
+                                            <h3 class="skill-feature_title">{{ $skill->title }}</h3>
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: {{ $skill->percentage }}%;">
+                                                </div>
+                                                <div class="progress-value"><span
+                                                        class="counter-number">{{ $skill->percentage }}</span>%</div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                            <div class="form-btn col-12">
-                                <button type="submit" class="btn mt-20">
-                                    <span class="link-effect">
-                                        <span class="effect-1">SEND MESSAGE</span>
-                                        <span class="effect-1">SEND MESSAGE</span>
-                                    </span>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!--==============================
-    Client Area
-    ==============================-->
-    <div class="client-area-1 overflow-hidden space">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8">
-                    <ul class="client-list-wrap">
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-1.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-1.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-2.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-2.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-3.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-3.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-4.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-4.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-5.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-5.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-6.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-6.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-7.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-7.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="link-effect">
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-8.svg') }}" alt="img"></span>
-                                    <span class="effect-1"><img src="{{ asset('assets/img/client/client-1-8.svg') }}" alt="img"></span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
+                Team Area
+                ==============================-->
+    @if($team->count())
+        <div class="team-area space">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="title-area text-center">
+                            <h2 class="sec-title">Meet Our Creative Team</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gy-40 justify-content-center">
+                    @foreach($team as $member)
+                        <div class="col-xl-3 col-lg-4 col-sm-6">
+                            <div class="team-card text-center">
+                                <div class="team-card_img">
+                                    <a href="{{ route('team.detail', $member->slug) }}">
+                                        <img src="{{ $member->image ? asset($member->image) : asset('assets/img/team/team_1_1.jpg') }}"
+                                            alt="{{ $member->name }}">
+                                    </a>
+                                </div>
+                                <div class="team-card_content">
+                                    <h4 class="team-card_title"><a
+                                            href="{{ route('team.detail', $member->slug) }}">{{ $member->name }}</a></h4>
+                                    <span class="team-card_desig">{{ $member->designation }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!--==============================
-    Marquee Area
-    ==============================-->
+                Awards Area
+                ==============================-->
+    @if($awards->count())
+        <div class="award-area-1 space-bottom overflow-hidden">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="title-area text-center">
+                            <h2 class="sec-title">Awards & Recognition</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <ul class="award-wrap-area">
+                            @foreach($awards as $award)
+                                <li class="single-award-list">
+                                    <span class="award-year">{{ $award->year }}</span>
+                                    <div class="award-details">
+                                        <h4>{{ $award->title }}</h4>
+                                        <p>{{ $award->description }}</p>
+                                    </div>
+                                    <span class="award-tag">{{ $award->tag ?? 'Award' }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!--==============================
+                Testimonials Area
+                ==============================-->
+    @if($testimonials->count())
+        <div class="testimonials-area space bg-smoke">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="title-area text-center">
+                            <h2 class="sec-title">What Our Clients Say</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gy-30 justify-content-center">
+                    @foreach($testimonials as $testimonial)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="testi-card p-4 bg-white rounded shadow-sm h-100">
+                                <div class="testi-card_rating mb-15">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="fas fa-star{{ $i <= $testimonial->rating ? '' : '-half-alt' }}"
+                                            style="color: #ffc107;"></i>
+                                    @endfor
+                                </div>
+                                <p class="testi-card_text">"{{ $testimonial->content }}"</p>
+                                <div class="testi-card_author mt-20">
+                                    <strong>{{ $testimonial->name }}</strong>
+                                    @if($testimonial->designation)<br><small
+                                    class="text-muted">{{ $testimonial->designation }}{{ $testimonial->company ? ', ' . $testimonial->company : '' }}</small>@endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!--==============================
+                Clients Area
+                ==============================-->
+    @if($clients->count())
+        <div class="client-area-1 overflow-hidden space">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="title-area text-center">
+                            <h2 class="sec-title">Our Clients</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-8">
+                        <ul class="client-list-wrap">
+                            @foreach($clients as $client)
+                                <li>
+                                    <a href="{{ $client->url ?? '#' }}" @if($client->url) target="_blank" @endif>
+                                        <span class="link-effect">
+                                            <span class="effect-1"><img
+                                                    src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
+                                                    alt="{{ $client->name }}"></span>
+                                            <span class="effect-1"><img
+                                                    src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
+                                                    alt="{{ $client->name }}"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!--==============================
+                Marquee Area
+                ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> We Give Unparalleled Flexibility</a></h6>
+                @for($i = 0; $i < 4; $i++)
+                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                            {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
+                @endfor
             </div>
         </div>
     </div>
