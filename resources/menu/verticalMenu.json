@@ -149,6 +149,12 @@
       "url": "admin/settings/theme",
       "icon": "menu-icon icon-base bx bx-palette",
       "slug": "admin.settings.theme"
+    },
+    {
+      "name": "SMTP Settings",
+      "url": "admin/settings/smtp",
+      "icon": "menu-icon icon-base bx bx-mail-send",
+      "slug": "admin.settings.smtp"
     }
   ]
 }

@@ -27,6 +27,12 @@ use App\Http\Controllers\Admin\authentications\LoginBasic;
 Route::get('/login', [LoginBasic::class, 'index'])->name('auth-login-basic');
 Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
 
+// Forgot & Reset Password Routes
+Route::get('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
+Route::post('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+Route::get('/reset-password/{token}', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+Route::post('/reset-password', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'reset'])->name('admin.password.update');
+
 // ============================================================
 // ALL ADMIN ROUTES — Protected by auth middleware
 // ============================================================
@@ -130,7 +136,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/frontend', [\App\Http\Controllers\Admin\FrontendContentController::class, 'index'])->name('frontend');
     Route::post('/frontend', [\App\Http\Controllers\Admin\FrontendContentController::class, 'update'])->name('frontend.update');
 
-    Route::get('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
-    Route::post('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
+    Route::get('/theme', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
+    Route::post('/theme', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
+
+    Route::get('/smtp', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'index'])->name('smtp');
+    Route::post('/smtp/update', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'update'])->name('smtp.update');
+    Route::post('/smtp/test', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'test'])->name('smtp.test');
   });
 });

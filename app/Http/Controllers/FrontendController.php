@@ -171,7 +171,19 @@ class FrontendController extends Controller
 
     public function contactStore(ContactFormRequest $request)
     {
-        ContactSubmission::create($request->validated());
+        $submission = ContactSubmission::create($request->validated());
+
+        try {
+            // Send Auto-Reply to user
+            \Illuminate\Support\Facades\Mail::to($submission->email)->send(new \App\Mail\ContactAutoReply($submission));
+
+            // Send Notification to admin
+            $adminEmail = \App\Models\Setting::where('key', 'smtp_from_address')->value('value') ?? env('MAIL_FROM_ADDRESS', 'hello@example.com');
+            \Illuminate\Support\Facades\Mail::to($adminEmail)->send(new \App\Mail\ContactAdminNotification($submission));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Contact form email failed: ' . $e->getMessage());
+        }
+
         return back()->with('success', 'Thank you! Your message has been sent successfully.');
     }
 
@@ -180,6 +192,13 @@ class FrontendController extends Controller
     {
         $request->validate(['email' => 'required|email|unique:newsletter_subscribers,email']);
         NewsletterSubscriber::create(['email' => $request->email]);
+
+        try {
+            \Illuminate\Support\Facades\Mail::to($request->email)->send(new \App\Mail\NewsletterWelcome($request->email));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Newsletter welcome email failed: ' . $e->getMessage());
+        }
+
         return response()->json(['success' => true, 'message' => 'Subscribed successfully!']);
     }
 
