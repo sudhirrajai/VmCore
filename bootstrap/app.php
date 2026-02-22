@@ -21,9 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(function (Request $request) {
             if ($request->is('admin/*') || $request->is('admin')) {
-                return route('admin.auth-login-basic');
+                return route('admin.login');
             }
-            return route('admin.auth-login-basic');
+            return route('admin.login');
         });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
