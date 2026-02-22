@@ -3,7 +3,7 @@
 return [
     "creatorName" => "ThemeSelection",
     "creatorUrl" => "https://themeselection.com",
-    "templateName" => "Sneat",
+    "templateName" => "",
     "templateSuffix" => "Bootstrap 5 HTML Admin Template",
     "templateVersion" => "1.0.0",
     "templateFree" => true,

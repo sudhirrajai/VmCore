@@ -9,8 +9,8 @@
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                Breadcumb
+                ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-8.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -51,7 +51,7 @@
                             <div class="blog-details-tags mt-30">
                                 <strong>Tags:</strong>
                                 @foreach($post->tags as $tag)
-                                    <a href="#" class="badge bg-secondary text-white ms-1">{{ $tag->title }}</a>
+                                    <a href="javascript:void(0)" class="badge bg-secondary text-white ms-1">{{ $tag->title }}</a>
                                 @endforeach
                             </div>
                         @endif

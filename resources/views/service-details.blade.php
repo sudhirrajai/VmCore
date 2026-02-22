@@ -41,7 +41,7 @@
                 <div class="col-lg-4">
                     <aside class="service-sidebar">
                         <div class="widget">
-                            <h4 class="widget_title">All Services</h4>
+                            <h4 class="widget_title">{{ setting('sidebar_services_title', 'All Services') }}</h4>
                             <ul class="service-menu list-wrap">
                                 @foreach($relatedServices as $related)
                                 <li><a href="{{ route('service.detail', $related->slug) }}">{{ $related->title }}</a></li>
@@ -49,7 +49,7 @@
                             </ul>
                         </div>
                         <div class="widget">
-                            <h4 class="widget_title">Need Help?</h4>
+                            <h4 class="widget_title">{{ setting('sidebar_help_title', 'Need Help?') }}</h4>
                             <div class="sidebar-contact">
                                 @if(!empty($siteSettings['site_phone']))
                                 <p><i class="fas fa-phone"></i> <a href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a></p>
@@ -71,7 +71,7 @@
     @if($service->projects->count())
     <div class="related-projects space-bottom">
         <div class="container">
-            <h3 class="mb-30">Related Projects</h3>
+            <h3 class="mb-30">{{ setting('service_related_projects_title', 'Related Projects') }}</h3>
             <div class="row gy-30">
                 @foreach($service->projects->take(3) as $project)
                 <div class="col-lg-4 col-md-6">
@@ -97,7 +97,7 @@
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
                 @for($i = 0; $i < 4; $i++)
-                <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i> {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
+                <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i> {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
                 @endfor
             </div>
         </div>

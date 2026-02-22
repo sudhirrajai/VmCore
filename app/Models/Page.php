@@ -3,25 +3,28 @@
 namespace App\Models;
 
 use App\Traits\HasSlug;
-use App\Traits\Statusable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model
 {
-    use HasFactory, SoftDeletes, HasSlug, Statusable;
+    use HasFactory, SoftDeletes, HasSlug;
 
     protected $fillable = [
         'title',
         'slug',
-        'body',
+        'content',
         'status',
         'meta_title',
         'meta_description',
+        'meta_keywords',
+        'featured_image',
+        'published_at',
     ];
 
     protected $casts = [
-        'status' => 'boolean',
+        'status' => \App\Enums\StatusEnum::class,
+        'published_at' => 'datetime',
     ];
 }

@@ -20,3 +20,6 @@ Route::post('/contact', [FrontendController::class, 'contactStore'])->name('cont
 Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
 
 Route::get('/error', fn() => view('error'))->name('error');
+
+// ── Dynamic CMS Pages ────────────────────────────────────────
+Route::fallback([FrontendController::class, 'page'])->name('page');

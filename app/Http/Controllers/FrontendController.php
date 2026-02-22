@@ -17,6 +17,7 @@ use App\Models\Service;
 use App\Models\Skill;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -164,7 +165,8 @@ class FrontendController extends Controller
     // ── Contact ───────────────────────────────────────────────
     public function contact()
     {
-        return view('contact');
+        $siteSettings = Setting::pluck('value', 'key')->toArray();
+        return view('contact', compact('siteSettings'));
     }
 
     public function contactStore(ContactFormRequest $request)
@@ -179,5 +181,18 @@ class FrontendController extends Controller
         $request->validate(['email' => 'required|email|unique:newsletter_subscribers,email']);
         NewsletterSubscriber::create(['email' => $request->email]);
         return response()->json(['success' => true, 'message' => 'Subscribed successfully!']);
+    }
+
+    // ── Dynamic CMS Page ──────────────────────────────────────
+    public function page(string $slug)
+    {
+        $pageService = app(\App\Services\PageService::class);
+        $page = $pageService->getPageBySlug($slug);
+
+        if (!$page) {
+            abort(404);
+        }
+
+        return view('page', compact('page'));
     }
 }

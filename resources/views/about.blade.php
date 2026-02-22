@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                Breadcumb
-                ============================== -->
+                            Breadcumb
+                            ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -17,8 +17,8 @@
     </div>
 
     <!--==============================
-                About Section
-                ==============================-->
+                            About Section
+                            ==============================-->
     <div class="about-area space">
         <div class="container">
             <div class="row align-items-center">
@@ -43,8 +43,8 @@
     </div>
 
     <!--==============================
-                Skills Area
-                ==============================-->
+                            Skills Area
+                            ==============================-->
     @if($skills->count())
         <div class="service-area-1 space bg-theme">
             <div class="container">
@@ -52,7 +52,7 @@
                     <div class="col-lg-8">
                         <div class="about-content-wrap">
                             <div class="title-area mb-0">
-                                <h2 class="sec-title text-center">Our Expertise</h2>
+                                <h2 class="sec-title text-center">{{ setting('about_skills_title', 'Our Expertise') }}</h2>
                                 <div class="mt-40">
                                     @foreach($skills as $skill)
                                         <div class="skill-feature">
@@ -75,15 +75,15 @@
     @endif
 
     <!--==============================
-                Team Area
-                ==============================-->
+                            Team Area
+                            ==============================-->
     @if($team->count())
         <div class="team-area space">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">Meet Our Creative Team</h2>
+                            <h2 class="sec-title">{{ setting('about_team_title', 'Meet Our Creative Team') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -111,15 +111,15 @@
     @endif
 
     <!--==============================
-                Awards Area
-                ==============================-->
+                            Awards Area
+                            ==============================-->
     @if($awards->count())
         <div class="award-area-1 space-bottom overflow-hidden">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">Awards & Recognition</h2>
+                            <h2 class="sec-title">{{ setting('about_awards_title', 'Awards & Recognition') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -144,15 +144,15 @@
     @endif
 
     <!--==============================
-                Testimonials Area
-                ==============================-->
+                            Testimonials Area
+                            ==============================-->
     @if($testimonials->count())
         <div class="testimonials-area space bg-smoke">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">What Our Clients Say</h2>
+                            <h2 class="sec-title">{{ setting('about_testimonials_title', 'What Our Clients Say') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -181,15 +181,15 @@
     @endif
 
     <!--==============================
-                Clients Area
-                ==============================-->
+                            Clients Area
+                            ==============================-->
     @if($clients->count())
         <div class="client-area-1 overflow-hidden space">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">Our Clients</h2>
+                            <h2 class="sec-title">{{ setting('about_clients_title', 'Our Clients') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                         <ul class="client-list-wrap">
                             @foreach($clients as $client)
                                 <li>
-                                    <a href="{{ $client->url ?? '#' }}" @if($client->url) target="_blank" @endif>
+                                    <a href="{{ $client->url ?? 'javascript:void(0)' }}" @if($client->url) target="_blank" @endif>
                                         <span class="link-effect">
                                             <span class="effect-1"><img
                                                     src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
@@ -218,13 +218,13 @@
     @endif
 
     <!--==============================
-                Marquee Area
-                ==============================-->
+                            Marquee Area
+                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
                 @for($i = 0; $i < 4; $i++)
-                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                    <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i>
                             {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
                 @endfor
             </div>

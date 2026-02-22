@@ -11,67 +11,53 @@ class SiteSettingController extends Controller
 {
     public function index()
     {
-        $settings = Setting::all()->groupBy('group');
+        $settings = Setting::pluck('value', 'key')->toArray();
 
-        return view('admin.content.settings.index', compact('settings'));
+        return view('admin.content.site-settings.index', compact('settings'));
     }
 
     public function update(Request $request)
     {
-        $data = $request->validate([
-            'settings' => 'required|array',
-            'settings.*.key' => 'required|string',
-            'settings.*.value' => 'nullable|string',
-        ]);
-
-        foreach ($request->settings as $setting) {
-            Setting::updateOrCreate(
-                ['key' => $setting['key']],
-                ['value' => $setting['value'] ?? '']
-            );
-        }
-
-        // Clear all theme-related cache
-        Cache::forget('theme_primary_color');
-        Cache::forget('theme_font_color');
-        Cache::forget('theme_bg_color');
-        Cache::forget('site_settings');
-
-        return back()->with('success', 'Settings updated successfully.');
-    }
-
-    public function updateGeneral(Request $request)
-    {
-        $fields = [
+        // Text fields
+        $textFields = [
             'site_name',
             'site_tagline',
             'site_description',
             'site_email',
             'site_phone',
             'site_address',
-            'site_logo',
-            'site_favicon',
-            'google_map_url',
             'footer_text',
             'copyright_text',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'google_analytics_id',
         ];
 
-        foreach ($fields as $field) {
+        foreach ($textFields as $field) {
             if ($request->has($field)) {
                 Setting::updateOrCreate(
                     ['key' => $field],
                     [
-                        'value' => $request->$field,
-                        'group' => 'general',
+                        'value' => $request->$field ?? '',
+                        'group' => $this->getGroup($field),
                         'type' => 'text',
                     ]
                 );
             }
         }
 
-        // Handle logo and favicon uploads
-        foreach (['site_logo', 'site_favicon'] as $fileField) {
+        // File uploads
+        $fileFields = ['site_logo', 'site_logo_white', 'site_favicon', 'contact_image'];
+
+        foreach ($fileFields as $fileField) {
             if ($request->hasFile($fileField)) {
+                // Delete old file
+                $old = Setting::where('key', $fileField)->value('value');
+                if ($old && file_exists(public_path($old))) {
+                    @unlink(public_path($old));
+                }
+
                 $file = $request->file($fileField);
                 $filename = $fileField . '_' . time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('uploads/settings'), $filename);
@@ -80,15 +66,28 @@ class SiteSettingController extends Controller
                     ['key' => $fileField],
                     [
                         'value' => 'uploads/settings/' . $filename,
-                        'group' => 'general',
+                        'group' => 'branding',
                         'type' => 'file',
                     ]
                 );
             }
         }
 
+        // Clear all caches
         Cache::forget('site_settings');
+        Cache::forget('social_links');
+        Cache::forget('theme_primary_color');
+        Cache::forget('theme_font_color');
+        Cache::forget('theme_bg_color');
 
-        return back()->with('success', 'General settings updated successfully.');
+        return back()->with('success', 'Settings updated successfully.');
+    }
+
+    private function getGroup(string $field): string
+    {
+        if (in_array($field, ['meta_title', 'meta_description', 'meta_keywords', 'google_analytics_id'])) {
+            return 'seo';
+        }
+        return 'general';
     }
 }

@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                    Hero Area
-                    ==============================-->
+                            Hero Area
+                            ==============================-->
     <div class="hero-wrapper hero-2" id="hero">
         <div class="hero-2-thumb wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.2s">
             @if($hero && $hero->image)
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-end">
+                <!-- <div class="row justify-content-end">
                     <div class="col-xxl-6 col-xl-7 col-lg-9">
                         <div class="wow img-custom-anim-right">
                             <div class="hero-contact-wrap">
@@ -69,20 +69,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
     <!--======== / Hero Section ========-->
 
     <!--==============================
-                    Marquee Area
-                    ==============================-->
+                            Marquee Area
+                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
                 @for($i = 0; $i < 4; $i++)
-                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                    <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i>
                             {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
                 @endfor
             </div>
@@ -90,15 +90,15 @@
     </div>
 
     <!--==============================
-                    Feature / Services Area
-                    ==============================-->
+                            Feature / Services Area
+                            ==============================-->
     @if($services->count())
         <div class="feature-area-1 space">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">What We Can Do for Our Clients</h2>
+                            <h2 class="sec-title">{{ setting('home_services_title', 'What We Can Do for Our Clients') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -135,8 +135,8 @@
     @endif
 
     <!--==============================
-                    Skills / Service Area
-                    ==============================-->
+                            Skills / Service Area
+                            ==============================-->
     @if($skills->count())
         <div class="service-area-1 space bg-theme">
             <div class="service-img-1-1 shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
@@ -148,9 +148,8 @@
                     <div class="col-lg-6">
                         <div class="about-content-wrap">
                             <div class="title-area mb-0">
-                                <h2 class="sec-title">We Offer a Wide Range of Brand Services</h2>
-                                <p class="sec-text mt-35 mb-40">We are a creative agency working with brands building
-                                    insightful strategy, creating unique designs and crafting value</p>
+                                <h2 class="sec-title">{{ setting('home_skills_title', 'We Offer a Wide Range of Brand Services') }}</h2>
+                                <p class="sec-text mt-35 mb-40">{{ setting('home_skills_subtitle', 'We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value') }}</p>
                                 @foreach($skills as $skill)
                                     <div class="skill-feature">
                                         <h3 class="skill-feature_title">{{ $skill->title }}</h3>
@@ -171,15 +170,15 @@
     @endif
 
     <!--==============================
-                        Portfolio Area
-                    ==============================-->
+                                Portfolio Area
+                            ==============================-->
     @if($projects->count())
         <div class="portfolio-area-1 space overflow-hidden">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-9">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">Discover Our Selected Projects</h2>
+                            <h2 class="sec-title">{{ setting('home_portfolio_title', 'Discover Our Selected Projects') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -211,8 +210,8 @@
     @endif
 
     <!--==============================
-                    Award Area
-                    ==============================-->
+                            Award Area
+                            ==============================-->
     @if($awards->count())
         <div class="award-area-1 space-bottom overflow-hidden">
             <div class="container">
@@ -237,8 +236,8 @@
     @endif
 
     <!--==============================
-                    Video Area
-                    ==============================-->
+                            Video Area
+                            ==============================-->
     <div class="video-area-1 overflow-hidden">
         <div class="container-fluid p-0">
             <div class="row">
@@ -256,15 +255,15 @@
     </div>
 
     <!--==============================
-                    Blog Area
-                    ==============================-->
+                            Blog Area
+                            ==============================-->
     @if($posts->count())
         <section class="blog-area space">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xxl-7 col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">Read Our Articles and News</h2>
+                            <h2 class="sec-title">{{ setting('home_blog_title', 'Read Our Articles and News') }}</h2>
                         </div>
                     </div>
                 </div>
@@ -299,8 +298,8 @@
     @endif
 
     <!--==============================
-                    Client Area
-                    ==============================-->
+                            Client Area
+                            ==============================-->
     @if($clients->count())
         <div class="client-area-1 overflow-hidden space-bottom">
             <div class="container">
@@ -309,7 +308,7 @@
                         <ul class="client-list-wrap">
                             @foreach($clients as $client)
                                 <li>
-                                    <a href="{{ $client->url ?? '#' }}" @if($client->url) target="_blank" @endif>
+                                    <a href="{{ $client->url ?? 'javascript:void(0)' }}" @if($client->url) target="_blank" @endif>
                                         <span class="link-effect">
                                             <span class="effect-1"><img
                                                     src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
@@ -329,16 +328,15 @@
     @endif
 
     <!--==============================
-                    CTA Area
-                    ==============================-->
+                            CTA Area
+                            ==============================-->
     <div class="cta-area-1 overflow-hidden bg-theme space">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-10">
                     <div class="title-area text-center mb-0">
-                        <h2 class="sec-title">Let's Create Something Great</h2>
-                        <p class="sec-text mt-30 mb-40">We shift you from today's reality to tomorrow's potential, ensuring
-                        </p>
+                        <h2 class="sec-title">{{ setting('home_cta_title', "Let\'s Create Something Great") }}</h2>
+                        <p class="sec-text mt-30 mb-40">{{ setting('home_cta_subtitle', "We shift you from today\'s reality to tomorrow\'s potential, ensuring") }}</p>
                         <div class="btn-group justify-content-center">
                             <a href="{{ route('contact') }}" class="btn mt-0">
                                 <span class="link-effect">

@@ -67,12 +67,15 @@ class BlogPostController extends AdminBaseController
         $post = BlogPost::create($data);
 
         if ($request->filled('tags')) {
-            $tagIds = collect($request->tags)->map(function ($tagName) {
-                return Tag::firstOrCreate(
-                    ['slug' => \Illuminate\Support\Str::slug($tagName)],
-                    ['title' => $tagName]
-                )->id;
-            });
+            $tagIds = collect($request->tags)
+                ->filter(fn($tagName) => !empty(trim($tagName)))
+                ->map(function ($tagName) {
+                    $tagName = trim($tagName);
+                    return Tag::firstOrCreate(
+                        ['slug' => \Illuminate\Support\Str::slug($tagName)],
+                        ['title' => $tagName]
+                    )->id;
+                });
             $post->tags()->sync($tagIds);
         }
 
@@ -117,12 +120,15 @@ class BlogPostController extends AdminBaseController
         $blog->update($data);
 
         if ($request->has('tags')) {
-            $tagIds = collect($request->tags)->map(function ($tagName) {
-                return Tag::firstOrCreate(
-                    ['slug' => \Illuminate\Support\Str::slug($tagName)],
-                    ['title' => $tagName]
-                )->id;
-            });
+            $tagIds = collect($request->tags)
+                ->filter(fn($tagName) => !empty(trim($tagName)))
+                ->map(function ($tagName) {
+                    $tagName = trim($tagName);
+                    return Tag::firstOrCreate(
+                        ['slug' => \Illuminate\Support\Str::slug($tagName)],
+                        ['title' => $tagName]
+                    )->id;
+                });
             $blog->tags()->sync($tagIds);
         } else {
             $blog->tags()->detach();

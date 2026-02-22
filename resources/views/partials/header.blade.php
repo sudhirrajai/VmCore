@@ -13,68 +13,32 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
                             <div class="header-logo">
+                                @php
+                                    $logoWhiteUrl = !empty($siteSettings['logo_white']) ? asset($siteSettings['logo_white']) : asset('assets/img/logo-white-sm.svg');
+                                    $logoUrl = !empty($siteSettings['logo']) ? asset($siteSettings['logo']) : asset('assets/img/logo.svg');
+                                @endphp
                                 @if (request()->is('/'))
-                                    <a href="{{ route('home') }}"><img
-                                            src="{{ !empty($siteSettings['logo_white']) ? asset($siteSettings['logo_white']) : asset('assets/img/logo-white-sm.svg') }}"
-                                            alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"></a>
+                                    <a href="{{ route('home') }}"><img src="{{ $logoWhiteUrl }}"
+                                            alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"
+                                            style="height: 45px; width: auto; object-fit: contain;"></a>
                                 @else
-                                    <a href="{{ route('home') }}"><img
-                                            src="{{ !empty($siteSettings['logo']) ? asset($siteSettings['logo']) : asset('assets/img/logo.svg') }}"
-                                            alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"></a>
+                                    <a href="{{ route('home') }}"><img src="{{ $logoUrl }}"
+                                            alt="{{ $siteSettings['site_name'] ?? 'VMCore' }}"
+                                            style="height: 45px; width: auto; object-fit: contain;"></a>
                                 @endif
                             </div>
                         </div>
                         <div class="col-auto ms-auto">
                             <nav class="main-menu d-none d-lg-inline-block">
                                 <ul>
-                                    <li class="{{ request()->is('/') ? 'active' : '' }}">
-                                        <a href="{{ route('home') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">HOME</span>
-                                                <span class="effect-1">HOME</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->is('about') ? 'active' : '' }}">
-                                        <a href="{{ route('about') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">ABOUT</span>
-                                                <span class="effect-1">ABOUT</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->is('services*') ? 'active' : '' }}">
-                                        <a href="{{ route('services') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">SERVICES</span>
-                                                <span class="effect-1">SERVICES</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->is('portfolio*') ? 'active' : '' }}">
-                                        <a href="{{ route('portfolio') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">PORTFOLIO</span>
-                                                <span class="effect-1">PORTFOLIO</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->is('blog*') ? 'active' : '' }}">
-                                        <a href="{{ route('blog') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">BLOG</span>
-                                                <span class="effect-1">BLOG</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->is('contact') ? 'active' : '' }}">
-                                        <a href="{{ route('contact') }}">
-                                            <span class="link-effect">
-                                                <span class="effect-1">CONTACT</span>
-                                                <span class="effect-1">CONTACT</span>
-                                            </span>
-                                        </a>
-                                    </li>
+                                    @if(isset($headerMenu) && $headerMenu->count() > 0)
+                                        @foreach($headerMenu as $item)
+                                            <x-menu-item :item="$item" />
+                                        @endforeach
+                                    @else
+                                        <!-- Fallback if no menu created yet -->
+                                        <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                                    @endif
                                 </ul>
                             </nav>
                             <div class="navbar-right d-inline-flex d-lg-none">

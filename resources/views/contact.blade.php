@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                            Breadcumb
+                            ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-6.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -17,8 +17,8 @@
     </div>
 
     <!--==============================
-            Contact Info Area
-            ==============================-->
+                            Contact Info Area
+                            ==============================-->
     <div class="contact-info-area space">
         <div class="container">
             <div class="row gy-30 justify-content-center">
@@ -54,21 +54,20 @@
     </div>
 
     <!--==============================
-            Contact Form Area
-            ==============================-->
+                            Contact Form Area
+                            ==============================-->
     <div class="contact-area-1 space bg-theme">
         <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
             data-left="0" data-top="-100px" data-bottom="140px">
-            <iframe
-                src="{{ $siteSettings['google_map_embed'] ?? 'https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&t=m&z=10&output=embed&iwloc=near' }}"
-                allowfullscreen="" loading="lazy"></iframe>
+            <img src="{{ asset($siteSettings['contact_image'] ?? 'assets/img/bg/breadcumb-bg1-6.jpg') }}" alt="Contact Us"
+                style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="container">
             <div class="row align-items-center justify-content-end">
                 <div class="col-lg-6">
                     <div class="contact-form-wrap">
                         <div class="title-area mb-30">
-                            <h2 class="sec-title">Have Any Project on Your Mind?</h2>
+                            <h2 class="sec-title">{{ setting('contact_form_title', 'Have Any Project on Your Mind?') }}</h2>
                             <p>Great! We're excited to hear from you and let's start something</p>
                         </div>
                         @if(session('success'))
@@ -133,13 +132,13 @@
     </div>
 
     <!--==============================
-            Marquee Area
-            ==============================-->
+                            Marquee Area
+                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
                 @for($i = 0; $i < 4; $i++)
-                    <h6 class="item m-item"><a href="#"><i class="fas fa-star-of-life"></i>
+                    <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i>
                             {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
                 @endfor
             </div>

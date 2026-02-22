@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                        Breadcumb
+                        ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-5.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -17,8 +17,8 @@
     </div>
 
     <!--==============================
-            Project Details
-            ==============================-->
+                        Project Details
+                        ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">
@@ -42,7 +42,7 @@
                     {{-- Gallery --}}
                     @if($project->images->count())
                         <div class="project-gallery mt-40">
-                            <h4 class="mb-20">Project Gallery</h4>
+                            <h4 class="mb-20">{{ setting('portfolio_gallery_title', 'Project Gallery') }}</h4>
                             <div class="row gy-20">
                                 @foreach($project->images as $img)
                                     <div class="col-md-4 col-6">
@@ -58,7 +58,7 @@
                 <div class="col-lg-4">
                     <aside class="project-sidebar">
                         <div class="widget project-info-box">
-                            <h4 class="widget_title">Project Info</h4>
+                            <h4 class="widget_title">{{ setting('portfolio_info_title', 'Project Info') }}</h4>
                             <ul class="project-info-list">
                                 @if($project->client)
                                     <li><strong>Client:</strong> {{ $project->client }}</li>
@@ -80,11 +80,11 @@
                         </div>
                         @if($project->tags->count())
                             <div class="widget">
-                                <h4 class="widget_title">Tags</h4>
+                                <h4 class="widget_title">{{ setting('portfolio_tags_title', 'Tags') }}</h4>
                                 <div class="sidebar__tag-list">
                                     <ul class="list-wrap">
                                         @foreach($project->tags as $tag)
-                                            <li><a href="#">{{ $tag->title }}</a></li>
+                                            <li><a href="javascript:void(0)">{{ $tag->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -100,7 +100,7 @@
     @if($project->testimonials->count())
         <div class="testimonials-section space-bottom">
             <div class="container">
-                <h3 class="mb-30">Client Testimonials</h3>
+                <h3 class="mb-30">{{ setting('portfolio_testimonials_title', 'Client Testimonials') }}</h3>
                 <div class="row gy-30">
                     @foreach($project->testimonials as $testimonial)
                         <div class="col-md-6">
@@ -121,7 +121,7 @@
     @if($relatedProjects->count())
         <div class="related-projects space-bottom">
             <div class="container">
-                <h3 class="mb-30">Related Projects</h3>
+                <h3 class="mb-30">{{ setting('portfolio_related_title', 'Related Projects') }}</h3>
                 <div class="row gy-30">
                     @foreach($relatedProjects as $related)
                         <div class="col-lg-4 col-md-6">
