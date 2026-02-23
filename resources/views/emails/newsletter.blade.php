@@ -98,7 +98,13 @@
 
             <!-- Content -->
             <div class="content">
-                {!! current(explode('</body>', end(explode('<body>', $newsletter->content)))) ?: $newsletter->content !!}
+                @php
+                    $bodyParts = explode('<body>', $newsletter->content);
+                    $bodyContent = end($bodyParts);
+                    $contentParts = explode('</body>', $bodyContent);
+                    $finalContent = current($contentParts);
+                @endphp
+                {!! $finalContent ?: $newsletter->content !!}
             </div>
 
             <!-- Footer -->

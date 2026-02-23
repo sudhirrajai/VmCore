@@ -31,6 +31,7 @@ class CheckScheduledNewsletters extends Command
             ->where('scheduled_at', '<=', now())
             ->get();
 
+        logger($newsletters);
         $this->info("Found " . $newsletters->count() . " scheduled newsletters to send.");
 
         foreach ($newsletters as $newsletter) {

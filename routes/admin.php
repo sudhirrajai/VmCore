@@ -119,7 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::get('campaigns/history', [\App\Http\Controllers\Admin\NewsletterController::class, 'history'])->name('newsletters.history');
     Route::get('campaigns/{newsletter}/report', [\App\Http\Controllers\Admin\NewsletterController::class, 'report'])->name('newsletters.report');
     Route::post('campaigns/{newsletter}/send-now', [\App\Http\Controllers\Admin\NewsletterController::class, 'sendNow'])->name('newsletters.sendNow');
-    Route::resource('campaigns', \App\Http\Controllers\Admin\NewsletterController::class)->names('newsletters');
+    Route::resource('campaigns', \App\Http\Controllers\Admin\NewsletterController::class)->names('newsletters')->parameters(['campaigns' => 'newsletter']);
   });
 
   // ------------------------------------------------------------

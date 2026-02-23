@@ -46,7 +46,7 @@
                                 <td>{{ $newsletter->scheduled_at ? $newsletter->scheduled_at->format('M d, Y H:i') : '-' }}</td>
                                 <td>{{ $newsletter->sent_at ? $newsletter->sent_at->format('M d, Y H:i') : '-' }}</td>
                                 <td>
-                                    <a href="{{ route('admin.newsletter.newsletters.report', $newsletter) }}"
+                                    <a href="{{ route('admin.newsletter.newsletters.report', ['campaign' => $newsletter->id]) }}"
                                         class="btn btn-sm btn-outline-primary">
                                         View Report
                                     </a>
