@@ -176,6 +176,12 @@
       "url": "admin/settings/smtp",
       "icon": "menu-icon icon-base bx bx-mail-send",
       "slug": "admin.settings.smtp"
+    },
+    {
+      "name": "Google Verification",
+      "url": "admin/settings/google-verification",
+      "icon": "menu-icon icon-base bx bx-check-shield",
+      "slug": "admin.settings.google-verification"
     }
   ]
 }

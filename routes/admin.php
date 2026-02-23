@@ -155,5 +155,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/smtp', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'index'])->name('smtp');
     Route::post('/smtp/update', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'update'])->name('smtp.update');
     Route::post('/smtp/test', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'test'])->name('smtp.test');
+
+    Route::get('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'index'])->name('google-verification');
+    Route::post('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'update'])->name('google-verification.update');
   });
 });
