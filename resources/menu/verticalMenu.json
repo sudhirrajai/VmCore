@@ -125,9 +125,30 @@
     },
     {
       "name": "Newsletter",
-      "url": "admin/newsletter",
       "icon": "menu-icon icon-base bx bx-mail-send",
-      "slug": "admin.newsletter"
+      "slug": "admin.newsletter",
+      "submenu": [
+        {
+          "url": "admin/newsletter/campaigns",
+          "name": "Campaigns",
+          "slug": "admin.newsletter.newsletters.index"
+        },
+        {
+          "url": "admin/newsletter/subscribers",
+          "name": "Subscribers",
+          "slug": "admin.newsletter.subscribers.index"
+        },
+        {
+          "url": "admin/newsletter/templates",
+          "name": "Templates",
+          "slug": "admin.newsletter.templates.index"
+        },
+        {
+          "url": "admin/newsletter/campaigns/history",
+          "name": "History",
+          "slug": "admin.newsletter.newsletters.history"
+        }
+      ]
     },
     {
       "menuHeader": "Settings"

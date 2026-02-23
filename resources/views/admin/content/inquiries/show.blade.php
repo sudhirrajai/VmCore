@@ -33,14 +33,14 @@
                 <div class="mt-4">
                     <a href="mailto:{{ $inquiry->email }}" class="btn btn-primary"><i class="bx bx-reply me-1"></i> Reply
                         via Email</a>
-                    <form action="{{ route('admin.inquiries.destroy', $inquiry) }}" method="POST" class="d-inline"
-                        onsubmit="return confirm('Delete this inquiry?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger ms-2"><i class="bx bx-trash me-1"></i>
+                    <form action="{{ route('admin.inquiries.destroy', $inquiry) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-outline-danger ms-2 global-delete-btn"><i
+                                class="bx bx-trash me-1"></i>
                             Delete</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 @endsection

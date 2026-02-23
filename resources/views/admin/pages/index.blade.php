@@ -33,13 +33,13 @@
                             </td>
                             <td>{{ $page->published_at ? $page->published_at->format('Y-m-d H:i') : '-' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-info" href="{{ route('admin.pages.edit', $page) }}"><i
-                                        class="bx bx-edit-alt me-1"></i> Edit</a>
-                                <form action="{{ route('admin.pages.destroy', $page) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this page?');">
+                                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.pages.edit', $page) }}"><i
+                                        class="bx bx-edit me-1"></i> Edit</a>
+                                <form action="{{ route('admin.pages.destroy', $page) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bx bx-trash me-1"></i>
+                                    <button type="button" class="btn btn-sm btn-outline-danger global-delete-btn"><i
+                                            class="bx bx-trash me-1"></i>
                                         Delete</button>
                                 </form>
                                 <a href="{{ url($page->slug) }}" target="_blank" class="btn btn-sm btn-secondary"><i
