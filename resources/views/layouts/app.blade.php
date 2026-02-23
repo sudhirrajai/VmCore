@@ -44,6 +44,11 @@
 
     @stack('styles')
 
+    @if(google_setting('google_verification_enabled') == '1')
+        <script
+            src="https://www.google.com/recaptcha/api.js?render={{ google_setting('google_recaptcha_site_key') }}"></script>
+    @endif
+
     <style>
         :root {
             --theme-color:

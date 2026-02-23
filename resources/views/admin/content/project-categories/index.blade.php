@@ -35,8 +35,12 @@
                                         <a href="{{ route('admin.project-categories.edit', $item) }}"
                                             class="btn btn-sm btn-outline-primary"><i class="bx bx-edit"></i></a>
                                         <form action="{{ route('admin.project-categories.destroy', $item) }}" method="POST"
-                                            class="d-inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')<button
-                                                class="btn btn-sm btn-outline-danger"><i class="bx bx-trash"></i></button>
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-outline-danger global-delete-btn">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

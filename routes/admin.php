@@ -24,8 +24,14 @@ use App\Http\Controllers\Admin\authentications\LoginBasic;
 // ============================================================
 // AUTHENTICATION (public — no middleware)
 // ============================================================
-Route::get('/login', [LoginBasic::class, 'index'])->name('auth-login-basic');
+Route::get('/login', [LoginBasic::class, 'index'])->name('login');
 Route::post('/login', [LoginBasic::class, 'login'])->name('login.post');
+
+// Forgot & Reset Password Routes
+Route::get('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [\App\Http\Controllers\Admin\authentications\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [\App\Http\Controllers\Admin\authentications\ResetPasswordController::class, 'reset'])->name('password.update');
 
 // ============================================================
 // ALL ADMIN ROUTES — Protected by auth middleware
@@ -100,8 +106,21 @@ Route::middleware('auth')->group(function () {
   Route::resource('inquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
   Route::post('inquiries/{inquiry}/mark-read', [ContactSubmissionController::class, 'markAsRead'])->name('inquiries.mark-read');
 
-  Route::resource('newsletter', NewsletterController::class)->only(['index', 'destroy']);
-  Route::get('newsletter/export', [NewsletterController::class, 'export'])->name('newsletter.export');
+  // ------------------------------------------------------------
+  // Newsletter System
+  // ------------------------------------------------------------
+  Route::prefix('newsletter')->name('newsletter.')->group(function () {
+    Route::resource('subscribers', \App\Http\Controllers\Admin\NewsletterSubscriberController::class);
+    Route::get('subscribers-import', [\App\Http\Controllers\Admin\NewsletterSubscriberController::class, 'importForm'])->name('subscribers.import.form');
+    Route::post('subscribers-import', [\App\Http\Controllers\Admin\NewsletterSubscriberController::class, 'import'])->name('subscribers.import');
+
+    Route::resource('templates', \App\Http\Controllers\Admin\NewsletterTemplateController::class);
+
+    Route::get('campaigns/history', [\App\Http\Controllers\Admin\NewsletterController::class, 'history'])->name('newsletters.history');
+    Route::get('campaigns/{newsletter}/report', [\App\Http\Controllers\Admin\NewsletterController::class, 'report'])->name('newsletters.report');
+    Route::post('campaigns/{newsletter}/send-now', [\App\Http\Controllers\Admin\NewsletterController::class, 'sendNow'])->name('newsletters.sendNow');
+    Route::resource('campaigns', \App\Http\Controllers\Admin\NewsletterController::class)->names('newsletters')->parameters(['campaigns' => 'newsletter']);
+  });
 
   // ------------------------------------------------------------
   // Social Links
@@ -130,7 +149,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/frontend', [\App\Http\Controllers\Admin\FrontendContentController::class, 'index'])->name('frontend');
     Route::post('/frontend', [\App\Http\Controllers\Admin\FrontendContentController::class, 'update'])->name('frontend.update');
 
-    Route::get('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
-    Route::post('/theme', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
+    Route::get('/theme', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('theme');
+    Route::post('/theme', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('theme.update');
+
+    Route::get('/smtp', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'index'])->name('smtp');
+    Route::post('/smtp/update', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'update'])->name('smtp.update');
+    Route::post('/smtp/test', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'test'])->name('smtp.test');
+
+    Route::get('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'index'])->name('google-verification');
+    Route::post('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'update'])->name('google-verification.update');
   });
 });

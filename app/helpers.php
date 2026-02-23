@@ -19,3 +19,17 @@ if (!function_exists('setting')) {
         return \App\Models\Setting::where('key', $key)->value('value') ?? $default;
     }
 }
+
+if (!function_exists('google_setting')) {
+    /**
+     * Get a google setting value by key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function google_setting(string $key, $default = null)
+    {
+        return \App\Models\Setting::get($key, $default);
+    }
+}
