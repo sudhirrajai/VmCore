@@ -35,7 +35,7 @@
                                         <a href="{{ route('admin.blog-categories.edit', $item) }}"
                                             class="btn btn-sm btn-outline-primary"><i class="bx bx-edit"></i></a>
                                         <form action="{{ route('admin.blog-categories.destroy', $item) }}" method="POST"
-                                            class="d-inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')<button
+                                            class="d-inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')<button type="submit"
                                                 class="btn btn-sm btn-outline-danger"><i class="bx bx-trash"></i></button>
                                         </form>
                                     </td>

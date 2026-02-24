@@ -55,13 +55,13 @@
                                     <td><span class="badge bg-label-primary">{{ $menu->location->label() }}</span></td>
                                     <td>{{ $menu->parent_items->count() }}</td>
                                     <td>
-                                        <a href="{{ route('admin.menus.builder', $menu) }}" class="btn btn-sm btn-info"><i
-                                                class="bx bx-list-ul me-1"></i> Build Menu</a>
-                                        <form action="{{ route('admin.menus.destroy', $menu) }}" method="POST" class="d-inline"
-                                            onsubmit="return confirm('Are you sure you want to delete this menu hierarchy forever?');">
+                                        <a href="{{ route('admin.menus.builder', $menu) }}"
+                                            class="btn btn-sm btn-outline-primary"><i class="bx bx-edit me-1"></i> Build
+                                            Menu</a>
+                                        <form action="{{ route('admin.menus.destroy', $menu) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                            <button type="button" class="btn btn-sm btn-outline-danger global-delete-btn"><i
                                                     class="bx bx-trash"></i></button>
                                         </form>
                                     </td>

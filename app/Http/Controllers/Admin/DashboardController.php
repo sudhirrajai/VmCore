@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\ContactSubmission;
-use App\Models\NewsletterSubscriber;
+use App\Models\Subscriber;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\TeamMember;
@@ -21,7 +21,7 @@ class DashboardController extends Controller
             'team_members' => TeamMember::count(),
             'inquiries' => ContactSubmission::count(),
             'unread_inquiries' => ContactSubmission::unread()->count(),
-            'subscribers' => NewsletterSubscriber::active()->count(),
+            'subscribers' => Subscriber::active()->count(),
         ];
 
         $recentInquiries = ContactSubmission::latest()->take(5)->get();

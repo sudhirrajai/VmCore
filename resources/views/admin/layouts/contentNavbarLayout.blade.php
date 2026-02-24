@@ -63,6 +63,8 @@
 
                             @yield('content')
 
+                            @include('admin.content._partials.delete-modal')
+
                         </div>
                         <!-- / Content -->
 

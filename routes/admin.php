@@ -106,8 +106,21 @@ Route::middleware('auth')->group(function () {
   Route::resource('inquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
   Route::post('inquiries/{inquiry}/mark-read', [ContactSubmissionController::class, 'markAsRead'])->name('inquiries.mark-read');
 
-  Route::resource('newsletter', NewsletterController::class)->only(['index', 'destroy']);
-  Route::get('newsletter/export', [NewsletterController::class, 'export'])->name('newsletter.export');
+  // ------------------------------------------------------------
+  // Newsletter System
+  // ------------------------------------------------------------
+  Route::prefix('newsletter')->name('newsletter.')->group(function () {
+    Route::resource('subscribers', \App\Http\Controllers\Admin\NewsletterSubscriberController::class);
+    Route::get('subscribers-import', [\App\Http\Controllers\Admin\NewsletterSubscriberController::class, 'importForm'])->name('subscribers.import.form');
+    Route::post('subscribers-import', [\App\Http\Controllers\Admin\NewsletterSubscriberController::class, 'import'])->name('subscribers.import');
+
+    Route::resource('templates', \App\Http\Controllers\Admin\NewsletterTemplateController::class);
+
+    Route::get('campaigns/history', [\App\Http\Controllers\Admin\NewsletterController::class, 'history'])->name('newsletters.history');
+    Route::get('campaigns/{newsletter}/report', [\App\Http\Controllers\Admin\NewsletterController::class, 'report'])->name('newsletters.report');
+    Route::post('campaigns/{newsletter}/send-now', [\App\Http\Controllers\Admin\NewsletterController::class, 'sendNow'])->name('newsletters.sendNow');
+    Route::resource('campaigns', \App\Http\Controllers\Admin\NewsletterController::class)->names('newsletters')->parameters(['campaigns' => 'newsletter']);
+  });
 
   // ------------------------------------------------------------
   // Social Links
@@ -142,5 +155,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/smtp', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'index'])->name('smtp');
     Route::post('/smtp/update', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'update'])->name('smtp.update');
     Route::post('/smtp/test', [\App\Http\Controllers\Admin\SmtpSettingController::class, 'test'])->name('smtp.test');
+<<<<<<< HEAD
+=======
+
+    Route::get('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'index'])->name('google-verification');
+    Route::post('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'update'])->name('google-verification.update');
+>>>>>>> 22cfb744b7b90b938fa96fd2db5c03e28cf7ff5a
   });
 });
