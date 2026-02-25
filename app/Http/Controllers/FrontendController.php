@@ -52,6 +52,8 @@ class FrontendController extends Controller
     // ── About ─────────────────────────────────────────────────
     public function about()
     {
+        abort_if(!Setting::get('show_about_page', 1), 404);
+
         $skills = Skill::where('status', true)->orderBy('order')->get();
         $team = TeamMember::where('status', true)->orderBy('order')->get();
         $awards = Award::where('status', true)->orderBy('order')->get();
@@ -64,12 +66,16 @@ class FrontendController extends Controller
     // ── Services ──────────────────────────────────────────────
     public function services()
     {
+        abort_if(!Setting::get('show_services_page', 1), 404);
+
         $services = Service::where('status', true)->orderBy('order')->get();
         return view('services', compact('services'));
     }
 
     public function serviceDetail(Service $service)
     {
+        abort_if(!Setting::get('show_services_page', 1), 404);
+
         $service->load('projects');
         $relatedServices = Service::where('status', true)
             ->where('id', '!=', $service->id)->orderBy('order')->take(3)->get();
@@ -79,6 +85,8 @@ class FrontendController extends Controller
     // ── Portfolio / Projects ──────────────────────────────────
     public function portfolio(Request $request)
     {
+        abort_if(!Setting::get('show_portfolio_page', 1), 404);
+
         $categories = ProjectCategory::where('status', true)->withCount('projects')->get();
 
         $query = Project::where('status', true)->with('category', 'images');
@@ -95,6 +103,8 @@ class FrontendController extends Controller
 
     public function portfolioDetail(Project $project)
     {
+        abort_if(!Setting::get('show_portfolio_page', 1), 404);
+
         $project->load('category', 'images', 'service', 'tags', 'testimonials');
         $relatedProjects = Project::where('status', true)
             ->where('id', '!=', $project->id)
@@ -106,6 +116,8 @@ class FrontendController extends Controller
     // ── Blog ──────────────────────────────────────────────────
     public function blog(Request $request)
     {
+        abort_if(!Setting::get('show_blog_page', 1), 404);
+
         $query = BlogPost::published()->with('category', 'author');
 
         if ($request->filled('category')) {
@@ -130,6 +142,8 @@ class FrontendController extends Controller
 
     public function blogDetail(BlogPost $post)
     {
+        abort_if(!Setting::get('show_blog_page', 1), 404);
+
         $post->load('category', 'author', 'tags');
         $relatedPosts = BlogPost::published()
             ->where('id', '!=', $post->id)
@@ -145,12 +159,16 @@ class FrontendController extends Controller
     // ── Team ──────────────────────────────────────────────────
     public function team()
     {
+        abort_if(!Setting::get('show_team_page', 1), 404);
+
         $teamMembers = TeamMember::where('status', true)->orderBy('order')->get();
         return view('team', compact('teamMembers'));
     }
 
     public function teamDetail(TeamMember $member)
     {
+        abort_if(!Setting::get('show_team_page', 1), 404);
+
         $member->load('testimonials');
         return view('team-details', compact('member'));
     }
@@ -158,6 +176,8 @@ class FrontendController extends Controller
     // ── FAQ ───────────────────────────────────────────────────
     public function faq()
     {
+        abort_if(!Setting::get('show_faq_page', 1), 404);
+
         $faqs = Faq::where('status', true)->orderBy('order')->get();
         return view('faq', compact('faqs'));
     }
@@ -165,12 +185,16 @@ class FrontendController extends Controller
     // ── Contact ───────────────────────────────────────────────
     public function contact()
     {
+        abort_if(!Setting::get('show_contact_page', 1), 404);
+
         $siteSettings = Setting::pluck('value', 'key')->toArray();
         return view('contact', compact('siteSettings'));
     }
 
     public function contactStore(ContactFormRequest $request)
     {
+        abort_if(!Setting::get('show_contact_page', 1), 404);
+
         $submission = ContactSubmission::create($request->validated());
 
         try {

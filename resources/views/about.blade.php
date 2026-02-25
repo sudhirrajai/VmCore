@@ -1,39 +1,42 @@
 @extends('layouts.app')
 
 @section('title', 'About Us - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', 'Learn about our team, skills, and achievements.')
+@section('meta_description', \App\Models\Setting::get('about_meta_description', 'Learn about our team, skills, and achievements.'))
 
 @section('content')
 
     <!--==============================
-                            Breadcumb
-                            ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
+                                    Breadcumb
+                                    ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ \App\Models\Setting::get('about_hero_image') ? asset(\App\Models\Setting::get('about_hero_image')) : asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">About Us</h1>
+                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('about_breadcrumb_title', 'About Us') }}</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-                            About Section
-                            ==============================-->
+                                    About Section
+                                    ==============================-->
     <div class="about-area space">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-thumb wow img-custom-anim-left">
-                        <img src="{{ asset('assets/img/normal/about_2-1.jpg') }}" alt="About us">
+                        <img src="{{ asset(setting('about_side_image', 'assets/img/normal/about_2-1.jpg')) }}"
+                            alt="About us">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="about-content-wrap">
                         <div class="title-area mb-0">
-                            <h2 class="sec-title">{{ $siteSettings['about_title'] ?? 'We Are Creative Digital Agency' }}
+                            <h2 class="sec-title">
+                                {{ \App\Models\Setting::get('about_intro_title', 'We Are Creative Digital Agency') }}
                             </h2>
                             <p class="sec-text mt-30">
-                                {{ $siteSettings['about_description'] ?? 'We believe that building great things starts with a deep understanding and a commitment to quality.' }}
+                                {{ \App\Models\Setting::get('about_intro_description', 'We believe that building great things starts with a deep understanding and a commitment to quality.') }}
                             </p>
                         </div>
                     </div>
@@ -43,8 +46,8 @@
     </div>
 
     <!--==============================
-                            Skills Area
-                            ==============================-->
+                                    Skills Area
+                                    ==============================-->
     @if($skills->count())
         <div class="service-area-1 space bg-theme">
             <div class="container">
@@ -75,8 +78,8 @@
     @endif
 
     <!--==============================
-                            Team Area
-                            ==============================-->
+                                    Team Area
+                                    ==============================-->
     @if($team->count())
         <div class="team-area space">
             <div class="container">
@@ -111,8 +114,8 @@
     @endif
 
     <!--==============================
-                            Awards Area
-                            ==============================-->
+                                    Awards Area
+                                    ==============================-->
     @if($awards->count())
         <div class="award-area-1 space-bottom overflow-hidden">
             <div class="container">
@@ -144,8 +147,8 @@
     @endif
 
     <!--==============================
-                            Testimonials Area
-                            ==============================-->
+                                    Testimonials Area
+                                    ==============================-->
     @if($testimonials->count())
         <div class="testimonials-area space bg-smoke">
             <div class="container">
@@ -181,8 +184,8 @@
     @endif
 
     <!--==============================
-                            Clients Area
-                            ==============================-->
+                                    Clients Area
+                                    ==============================-->
     @if($clients->count())
         <div class="client-area-1 overflow-hidden space">
             <div class="container">
@@ -218,8 +221,8 @@
     @endif
 
     <!--==============================
-                            Marquee Area
-                            ==============================-->
+                                    Marquee Area
+                                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

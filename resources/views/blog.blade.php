@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
 @section('title', 'Blog - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', 'Read the latest articles and insights.')
+@section('meta_description', \App\Models\Setting::get('blog_meta_description', 'Read the latest articles and insights.'))
 
 @section('content')
 
     <!--==============================
-                Breadcumb
-                ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-8.jpg') }}">
+                    Breadcumb
+                    ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ \App\Models\Setting::get('blog_hero_image') ? asset(\App\Models\Setting::get('blog_hero_image')) : asset('assets/img/bg/breadcumb-bg1-8.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">Blog</h1>
+                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('blog_breadcrumb_title', 'Blog') }}</h1>
             </div>
         </div>
     </div>
@@ -82,8 +83,8 @@
     </section>
 
     <!--==============================
-                Marquee Area
-                ==============================-->
+                    Marquee Area
+                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

@@ -1,24 +1,31 @@
 @extends('layouts.app')
 
 @section('title', 'Services - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', 'Explore our professional services including web development, branding, digital marketing and more.')
+@section('meta_description', \App\Models\Setting::get('services_meta_description', 'Explore our professional services including web development, branding, digital marketing and more.'))
 
 @section('content')
 
     <!--==============================
-                Breadcumb
-                ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-2.jpg') }}">
+                    Breadcumb
+                    ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ \App\Models\Setting::get('services_hero_image') ? asset(\App\Models\Setting::get('services_hero_image')) : asset('assets/img/bg/breadcumb-bg1-2.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">Services</h1>
+                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('services_breadcrumb_title', 'Services') }}</h1>
             </div>
         </div>
     </div>
 
+    @if(\App\Models\Setting::get('services_page_intro'))
+        <div class="container text-center py-4">
+            <p class="lead">{{ \App\Models\Setting::get('services_page_intro') }}</p>
+        </div>
+    @endif
+
     <!--==============================
-                Feature Area
-                ==============================-->
+                    Feature Area
+                    ==============================-->
     <div class="feature-area-1 space">
         <div class="container">
             <div class="row gy-4 align-items-center justify-content-center">
@@ -59,8 +66,8 @@
     </div>
 
     <!--==============================
-                Marquee Area
-                ==============================-->
+                    Marquee Area
+                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

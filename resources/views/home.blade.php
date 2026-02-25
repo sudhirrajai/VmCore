@@ -141,7 +141,7 @@
         <div class="service-area-1 space bg-theme">
             <div class="service-img-1-1 shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
                 data-left="0" data-top="-100px" data-bottom="140px">
-                <img src="{{ asset('assets/img/normal/service_2-1.jpg') }}" alt="img">
+                <img src="{{ asset(setting('home_skills_bg', 'assets/img/normal/service_2-1.jpg')) }}" alt="img">
             </div>
             <div class="container">
                 <div class="row align-items-center justify-content-end">
@@ -243,7 +243,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="video-wrap">
-                        <div class="jarallax" data-bg-src="{{ asset('assets/img/normal/video_2-1.jpg') }}">
+                        <div class="jarallax" data-bg-src="{{ asset(setting('home_video_bg', 'assets/img/normal/video_2-1.jpg')) }}">
                         </div>
                         <a href="{{ $siteSettings['video_url'] ?? 'https://www.youtube.com/watch?v=vvNwlRLjLkU' }}"
                             class="play-btn circle-btn btn gsap-magnetic popup-video background-image">PLAY VIDEO
