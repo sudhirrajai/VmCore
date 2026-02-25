@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\CacheController;
 use App\Http\Controllers\Admin\authentications\LoginBasic;
 
 // ============================================================
@@ -159,4 +160,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'index'])->name('google-verification');
     Route::post('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'update'])->name('google-verification.update');
   });
+
+  // ------------------------------------------------------------
+  // Clear Cache
+  // ------------------------------------------------------------
+  Route::post('/clear-cache', [CacheController::class, 'clear'])->name('cache.clear');
+
 });

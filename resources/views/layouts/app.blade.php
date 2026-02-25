@@ -213,7 +213,28 @@
                             <x-menu-item :item="$item" :isMobile="true" />
                         @endforeach
                     @else
-                        <li><a href="{{ url('/') }}">Home</a></li>
+                        <li class="active"><a href="{{ url('/') }}">Home</a></li>
+                        @if(\App\Models\Setting::get('show_about_page', 1))
+                            <li><a href="{{ route('about') }}">About</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_services_page', 1))
+                            <li><a href="{{ route('services') }}">Services</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_portfolio_page', 1))
+                            <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_blog_page', 1))
+                            <li><a href="{{ route('blog') }}">Blog</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_team_page', 1))
+                            <li><a href="{{ route('team') }}">Team</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_faq_page', 1))
+                            <li><a href="{{ route('faq') }}">FAQ</a></li>
+                        @endif
+                        @if(\App\Models\Setting::get('show_contact_page', 1))
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
+                        @endif
                     @endif
                 </ul>
             </div>

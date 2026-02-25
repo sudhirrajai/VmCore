@@ -9,10 +9,10 @@
                                     Breadcumb
                                     ============================== -->
     <div class="breadcumb-wrapper"
-        data-bg-src="{{ \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') }}">
+        data-bg-src="{!! \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') !!}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('contact_breadcrumb_title', 'Contact Us') }}</h1>
+                <h1 class="breadcumb-title">{!! \App\Models\Setting::get('contact_breadcrumb_title', 'Contact Us') !!}</h1>
             </div>
         </div>
     </div>
@@ -68,8 +68,8 @@
                 <div class="col-lg-6">
                     <div class="contact-form-wrap">
                         <div class="title-area mb-30">
-                            <h2 class="sec-title">{{ setting('contact_form_title', 'Have Any Project on Your Mind?') }}</h2>
-                            <p>{{ setting('contact_form_subtitle', "Great! We're excited to hear from you and let's start something") }}
+                            <h2 class="sec-title">{!! setting('contact_form_title', 'Have Any Project on Your Mind?') !!}</h2>
+                            <p>{!! setting('contact_form_subtitle', "Great! We're excited to hear from you and let's start something") !!}
                             </p>
                         </div>
                         @if(session('success'))
