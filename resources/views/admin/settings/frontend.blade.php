@@ -41,7 +41,7 @@
                         <div class="mb-3">
                             <label class="form-label">CTA Section Title</label>
                             <input type="text" class="form-control" name="home_cta_title"
-                                value="{{ $settings['home_cta_title'] ?? 'Let's Create Something Great' }}">
+                                value="{{ $settings['home_cta_title'] ?? "Let's Create Something Great" }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">CTA Section Subtitle</label>
