@@ -98,7 +98,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('home_services_title', 'What We Can Do for Our Clients') }}</h2>
+                            <h2 class="sec-title">{!! setting('home_services_title', 'What We Can Do for Our Clients') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -148,8 +148,8 @@
                     <div class="col-lg-6">
                         <div class="about-content-wrap">
                             <div class="title-area mb-0">
-                                <h2 class="sec-title">{{ setting('home_skills_title', 'We Offer a Wide Range of Brand Services') }}</h2>
-                                <p class="sec-text mt-35 mb-40">{{ setting('home_skills_subtitle', 'We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value') }}</p>
+                                <h2 class="sec-title">{!! setting('home_skills_title', 'We Offer a Wide Range of Brand Services') !!}</h2>
+                                <p class="sec-text mt-35 mb-40">{!! setting('home_skills_subtitle', 'We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value') !!}</p>
                                 @foreach($skills as $skill)
                                     <div class="skill-feature">
                                         <h3 class="skill-feature_title">{{ $skill->title }}</h3>
@@ -178,7 +178,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-9">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('home_portfolio_title', 'Discover Our Selected Projects') }}</h2>
+                            <h2 class="sec-title">{!! setting('home_portfolio_title', 'Discover Our Selected Projects') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -263,7 +263,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xxl-7 col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('home_blog_title', 'Read Our Articles and News') }}</h2>
+                            <h2 class="sec-title">{!! setting('home_blog_title', 'Read Our Articles and News') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -335,8 +335,8 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-10">
                     <div class="title-area text-center mb-0">
-                        <h2 class="sec-title">{{ setting('home_cta_title', "Let\'s Create Something Great") }}</h2>
-                        <p class="sec-text mt-30 mb-40">{{ setting('home_cta_subtitle', "We shift you from today\'s reality to tomorrow\'s potential, ensuring") }}</p>
+                        <h2 class="sec-title">{!! setting('home_cta_title', "Let's Create Something Great") !!}</h2>
+                        <p class="sec-text mt-30 mb-40">{!! setting('home_cta_subtitle', "We shift you from today's reality to tomorrow's potential, ensuring") !!}</p>
                         <div class="btn-group justify-content-center">
                             <a href="{{ route('contact') }}" class="btn mt-0">
                                 <span class="link-effect">
@@ -352,3 +352,4 @@
     </div>
 
 @endsection
+

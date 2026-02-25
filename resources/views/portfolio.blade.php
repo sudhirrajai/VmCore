@@ -9,10 +9,10 @@
                     Breadcumb
                     ============================== -->
     <div class="breadcumb-wrapper"
-        data-bg-src="{{ \App\Models\Setting::get('portfolio_hero_image') ? asset(\App\Models\Setting::get('portfolio_hero_image')) : asset('assets/img/bg/breadcumb-bg1-5.jpg') }}">
+        data-bg-src="{!! \App\Models\Setting::get('portfolio_hero_image') ? asset(\App\Models\Setting::get('portfolio_hero_image')) : asset('assets/img/bg/breadcumb-bg1-5.jpg') !!}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('portfolio_breadcrumb_title', 'Portfolio') }}</h1>
+                <h1 class="breadcumb-title">{!! \App\Models\Setting::get('portfolio_breadcrumb_title', 'Portfolio') !!}</h1>
             </div>
         </div>
     </div>

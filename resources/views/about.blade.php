@@ -9,10 +9,10 @@
                                     Breadcumb
                                     ============================== -->
     <div class="breadcumb-wrapper"
-        data-bg-src="{{ \App\Models\Setting::get('about_hero_image') ? asset(\App\Models\Setting::get('about_hero_image')) : asset('assets/img/bg/breadcumb-bg1-3.jpg') }}">
+        data-bg-src="{!! \App\Models\Setting::get('about_hero_image') ? asset(\App\Models\Setting::get('about_hero_image')) : asset('assets/img/bg/breadcumb-bg1-3.jpg') !!}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('about_breadcrumb_title', 'About Us') }}</h1>
+                <h1 class="breadcumb-title">{!! \App\Models\Setting::get('about_breadcrumb_title', 'About Us') !!}</h1>
             </div>
         </div>
     </div>
@@ -33,10 +33,10 @@
                     <div class="about-content-wrap">
                         <div class="title-area mb-0">
                             <h2 class="sec-title">
-                                {{ \App\Models\Setting::get('about_intro_title', 'We Are Creative Digital Agency') }}
+                                {!! \App\Models\Setting::get('about_intro_title', 'We Are Creative Digital Agency') !!}
                             </h2>
                             <p class="sec-text mt-30">
-                                {{ \App\Models\Setting::get('about_intro_description', 'We believe that building great things starts with a deep understanding and a commitment to quality.') }}
+                                {!! \App\Models\Setting::get('about_intro_description', 'We believe that building great things starts with a deep understanding and a commitment to quality.') !!}
                             </p>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="col-lg-8">
                         <div class="about-content-wrap">
                             <div class="title-area mb-0">
-                                <h2 class="sec-title text-center">{{ setting('about_skills_title', 'Our Expertise') }}</h2>
+                                <h2 class="sec-title text-center">{!! setting('about_skills_title', 'Our Expertise') !!}</h2>
                                 <div class="mt-40">
                                     @foreach($skills as $skill)
                                         <div class="skill-feature">
@@ -86,7 +86,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('about_team_title', 'Meet Our Creative Team') }}</h2>
+                            <h2 class="sec-title">{!! setting('about_team_title', 'Meet Our Creative Team') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('about_awards_title', 'Awards & Recognition') }}</h2>
+                            <h2 class="sec-title">{!! setting('about_awards_title', 'Awards & Recognition') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('about_testimonials_title', 'What Our Clients Say') }}</h2>
+                            <h2 class="sec-title">{!! setting('about_testimonials_title', 'What Our Clients Say') !!}</h2>
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-8">
                         <div class="title-area text-center">
-                            <h2 class="sec-title">{{ setting('about_clients_title', 'Our Clients') }}</h2>
+                            <h2 class="sec-title">{!! setting('about_clients_title', 'Our Clients') !!}</h2>
                         </div>
                     </div>
                 </div>
