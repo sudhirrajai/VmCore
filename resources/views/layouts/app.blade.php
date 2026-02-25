@@ -90,6 +90,36 @@
         }
 
         /* Override Tailwind bg-white/black if they conflict with user choice, though usually we want specific components to stay white/black */
+
+        /* ── Mobile hamburger icon — fix colors regardless of theme ── */
+        /* On homepage (dark header): white bars */
+        .header-layout2 .navbar-right .menu-toggle .line {
+            background-color: #fff !important;
+        }
+
+        /* On inner pages (light/white header): dark bars */
+        .header-layout3 .navbar-right .menu-toggle .line {
+            background-color: #1c1c25 !important;
+        }
+
+        /* Mobile menu wrapper: always white bg, dark text */
+        .mobile-menu-wrapper {
+            background-color: rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .mobile-menu-wrapper .mobile-menu-area {
+            background-color: #fff !important;
+            color: #1c1c25 !important;
+        }
+
+        .mobile-menu-wrapper .mobile-menu-area a {
+            color: #1c1c25 !important;
+        }
+
+        .mobile-menu-wrapper .menu-toggle {
+            border-color: #1c1c25 !important;
+            color: #1c1c25 !important;
+        }
     </style>
 </head>
 
