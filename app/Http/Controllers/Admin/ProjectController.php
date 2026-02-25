@@ -55,6 +55,7 @@ class ProjectController extends AdminBaseController
             'project_date' => 'nullable|date',
             'project_url' => 'nullable|url|max:255',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
             'status' => 'boolean',
             'order' => 'nullable|integer',
@@ -66,6 +67,10 @@ class ProjectController extends AdminBaseController
 
         if ($path = $this->uploadImage($request, 'image', 'projects')) {
             $data['image'] = $path;
+        }
+
+        if ($path = $this->uploadImage($request, 'banner_image', 'projects/banners')) {
+            $data['banner_image'] = $path;
         }
 
         unset($data['tags'], $data['gallery']);
@@ -123,6 +128,7 @@ class ProjectController extends AdminBaseController
             'project_date' => 'nullable|date',
             'project_url' => 'nullable|url|max:255',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
             'status' => 'boolean',
             'order' => 'nullable|integer',
@@ -135,6 +141,11 @@ class ProjectController extends AdminBaseController
         if ($path = $this->uploadImage($request, 'image', 'projects')) {
             $this->deleteImage($project->image);
             $data['image'] = $path;
+        }
+
+        if ($path = $this->uploadImage($request, 'banner_image', 'projects/banners')) {
+            $this->deleteImage($project->banner_image);
+            $data['banner_image'] = $path;
         }
 
         unset($data['tags'], $data['gallery']);
@@ -175,6 +186,7 @@ class ProjectController extends AdminBaseController
     public function destroy(Project $project)
     {
         $this->deleteImage($project->image);
+        $this->deleteImage($project->banner_image);
         foreach ($project->images as $img) {
             $this->deleteImage($img->image);
         }

@@ -20,13 +20,15 @@
                                         name="category_id" class="form-select">
                                         <option value="">Select Category</option>@foreach($categories as $cat)<option
                                             value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                                        {{ $cat->title }}</option>@endforeach
+                                            {{ $cat->title }}
+                                        </option>@endforeach
                                     </select></div>
                                 <div class="col-md-6 mb-3"><label class="form-label">Service</label><select
                                         name="service_id" class="form-select">
                                         <option value="">Select Service</option>@foreach($services as $svc)<option
                                             value="{{ $svc->id }}" {{ old('service_id') == $svc->id ? 'selected' : '' }}>
-                                        {{ $svc->title }}</option>@endforeach
+                                            {{ $svc->title }}
+                                        </option>@endforeach
                                     </select></div>
                             </div>
                             <div class="mb-3"><label class="form-label">Short Description</label><textarea
@@ -50,6 +52,7 @@
                         </div>
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => null])
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => null, 'label' => 'Details Page Banner Image'])
                             <div class="mb-3"><label class="form-label">Gallery Images</label><input type="file"
                                     class="form-control" name="gallery[]" multiple accept="image/*"></div>
                             <div class="mb-3"><label class="form-label">Order</label><input type="number"

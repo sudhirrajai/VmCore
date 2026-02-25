@@ -66,6 +66,7 @@
                         </div>
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => $project->image])
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => $project->banner_image, 'label' => 'Details Page Banner Image'])
                             <div class="mb-3"><label class="form-label">Add Gallery Images</label><input type="file"
                                     class="form-control" name="gallery[]" multiple accept="image/*"></div>
                             <div class="mb-3"><label class="form-label">Order</label><input type="number"

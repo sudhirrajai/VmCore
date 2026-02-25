@@ -38,6 +38,7 @@ class ServiceController extends AdminBaseController
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'status' => 'boolean',
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
@@ -46,6 +47,10 @@ class ServiceController extends AdminBaseController
 
         if ($path = $this->uploadImage($request, 'image', 'services')) {
             $data['image'] = $path;
+        }
+
+        if ($path = $this->uploadImage($request, 'banner_image', 'services/banners')) {
+            $data['banner_image'] = $path;
         }
 
         Service::create($data);
@@ -66,6 +71,7 @@ class ServiceController extends AdminBaseController
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'status' => 'boolean',
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
@@ -77,6 +83,11 @@ class ServiceController extends AdminBaseController
             $data['image'] = $path;
         }
 
+        if ($path = $this->uploadImage($request, 'banner_image', 'services/banners')) {
+            $this->deleteImage($service->banner_image);
+            $data['banner_image'] = $path;
+        }
+
         $service->update($data);
 
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
@@ -85,6 +96,7 @@ class ServiceController extends AdminBaseController
     public function destroy(Service $service)
     {
         $this->deleteImage($service->image);
+        $this->deleteImage($service->banner_image);
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');

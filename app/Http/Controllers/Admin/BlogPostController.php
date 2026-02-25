@@ -49,6 +49,7 @@ class BlogPostController extends AdminBaseController
             'excerpt' => 'nullable|string',
             'body' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
@@ -61,6 +62,10 @@ class BlogPostController extends AdminBaseController
 
         if ($path = $this->uploadImage($request, 'image', 'blog')) {
             $data['image'] = $path;
+        }
+
+        if ($path = $this->uploadImage($request, 'banner_image', 'blog/banners')) {
+            $data['banner_image'] = $path;
         }
 
         unset($data['tags']);
@@ -103,6 +108,7 @@ class BlogPostController extends AdminBaseController
             'excerpt' => 'nullable|string',
             'body' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
+            'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
@@ -114,6 +120,11 @@ class BlogPostController extends AdminBaseController
         if ($path = $this->uploadImage($request, 'image', 'blog')) {
             $this->deleteImage($blog->image);
             $data['image'] = $path;
+        }
+
+        if ($path = $this->uploadImage($request, 'banner_image', 'blog/banners')) {
+            $this->deleteImage($blog->banner_image);
+            $data['banner_image'] = $path;
         }
 
         unset($data['tags']);
@@ -140,6 +151,7 @@ class BlogPostController extends AdminBaseController
     public function destroy(BlogPost $blog)
     {
         $this->deleteImage($blog->image);
+        $this->deleteImage($blog->banner_image);
         $blog->tags()->detach();
         $blog->delete();
 

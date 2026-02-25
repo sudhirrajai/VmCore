@@ -8,7 +8,7 @@
     <!--==============================
         Breadcumb
         ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset(setting('service_detail_hero_image', 'assets/img/bg/breadcumb-bg1-2.jpg')) }}">
+    <div class="breadcumb-wrapper" data-bg-src="{{ $service->banner_image ? asset($service->banner_image) : asset(setting('service_detail_hero_image', 'assets/img/bg/breadcumb-bg1-2.jpg')) }}">
         <div class="container">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">{{ $service->title }}</h1>

@@ -6,9 +6,10 @@
 @section('content')
 
     <!--==============================
-                                                            Breadcumb
-                                                            ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset($project->image) }}">
+                                                                Breadcumb
+                                                                ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ $project->banner_image ? asset($project->banner_image) : asset($project->image) }}">
         <div class="container">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">{{ $project->title }}</h1>
@@ -17,8 +18,8 @@
     </div>
 
     <!--==============================
-                                                            Project Details
-                                                            ==============================-->
+                                                                Project Details
+                                                                ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">

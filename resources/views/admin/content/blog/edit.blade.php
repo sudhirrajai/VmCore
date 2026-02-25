@@ -31,6 +31,7 @@
                         </div>
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => $post->image])
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => $post->banner_image, 'label' => 'Details Page Banner Image'])
                             <div class="mb-3"><label class="form-label">Publish Date</label><input type="datetime-local"
                                     class="form-control" name="published_at"
                                     value="{{ old('published_at', $post->published_at?->format('Y-m-d\TH:i')) }}"></div>

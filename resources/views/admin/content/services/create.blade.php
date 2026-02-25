@@ -37,6 +37,7 @@
 
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => null])
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => null, 'label' => 'Details Page Banner Image'])
 
                             <div class="mb-3">
                                 <label class="form-label" for="icon">Icon Class (e.g. bx bx-code)</label>

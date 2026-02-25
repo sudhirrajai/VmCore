@@ -4,7 +4,7 @@
 @php $fieldName = $field ?? 'image'; @endphp
 
 <div class="mb-3">
-    <label class="form-label" for="{{ $fieldName }}">{{ ucfirst(str_replace('_', ' ', $fieldName)) }}</label>
+    <label class="form-label" for="{{ $fieldName }}">{{ $label ?? ucfirst(str_replace('_', ' ', $fieldName)) }}</label>
     <input type="file" class="form-control" id="{{ $fieldName }}" name="{{ $fieldName }}" accept="image/*"
         onchange="previewImage(this, '{{ $fieldName }}_preview')">
 

@@ -19,7 +19,8 @@
                                     class="form-select">
                                     <option value="">Select</option>@foreach($categories as $cat)<option
                                         value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                                    {{ $cat->title }}</option>@endforeach
+                                        {{ $cat->title }}
+                                    </option>@endforeach
                                 </select></div>
                             <div class="mb-3"><label class="form-label">Excerpt</label><textarea class="form-control"
                                     name="excerpt" rows="2">{{ old('excerpt') }}</textarea></div>
@@ -33,6 +34,7 @@
                         </div>
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => null])
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => null, 'label' => 'Details Page Banner Image'])
                             <div class="mb-3"><label class="form-label">Publish Date</label><input type="datetime-local"
                                     class="form-control" name="published_at" value="{{ old('published_at') }}"></div>
                             <div class="mb-3">
