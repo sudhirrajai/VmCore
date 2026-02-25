@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
 @section('title', 'FAQ - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', 'Frequently asked questions about our services.')
+@section('meta_description', \App\Models\Setting::get('faq_meta_description', 'Frequently asked questions about our services.'))
 
 @section('content')
 
     <!--==============================
-                    Breadcumb
-                    ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-7.jpg') }}">
+                        Breadcumb
+                        ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ \App\Models\Setting::get('faq_hero_image') ? asset(\App\Models\Setting::get('faq_hero_image')) : asset('assets/img/bg/breadcumb-bg1-7.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">FAQ</h1>
+                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('faq_breadcrumb_title', 'FAQ') }}</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-                    FAQ Area
-                    ==============================-->
+                        FAQ Area
+                        ==============================-->
     <div class="faq-area space">
         <div class="container">
             <div class="row justify-content-center">
@@ -55,8 +56,8 @@
     </div>
 
     <!--==============================
-                    Marquee Area
-                    ==============================-->
+                        Marquee Area
+                        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

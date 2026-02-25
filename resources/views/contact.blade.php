@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
 @section('title', 'Contact Us - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', 'Get in touch with us. We\'d love to hear from you!')
+@section('meta_description', \App\Models\Setting::get('contact_meta_description', "Get in touch with us. We'd love to hear from you!"))
 
 @section('content')
 
     <!--==============================
-                            Breadcumb
-                            ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-6.jpg') }}">
+                                    Breadcumb
+                                    ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">Contact Us</h1>
+                <h1 class="breadcumb-title">{{ \App\Models\Setting::get('contact_breadcrumb_title', 'Contact Us') }}</h1>
             </div>
         </div>
     </div>
 
     <!--==============================
-                            Contact Info Area
-                            ==============================-->
+                                    Contact Info Area
+                                    ==============================-->
     <div class="contact-info-area space">
         <div class="container">
             <div class="row gy-30 justify-content-center">
@@ -54,8 +55,8 @@
     </div>
 
     <!--==============================
-                            Contact Form Area
-                            ==============================-->
+                                    Contact Form Area
+                                    ==============================-->
     <div class="contact-area-1 space bg-theme">
         <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
             data-left="0" data-top="-100px" data-bottom="140px">
@@ -68,7 +69,8 @@
                     <div class="contact-form-wrap">
                         <div class="title-area mb-30">
                             <h2 class="sec-title">{{ setting('contact_form_title', 'Have Any Project on Your Mind?') }}</h2>
-                            <p>Great! We're excited to hear from you and let's start something</p>
+                            <p>{{ setting('contact_form_subtitle', "Great! We're excited to hear from you and let's start something") }}
+                            </p>
                         </div>
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -132,8 +134,8 @@
     </div>
 
     <!--==============================
-                            Marquee Area
-                            ==============================-->
+                                    Marquee Area
+                                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
