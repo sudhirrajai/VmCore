@@ -46,7 +46,7 @@
                         <div class="mb-3">
                             <label class="form-label">CTA Section Subtitle</label>
                             <textarea class="form-control" name="home_cta_subtitle"
-                                rows="2">{{ $settings['home_cta_subtitle'] ?? 'We shift you from today's reality to tomorrow's potential, ensuring' }}</textarea>
+                                rows="2">{{ $settings['home_cta_subtitle'] ?? "We shift you from today's reality to tomorrow's potential, ensuring" }}</textarea>
                         </div>
                         <hr>
                         <p class="fw-semibold mb-2 text-muted small text-uppercase">Section Background Images</p>
