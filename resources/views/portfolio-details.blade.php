@@ -6,10 +6,9 @@
 @section('content')
 
     <!--==============================
-                            Breadcumb
-                            ============================== -->
-    <div class="breadcumb-wrapper"
-        data-bg-src="{{ asset(setting('portfolio_detail_hero_image', 'assets/img/bg/breadcumb-bg1-5.jpg')) }}">
+                                                            Breadcumb
+                                                            ============================== -->
+    <div class="breadcumb-wrapper" data-bg-src="{{ asset($project->image) }}">
         <div class="container">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">{{ $project->title }}</h1>
@@ -18,8 +17,8 @@
     </div>
 
     <!--==============================
-                            Project Details
-                            ==============================-->
+                                                            Project Details
+                                                            ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">
@@ -47,8 +46,8 @@
                             <div class="row gy-20">
                                 @foreach($project->images as $img)
                                     <div class="col-md-4 col-6">
-                                        <a href="{{ asset($img->image_path) }}" class="popup-image">
-                                            <img src="{{ asset($img->image_path) }}" alt="Gallery" class="w-100">
+                                        <a href="{{ asset($img->image) }}" class="popup-image">
+                                            <img src="{{ asset($img->image) }}" alt="Gallery" class="w-100">
                                         </a>
                                     </div>
                                 @endforeach
