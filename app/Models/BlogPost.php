@@ -22,6 +22,7 @@ class BlogPost extends Model
         'excerpt',
         'body',
         'image',
+        'banner_image',
         'is_featured',
         'status',
         'published_at',

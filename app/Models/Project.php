@@ -27,6 +27,7 @@ class Project extends Model
         'project_date',
         'project_url',
         'image',
+        'banner_image',
         'is_featured',
         'status',
         'order',

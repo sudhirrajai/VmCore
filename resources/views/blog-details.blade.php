@@ -9,9 +9,10 @@
 @section('content')
 
     <!--==============================
-                Breadcumb
-                ============================== -->
-    <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-8.jpg') }}">
+                            Breadcumb
+                            ============================== -->
+    <div class="breadcumb-wrapper"
+        data-bg-src="{{ $post->banner_image ? asset($post->banner_image) : asset($post->image) }}">
         <div class="container">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">{{ $post->title }}</h1>
