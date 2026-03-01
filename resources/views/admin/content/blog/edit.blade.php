@@ -23,8 +23,8 @@
                             <div class="mb-3"><label class="form-label">Excerpt</label><textarea class="form-control"
                                     name="excerpt" rows="2">{{ old('excerpt', $post->excerpt) }}</textarea></div>
                             <div class="mb-3"><label class="form-label">Content <span
-                                        class="text-danger">*</span></label><textarea class="form-control" name="content"
-                                    rows="10">{{ old('content', $post->content) }}</textarea></div>
+                                        class="text-danger">*</span></label><textarea class="form-control ckeditor"
+                                    name="content" rows="10">{{ old('content', $post->content) }}</textarea></div>
                             <div class="mb-3"><label class="form-label">Tags</label><input type="text" class="form-control"
                                     name="tags[]" value="{{ $post->tags->pluck('title')->implode(',') }}"
                                     placeholder="laravel, web"></div>
@@ -63,4 +63,5 @@
             </div>
         </div>
     </div>
+    @include('admin._partials.ckeditor')
 @endsection

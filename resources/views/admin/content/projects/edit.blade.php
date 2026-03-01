@@ -31,7 +31,7 @@
                                     class="form-control" name="short_description"
                                     rows="2">{{ old('short_description', $project->short_description) }}</textarea></div>
                             <div class="mb-3"><label class="form-label">Full Description</label><textarea
-                                    class="form-control" name="description"
+                                    class="form-control ckeditor" name="description"
                                     rows="5">{{ old('description', $project->description) }}</textarea></div>
                             <div class="row">
                                 <div class="col-md-4 mb-3"><label class="form-label">Client</label><input type="text"
@@ -105,4 +105,5 @@
                 .then(r => r.json()).then(d => { if (d.success) btn.closest('.position-relative').remove(); });
         }
     </script>
+    @include('admin._partials.ckeditor')
 @endsection

@@ -30,7 +30,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="description">Full Description</label>
-                                <textarea class="form-control" id="description" name="description"
+                                <textarea class="form-control ckeditor" id="description" name="description"
                                     rows="6">{{ old('description') }}</textarea>
                             </div>
                         </div>
@@ -86,4 +86,5 @@
             </div>
         </div>
     </div>
+    @include('admin._partials.ckeditor')
 @endsection
