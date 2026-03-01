@@ -10,7 +10,7 @@ use App\Models\Client;
 use App\Models\ContactSubmission;
 use App\Models\Faq;
 use App\Models\HeroSection;
-use App\Models\NewsletterSubscriber;
+use App\Models\Subscriber;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\Service;
@@ -215,7 +215,7 @@ class FrontendController extends Controller
     public function newsletterSubscribe(Request $request)
     {
         $request->validate(['email' => 'required|email|unique:newsletter_subscribers,email']);
-        NewsletterSubscriber::create(['email' => $request->email]);
+        Subscriber::create(['email' => $request->email]);
 
         try {
             \Illuminate\Support\Facades\Mail::to($request->email)->send(new \App\Mail\NewsletterWelcome($request->email));
