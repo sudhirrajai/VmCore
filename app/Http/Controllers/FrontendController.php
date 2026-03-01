@@ -201,14 +201,18 @@ class FrontendController extends Controller
             // Send Auto-Reply to user
             \Illuminate\Support\Facades\Mail::to($submission->email)->send(new \App\Mail\ContactAutoReply($submission));
 
-            // Send Notification to admin
-            $adminEmail = \App\Models\Setting::where('key', 'smtp_from_address')->value('value') ?? env('MAIL_FROM_ADDRESS', 'hello@example.com');
-            \Illuminate\Support\Facades\Mail::to($adminEmail)->send(new \App\Mail\ContactAdminNotification($submission));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Contact form email failed: ' . $e->getMessage());
         }
 
-        return back()->with('success', 'Thank you! Your message has been sent successfully.');
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Thanks for getting in touch!<br>Your message has been received. We’ll connect with you soon."
+            ]);
+        }
+
+        return back()->with('success', "Thanks for getting in touch! Your message has been received. We’ll connect with you soon.");
     }
 
     // ── Newsletter ────────────────────────────────────────────

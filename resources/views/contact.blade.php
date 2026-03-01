@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                                    Breadcumb
-                                    ============================== -->
+                                        Breadcumb
+                                        ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') !!}">
         <div class="container">
@@ -18,8 +18,8 @@
     </div>
 
     <!--==============================
-                                    Contact Info Area
-                                    ==============================-->
+                                        Contact Info Area
+                                        ==============================-->
     <div class="contact-info-area space">
         <div class="container">
             <div class="row gy-30 justify-content-center">
@@ -55,8 +55,8 @@
     </div>
 
     <!--==============================
-                                    Contact Form Area
-                                    ==============================-->
+                                        Contact Form Area
+                                        ==============================-->
     <div class="contact-area-1 space bg-theme">
         <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
             data-left="0" data-top="-100px" data-bottom="140px">
@@ -68,10 +68,12 @@
                 <div class="col-lg-6">
                     <div class="contact-form-wrap">
                         <div class="title-area mb-30">
-                            <h2 class="sec-title">{!! setting('contact_form_title', 'Have Any Project on Your Mind?') !!}</h2>
+                            <h2 class="sec-title">{!! setting('contact_form_title', 'Have Any Project on Your Mind?') !!}
+                            </h2>
                             <p>{!! setting('contact_form_subtitle', "Great! We're excited to hear from you and let's start something") !!}
                             </p>
                         </div>
+                        <div id="form-messages"></div>
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
@@ -84,7 +86,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{ route('contact.store') }}" method="POST" class="contact-form">
+                        <form action="{{ route('contact.store') }}" method="POST" class="contact-form" id="ajaxContactForm">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -134,8 +136,8 @@
     </div>
 
     <!--==============================
-                                    Marquee Area
-                                    ==============================-->
+                                        Marquee Area
+                                        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
@@ -146,5 +148,82 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('ajaxContactForm');
+                const formMessages = document.getElementById('form-messages');
+
+                if (!form) return;
+
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const submitText = submitBtn.innerHTML;
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Disable button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="link-effect"><span class="effect-1">SENDING...</span><span class="effect-1">SENDING...</span></span>';
+                    formMessages.innerHTML = '';
+                    formMessages.className = '';
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        },
+                        body: formData
+                    })
+                        .then(async response => {
+                            const data = await response.json();
+
+                            if (!response.ok) {
+                                // Handle Validation Errors (422) or Server Errors (500)
+                                throw { status: response.status, data: data };
+                            }
+
+                            return data;
+                        })
+                        .then(data => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitText;
+
+                            if (data.success) {
+                                formMessages.className = 'alert alert-success';
+                                formMessages.innerHTML = data.message;
+                                form.reset(); // clear the form
+                            }
+                        })
+                        .catch(error => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitText;
+
+                            formMessages.className = 'alert alert-danger';
+
+                            if (error.status === 422 && error.data && error.data.errors) {
+                                // It's a validation error
+                                let errorsHtml = '<ul class="mb-0">';
+                                for (const [key, messages] of Object.entries(error.data.errors)) {
+                                    messages.forEach(msg => {
+                                        errorsHtml += `<li>${msg}</li>`;
+                                    });
+                                }
+                                errorsHtml += '</ul>';
+                                formMessages.innerHTML = errorsHtml;
+                            } else if (error.data && error.data.message) {
+                                formMessages.innerHTML = error.data.message;
+                            } else {
+                                formMessages.innerHTML = 'An unexpected error occurred. Please try again later.';
+                            }
+                        });
+                });
+            });
+        </script>
+    @endpush
 
 @endsection
