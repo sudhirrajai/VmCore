@@ -8,7 +8,7 @@
                     toolbar: {
                         items: [
                             'heading', '|',
-                            'bold', 'italic', 'underline', 'strikethrough', '|',
+                            'bold', 'italic', '|',
                             'bulletedList', 'numberedList', '|',
                             'outdent', 'indent', '|',
                             'link', 'blockQuote', 'insertTable', '|',

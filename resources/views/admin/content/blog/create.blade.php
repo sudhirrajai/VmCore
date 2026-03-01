@@ -25,8 +25,8 @@
                             <div class="mb-3"><label class="form-label">Excerpt</label><textarea class="form-control"
                                     name="excerpt" rows="2">{{ old('excerpt') }}</textarea></div>
                             <div class="mb-3"><label class="form-label">Content <span
-                                        class="text-danger">*</span></label><textarea class="form-control" name="content"
-                                    rows="10">{{ old('content') }}</textarea></div>
+                                        class="text-danger">*</span></label><textarea class="form-control ckeditor"
+                                    name="content" rows="10">{{ old('content') }}</textarea></div>
                             <div class="mb-3"><label class="form-label">Tags (comma-separated)</label><input type="text"
                                     class="form-control" name="tags[]"
                                     value="{{ old('tags') ? implode(',', old('tags')) : '' }}"
@@ -65,4 +65,5 @@
             </div>
         </div>
     </div>
+    @include('admin._partials.ckeditor')
 @endsection
