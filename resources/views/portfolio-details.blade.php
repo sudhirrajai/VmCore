@@ -199,8 +199,8 @@
     @endpush
 
     <!--==============================
-                                                                                Breadcumb
-                                                                                ============================== -->
+                                                                                    Breadcumb
+                                                                                    ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $project->banner_image ? asset($project->banner_image) : asset($project->image) }}">
         <div class="container">
@@ -211,8 +211,8 @@
     </div>
 
     <!--==============================
-                                                                                Project Details
-                                                                                ==============================-->
+                                                                                    Project Details
+                                                                                    ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">
@@ -223,7 +223,7 @@
                         </div>
                     @endif
 
-                    <!-- <h2>{{ $project->title }}</h2> -->
+                    <h2>{{ $project->title }}</h2>
                     @if($project->short_description)
                         <p class="mt-15 mb-30">{{ $project->short_description }}</p>
                     @endif
