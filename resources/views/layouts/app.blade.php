@@ -12,7 +12,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('title', $siteSettings['meta_title'] ?? 'VMCore')">
     <meta property="og:description" content="@yield('meta_description', $siteSettings['meta_description'] ?? '')">
-    <meta property="og:image" content="@yield('og_image', asset($siteSettings['og_image'] ?? 'assets/img/logo.svg'))">
+    <meta property="og:image" content="@yield('og_image', asset($siteSettings['logo'] ?? ''))">
     <meta property="og:type" content="website">
 
     <!-- Mobile Specific Metas -->

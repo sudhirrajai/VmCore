@@ -56,9 +56,6 @@
                                         @if(\App\Models\Setting::get('show_faq_page', 1))
                                             <li><a href="{{ route('faq') }}">FAQ</a></li>
                                         @endif
-                                        @if(\App\Models\Setting::get('show_contact_page', 1))
-                                            <li><a href="{{ route('contact') }}">Contact</a></li>
-                                        @endif
                                     @endif
                                 </ul>
                             </nav>
