@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                                        Breadcumb
-                                        ============================== -->
+                                            Breadcumb
+                                            ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') !!}">
         <div class="container">
@@ -18,8 +18,8 @@
     </div>
 
     <!--==============================
-                                        Contact Info Area
-                                        ==============================-->
+                                            Contact Info Area
+                                            ==============================-->
     <div class="contact-info-area space">
         <div class="container">
             <div class="row gy-30 justify-content-center">
@@ -55,13 +55,13 @@
     </div>
 
     <!--==============================
-                                        Contact Form Area
-                                        ==============================-->
+                                            Contact Form Area
+                                            ==============================-->
     <div class="contact-area-1 space bg-theme">
         <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
             data-left="0" data-top="-100px" data-bottom="140px">
-            <img src="{{ asset($siteSettings['contact_image'] ?? 'assets/img/bg/breadcumb-bg1-6.jpg') }}" alt="Contact Us"
-                style="width:100%; height:100%; object-fit:cover;">
+            <img src="{{ setting('contact_image') ? asset(setting('contact_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') }}"
+                alt="Contact Us" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="container">
             <div class="row align-items-center justify-content-end">
@@ -136,8 +136,8 @@
     </div>
 
     <!--==============================
-                                        Marquee Area
-                                        ==============================-->
+                                            Marquee Area
+                                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

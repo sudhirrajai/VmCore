@@ -137,6 +137,7 @@ class FrontendContentController extends Controller
             'about_side_image',
             'service_detail_hero_image',
             'portfolio_detail_hero_image',
+            'contact_image',
         ];
 
         foreach ($heroImageFields as $field) {

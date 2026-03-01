@@ -234,6 +234,29 @@
                                 rows="2">{{ $settings['contact_form_subtitle'] ?? "Great! We're excited to hear from you and let's start something" }}</textarea>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Contact Us Image</label>
+                            <input class="form-control" type="file" name="contact_image" id="hi-contact_image"
+                                accept="image/*" onchange="heroPreview(this,'hp-contact_image')">
+                            <small class="text-muted">Image shown beside the contact form.</small>
+                            <div id="hp-contact_image" class="mt-2 position-relative"
+                                style="display:none;max-width:300px;">
+                                <img src="" class="img-fluid rounded w-100" style="max-height:90px;object-fit:cover;"
+                                    alt="">
+                                <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-1"
+                                    style="font-size:.7rem;">New — not saved</span>
+                            </div>
+                            @if(!empty($settings['contact_image']))
+                                <div class="mt-2 position-relative" style="max-width:300px;">
+                                    <img src="{{ asset($settings['contact_image']) }}" class="img-fluid rounded w-100"
+                                        style="max-height:90px;object-fit:cover;" alt="">
+                                    <span class="badge bg-success position-absolute top-0 end-0 m-1">Active</span>
+                                </div>
+                            @else
+                                <div class="mt-1 text-muted small"><i class="bx bx-image"></i> Default:
+                                    <code>assets/img/normal/contact_1.jpg</code></div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">FAQ Section Title</label>
                             <input type="text" class="form-control" name="faq_title"
                                 value="{{ $settings['faq_title'] ?? 'Frequently Asked Questions' }}">
