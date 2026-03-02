@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                Breadcumb
+                ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-4.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -17,34 +17,62 @@
     </div>
 
     <!--==============================
-            Team Details
-            ==============================-->
+                Team Details
+                ==============================-->
     <div class="team-details space">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="team-details-img mb-30">
                         <img src="{{ $member->image ? asset($member->image) : asset('assets/img/team/team_1_1.jpg') }}"
-                            alt="{{ $member->name }}" class="w-100">
+                            alt="{{ $member->name }}" class="w-100" style="border-radius: 16px;">
                     </div>
-                    @if(is_array($member->social_links) && count($member->social_links))
-                        <div class="social-btn mt-20">
-                            @foreach($member->social_links as $platform => $url)
-                                @if($url)
-                                    <a href="{{ $url }}" target="_blank"><i class="fab fa-{{ $platform }}"></i></a>
+
+                    <aside class="custom-sidebar">
+                        <div class="custom-widget-box mt-30">
+                            <h4 class="custom-widget-title pb-2 mb-20">Contact Info</h4>
+                            <ul class="custom-info-list team-details-info">
+                                @if($member->email)
+                                    <li>
+                                        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+                                        <div class="content-wrapper">
+                                            <span class="label">Email</span>
+                                            <span class="value"><a
+                                                    href="mailto:{{ $member->email }}">{{ $member->email }}</a></span>
+                                        </div>
+                                    </li>
                                 @endif
-                            @endforeach
+                                @if($member->phone)
+                                    <li>
+                                        <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
+                                        <div class="content-wrapper">
+                                            <span class="label">Phone</span>
+                                            <span class="value"><a
+                                                    href="tel:{{ $member->phone }}">{{ $member->phone }}</a></span>
+                                        </div>
+                                    </li>
+                                @endif
+                                @if(is_array($member->social_links) && count($member->social_links))
+                                    <li>
+                                        <div class="icon-wrapper"><i class="fas fa-share-alt"></i></div>
+                                        <div class="content-wrapper">
+                                            <span class="label">Social</span>
+                                            <div class="value">
+                                                <div class="social-btn mt-2">
+                                                    @foreach($member->social_links as $platform => $url)
+                                                        @if($url)
+                                                            <a href="{{ $url }}" target="_blank"><i
+                                                                    class="fab fa-{{ $platform }}"></i></a>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
                         </div>
-                    @endif
-                    <ul class="team-details-info mt-30">
-                        @if($member->email)
-                            <li><i class="fas fa-envelope"></i> <a href="mailto:{{ $member->email }}">{{ $member->email }}</a>
-                            </li>
-                        @endif
-                        @if($member->phone)
-                            <li><i class="fas fa-phone"></i> <a href="tel:{{ $member->phone }}">{{ $member->phone }}</a></li>
-                        @endif
-                    </ul>
+                    </aside>
                 </div>
                 <div class="col-lg-8">
                     <h2>{{ $member->name }}</h2>

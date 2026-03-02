@@ -6,201 +6,11 @@
 @section('content')
 
     @push('styles')
-        <style>
-            /* Modern Portfolio Sidebar Styling */
-            .custom-project-sidebar .custom-widget-box {
-                background: #ffffff;
-                border-radius: 16px;
-                padding: 32px;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-                border: 1px solid var(--theme-color);
-                margin-bottom: 30px;
-                position: relative;
-                overflow: hidden;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            .custom-project-sidebar .custom-widget-box:hover {
-                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
-            }
-
-            .custom-project-sidebar .custom-widget-title {
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: var(--title-color);
-                margin-bottom: 24px;
-                position: relative;
-                padding-bottom: 12px;
-                border: none;
-            }
-
-            .custom-project-sidebar .custom-widget-title::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 40px;
-                height: 3px;
-                background: var(--theme-color);
-                border-radius: 10px;
-            }
-
-            .custom-project-info-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .custom-project-info-list li {
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                padding: 16px 0;
-                border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-            }
-
-            .custom-project-info-list li:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-
-            .custom-project-info-list li:first-child {
-                padding-top: 0;
-            }
-
-            .custom-project-info-list .icon-wrapper {
-                flex-shrink: 0;
-                width: 48px;
-                height: 48px;
-                border-radius: 12px;
-                background: rgba(0, 0, 0, 0.03);
-                color: var(--theme-color);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.25rem;
-                transition: all 0.3s ease;
-            }
-
-            .custom-project-info-list li:hover .icon-wrapper {
-                background: var(--theme-color);
-                color: #ffffff;
-                transform: translateY(-3px) scale(1.05);
-                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .custom-project-info-list .content-wrapper {
-                flex-grow: 1;
-            }
-
-            .custom-project-info-list .label {
-                display: block;
-                font-size: 0.75rem;
-                text-transform: uppercase;
-                font-weight: 700;
-                color: var(--body-color);
-                opacity: 0.6;
-                letter-spacing: 1px;
-                margin-bottom: 4px;
-            }
-
-            .custom-project-info-list .value {
-                display: block;
-                font-size: 1rem;
-                font-weight: 600;
-                color: var(--title-color);
-            }
-
-            .custom-project-info-list .btn-live-preview {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: var(--theme-color);
-                color: #ffffff !important;
-                padding: 10px 24px;
-                border-radius: 50px;
-                font-size: 0.875rem;
-                font-weight: 600;
-                text-decoration: none;
-                margin-top: 8px;
-                transition: all 0.3s ease;
-                border: 2px solid transparent;
-            }
-
-            .custom-project-info-list .btn-live-preview:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-                background: #ffffff;
-                color: var(--theme-color) !important;
-                border-color: var(--theme-color);
-            }
-
-            .custom-project-info-list .btn-live-preview i {
-                transition: transform 0.3s ease;
-            }
-
-            .custom-project-info-list .btn-live-preview:hover i {
-                transform: translateX(4px);
-            }
-
-            .custom-tags-wrap {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 10px;
-            }
-
-            .custom-tags-wrap a {
-                display: inline-flex;
-                align-items: center;
-                padding: 8px 16px;
-                background: rgba(0, 0, 0, 0.03);
-                color: var(--title-color);
-                font-size: 0.85rem;
-                font-weight: 500;
-                border-radius: 8px;
-                text-decoration: none;
-                transition: all 0.3s ease;
-            }
-
-            .custom-tags-wrap a:hover {
-                background: var(--theme-color);
-                color: #ffffff;
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            }
-
-            /* Dark theme accommodations */
-            body.dark-theme .custom-project-sidebar .custom-widget-box {
-                background: #181824;
-                border-color: rgba(255, 255, 255, 0.05);
-            }
-
-            body.dark-theme .custom-project-info-list li {
-                border-bottom-color: rgba(255, 255, 255, 0.05);
-            }
-
-            body.dark-theme .custom-project-info-list .icon-wrapper,
-            body.dark-theme .custom-tags-wrap a {
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            body.dark-theme .custom-tags-wrap a:hover {
-                background: var(--theme-color);
-            }
-
-            /* Mobile Layout Fixes */
-            @media (max-width: 991.98px) {
-                .custom-project-sidebar {
-                    margin-top: 40px;
-                }
-            }
-        </style>
     @endpush
 
     <!--==============================
-                                                                                    Breadcumb
-                                                                                    ============================== -->
+                                                                                        Breadcumb
+                                                                                        ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $project->banner_image ? asset($project->banner_image) : asset($project->image) }}">
         <div class="container">
@@ -211,8 +21,8 @@
     </div>
 
     <!--==============================
-                                                                                    Project Details
-                                                                                    ==============================-->
+                                                                                        Project Details
+                                                                                        ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">
@@ -250,12 +60,12 @@
                     @endif
                 </div>
                 <div class="col-lg-4">
-                    <aside class="project-sidebar custom-project-sidebar">
+                    <aside class="project-sidebar custom-sidebar">
                         <div class="widget project-info-box custom-widget-box">
                             <h4 class="widget_title custom-widget-title">
                                 {!! setting('portfolio_info_title', 'Project Info') !!}
                             </h4>
-                            <ul class="project-info-list custom-project-info-list">
+                            <ul class="project-info-list custom-info-list">
                                 @if($project->client)
                                     <li>
                                         <div class="icon-wrapper">

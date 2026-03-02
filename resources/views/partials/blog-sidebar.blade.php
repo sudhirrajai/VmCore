@@ -1,6 +1,6 @@
-<aside class="blog__sidebar">
+<aside class="blog__sidebar custom-sidebar">
     {{-- Search --}}
-    <div class="sidebar__widget sidebar__widget-two">
+    <div class="sidebar__widget sidebar__widget-two custom-widget-box mt-3">
         <div class="sidebar__search">
             <form action="{{ route('blog') }}" method="GET">
                 <input type="text" name="search" placeholder="Search . . ." value="{{ request('search') }}">
@@ -17,8 +17,8 @@
 
     {{-- Categories --}}
     @if(isset($categories) && $categories->count())
-        <div class="sidebar__widget">
-            <h4 class="sidebar__widget-title">Categories</h4>
+        <div class="sidebar__widget custom-widget-box">
+            <h4 class="sidebar__widget-title custom-widget-title">Categories</h4>
             <div class="sidebar__cat-list">
                 <ul class="list-wrap">
                     @foreach($categories as $cat)
@@ -34,8 +34,8 @@
 
     {{-- Recent Posts --}}
     @if(isset($recentPosts) && $recentPosts->count())
-        <div class="sidebar__widget">
-            <h4 class="sidebar__widget-title">Recent Posts</h4>
+        <div class="sidebar__widget custom-widget-box">
+            <h4 class="sidebar__widget-title custom-widget-title">Recent Posts</h4>
             <div class="sidebar__post-list">
                 @foreach($recentPosts as $recent)
                     <div class="sidebar__post-item">
@@ -60,8 +60,8 @@
 
     {{-- Tags --}}
     @if(isset($tags) && $tags->count())
-        <div class="sidebar__widget">
-            <h4 class="sidebar__widget-title">Tags</h4>
+        <div class="sidebar__widget custom-widget-box">
+            <h4 class="sidebar__widget-title custom-widget-title">Tags</h4>
             <div class="sidebar__tag-list">
                 <ul class="list-wrap">
                     @foreach($tags as $tag)
