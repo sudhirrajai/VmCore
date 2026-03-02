@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                        Breadcumb
-                        ============================== -->
+                                    Breadcumb
+                                    ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('faq_hero_image') ? asset(\App\Models\Setting::get('faq_hero_image')) : asset('assets/img/bg/breadcumb-bg1-7.jpg') !!}">
         <div class="container">
@@ -18,18 +18,21 @@
     </div>
 
     <!--==============================
-                        FAQ Area
-                        ==============================-->
+                                    FAQ Area
+                                    ==============================-->
     <div class="faq-area space">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-10">
-                    <div class="title-area text-center">
-                        <h2 class="sec-title">{!! setting('faq_title', 'Frequently Asked Questions') !!}</h2>
+                <div class="col-xl-10 col-lg-12">
+                    <div class="title-area text-center mb-4">
+                        <h2 class="sec-title h3 mb-2">{!! setting('faq_title', 'Frequently Asked Questions') !!}</h2>
+                        @if(setting('faq_intro_text'))
+                            <p class="sec-text">{!! setting('faq_intro_text') !!}</p>
+                        @endif
                     </div>
                     <div class="accordion" id="faqAccordion">
                         @forelse($faqs as $index => $faq)
-                            <div class="accordion-card">
+                            <div class="accordion-card style2">
                                 <div class="accordion-header" id="heading{{ $index }}">
                                     <button class="accordion-button {{ $index > 0 ? 'collapsed' : '' }}" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}"
@@ -56,8 +59,8 @@
     </div>
 
     <!--==============================
-                        Marquee Area
-                        ==============================-->
+                                    Marquee Area
+                                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

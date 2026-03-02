@@ -261,6 +261,11 @@
                             <input type="text" class="form-control" name="faq_title"
                                 value="{{ $settings['faq_title'] ?? 'Frequently Asked Questions' }}">
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">FAQ Section Into Text</label>
+                            <textarea class="form-control" name="faq_intro_text" rows="2"
+                                placeholder="Optional description below the title...">{{ $settings['faq_intro_text'] ?? '' }}</textarea>
+                        </div>
                         <hr>
                         <p class="fw-semibold mb-2 text-muted small text-uppercase">Detail Page Breadcrumb Images</p>
                         <div class="mb-3">
