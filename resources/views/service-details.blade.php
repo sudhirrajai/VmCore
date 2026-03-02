@@ -39,17 +39,17 @@
                     @endif
                 </div>
                 <div class="col-lg-4">
-                    <aside class="service-sidebar">
-                        <div class="widget">
-                            <h4 class="widget_title">{!! setting('sidebar_services_title', 'All Services') !!}</h4>
+                    <aside class="service-sidebar custom-sidebar">
+                        <div class="widget custom-widget-box">
+                            <h4 class="widget_title custom-widget-title">{!! setting('sidebar_services_title', 'All Services') !!}</h4>
                             <ul class="service-menu list-wrap">
                                 @foreach($relatedServices as $related)
                                 <li><a href="{{ route('service.detail', $related->slug) }}">{{ $related->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="widget">
-                            <h4 class="widget_title">{!! setting('sidebar_help_title', 'Need Help?') !!}</h4>
+                        <div class="widget custom-widget-box">
+                            <h4 class="widget_title custom-widget-title">{!! setting('sidebar_help_title', 'Need Help?') !!}</h4>
                             <div class="sidebar-contact">
                                 @if(!empty($siteSettings['site_phone']))
                                 <p><i class="fas fa-phone"></i> <a href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a></p>
