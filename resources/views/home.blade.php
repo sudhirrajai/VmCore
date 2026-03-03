@@ -245,9 +245,9 @@
                     <div class="video-wrap">
                         <div class="jarallax" data-bg-src="{{ asset(setting('home_video_bg', 'assets/img/normal/video_2-1.jpg')) }}">
                         </div>
-                        <a href="{{ $siteSettings['video_url'] ?? 'https://www.youtube.com/watch?v=vvNwlRLjLkU' }}"
+                        <!-- <a href="{{ $siteSettings['video_url'] ?? 'https://www.youtube.com/watch?v=vvNwlRLjLkU' }}"
                             class="play-btn circle-btn btn gsap-magnetic popup-video background-image">PLAY VIDEO
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
