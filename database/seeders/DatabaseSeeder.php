@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // ── Admin User ───────────────────────────────────────────
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'admin@vmcore.in'],
             [
                 'name' => 'Admin',

@@ -9738,7 +9738,14 @@ blockquote p {
 }
 
 .client-list-wrap li a .link-effect {
-  height: 35px;
+  height: 65px;
+}
+
+.client-list-wrap li a img {
+  height: 65px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 
 .client-list-wrap li a:hover .link-effect .effect-1 {
