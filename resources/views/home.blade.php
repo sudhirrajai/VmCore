@@ -301,7 +301,7 @@
                             Client Area
                             ==============================-->
     @if($clients->count())
-        <div class="client-area-1 overflow-hidden space-bottom">
+        <div class="client-area-1 overflow-hidden space-bottom mt-3">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-8">
