@@ -7,26 +7,27 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "{{ addslashes($service->title) }}",
-        "description": "{{ addslashes($service->meta_description ?? $service->short_description ?? '') }}",
-        "provider": {
-            "@type": "Organization",
-            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-            "url": "{{ url('/') }}"
-        },
-        "url": "{{ route('service.detail', $service->slug) }}"
-    }
-    </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "Service",
+            "name": "{{ addslashes($service->title) }}",
+            "description": "{{ addslashes($service->meta_description ?? $service->short_description ?? '') }}",
+            "provider": {
+                "@@type": "Organization",
+                "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                "url": "{{ url('/') }}"
+            },
+            "url": "{{ route('service.detail', $service->slug) }}"
+        }
+        </script>
 @endpush
+
 
 @section('content')
 
     <!--==============================
-                Breadcumb
-                ============================== -->
+                    Breadcumb
+                    ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $service->banner_image ? asset($service->banner_image) : asset(setting('service_detail_hero_image', 'assets/img/bg/breadcumb-bg1-2.jpg')) }}">
         <div class="container">
@@ -37,8 +38,8 @@
     </div>
 
     <!--==============================
-                Service Details
-                ==============================-->
+                    Service Details
+                    ==============================-->
     <div class="service-details space">
         <div class="container">
             <div class="row">
@@ -107,8 +108,8 @@
     </div>
 
     <!--==============================
-                Related Projects
-                ==============================-->
+                    Related Projects
+                    ==============================-->
     @if($service->projects->count())
         <div class="related-projects space-bottom">
             <div class="container">
@@ -133,8 +134,8 @@
     @endif
 
     <!--==============================
-                Marquee Area
-                ==============================-->
+                    Marquee Area
+                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

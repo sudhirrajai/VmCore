@@ -7,31 +7,32 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ContactPage",
-        "name": "Contact {{ $siteSettings['site_name'] ?? 'VMCore' }}",
-        "description": "{{ addslashes(\App\Models\Setting::get('contact_meta_description', 'Get in touch with us.')) }}",
-        "url": "{{ route('contact') }}",
-        "publisher": {
-            "@type": "Organization",
-            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-            "telephone": "{{ $siteSettings['site_phone'] ?? '' }}",
-            "email": "{{ $siteSettings['site_email'] ?? '' }}",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "{{ addslashes($siteSettings['site_address'] ?? '') }}"
+        {
+            "@@context": "https://schema.org",
+            "@@type": "ContactPage",
+            "name": "Contact {{ $siteSettings['site_name'] ?? 'VMCore' }}",
+            "description": "{{ addslashes(\App\Models\Setting::get('contact_meta_description', 'Get in touch with us.')) }}",
+            "url": "{{ route('contact') }}",
+            "publisher": {
+                "@@type": "Organization",
+                "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                "telephone": "{{ $siteSettings['site_phone'] ?? '' }}",
+                "email": "{{ $siteSettings['site_email'] ?? '' }}",
+                "address": {
+                    "@@type": "PostalAddress",
+                    "streetAddress": "{{ addslashes($siteSettings['site_address'] ?? '') }}"
+                }
             }
         }
-    }
-    </script>
+        </script>
 @endpush
+
 
 @section('content')
 
     <!--==============================
-                                                Breadcumb
-                                                ============================== -->
+                                                    Breadcumb
+                                                    ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('contact_hero_image') ? asset(\App\Models\Setting::get('contact_hero_image')) : asset('assets/img/bg/breadcumb-bg1-6.jpg') !!}">
         <div class="container">
@@ -42,8 +43,8 @@
     </div>
 
     <!--==============================
-                                                Contact Info Area
-                                                ==============================-->
+                                                    Contact Info Area
+                                                    ==============================-->
     <div class="contact-info-area space">
         <div class="container">
             <div class="row gy-30 justify-content-center">
@@ -79,8 +80,8 @@
     </div>
 
     <!--==============================
-                                                Contact Form Area
-                                                ==============================-->
+                                                    Contact Form Area
+                                                    ==============================-->
     <div class="contact-area-1 space bg-theme">
         <div class="contact-map shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
             data-left="0" data-top="-100px" data-bottom="140px">
@@ -160,8 +161,8 @@
     </div>
 
     <!--==============================
-                                                Marquee Area
-                                                ==============================-->
+                                                    Marquee Area
+                                                    ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

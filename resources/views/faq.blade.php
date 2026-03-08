@@ -7,30 +7,31 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            @foreach($faqs as $i => $faq)
-                {
-                    "@type": "Question",
-                    "name": "{{ addslashes($faq->question) }}",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "{{ addslashes(strip_tags($faq->answer)) }}"
-                    }
-                }{{ !$loop->last ? ',' : '' }}
-            @endforeach
-        ]
-    }
-    </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "FAQPage",
+            "mainEntity": [
+                @foreach($faqs as $i => $faq)
+                    {
+                        "@@type": "Question",
+                        "name": "{{ addslashes($faq->question) }}",
+                        "acceptedAnswer": {
+                            "@@type": "Answer",
+                            "text": "{{ addslashes(strip_tags($faq->answer)) }}"
+                        }
+                    }{{ !$loop->last ? ',' : '' }}
+                @endforeach
+            ]
+        }
+        </script>
 @endpush
+
 
 @section('content')
 
     <!--==============================
-                                        Breadcumb
-                                        ============================== -->
+                                            Breadcumb
+                                            ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('faq_hero_image') ? asset(\App\Models\Setting::get('faq_hero_image')) : asset('assets/img/bg/breadcumb-bg1-7.jpg') !!}">
         <div class="container">
@@ -41,8 +42,8 @@
     </div>
 
     <!--==============================
-                                        FAQ Area
-                                        ==============================-->
+                                            FAQ Area
+                                            ==============================-->
     <div class="faq-area space">
         <div class="container">
             <div class="row justify-content-center">
@@ -82,8 +83,8 @@
     </div>
 
     <!--==============================
-                                        Marquee Area
-                                        ==============================-->
+                                            Marquee Area
+                                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
