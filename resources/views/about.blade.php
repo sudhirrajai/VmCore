@@ -2,12 +2,14 @@
 
 @section('title', 'About Us - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', \App\Models\Setting::get('about_meta_description', 'Learn about our team, skills, and achievements.'))
+@section('meta_keywords', \App\Models\Setting::get('about_meta_keywords', 'about us, digital agency team, our story, VMCore'))
+@section('canonical', route('about'))
 
 @section('content')
 
     <!--==============================
-                                        Breadcumb
-                                        ============================== -->
+                                            Breadcumb
+                                            ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('about_hero_image') ? asset(\App\Models\Setting::get('about_hero_image')) : asset('assets/img/bg/breadcumb-bg1-3.jpg') !!}">
         <div class="container">
@@ -18,8 +20,8 @@
     </div>
 
     <!--==============================
-                                        About Section
-                                        ==============================-->
+                                            About Section
+                                            ==============================-->
     <div class="about-area space">
         <div class="container">
             <div class="row align-items-center">
@@ -46,8 +48,8 @@
     </div>
 
     <!--==============================
-                                        Skills Area
-                                        ==============================-->
+                                            Skills Area
+                                            ==============================-->
     @if($skills->count())
         <div class="service-area-1 space bg-theme">
             <div class="container">
@@ -78,8 +80,8 @@
     @endif
 
     <!--==============================
-                                        Team Area
-                                        ==============================-->
+                                            Team Area
+                                            ==============================-->
     @if($team->count())
         <div class="team-area space">
             <div class="container">
@@ -114,8 +116,8 @@
     @endif
 
     <!--==============================
-                                        Awards Area
-                                        ==============================-->
+                                            Awards Area
+                                            ==============================-->
     @if($awards->count())
         <div class="award-area-1 space-bottom overflow-hidden">
             <div class="container">
@@ -147,8 +149,8 @@
     @endif
 
     <!--==============================
-                                        Testimonials Area
-                                        ==============================-->
+                                            Testimonials Area
+                                            ==============================-->
     @if($testimonials->count())
         <div class="testimonials-area space bg-smoke">
             <div class="container">
@@ -184,8 +186,8 @@
     @endif
 
     <!--==============================
-                                        Clients Area
-                                        ==============================-->
+                                            Clients Area
+                                            ==============================-->
     @if($clients->count())
         <div class="client-area-1 overflow-hidden space">
             <div class="container">
@@ -221,8 +223,8 @@
     @endif
 
     <!--==============================
-                                        Marquee Area
-                                        ==============================-->
+                                            Marquee Area
+                                            ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

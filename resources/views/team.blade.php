@@ -2,12 +2,14 @@
 
 @section('title', 'Team - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', \App\Models\Setting::get('team_meta_description', 'Meet our talented team of professionals.'))
+@section('meta_keywords', \App\Models\Setting::get('team_meta_keywords', 'team, professionals, experts, creative team, VMCore team'))
+@section('canonical', route('team'))
 
 @section('content')
 
     <!--==============================
-                    Breadcumb
-                    ============================== -->
+                        Breadcumb
+                        ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('team_hero_image') ? asset(\App\Models\Setting::get('team_hero_image')) : asset('assets/img/bg/breadcumb-bg1-4.jpg') !!}">
         <div class="container">
@@ -24,8 +26,8 @@
     @endif
 
     <!--==============================
-                    Team Area
-                    ==============================-->
+                        Team Area
+                        ==============================-->
     <div class="team-area space">
         <div class="container">
             <div class="row gy-40 justify-content-center">
@@ -64,8 +66,8 @@
     </div>
 
     <!--==============================
-                    Marquee Area
-                    ==============================-->
+                        Marquee Area
+                        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">
