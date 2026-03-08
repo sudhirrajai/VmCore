@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        if (Schema::hasTable('project_category')) {
+            return;
+        }
+
         Schema::create('project_category', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
