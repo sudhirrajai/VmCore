@@ -34,8 +34,7 @@
             <form action="{{ route('admin.cache.clear') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-sm btn-outline-warning d-flex align-items-center gap-1"
-                    title="Clear all caches (config, views, routes, app)"
-                    onclick="return confirm('Clear all caches? The site will regenerate them automatically.')">
+                    title="Clear all caches (config, views, routes, app)">
                     <i class="bx bx-bolt-circle"></i>
                     <span class="d-none d-md-inline">Clear Cache</span>
                 </button>
@@ -125,12 +124,12 @@
                             let html = '';
                             data.results.forEach(item => {
                                 html += `<a href="${item.url}" class="dropdown-item d-flex align-items-center py-2">
-                                            <i class="${item.icon} me-2 text-primary"></i>
-                                            <div>
-                                                <div class="fw-semibold">${item.name}</div>
-                                                <small class="text-muted">${item.type}</small>
-                                            </div>
-                                        </a>`;
+                                                <i class="${item.icon} me-2 text-primary"></i>
+                                                <div>
+                                                    <div class="fw-semibold">${item.name}</div>
+                                                    <small class="text-muted">${item.type}</small>
+                                                </div>
+                                            </a>`;
                             });
 
                             resultsBox.innerHTML = html;
