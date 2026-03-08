@@ -33,6 +33,7 @@ class GlobalViewComposer
             'social_links' => json_decode($this->settingService->get('social_links', '[]')),
             'default_meta_title' => $this->settingService->get('default_meta_title'),
             'default_meta_description' => $this->settingService->get('default_meta_description'),
+            'meta_keywords' => $this->settingService->get('meta_keywords'),
         ]);
 
         $socialLinksInfo = json_decode($this->settingService->get('social_links', '[]'));

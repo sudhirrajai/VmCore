@@ -45,6 +45,10 @@
                                     value="{{ old('icon', $service->icon) }}">
                             </div>
 
+                            <div class="mb-3"><label class="form-label">Tags</label><input type="text" class="form-control"
+                                    name="tags[]" value="{{ $service->tags->pluck('title')->implode(',') }}"
+                                    placeholder="web, design"></div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="order">Display Order</label>
                                 <input type="number" class="form-control" id="order" name="order"

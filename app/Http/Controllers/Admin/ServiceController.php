@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Service;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ServiceController extends AdminBaseController
@@ -43,6 +44,7 @@ class ServiceController extends AdminBaseController
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
+            'tags' => 'nullable|array',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'services')) {
@@ -53,13 +55,28 @@ class ServiceController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
-        Service::create($data);
+        unset($data['tags']);
+        $service = Service::create($data);
+
+        if ($request->filled('tags')) {
+            $tagIds = collect($request->tags)
+                ->filter(fn($tagName) => !empty(trim($tagName)))
+                ->map(function ($tagName) {
+                    $tagName = trim($tagName);
+                    return Tag::firstOrCreate(
+                        ['slug' => \Illuminate\Support\Str::slug($tagName)],
+                        ['title' => $tagName]
+                    )->id;
+                });
+            $service->tags()->sync($tagIds);
+        }
 
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
     }
 
     public function edit(Service $service)
     {
+        $service->load('tags');
         return view('admin.content.services.edit', compact('service'));
     }
 
@@ -76,6 +93,7 @@ class ServiceController extends AdminBaseController
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
+            'tags' => 'nullable|array',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'services')) {
@@ -88,7 +106,24 @@ class ServiceController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
+        unset($data['tags']);
         $service->update($data);
+
+        // Sync tags
+        if ($request->has('tags')) {
+            $tagIds = collect($request->tags)
+                ->filter(fn($tagName) => !empty(trim($tagName)))
+                ->map(function ($tagName) {
+                    $tagName = trim($tagName);
+                    return Tag::firstOrCreate(
+                        ['slug' => \Illuminate\Support\Str::slug($tagName)],
+                        ['title' => $tagName]
+                    )->id;
+                });
+            $service->tags()->sync($tagIds);
+        } else {
+            $service->tags()->detach();
+        }
 
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
     }
@@ -97,6 +132,7 @@ class ServiceController extends AdminBaseController
     {
         $this->deleteImage($service->image);
         $this->deleteImage($service->banner_image);
+        $service->tags()->detach();
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');

@@ -32,6 +32,9 @@ class GlobalSettingController extends Controller
             'address',
             'default_meta_title',
             'default_meta_description',
+            'meta_keywords',
+            'header_code',
+            'footer_code',
         ];
 
         foreach ($textFields as $field) {

@@ -94,6 +94,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             ClassicEditor
                 .create(document.querySelector('#content'), {
+                    licenseKey: '',
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'imageUpload'],
                 })
                 .then(editor => {

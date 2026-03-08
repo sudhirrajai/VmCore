@@ -2,6 +2,7 @@
 
 @section('title', ($project->meta_title ?? $project->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', $project->meta_description ?? $project->short_description ?? '')
+@section('meta_keywords', $project->tags->count() ? $project->tags->pluck('title')->implode(', ') : '')
 
 @section('content')
 
@@ -9,8 +10,8 @@
     @endpush
 
     <!--==============================
-                                                                                        Breadcumb
-                                                                                        ============================== -->
+                                                                                                Breadcumb
+                                                                                                ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $project->banner_image ? asset($project->banner_image) : asset($project->image) }}">
         <div class="container">
@@ -21,8 +22,8 @@
     </div>
 
     <!--==============================
-                                                                                        Project Details
-                                                                                        ==============================-->
+                                                                                                Project Details
+                                                                                                ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">
@@ -77,25 +78,25 @@
                                         </div>
                                     </li>
                                 @endif
-                                @if($project->category)
+                                @if($project->categories->count())
                                     <li>
                                         <div class="icon-wrapper">
                                             <i class="far fa-folder-open"></i>
                                         </div>
                                         <div class="content-wrapper">
                                             <span class="label">Category</span>
-                                            <span class="value">{{ $project->category->name }}</span>
+                                            <span class="value">{{ $project->categories->pluck('title')->implode(', ') }}</span>
                                         </div>
                                     </li>
                                 @endif
-                                @if($project->service)
+                                @if($project->services->count())
                                     <li>
                                         <div class="icon-wrapper">
                                             <i class="fas fa-layer-group"></i>
                                         </div>
                                         <div class="content-wrapper">
                                             <span class="label">Service</span>
-                                            <span class="value">{{ $project->service->title }}</span>
+                                            <span class="value">{{ $project->services->pluck('title')->implode(', ') }}</span>
                                         </div>
                                     </li>
                                 @endif

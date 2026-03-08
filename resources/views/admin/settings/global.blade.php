@@ -56,6 +56,12 @@
                             <textarea class="form-control" name="default_meta_description"
                                 rows="3">{{ $settings['default_meta_description'] ?? '' }}</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Meta Keywords</label>
+                            <input type="text" class="form-control" name="meta_keywords"
+                                value="{{ $settings['meta_keywords'] ?? '' }}" placeholder="agency, web design, digital">
+                            <small class="text-muted">Comma separated keywords for SEO.</small>
+                        </div>
 
                         <hr class="my-4">
 
@@ -94,9 +100,71 @@
                 </div>
             </div>
 
+            {{-- Custom Code Injection --}}
+            <div class="col-12">
+                <div class="card mb-4">
+                    <h5 class="card-header d-flex align-items-center gap-2">
+                        <i class="bx bx-code-alt me-1 text-primary"></i> Custom Code Injection
+                    </h5>
+                    <div class="card-body">
+                        <p class="text-muted small mb-3">
+                            Paste any custom HTML, <code>&lt;script&gt;</code>, or <code>&lt;style&gt;</code> snippets here.
+                            They will be automatically injected on <strong>every public-facing page</strong> of your site.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    <i class="bx bx-up-arrow-circle me-1"></i> Header Code
+                                    <small class="text-muted fw-normal">(injected before <code>&lt;/head&gt;</code>)</small>
+                                </label>
+                                <textarea class="form-control font-monospace" name="header_code" rows="8"
+                                    placeholder="<!-- e.g. Google Analytics, custom CSS, meta tags -->"
+                                    style="font-size:0.82rem;">{{ $settings['header_code'] ?? '' }}</textarea>
+                                <div class="form-text">Supports any HTML: <code>&lt;script&gt;</code>,
+                                    <code>&lt;link&gt;</code>, <code>&lt;style&gt;</code>, meta tags, etc.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    <i class="bx bx-down-arrow-circle me-1"></i> Footer Code
+                                    <small class="text-muted fw-normal">(injected before <code>&lt;/body&gt;</code>)</small>
+                                </label>
+                                <textarea class="form-control font-monospace" name="footer_code" rows="8"
+                                    placeholder="<!-- e.g. chat widgets, tracking pixels, custom JS -->"
+                                    style="font-size:0.82rem;">{{ $settings['footer_code'] ?? '' }}</textarea>
+                                <div class="form-text">Ideal for scripts that must load at the bottom of the page.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 mt-2">
                 <button type="submit" class="btn btn-primary d-block w-100 p-3 fs-5">Save Settings</button>
             </div>
         </div>
     </form>
+@endsection
+
+@section('page-style')
+    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    <style>
+        .tagify {
+            --tags-border-color: #d9dee3;
+            --tags-hover-border-color: #b4bdc6;
+            --tags-focus-border-color: #696cff;
+            border-radius: 0.375rem;
+        }
+    </style>
+@endsection
+
+@section('page-script')
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var input = document.querySelector('input[name=meta_keywords]');
+            new Tagify(input, {
+                originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', ')
+            });
+        });
+    </script>
 @endsection

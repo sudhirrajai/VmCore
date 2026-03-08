@@ -50,7 +50,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             ClassicEditor
-                .create(document.querySelector('#html_structure'))
+                .create(document.querySelector('#html_structure'), {
+                    licenseKey: ''
+                })
                 .catch(error => {
                     console.error(error);
                 });

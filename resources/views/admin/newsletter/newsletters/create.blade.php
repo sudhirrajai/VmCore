@@ -88,6 +88,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             ClassicEditor
                 .create(document.querySelector('#content'), {
+                    licenseKey: '',
+                    // Explicitly remove any premium plugins if they were part of a custom build.
+                    // For the standard ClassicEditor build, premium plugins are not included by default.
+                    // Example: removePlugins: ['PremiumFeaturePluginName'],
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'insertTable', 'mediaEmbed', 'undo', 'redo', 'imageUpload'],
                 })
                 .then(editor => {

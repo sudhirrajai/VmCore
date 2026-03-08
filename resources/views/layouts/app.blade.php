@@ -6,12 +6,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', $siteSettings['default_meta_title'] ?? ($siteSettings['site_name'] ?? 'VMCore'))</title>
     <meta name="description" content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
-    <meta name="keywords" content="@yield('meta_keywords', '')">
+    <meta name="keywords" content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? '')">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="@yield('title', $siteSettings['meta_title'] ?? 'VMCore')">
-    <meta property="og:description" content="@yield('meta_description', $siteSettings['meta_description'] ?? '')">
+    <meta property="og:title"
+        content="@yield('title', $siteSettings['default_meta_title'] ?? ($siteSettings['site_name'] ?? 'VMCore'))">
+    <meta property="og:description"
+        content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
     <meta property="og:image" content="@yield('og_image', asset($siteSettings['logo'] ?? ''))">
     <meta property="og:type" content="website">
 
@@ -311,6 +313,12 @@
             }
         }
     </style>
+
+    {{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
+    @php $headerCode = setting('header_code'); @endphp
+    @if(!empty($headerCode))
+        {!! $headerCode !!}
+    @endif
 </head>
 
 <body>
@@ -488,6 +496,12 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
     @stack('scripts')
+
+    {{-- Custom Footer Code (from Admin > Settings > Global Settings) --}}
+    @php $footerCode = setting('footer_code'); @endphp
+    @if(!empty($footerCode))
+        {!! $footerCode !!}
+    @endif
 </body>
 
 </html>
