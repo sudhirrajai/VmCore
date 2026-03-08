@@ -99,6 +99,7 @@
 
         ClassicEditor
             .create(document.querySelector('#editor'), {
+                licenseKey: '',
                 extraPlugins: [Base64UploadAdapterPlugin]
             })
             .catch(error => { console.error(error); });

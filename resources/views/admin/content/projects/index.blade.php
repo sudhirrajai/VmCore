@@ -43,7 +43,8 @@
                                     height="50" style="object-fit:cover;">@else <span
                                             class="badge bg-label-secondary">—</span> @endif</td>
                                     <td><strong>{{ $item->title }}</strong></td>
-                                    <td>{{ $item->category->title ?? '—' }}</td>
+                                    <td>{{ $item->categories->count() ? $item->categories->pluck('title')->implode(', ') : '—' }}
+                                    </td>
                                     <td><span
                                             class="badge bg-label-{{ $item->is_featured ? 'warning' : 'secondary' }}">{{ $item->is_featured ? 'Yes' : 'No' }}</span>
                                     </td>

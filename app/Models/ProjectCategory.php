@@ -31,8 +31,8 @@ class ProjectCategory extends Model
         return $this->title;
     }
 
-    public function projects(): HasMany
+    public function projects(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Project::class, 'category_id');
+        return $this->belongsToMany(Project::class, 'project_category', 'category_id', 'project_id')->withTimestamps();
     }
 }

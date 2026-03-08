@@ -28,7 +28,7 @@ class FrontendController extends Controller
         $hero = HeroSection::where('status', true)->orderBy('order')->first();
         $services = Service::where('status', true)->orderBy('order')->take(4)->get();
         $skills = Skill::where('status', true)->orderBy('order')->get();
-        $projects = Project::where('status', true)->with('category', 'images')
+        $projects = Project::where('status', true)->with('categories', 'images')
             ->orderBy('order')->take(6)->get();
         $awards = Award::where('status', true)->orderBy('order')->get();
         $posts = BlogPost::published()->with('category')
@@ -89,12 +89,14 @@ class FrontendController extends Controller
 
         $categories = ProjectCategory::where('status', true)->withCount('projects')->get();
 
-        $query = Project::where('status', true)->with('category', 'images');
+        $query = Project::where('status', true)->with('categories', 'images');
 
         if ($request->filled('category')) {
             $cat = ProjectCategory::where('slug', $request->category)->first();
             if ($cat)
-                $query->where('category_id', $cat->id);
+                $query->whereHas('categories', function ($q) use ($cat) {
+                    $q->where('project_categories.id', $cat->id);
+                });
         }
 
         $projects = $query->orderBy('order')->paginate(9);
@@ -105,10 +107,13 @@ class FrontendController extends Controller
     {
         abort_if(!Setting::get('show_portfolio_page', 1), 404);
 
-        $project->load('category', 'images', 'service', 'tags', 'testimonials');
+        $project->load('categories', 'images', 'services', 'tags', 'testimonials');
+        $categoryIds = $project->categories->pluck('id');
         $relatedProjects = Project::where('status', true)
             ->where('id', '!=', $project->id)
-            ->where('category_id', $project->category_id)
+            ->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('project_categories.id', $categoryIds);
+            })
             ->take(3)->get();
         return view('portfolio-details', compact('project', 'relatedProjects'));
     }

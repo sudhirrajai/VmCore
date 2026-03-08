@@ -2,6 +2,7 @@
 
 @section('title', ($post->meta_title ?? $post->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', $post->meta_description ?? $post->excerpt ?? '')
+@section('meta_keywords', $post->tags->count() ? $post->tags->pluck('title')->implode(', ') : '')
 @if($post->image)
 @section('og_image', asset($post->image))
 @endif
@@ -9,8 +10,8 @@
 @section('content')
 
     <!--==============================
-                            Breadcumb
-                            ============================== -->
+                                Breadcumb
+                                ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $post->banner_image ? asset($post->banner_image) : asset($post->image) }}">
         <div class="container">

@@ -18,14 +18,16 @@ class ProjectController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $query = Project::with('category', 'service');
+        $query = Project::with('categories', 'services');
 
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
         if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('project_categories.id', $request->category_id);
+            });
         }
 
         $items = $query->ordered()->paginate(10);
@@ -47,8 +49,10 @@ class ProjectController extends AdminBaseController
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:project_categories,id',
-            'service_id' => 'nullable|exists:services,id',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:project_categories,id',
+            'services' => 'nullable|array',
+            'services.*' => 'exists:services,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'client' => 'nullable|string|max:255',
@@ -73,8 +77,15 @@ class ProjectController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
-        unset($data['tags'], $data['gallery']);
+        unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
         $project = Project::create($data);
+
+        if ($request->has('categories')) {
+            $project->categories()->sync($request->categories);
+        }
+        if ($request->has('services')) {
+            $project->services()->sync($request->services);
+        }
 
         // Sync tags
         if ($request->filled('tags')) {
@@ -108,7 +119,7 @@ class ProjectController extends AdminBaseController
 
     public function edit(Project $project)
     {
-        $project->load('tags', 'images');
+        $project->load('tags', 'images', 'categories', 'services');
         $categories = ProjectCategory::active()->ordered()->get();
         $services = Service::active()->ordered()->get();
         $tags = Tag::all();
@@ -120,8 +131,10 @@ class ProjectController extends AdminBaseController
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'category_id' => 'nullable|exists:project_categories,id',
-            'service_id' => 'nullable|exists:services,id',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:project_categories,id',
+            'services' => 'nullable|array',
+            'services.*' => 'exists:services,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'client' => 'nullable|string|max:255',
@@ -148,8 +161,11 @@ class ProjectController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
-        unset($data['tags'], $data['gallery']);
+        unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
         $project->update($data);
+
+        $project->categories()->sync($request->categories ?? []);
+        $project->services()->sync($request->services ?? []);
 
         // Sync tags
         if ($request->has('tags')) {

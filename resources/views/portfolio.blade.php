@@ -6,8 +6,8 @@
 @section('content')
 
     <!--==============================
-                    Breadcumb
-                    ============================== -->
+                        Breadcumb
+                        ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('portfolio_hero_image') ? asset(\App\Models\Setting::get('portfolio_hero_image')) : asset('assets/img/bg/breadcumb-bg1-5.jpg') !!}">
         <div class="container">
@@ -18,8 +18,8 @@
     </div>
 
     <!--==============================
-                    Portfolio Area
-                    ==============================-->
+                        Portfolio Area
+                        ==============================-->
     <div class="portfolio-area-1 space overflow-hidden">
         <div class="container">
             {{-- Category filter --}}
@@ -49,7 +49,8 @@
                             </div>
                             <div class="portfolio-details">
                                 <ul class="portfolio-meta">
-                                    <li>{{ $project->category->name ?? 'Uncategorized' }}</li>
+                                    <li>{{ $project->categories->count() ? $project->categories->pluck('title')->implode(', ') : 'Uncategorized' }}
+                                    </li>
                                 </ul>
                                 <h3 class="portfolio-title">{{ $project->title }}</h3>
                             </div>
@@ -72,8 +73,8 @@
     </div>
 
     <!--==============================
-                    Marquee Area
-                    ==============================-->
+                        Marquee Area
+                        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

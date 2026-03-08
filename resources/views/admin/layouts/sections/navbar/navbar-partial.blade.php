@@ -30,7 +30,7 @@
     <ul class="navbar-nav flex-row align-items-center ms-auto">
 
         {{-- Clear Cache Button --}}
-        <!-- <li class="nav-item me-2">
+        <li class="nav-item me-2">
             <form action="{{ route('admin.cache.clear') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-sm btn-outline-warning d-flex align-items-center gap-1"
@@ -40,7 +40,7 @@
                     <span class="d-none d-md-inline">Clear Cache</span>
                 </button>
             </form>
-        </li> -->
+        </li>
 
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -125,12 +125,12 @@
                             let html = '';
                             data.results.forEach(item => {
                                 html += `<a href="${item.url}" class="dropdown-item d-flex align-items-center py-2">
-                                        <i class="${item.icon} me-2 text-primary"></i>
-                                        <div>
-                                            <div class="fw-semibold">${item.name}</div>
-                                            <small class="text-muted">${item.type}</small>
-                                        </div>
-                                    </a>`;
+                                            <i class="${item.icon} me-2 text-primary"></i>
+                                            <div>
+                                                <div class="fw-semibold">${item.name}</div>
+                                                <small class="text-muted">${item.type}</small>
+                                            </div>
+                                        </a>`;
                             });
 
                             resultsBox.innerHTML = html;

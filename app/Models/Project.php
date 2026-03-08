@@ -19,8 +19,6 @@ class Project extends Model
     protected $fillable = [
         'title',
         'slug',
-        'category_id',
-        'service_id',
         'short_description',
         'description',
         'client',
@@ -41,14 +39,14 @@ class Project extends Model
         'project_date' => 'date',
     ];
 
-    public function category(): BelongsTo
+    public function categories()
     {
-        return $this->belongsTo(ProjectCategory::class, 'category_id');
+        return $this->belongsToMany(ProjectCategory::class, 'project_category', 'project_id', 'category_id')->withTimestamps();
     }
 
-    public function service(): BelongsTo
+    public function services()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsToMany(Service::class, 'project_service')->withTimestamps();
     }
 
     public function images(): HasMany

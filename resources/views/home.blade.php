@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $siteSettings['meta_title'] ?? 'VMCore - Creative Digital Agency')
-@section('meta_description', $siteSettings['meta_description'] ?? 'VMCore - We build creative digital experiences for your brand')
+@section('title', $siteSettings['default_meta_title'] ?? 'VMCore - Creative Digital Agency')
+@section('meta_description', $siteSettings['default_meta_description'] ?? 'VMCore - We build creative digital experiences for your brand')
 
 @section('content')
 
@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="portfolio-details">
                                     <ul class="portfolio-meta">
-                                        <li>{{ $project->category->name ?? 'Uncategorized' }}</li>
+                                        <li>{{ $project->categories->count() ? $project->categories->pluck('title')->implode(', ') : 'Uncategorized' }}</li>
                                     </ul>
                                     <h3 class="portfolio-title">{{ $project->title }}</h3>
                                 </div>

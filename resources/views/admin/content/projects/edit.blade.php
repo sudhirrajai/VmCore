@@ -16,15 +16,13 @@
                                         class="text-danger">*</span></label><input type="text" class="form-control"
                                     name="title" value="{{ old('title', $project->title) }}" required></div>
                             <div class="row">
-                                <div class="col-md-6 mb-3"><label class="form-label">Category</label><select
-                                        name="category_id" class="form-select">
-                                        <option value="">Select</option>@foreach($categories as $cat)<option
-                                        value="{{ $cat->id }}" {{ old('category_id', $project->category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->title }}</option>@endforeach
+                                <div class="col-md-6 mb-3"><label class="form-label">Categories</label><select
+                                        name="categories[]" class="form-select select2" multiple>
+                                        @foreach($categories as $cat)<option value="{{ $cat->id }}" {{ in_array($cat->id, old('categories', $project->categories->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $cat->title }}</option>@endforeach
                                     </select></div>
-                                <div class="col-md-6 mb-3"><label class="form-label">Service</label><select
-                                        name="service_id" class="form-select">
-                                        <option value="">Select</option>@foreach($services as $svc)<option
-                                        value="{{ $svc->id }}" {{ old('service_id', $project->service_id) == $svc->id ? 'selected' : '' }}>{{ $svc->title }}</option>@endforeach
+                                <div class="col-md-6 mb-3"><label class="form-label">Services</label><select
+                                        name="services[]" class="form-select select2" multiple>
+                                        @foreach($services as $svc)<option value="{{ $svc->id }}" {{ in_array($svc->id, old('services', $project->services->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $svc->title }}</option>@endforeach
                                     </select></div>
                             </div>
                             <div class="mb-3"><label class="form-label">Short Description</label><textarea
