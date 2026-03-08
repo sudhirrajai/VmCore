@@ -10,21 +10,22 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        "name": "{{ addslashes($project->title) }}",
-        "description": "{{ addslashes($project->meta_description ?? $project->short_description ?? '') }}",
-        "image": "{{ $project->image ? asset($project->image) : '' }}",
-        "url": "{{ route('portfolio.detail', $project->slug) }}",
-        "creator": {
-            "@type": "Organization",
-            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
-        }@if($project->project_date),
-        "dateCreated": "{{ $project->project_date->toDateString() }}"@endif
-    }
-    </script>
+            {
+                "@@context": "https://schema.org",
+                "@@type": "CreativeWork",
+                "name": "{{ addslashes($project->title) }}",
+                "description": "{{ addslashes($project->meta_description ?? $project->short_description ?? '') }}",
+                "image": "{{ $project->image ? asset($project->image) : '' }}",
+                "url": "{{ route('portfolio.detail', $project->slug) }}",
+                "creator": {
+                    "@@type": "Organization",
+                    "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
+                }{{ $project->project_date ? ', "dateCreated": "' . $project->project_date->toDateString() . '"' : '' }}
+            }
+            </script>
 @endpush
+
+
 
 @section('content')
 
@@ -32,8 +33,8 @@
     @endpush
 
     <!--==============================
-                                                                                                    Breadcumb
-                                                                                                    ============================== -->
+                                                                                                            Breadcumb
+                                                                                                            ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $project->banner_image ? asset($project->banner_image) : asset($project->image) }}">
         <div class="container">
@@ -44,8 +45,8 @@
     </div>
 
     <!--==============================
-                                                                                                    Project Details
-                                                                                                    ==============================-->
+                                                                                                            Project Details
+                                                                                                            ==============================-->
     <div class="project-details space">
         <div class="container">
             <div class="row">

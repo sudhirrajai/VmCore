@@ -10,29 +10,29 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "{{ addslashes($member->name) }}",
-        "jobTitle": "{{ addslashes($member->designation ?? '') }}",
-        "description": "{{ addslashes(Str::limit($member->meta_description ?? strip_tags($member->bio ?? ''), 200)) }}",
-        "image": "{{ $member->image ? asset($member->image) : '' }}",
-        "url": "{{ route('team.detail', $member->slug) }}",
-        "worksFor": {
-            "@type": "Organization",
-            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
-        }@if($member->email),
-        "email": "{{ $member->email }}"@endif@if($member->phone),
-        "telephone": "{{ $member->phone }}"@endif
-    }
-    </script>
+            {
+                "@@context": "https://schema.org",
+                "@@type": "Person",
+                "name": "{{ addslashes($member->name) }}",
+                "jobTitle": "{{ addslashes($member->designation ?? '') }}",
+                "description": "{{ addslashes(Str::limit($member->meta_description ?? strip_tags($member->bio ?? ''), 200)) }}",
+                "image": "{{ $member->image ? asset($member->image) : '' }}",
+                "url": "{{ route('team.detail', $member->slug) }}",
+                "worksFor": {
+                    "@@type": "Organization",
+                    "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
+                }{{ $member->email ? ', "email": "' . $member->email . '"' : '' }}{{ $member->phone ? ', "telephone": "' . $member->phone . '"' : '' }}
+            }
+            </script>
 @endpush
+
+
 
 @section('content')
 
     <!--==============================
-                    Breadcumb
-                    ============================== -->
+                            Breadcumb
+                            ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-4.jpg') }}">
         <div class="container">
             <div class="breadcumb-content">
@@ -42,8 +42,8 @@
     </div>
 
     <!--==============================
-                    Team Details
-                    ==============================-->
+                            Team Details
+                            ==============================-->
     <div class="team-details space">
         <div class="container">
             <div class="row">

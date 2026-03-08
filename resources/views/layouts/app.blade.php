@@ -429,7 +429,7 @@
             border-left: 4px solid var(--theme-color);
             padding: 1rem 1.5rem;
             margin: 1.75rem 0;
-            background: rgba(0,0,0,0.03);
+            background: rgba(0, 0, 0, 0.03);
             border-radius: 0 8px 8px 0;
             font-style: italic;
             color: var(--title-color);
@@ -448,7 +448,7 @@
         .blog-details-content code,
         .team-details-bio code,
         .ck-content-rendered code {
-            background: rgba(0,0,0,0.06);
+            background: rgba(0, 0, 0, 0.06);
             padding: 0.15em 0.45em;
             border-radius: 4px;
             font-size: 0.88em;
@@ -491,7 +491,7 @@
             border-collapse: collapse;
             margin: 1.5rem 0;
             font-size: 0.95rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -517,7 +517,7 @@
         .team-details-bio table td,
         .ck-content-rendered table td {
             padding: 0.75rem 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
         }
 
         .service-details-content table tr:last-child td,
@@ -533,7 +533,7 @@
         .blog-details-content table tr:nth-child(even) td,
         .team-details-bio table tr:nth-child(even) td,
         .ck-content-rendered table tr:nth-child(even) td {
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .service-details-content img,
@@ -572,7 +572,7 @@
         .team-details-bio hr,
         .ck-content-rendered hr {
             border: none;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             margin: 2rem 0;
         }
 
@@ -582,7 +582,7 @@
         body.dark-theme .blog-details-content blockquote,
         body.dark-theme .team-details-bio blockquote,
         body.dark-theme .ck-content-rendered blockquote {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         body.dark-theme .service-details-content code,
@@ -590,7 +590,7 @@
         body.dark-theme .blog-details-content code,
         body.dark-theme .team-details-bio code,
         body.dark-theme .ck-content-rendered code {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         body.dark-theme .service-details-content table td,
@@ -598,7 +598,7 @@
         body.dark-theme .blog-details-content table td,
         body.dark-theme .team-details-bio table td,
         body.dark-theme .ck-content-rendered table td {
-            border-bottom-color: rgba(255,255,255,0.07);
+            border-bottom-color: rgba(255, 255, 255, 0.07);
         }
 
         body.dark-theme .service-details-content table tr:nth-child(even) td,
@@ -606,7 +606,7 @@
         body.dark-theme .blog-details-content table tr:nth-child(even) td,
         body.dark-theme .team-details-bio table tr:nth-child(even) td,
         body.dark-theme .ck-content-rendered table tr:nth-child(even) td {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         body.dark-theme .service-details-content hr,
@@ -614,31 +614,32 @@
         body.dark-theme .blog-details-content hr,
         body.dark-theme .team-details-bio hr,
         body.dark-theme .ck-content-rendered hr {
-            border-top-color: rgba(255,255,255,0.1);
+            border-top-color: rgba(255, 255, 255, 0.1);
         }
     </style>
 
     {{-- Website JSON-LD Structured Data --}}
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Organization",
+        "@@context": "https://schema.org",
+        "@@type": "Organization",
         "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
         "url": "{{ url('/') }}",
         "logo": "{{ asset($siteSettings['logo'] ?? '') }}",
         "description": "{{ addslashes($siteSettings['site_description'] ?? $siteSettings['default_meta_description'] ?? '') }}",
         "contactPoint": {
-            "@type": "ContactPoint",
+            "@@type": "ContactPoint",
             "telephone": "{{ $siteSettings['site_phone'] ?? '' }}",
             "email": "{{ $siteSettings['site_email'] ?? '' }}",
             "contactType": "customer service"
         },
         "address": {
-            "@type": "PostalAddress",
+            "@@type": "PostalAddress",
             "streetAddress": "{{ addslashes($siteSettings['site_address'] ?? '') }}"
         }
     }
     </script>
+
 
     @stack('structured_data')
 
