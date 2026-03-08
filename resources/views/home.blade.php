@@ -2,6 +2,9 @@
 
 @section('title', $siteSettings['default_meta_title'] ?? 'VMCore - Creative Digital Agency')
 @section('meta_description', $siteSettings['default_meta_description'] ?? 'VMCore - We build creative digital experiences for your brand')
+@section('meta_keywords', $siteSettings['meta_keywords'] ?? 'digital agency, web design, branding, creative agency, VMCore')
+@section('canonical', url('/'))
+@section('og_image', asset($siteSettings['og_image'] ?? $siteSettings['logo'] ?? ''))
 
 @section('content')
 

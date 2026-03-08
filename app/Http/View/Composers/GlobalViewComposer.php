@@ -30,6 +30,8 @@ class GlobalViewComposer
             'site_email' => $this->settingService->get('contact_email'),
             'site_phone' => $this->settingService->get('phone'),
             'site_address' => $this->settingService->get('address'),
+            'site_description' => $this->settingService->get('site_description', $this->settingService->get('default_meta_description', '')),
+            'og_image' => $this->settingService->get('og_image', $this->settingService->get('logo', '')),
             'social_links' => json_decode($this->settingService->get('social_links', '[]')),
             'default_meta_title' => $this->settingService->get('default_meta_title'),
             'default_meta_description' => $this->settingService->get('default_meta_description'),

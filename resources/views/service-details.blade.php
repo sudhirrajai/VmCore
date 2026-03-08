@@ -3,12 +3,30 @@
 @section('title', ($service->meta_title ?? $service->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', $service->meta_description ?? $service->short_description ?? '')
 @section('meta_keywords', $service->tags->count() ? $service->tags->pluck('title')->implode(', ') : '')
+@section('canonical', route('service.detail', $service->slug))
+
+@push('structured_data')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "{{ addslashes($service->title) }}",
+        "description": "{{ addslashes($service->meta_description ?? $service->short_description ?? '') }}",
+        "provider": {
+            "@type": "Organization",
+            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+            "url": "{{ url('/') }}"
+        },
+        "url": "{{ route('service.detail', $service->slug) }}"
+    }
+    </script>
+@endpush
 
 @section('content')
 
     <!--==============================
-            Breadcumb
-            ============================== -->
+                Breadcumb
+                ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $service->banner_image ? asset($service->banner_image) : asset(setting('service_detail_hero_image', 'assets/img/bg/breadcumb-bg1-2.jpg')) }}">
         <div class="container">
@@ -19,8 +37,8 @@
     </div>
 
     <!--==============================
-            Service Details
-            ==============================-->
+                Service Details
+                ==============================-->
     <div class="service-details space">
         <div class="container">
             <div class="row">
@@ -44,7 +62,8 @@
                     <aside class="service-sidebar custom-sidebar">
                         <div class="widget custom-widget-box">
                             <h4 class="widget_title custom-widget-title">
-                                {!! setting('sidebar_services_title', 'All Services') !!}</h4>
+                                {!! setting('sidebar_services_title', 'All Services') !!}
+                            </h4>
                             <ul class="service-menu list-wrap">
                                 @foreach($relatedServices as $related)
                                     <li><a href="{{ route('service.detail', $related->slug) }}">{{ $related->title }}</a></li>
@@ -88,8 +107,8 @@
     </div>
 
     <!--==============================
-            Related Projects
-            ==============================-->
+                Related Projects
+                ==============================-->
     @if($service->projects->count())
         <div class="related-projects space-bottom">
             <div class="container">
@@ -114,8 +133,8 @@
     @endif
 
     <!--==============================
-            Marquee Area
-            ==============================-->
+                Marquee Area
+                ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

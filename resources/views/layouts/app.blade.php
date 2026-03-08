@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" itemscope itemtype="https://schema.org/WebSite">
 
 <head>
     <meta charset="utf-8">
@@ -8,6 +8,8 @@
     <meta name="description" content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
     <meta name="keywords" content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? '')">
     <meta name="robots" content="INDEX,FOLLOW">
+    <meta name="author" content="{{ $siteSettings['site_name'] ?? 'VMCore' }}">
+    <link rel="canonical" href="@yield('canonical', url()->current())">
 
     <!-- Open Graph -->
     <meta property="og:title"
@@ -15,7 +17,19 @@
     <meta property="og:description"
         content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
     <meta property="og:image" content="@yield('og_image', asset($siteSettings['logo'] ?? ''))">
-    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:url" content="@yield('canonical', url()->current())">
+    <meta property="og:site_name" content="{{ $siteSettings['site_name'] ?? 'VMCore' }}">
+    <meta property="og:locale" content="en_US">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+        content="@yield('title', $siteSettings['default_meta_title'] ?? ($siteSettings['site_name'] ?? 'VMCore'))">
+    <meta name="twitter:description"
+        content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
+    <meta name="twitter:image" content="@yield('og_image', asset($siteSettings['logo'] ?? ''))">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -312,7 +326,321 @@
                 margin-top: 40px;
             }
         }
+
+        /* ── CKEditor Rich Content Styling ── */
+        /* Applied to all CKEditor-rendered content areas on frontend */
+        .service-details-content,
+        .project-details-content,
+        .blog-details-content,
+        .team-details-bio,
+        .ck-content-rendered {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: var(--body-color);
+        }
+
+        .service-details-content h2,
+        .project-details-content h2,
+        .blog-details-content h2,
+        .team-details-bio h2,
+        .ck-content-rendered h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--title-color);
+            line-height: 1.3;
+        }
+
+        .service-details-content h3,
+        .project-details-content h3,
+        .blog-details-content h3,
+        .team-details-bio h3,
+        .ck-content-rendered h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 1.75rem;
+            margin-bottom: 0.85rem;
+            color: var(--title-color);
+            line-height: 1.35;
+        }
+
+        .service-details-content h4,
+        .project-details-content h4,
+        .blog-details-content h4,
+        .team-details-bio h4,
+        .ck-content-rendered h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--title-color);
+        }
+
+        .service-details-content h5,
+        .project-details-content h5,
+        .blog-details-content h5,
+        .team-details-bio h5,
+        .ck-content-rendered h5 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 1.25rem;
+            margin-bottom: 0.6rem;
+            color: var(--title-color);
+        }
+
+        .service-details-content p,
+        .project-details-content p,
+        .blog-details-content p,
+        .team-details-bio p,
+        .ck-content-rendered p {
+            margin-bottom: 1.25rem;
+            line-height: 1.85;
+        }
+
+        .service-details-content ul,
+        .service-details-content ol,
+        .project-details-content ul,
+        .project-details-content ol,
+        .blog-details-content ul,
+        .blog-details-content ol,
+        .team-details-bio ul,
+        .team-details-bio ol,
+        .ck-content-rendered ul,
+        .ck-content-rendered ol {
+            padding-left: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-details-content li,
+        .project-details-content li,
+        .blog-details-content li,
+        .team-details-bio li,
+        .ck-content-rendered li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .service-details-content blockquote,
+        .project-details-content blockquote,
+        .blog-details-content blockquote,
+        .team-details-bio blockquote,
+        .ck-content-rendered blockquote {
+            border-left: 4px solid var(--theme-color);
+            padding: 1rem 1.5rem;
+            margin: 1.75rem 0;
+            background: rgba(0,0,0,0.03);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--title-color);
+        }
+
+        .service-details-content blockquote p:last-child,
+        .project-details-content blockquote p:last-child,
+        .blog-details-content blockquote p:last-child,
+        .team-details-bio blockquote p:last-child,
+        .ck-content-rendered blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-details-content code,
+        .project-details-content code,
+        .blog-details-content code,
+        .team-details-bio code,
+        .ck-content-rendered code {
+            background: rgba(0,0,0,0.06);
+            padding: 0.15em 0.45em;
+            border-radius: 4px;
+            font-size: 0.88em;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .service-details-content pre,
+        .project-details-content pre,
+        .blog-details-content pre,
+        .team-details-bio pre,
+        .ck-content-rendered pre {
+            background: #1c1c25;
+            color: #e8e8e8;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .service-details-content pre code,
+        .project-details-content pre code,
+        .blog-details-content pre code,
+        .team-details-bio pre code,
+        .ck-content-rendered pre code {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        .service-details-content table,
+        .project-details-content table,
+        .blog-details-content table,
+        .team-details-bio table,
+        .ck-content-rendered table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .service-details-content table th,
+        .project-details-content table th,
+        .blog-details-content table th,
+        .team-details-bio table th,
+        .ck-content-rendered table th {
+            background: var(--theme-color);
+            color: #fff;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .service-details-content table td,
+        .project-details-content table td,
+        .blog-details-content table td,
+        .team-details-bio table td,
+        .ck-content-rendered table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+
+        .service-details-content table tr:last-child td,
+        .project-details-content table tr:last-child td,
+        .blog-details-content table tr:last-child td,
+        .team-details-bio table tr:last-child td,
+        .ck-content-rendered table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .service-details-content table tr:nth-child(even) td,
+        .project-details-content table tr:nth-child(even) td,
+        .blog-details-content table tr:nth-child(even) td,
+        .team-details-bio table tr:nth-child(even) td,
+        .ck-content-rendered table tr:nth-child(even) td {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .service-details-content img,
+        .project-details-content img,
+        .blog-details-content img,
+        .team-details-bio img,
+        .ck-content-rendered img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .service-details-content a,
+        .project-details-content a,
+        .blog-details-content a,
+        .team-details-bio a,
+        .ck-content-rendered a {
+            color: var(--theme-color);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity 0.2s;
+        }
+
+        .service-details-content a:hover,
+        .project-details-content a:hover,
+        .blog-details-content a:hover,
+        .team-details-bio a:hover,
+        .ck-content-rendered a:hover {
+            opacity: 0.75;
+        }
+
+        .service-details-content hr,
+        .project-details-content hr,
+        .blog-details-content hr,
+        .team-details-bio hr,
+        .ck-content-rendered hr {
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        /* Dark theme adjustments for CKEditor content */
+        body.dark-theme .service-details-content blockquote,
+        body.dark-theme .project-details-content blockquote,
+        body.dark-theme .blog-details-content blockquote,
+        body.dark-theme .team-details-bio blockquote,
+        body.dark-theme .ck-content-rendered blockquote {
+            background: rgba(255,255,255,0.04);
+        }
+
+        body.dark-theme .service-details-content code,
+        body.dark-theme .project-details-content code,
+        body.dark-theme .blog-details-content code,
+        body.dark-theme .team-details-bio code,
+        body.dark-theme .ck-content-rendered code {
+            background: rgba(255,255,255,0.08);
+        }
+
+        body.dark-theme .service-details-content table td,
+        body.dark-theme .project-details-content table td,
+        body.dark-theme .blog-details-content table td,
+        body.dark-theme .team-details-bio table td,
+        body.dark-theme .ck-content-rendered table td {
+            border-bottom-color: rgba(255,255,255,0.07);
+        }
+
+        body.dark-theme .service-details-content table tr:nth-child(even) td,
+        body.dark-theme .project-details-content table tr:nth-child(even) td,
+        body.dark-theme .blog-details-content table tr:nth-child(even) td,
+        body.dark-theme .team-details-bio table tr:nth-child(even) td,
+        body.dark-theme .ck-content-rendered table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.03);
+        }
+
+        body.dark-theme .service-details-content hr,
+        body.dark-theme .project-details-content hr,
+        body.dark-theme .blog-details-content hr,
+        body.dark-theme .team-details-bio hr,
+        body.dark-theme .ck-content-rendered hr {
+            border-top-color: rgba(255,255,255,0.1);
+        }
     </style>
+
+    {{-- Website JSON-LD Structured Data --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset($siteSettings['logo'] ?? '') }}",
+        "description": "{{ addslashes($siteSettings['site_description'] ?? $siteSettings['default_meta_description'] ?? '') }}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "{{ $siteSettings['site_phone'] ?? '' }}",
+            "email": "{{ $siteSettings['site_email'] ?? '' }}",
+            "contactType": "customer service"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{ addslashes($siteSettings['site_address'] ?? '') }}"
+        }
+    }
+    </script>
+
+    @stack('structured_data')
 
     {{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
     @php $headerCode = setting('header_code'); @endphp

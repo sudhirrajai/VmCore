@@ -2,12 +2,14 @@
 
 @section('title', 'Blog - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', \App\Models\Setting::get('blog_meta_description', 'Read the latest articles and insights.'))
+@section('meta_keywords', \App\Models\Setting::get('blog_meta_keywords', 'blog, articles, insights, news, digital agency blog'))
+@section('canonical', route('blog'))
 
 @section('content')
 
     <!--==============================
-                    Breadcumb
-                    ============================== -->
+                        Breadcumb
+                        ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('blog_hero_image') ? asset(\App\Models\Setting::get('blog_hero_image')) : asset('assets/img/bg/breadcumb-bg1-8.jpg') !!}">
         <div class="container">
@@ -83,8 +85,8 @@
     </section>
 
     <!--==============================
-                    Marquee Area
-                    ==============================-->
+                        Marquee Area
+                        ==============================-->
     <div class="container-fluid p-0 overflow-hidden">
         <div class="slider__marquee clearfix marquee-wrap">
             <div class="marquee_mode marquee__group">

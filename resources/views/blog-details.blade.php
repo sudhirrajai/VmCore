@@ -3,15 +3,47 @@
 @section('title', ($post->meta_title ?? $post->title) . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', $post->meta_description ?? $post->excerpt ?? '')
 @section('meta_keywords', $post->tags->count() ? $post->tags->pluck('title')->implode(', ') : '')
+@section('og_type', 'article')
+@section('canonical', route('blog.detail', $post->slug))
 @if($post->image)
 @section('og_image', asset($post->image))
 @endif
 
+@push('structured_data')
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ addslashes($post->meta_title ?? $post->title) }}",
+        "description": "{{ addslashes($post->meta_description ?? $post->excerpt ?? '') }}",
+        "image": "{{ $post->image ? asset($post->image) : asset($siteSettings['logo'] ?? '') }}",
+        "datePublished": "{{ ($post->published_at ?? $post->created_at)->toIso8601String() }}",
+        "dateModified": "{{ $post->updated_at->toIso8601String() }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ addslashes($post->author->name ?? ($siteSettings['site_name'] ?? 'VMCore')) }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ asset($siteSettings['logo'] ?? '') }}"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ route('blog.detail', $post->slug) }}"
+        }
+    }
+    </script>
+@endpush
+
 @section('content')
 
     <!--==============================
-                                Breadcumb
-                                ============================== -->
+                                    Breadcumb
+                                    ============================== -->
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $post->banner_image ? asset($post->banner_image) : asset($post->image) }}">
         <div class="container">
