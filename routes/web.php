@@ -16,8 +16,8 @@ Route::get('/portfolio/{project:slug}', [FrontendController::class, 'portfolioDe
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
 Route::get('/blog/{post:slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-Route::post('/contact', [FrontendController::class, 'contactStore'])->name('contact.store');
-Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletterSubscribe'])->name('newsletter.subscribe');
+Route::post('/contact', [FrontendController::class, 'contactStore'])->middleware('throttle:3,1')->name('contact.store');
+Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletterSubscribe'])->middleware('throttle:3,1')->name('newsletter.subscribe');
 Route::get('/unsubscribe/{email}/{token}', [\App\Http\Controllers\NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
 Route::get('/error', fn() => view('error'))->name('error');
