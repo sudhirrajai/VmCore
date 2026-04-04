@@ -74,6 +74,7 @@ class SiteSettingController extends Controller
         }
 
         // Clear all caches
+        Cache::forget('global_settings');
         Cache::forget('site_settings');
         Cache::forget('social_links');
         Cache::forget('theme_primary_color');
