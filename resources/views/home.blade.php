@@ -1,358 +1,150 @@
 @extends('layouts.app')
 
-@section('title', $siteSettings['default_meta_title'] ?? 'VMCore - Creative Digital Agency')
-@section('meta_description', $siteSettings['default_meta_description'] ?? 'VMCore - We build creative digital experiences for your brand')
-@section('meta_keywords', $siteSettings['meta_keywords'] ?? 'digital agency, web design, branding, creative agency, VMCore')
-@section('canonical', url('/'))
-@section('og_image', asset($siteSettings['og_image'] ?? $siteSettings['logo'] ?? ''))
+@section('title', 'Home - ' . ($siteSettings['site_name'] ?? 'VM CORE'))
 
 @section('content')
 
-    <!--==============================
-                            Hero Area
-                            ==============================-->
-    <div class="hero-wrapper hero-2" id="hero">
-        <div class="hero-2-thumb wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.2s">
-            @if($hero && $hero->image)
-                <img src="{{ asset($hero->image) }}" alt="{{ $hero->title ?? 'Hero' }}">
-            @else
-                <img src="{{ asset('assets/img/hero/hero-2-1.jpg') }}" alt="img">
-            @endif
-        </div>
-        <div class="container">
-            <div class="hero-style2">
-                <div class="row">
-                    <div class="col-lg-9">
-                        @if($hero)
-                                @php
-                                    $titleParts = explode("\n", $hero->title ?? "We Make\nCreative Things\nEveryday");
-                                @endphp
-                                <h1 class="hero-title wow img-custom-anim-right text-white">{{ $titleParts[0] ?? 'We Make' }}</h1>
-                                <h1 class="hero-title wow img-custom-anim-left text-white">{{ $titleParts[1] ?? 'Creative Things' }}
-                                </h1>
-                            </div>
-                            <div class="col-lg-10 offset-lg-2">
-                                <h1 class="hero-title wow img-custom-anim-right text-white">{{ $titleParts[2] ?? 'Everyday' }}</h1>
-                            </div>
-                            <div class="col-xxl-4 col-xl-5 col-lg-6">
-                                <p class="hero-text wow img-custom-anim-left text-white">{{ $hero->subtitle ?? '' }}</p>
-                        @else
-                            </div>
-                            <div class="col-lg-10 offset-lg-2">
-                                <h1 class="hero-title wow img-custom-anim-right text-white">Everyday</h1>
-                            </div>
-                            <div class="col-xxl-4 col-xl-5 col-lg-6">
-                                <p class="hero-text wow img-custom-anim-left text-white">We are digital agency that helps immersive
-                                    and engaging user experiences that</p>
-                        @endif
-                        <div class="btn-group fade_left">
-                            <a href="{{ route('portfolio') }}" class="btn style2 wow img-custom-anim-left">
-                                <span class="link-effect">
-                                    <span class="effect-1">{{ $hero->button_text ?? 'VIEW OUR WORKS' }}</span>
-                                    <span class="effect-1">{{ $hero->button_text ?? 'VIEW OUR WORKS' }}</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="row justify-content-end">
-                    <div class="col-xxl-6 col-xl-7 col-lg-9">
-                        <div class="wow img-custom-anim-right">
-                            <div class="hero-contact-wrap">
-                                {{ $siteSettings['site_address'] ?? '' }}
-                            </div>
-                            <div class="hero-contact-wrap">
-                                @if(!empty($siteSettings['site_phone']))
-                                    <a
-                                        href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}">{{ $siteSettings['site_phone'] }}</a>
-                                @endif
-                                @if(!empty($siteSettings['site_email']))
-                                    <a href="mailto:{{ $siteSettings['site_email'] }}">{{ $siteSettings['site_email'] }}</a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
+  <!-- Hero Section -->
+  <section class="pt-0 pb-12">
+    <div class="container-custom grid md:grid-cols-2 gap-12 items-center">
+      <div class="animate-fade-in-left">
+        <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] text-slate-900 mb-6">
+          @if(isset($hero) && $hero)
+            {!! $hero->title !!}
+          @else
+            WE MAKE <br />
+            CREATIVE THINGS <br />
+            EVERYDAY
+          @endif
+        </h1>
+        <p class="text-lg text-slate-600 mb-8 max-w-md leading-relaxed">
+          @if(isset($hero) && $hero)
+            {!! $hero->description !!}
+          @else
+            We are a digital agency that helps build immersive and engaging user experiences that drive results.
+          @endif
+        </p>
+        <a href="{{ route('portfolio') }}"
+          class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md font-semibold items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
+          VIEW OUR WORKS
+        </a>
+      </div>
+      <div class="relative animate-fade-in-up delay-200">
+        <img
+          src="{{ isset($hero) && $hero->image ? asset($hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}"
+          alt="Team Meeting" class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" />
+      </div>
     </div>
-    <!--======== / Hero Section ========-->
+  </section>
 
-    <!--==============================
-                            Marquee Area
-                            ==============================-->
-    <div class="container-fluid p-0 overflow-hidden">
-        <div class="slider__marquee clearfix marquee-wrap">
-            <div class="marquee_mode marquee__group">
-                @for($i = 0; $i < 4; $i++)
-                    <h6 class="item m-item"><a href="javascript:void(0)"><i class="fas fa-star-of-life"></i>
-                            {{ $siteSettings['marquee_text'] ?? 'We Give Unparalleled Flexibility' }}</a></h6>
-                @endfor
-            </div>
-        </div>
+  <!-- Services Section -->
+  <section id="services" class="py-12">
+    <div class="container-custom">
+      <div class="mb-14">
+        <span class="text-[15px] font-medium text-slate-600 mb-3 block">Services</span>
+        <h2 class="text-[44px] font-bold text-slate-900 leading-tight tracking-tight">What We Can Do for Our Clients</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        @if(isset($services) && $services->count() > 0)
+          @foreach($services as $index => $service)
+            <a href="{{ route('service.detail', $service->slug ?? '') }}"
+              class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              <div class="bg-[#F7F7F2] p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
+                @if($service->icon_image)
+                  <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
+                @else
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5">
+                    <rect width="8" height="8" x="3" y="3" rx="2" ry="2" />
+                    <rect width="8" height="8" x="13" y="3" rx="2" ry="2" />
+                    <rect width="8" height="8" x="13" y="13" rx="2" ry="2" />
+                    <rect width="8" height="8" x="3" y="13" rx="2" ry="2" />
+                  </svg>
+                @endif
+              </div>
+              <div class="pt-2">
+                <h3 class="text-[22px] font-bold text-slate-900 mb-3">{{ $service->title }}</h3>
+                <div class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px] line-clamp-2">
+                  {{ \Illuminate\Support\Str::limit(strip_tags($service->description), 80) }}
+                </div>
+                <div
+                  class="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
+                  VIEW DETAILS
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17 17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          @endforeach
+        @else
+          <div
+            class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer">
+            <p class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px]">No services found.</p>
+          </div>
+        @endif
+      </div>
     </div>
+  </section>
 
-    <!--==============================
-                            Feature / Services Area
-                            ==============================-->
-    @if($services->count())
-        <div class="feature-area-1 space">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 col-lg-8">
-                        <div class="title-area text-center">
-                            <h2 class="sec-title">{!! setting('home_services_title', 'What We Can Do for Our Clients') !!}</h2>
-                        </div>
-                    </div>
+  <!-- Projects Section -->
+  <section id="portfolio" class="py-24">
+    <div class="container-custom">
+      <div class="mb-14">
+        <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Projects</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mt-2 uppercase tracking-tight leading-tight">Discover Our Selected Projects</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-12">
+        @if(isset($projects) && $projects->count() > 0)
+          @foreach($projects as $project)
+            <div class="group cursor-pointer animate-on-scroll">
+              <a href="{{ route('portfolio.detail', $project->slug ?? '') }}" class="block">
+                <div class="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
+                  <img
+                    src="{{ $project->image ? asset($project->image) : 'https://picsum.photos/seed/project-' . $project->id . '/600/800' }}"
+                    alt="{{ $project->title }}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  {{-- Hover Overlay --}}
+                  <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                    <span class="bg-white text-slate-900 px-6 py-2 rounded-md text-sm font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        View Project
+                    </span>
+                  </div>
                 </div>
-                <div class="row gy-4 align-items-center justify-content-center">
-                    @foreach($services as $service)
-                        <div class="col-xxl-5 col-md-6">
-                            <div class="feature-card">
-                                <div class="feature-card-icon">
-                                    @if($service->icon)
-                                        <i class="{{ $service->icon }}" style="font-size:48px;"></i>
-                                    @elseif($service->image)
-                                        <img src="{{ asset($service->image) }}" alt="{{ $service->title }}">
-                                    @else
-                                        <img src="{{ asset('assets/img/icon/feature-icon1-1.svg') }}" alt="icon">
-                                    @endif
-                                </div>
-                                <h4 class="feature-card-title">
-                                    <a href="{{ route('service.detail', $service->slug) }}">{{ $service->title }}</a>
-                                </h4>
-                                <p class="feature-card-text">{{ $service->short_description }}</p>
-                                <a href="{{ route('service.detail', $service->slug) }}" class="link-btn">
-                                    <span class="link-effect">
-                                        <span class="effect-1">VIEW DETAILS</span>
-                                        <span class="effect-1">VIEW DETAILS</span>
-                                    </span>
-                                    <img src="{{ asset('assets/img/icon/arrow-left-top.svg') }}" alt="icon">
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+              </a>
+              <div class="mt-6">
+                <h3 class="text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $project->title }}</h3>
+                <p class="text-sm text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}</p>
+              </div>
             </div>
-        </div>
-    @endif
-
-    <!--==============================
-                            Skills / Service Area
-                            ==============================-->
-    @if($skills->count())
-        <div class="service-area-1 space bg-theme">
-            <div class="service-img-1-1 shape-mockup wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.2s"
-                data-left="0" data-top="-100px" data-bottom="140px">
-                <img src="{{ asset(setting('home_skills_bg', 'assets/img/normal/service_2-1.jpg')) }}" alt="img">
-            </div>
-            <div class="container">
-                <div class="row align-items-center justify-content-end">
-                    <div class="col-lg-6">
-                        <div class="about-content-wrap">
-                            <div class="title-area mb-0">
-                                <h2 class="sec-title">{!! setting('home_skills_title', 'We Offer a Wide Range of Brand Services') !!}</h2>
-                                <p class="sec-text mt-35 mb-40">{!! setting('home_skills_subtitle', 'We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value') !!}</p>
-                                @foreach($skills as $skill)
-                                    <div class="skill-feature">
-                                        <h3 class="skill-feature_title">{{ $skill->title }}</h3>
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: {{ $skill->percentage }}%;">
-                                            </div>
-                                            <div class="progress-value"><span
-                                                    class="counter-number">{{ $skill->percentage }}</span>%</div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--==============================
-                                Portfolio Area
-                            ==============================-->
-    @if($projects->count())
-        <div class="portfolio-area-1 space overflow-hidden">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-9">
-                        <div class="title-area text-center">
-                            <h2 class="sec-title">{!! setting('home_portfolio_title', 'Discover Our Selected Projects') !!}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid p-0">
-                <div class="row global-carousel gx-60 portfolio-slider" data-slide-show="1" data-center-mode="true"
-                    data-xl-center-mode="true" data-ml-center-mode="true" data-lg-center-mode="true" data-center-padding="600px"
-                    data-xl-center-padding="400px" data-ml-center-padding="400px" data-lg-center-padding="300px"
-                    data-dots="true" data-xl-dots="true" data-ml-dots="true">
-                    @foreach($projects as $project)
-                        <div class="col-lg-4">
-                            <a href="{{ route('portfolio.detail', $project->slug) }}" class="portfolio-wrap style2">
-                                <div class="portfolio-thumb">
-                                    <img src="{{ $project->image ? asset($project->image) : asset('assets/img/portfolio/portfolio2_1.jpg') }}"
-                                        alt="{{ $project->title }}">
-                                </div>
-                                <div class="portfolio-details">
-                                    <ul class="portfolio-meta">
-                                        <li>{{ $project->categories->count() ? $project->categories->pluck('title')->implode(', ') : 'Uncategorized' }}</li>
-                                    </ul>
-                                    <h3 class="portfolio-title">{{ $project->title }}</h3>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--==============================
-                            Award Area
-                            ==============================-->
-    @if($awards->count())
-        <div class="award-area-1 space-bottom overflow-hidden">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <ul class="award-wrap-area">
-                            @foreach($awards as $award)
-                                <li class="single-award-list">
-                                    <span class="award-year">{{ $award->year }}</span>
-                                    <div class="award-details">
-                                        <h4><a href="{{ route('about') }}">{{ $award->title }}</a></h4>
-                                        <p>{{ $award->description }}</p>
-                                    </div>
-                                    <span class="award-tag">{{ $award->tag ?? 'Award' }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--==============================
-                            Video Area
-                            ==============================-->
-    <div class="video-area-1 overflow-hidden">
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="video-wrap">
-                        <div class="jarallax" data-bg-src="{{ asset(setting('home_video_bg', 'assets/img/normal/video_2-1.jpg')) }}">
-                        </div>
-                        <!-- <a href="{{ $siteSettings['video_url'] ?? 'https://www.youtube.com/watch?v=vvNwlRLjLkU' }}"
-                            class="play-btn circle-btn btn gsap-magnetic popup-video background-image">PLAY VIDEO
-                        </a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
+          @endforeach
+        @endif
+      </div>
     </div>
+  </section>
 
-    <!--==============================
-                            Blog Area
-                            ==============================-->
-    @if($posts->count())
-        <section class="blog-area space">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xxl-7 col-xl-6 col-lg-8">
-                        <div class="title-area text-center">
-                            <h2 class="sec-title">{!! setting('home_blog_title', 'Read Our Articles and News') !!}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row gy-30 justify-content-center">
-                    @foreach($posts as $post)
-                        <div class="col-lg-4 col-md-6">
-                            <a href="{{ route('blog.detail', $post->slug) }}" class="blog-card style2">
-                                <div class="blog-img">
-                                    <img src="{{ $post->image ? asset($post->image) : asset('assets/img/blog/blog_2_1.png') }}"
-                                        alt="{{ $post->title }}">
-                                </div>
-                                <div class="blog-content">
-                                    <div class="post-meta-item blog-meta">
-                                        <span>{{ ($post->published_at ?? $post->created_at)->format('F d, Y') }}</span>
-                                        <span>{{ $post->category->name ?? 'Uncategorized' }}</span>
-                                    </div>
-                                    <h4 class="blog-title">{{ $post->title }}</h4>
-                                    <span class="link-btn">
-                                        <span class="link-effect">
-                                            <span class="effect-1">READ MORE</span>
-                                            <span class="effect-1">READ MORE</span>
-                                        </span>
-                                        <img src="{{ asset('assets/img/icon/arrow-left-top.svg') }}" alt="icon">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-
-    <!--==============================
-                            Client Area
-                            ==============================-->
-    @if($clients->count())
-        <div class="client-area-1 overflow-hidden space-bottom mt-3">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-8">
-                        <ul class="client-list-wrap">
-                            @foreach($clients as $client)
-                                <li>
-                                    <a href="{{ $client->url ?? 'javascript:void(0)' }}" @if($client->url) target="_blank" @endif>
-                                        <span class="link-effect">
-                                            <span class="effect-1"><img
-                                                    src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
-                                                    alt="{{ $client->name }}"></span>
-                                            <span class="effect-1"><img
-                                                    src="{{ $client->logo ? asset($client->logo) : asset('assets/img/client/client-1-1.svg') }}"
-                                                    alt="{{ $client->name }}"></span>
-                                        </span>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--==============================
-                            CTA Area
-                            ==============================-->
-    <div class="cta-area-1 overflow-hidden bg-theme space">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-10">
-                    <div class="title-area text-center mb-0">
-                        <h2 class="sec-title">{!! setting('home_cta_title', "Let's Create Something Great") !!}</h2>
-                        <p class="sec-text mt-30 mb-40">{!! setting('home_cta_subtitle', "We shift you from today's reality to tomorrow's potential, ensuring") !!}</p>
-                        <div class="btn-group justify-content-center">
-                            <a href="{{ route('contact') }}" class="btn mt-0">
-                                <span class="link-effect">
-                                    <span class="effect-1">LET'S TALK WITH US</span>
-                                    <span class="effect-1">LET'S TALK WITH US</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Clients Marquee Section -->
+  <section class="client-marquee">
+    <div class="marquee-track">
+      @if(isset($clients) && $clients->count() > 0)
+        @foreach($clients as $client)
+          <div class="logo-item opacity-80">
+            <img src="{{ asset($client->logo) }}" alt="{{ $client->name ?? 'Client' }}"
+              class="h-16 w-auto max-w-[180px] object-contain">
+          </div>
+        @endforeach
+      @else
+        {{-- Fallbacks --}}
+        @php $fallbacks = ['Google', 'Meta', 'Amazon', 'Apple', 'Netflix', 'Tesla']; @endphp
+        @foreach($fallbacks as $f)
+          <div class="logo-item text-4xl font-black tracking-tighter opacity-20">{{ $f }}</div>
+        @endforeach
+      @endif
     </div>
+  </section>
+
+
 
 @endsection
-

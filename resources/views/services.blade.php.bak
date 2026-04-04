@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Services Header -->
-<section class="container-custom py-20">
+<section class="px-6 py-20 max-w-7xl mx-auto w-full">
   <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
     <h2 class="text-5xl md:text-6xl font-bold tracking-tighter">What We Excel At</h2>
     <p class="text-gray-500 max-w-xs text-sm uppercase tracking-widest font-bold">
@@ -20,7 +20,7 @@
               <div class="flex-shrink-0">
                 <div class="w-16 h-16 bg-[#F2F1ED] rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
                   @if($service->icon_image)
-                      <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-8 h-8 object-contain filter group-hover:brightness-0 group-hover:invert transition-colors">
+                      <img src="{{ asset('storage/' . $service->icon_image) }}" alt="{{ $service->title }}" class="w-8 h-8 object-contain filter group-hover:brightness-0 group-hover:invert transition-colors">
                   @else
                       <svg class="w-8 h-8 text-black group-hover:text-white transition-colors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="13" rx="2" ry="2"/><rect width="8" height="8" x="3" y="13" rx="2" ry="2"/></svg>
                   @endif
@@ -28,9 +28,9 @@
               </div>
               <div class="flex-grow">
                 <h3 class="text-2xl font-bold mb-3">{{ $service->title }}</h3>
-                <div class="text-gray-600 mb-6 leading-relaxed">
-                  {!! $service->description !!}
-                </div>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                  {{ $service->description }}
+                </p>
                 <ul class="grid grid-cols-1 gap-y-2">
                   {{-- Hardcoded for aesthetic if service features don't exist in DB, else use a relation --}}
                   <li class="flex items-center text-sm font-medium">
@@ -70,7 +70,7 @@
 </section>
 
 <!-- Process Section -->
-<section class="container-custom pt-24 pb-0">
+<section class="px-6 pt-24 pb-0 max-w-7xl mx-auto w-full">
   <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-20 animate-on-scroll">Our Process</h2>
   <div class="relative">
     <!-- Connecting Line -->
@@ -124,6 +124,23 @@
   </div>
 </section>
 
-
+<!-- Hero CTA -->
+<section class="px-6 pt-24 pb-24 max-w-7xl mx-auto w-full">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-[#F2F1ED] p-12 md:p-20 rounded-sm animate-on-scroll">
+    <div>
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-tight">
+        Let's Create Something Great
+      </h2>
+      <a href="{{ route('contact') }}" class="inline-block bg-[#4A76B2] text-white px-10 py-4 rounded-sm text-sm font-bold tracking-widest uppercase hover:bg-opacity-90 transition-all shadow-lg">
+        LET'S TALK WITH US
+      </a>
+    </div>
+    <div>
+      <p class="text-xl text-gray-600 leading-relaxed">
+        We are a digital agency that helps build immersive and engaging user experiences that drive results. Our team of experts is dedicated to pushing the boundaries of what's possible in the digital space.
+      </p>
+    </div>
+  </div>
+</section>
 
 @endsection
