@@ -113,6 +113,17 @@
                         @endif
                         <form action="{{ route('contact.store') }}" method="POST" class="contact-form" id="ajaxContactForm">
                             @csrf
+                            
+                            {{-- Honeypot Field --}}
+                            <div style="display:none !important;">
+                                <input type="text" name="company_name_hp" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            {{-- Google reCAPTCHA v3 Token (Only if enabled) --}}
+                            @if(\App\Models\Setting::get('google_verification_enabled', '0'))
+                                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                            @endif
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -174,13 +185,21 @@
         </div>
     </div>
 
-    @push('scripts')
+@push('scripts')
+    @php 
+        $recaptchaEnabled = \App\Models\Setting::get('google_verification_enabled', '0'); 
+        $siteKey = \App\Models\Setting::get('google_recaptcha_site_key'); 
+    @endphp
+
+    @if($recaptchaEnabled && $siteKey)
+        <script src="https://www.google.com/recaptcha/api.js?render={{ $siteKey }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const form = document.getElementById('ajaxContactForm');
                 const formMessages = document.getElementById('form-messages');
+                const siteKey = '{{ $siteKey }}';
 
-                if (!form) return;
+                if (!form || !siteKey) return;
 
                 const submitBtn = form.querySelector('button[type="submit"]');
                 const submitText = submitBtn.innerHTML;
@@ -194,6 +213,20 @@
                     formMessages.innerHTML = '';
                     formMessages.className = '';
 
+                    // Execute reCAPTCHA v3
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute(siteKey, {action: 'contact'}).then(function(token) {
+                            const recaptchaInput = document.getElementById('g-recaptcha-response');
+                            if (recaptchaInput) {
+                                recaptchaInput.value = token;
+                            }
+                            
+                            submitForm(form, formMessages, submitBtn, submitText);
+                        });
+                    });
+                });
+
+                function submitForm(form, formMessages, submitBtn, submitText) {
                     const formData = new FormData(form);
 
                     fetch(form.action, {
@@ -204,51 +237,113 @@
                         },
                         body: formData
                     })
-                        .then(async response => {
-                            const data = await response.json();
+                    .then(async response => {
+                        const data = await response.json();
+                        if (!response.ok) throw { status: response.status, data: data };
+                        return data;
+                    })
+                    .then(data => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = submitText;
 
-                            if (!response.ok) {
-                                // Handle Validation Errors (422) or Server Errors (500)
-                                throw { status: response.status, data: data };
+                        if (data.success) {
+                            formMessages.className = 'alert alert-success';
+                            formMessages.innerHTML = data.message;
+                            form.reset();
+                        }
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = submitText;
+
+                        formMessages.className = 'alert alert-danger';
+
+                        if (error.status === 422 && error.data && error.data.errors) {
+                            let errorsHtml = '<ul class="mb-0">';
+                            for (const [key, messages] of Object.entries(error.data.errors)) {
+                                messages.forEach(msg => {
+                                    errorsHtml += `<li>${msg}</li>`;
+                                });
                             }
+                            errorsHtml += '</ul>';
+                            formMessages.innerHTML = errorsHtml;
+                        } else if (error.data && error.data.message) {
+                            formMessages.innerHTML = error.data.message;
+                        } else {
+                            formMessages.innerHTML = 'An unexpected error occurred. Please try again later.';
+                        }
+                    });
+                }
+            });
+        </script>
+    @else
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('ajaxContactForm');
+                const formMessages = document.getElementById('form-messages');
 
-                            return data;
-                        })
-                        .then(data => {
-                            submitBtn.disabled = false;
-                            submitBtn.innerHTML = submitText;
+                if (!form) return;
 
-                            if (data.success) {
-                                formMessages.className = 'alert alert-success';
-                                formMessages.innerHTML = data.message;
-                                form.reset(); // clear the form
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const submitText = submitBtn.innerHTML;
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="link-effect"><span class="effect-1">SENDING...</span><span class="effect-1">SENDING...</span></span>';
+                    formMessages.innerHTML = '';
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        },
+                        body: formData
+                    })
+                    .then(async response => {
+                        const data = await response.json();
+                        if (!response.ok) throw { status: response.status, data: data };
+                        return data;
+                    })
+                    .then(data => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = submitText;
+
+                        if (data.success) {
+                            formMessages.className = 'alert alert-success';
+                            formMessages.innerHTML = data.message;
+                            form.reset();
+                        }
+                    })
+                    .catch(error => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = submitText;
+
+                        formMessages.className = 'alert alert-danger';
+
+                        if (error.status === 422 && error.data && error.data.errors) {
+                            let errorsHtml = '<ul class="mb-0">';
+                            for (const [key, messages] of Object.entries(error.data.errors)) {
+                                messages.forEach(msg => {
+                                    errorsHtml += `<li>${msg}</li>`;
+                                });
                             }
-                        })
-                        .catch(error => {
-                            submitBtn.disabled = false;
-                            submitBtn.innerHTML = submitText;
-
-                            formMessages.className = 'alert alert-danger';
-
-                            if (error.status === 422 && error.data && error.data.errors) {
-                                // It's a validation error
-                                let errorsHtml = '<ul class="mb-0">';
-                                for (const [key, messages] of Object.entries(error.data.errors)) {
-                                    messages.forEach(msg => {
-                                        errorsHtml += `<li>${msg}</li>`;
-                                    });
-                                }
-                                errorsHtml += '</ul>';
-                                formMessages.innerHTML = errorsHtml;
-                            } else if (error.data && error.data.message) {
-                                formMessages.innerHTML = error.data.message;
-                            } else {
-                                formMessages.innerHTML = 'An unexpected error occurred. Please try again later.';
-                            }
-                        });
+                            errorsHtml += '</ul>';
+                            formMessages.innerHTML = errorsHtml;
+                        } else if (error.data && error.data.message) {
+                            formMessages.innerHTML = error.data.message;
+                        } else {
+                            formMessages.innerHTML = 'An unexpected error occurred. Please try again later.';
+                        }
+                    });
                 });
             });
         </script>
-    @endpush
+    @endif
+@endpush
 
 @endsection

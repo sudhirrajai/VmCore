@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -29,8 +30,15 @@ class ContactAdminNotification extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
+        // Log the recipient for debugging (you can remove this after verification)
+        $adminEmail = \App\Models\Setting::get('site_email') ?? config('mail.from.address');
+        \Illuminate\Support\Facades\Log::info('Dispatching Admin Contact Notification to: ' . $adminEmail);
+
         return new Envelope(
-            subject: 'New Contact Inquiry: ' . $this->submission->subject,
+            subject: 'New Contact Form Submission - ' . config('app.name'),
+            replyTo: [
+                new Address($this->submission->email, $this->submission->name),
+            ],
         );
     }
 

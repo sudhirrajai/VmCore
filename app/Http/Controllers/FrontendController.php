@@ -203,8 +203,15 @@ class FrontendController extends Controller
         $submission = ContactSubmission::create($request->validated());
 
         try {
-            // Send Auto-Reply to user
-            \Illuminate\Support\Facades\Mail::to($submission->email)->send(new \App\Mail\ContactAutoReply($submission));
+            // Send Auto-Reply to user (Queued via Mailable ShouldQueue)
+            \Illuminate\Support\Facades\Mail::to($submission->email)
+                ->send(new \App\Mail\ContactAutoReply($submission));
+
+            // Send Notification to Admin (Queued via Mailable ShouldQueue)
+            // Prefer 'contact_email' from Global Settings, then fallback to 'site_email' then 'mail.from'
+            $adminEmail = Setting::get('contact_email') ?? Setting::get('site_email') ?? config('mail.from.address');
+            \Illuminate\Support\Facades\Mail::to($adminEmail)
+                ->send(new \App\Mail\ContactAdminNotification($submission));
 
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Contact form email failed: ' . $e->getMessage());
