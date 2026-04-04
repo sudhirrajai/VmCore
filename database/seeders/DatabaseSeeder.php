@@ -38,23 +38,43 @@ class DatabaseSeeder extends Seeder
 
         // ── Site Settings ────────────────────────────────────────
         $settings = [
+            // Global Settings
             'site_name' => 'VMCore',
-            'site_email' => 'hello@vmcore.in',
-            'site_phone' => '+1 800 123 654 987',
-            'site_address' => '27 Division St, New York, NY 10002, USA',
+            'contact_email' => 'hello@vmcore.in',
+            'phone' => '+1 800 123 654 987',
+            'address' => '27 Division St, New York, NY 10002, USA',
+            'footer_text' => 'We build creative digital experiences that drive growth and engage audiences worldwide.',
+            'copyright_text' => '© 2025 VMCore. All rights reserved.',
             'default_meta_title' => 'VMCore - Creative Digital Agency',
-            'default_meta_description' => 'We build creative digital experiences that drive growth and engage audiences worldwide.',
-            'meta_keywords' => 'digital agency, web development, branding, creative, design',
-            'about_title' => 'We Are VMCore — A Creative Digital Agency',
-            'about_description' => 'We believe that building great things starts with a deep understanding of people and a commitment to quality. Our team brings together strategy, design, and technology to craft experiences that matter.',
-            'google_map_embed' => 'https://maps.google.com/maps?q=New+York&t=m&z=12&output=embed&iwloc=near',
+            'default_meta_description' => 'Creative digital experiences and strategy.',
+            'meta_keywords' => 'digital agency, web development, branding',
+            
+            // Frontend Content & Titles
+            'about_breadcrumb_title' => 'About Us',
+            'about_intro_title' => 'We Are VMCore — A Creative Digital Agency',
+            'about_intro_description' => 'We believe that building great things starts with a deep understanding of people and a commitment to quality. Our team brings together strategy, design, and technology to craft experiences that matter.',
             'marquee_text' => 'We Give Unparalleled Flexibility',
+            'home_services_title' => 'What We Can Do for Our Clients',
+            'home_skills_title' => 'We Offer a Wide Range of Brand Services',
+            'home_portfolio_title' => 'Discover Our Selected Projects',
+            'home_blog_title' => 'Read Our Articles and News',
+            'home_cta_title' => "Let's Create Something Great",
             'video_url' => 'https://www.youtube.com/watch?v=vvNwlRLjLkU',
+
+            // Visibility Toggles
+            'show_about_page' => 1,
+            'show_services_page' => 1,
+            'show_portfolio_page' => 1,
+            'show_blog_page' => 1,
+            'show_team_page' => 1,
+            'show_faq_page' => 1,
+            'show_contact_page' => 1,
         ];
 
         foreach ($settings as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
+
 
         // ── Social Links ─────────────────────────────────────────
         $socialLinks = [
