@@ -93,8 +93,12 @@
                                 <textarea class="form-control" name="short_description" rows="2">{{ old('short_description') }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Full Description</label>
+                                <label class="form-label">Story</label>
                                 <textarea class="form-control ckeditor" name="description" rows="5">{{ old('description') }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Dynamic Content (Optional)</label>
+                                <textarea class="form-control ckeditor" name="dynamic_content" rows="10">{{ old('dynamic_content') }}</textarea>
                             </div>
 
                             <div class="row">
@@ -145,6 +149,54 @@
                     </div>
 
                     <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Problem & Solution</h6>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRepeaterRow('problem_solution')">+ Add Item</button>
+                    </div>
+                    <div class="mb-4" id="problem_solution_container">
+                        @foreach(range(0, 1) as $i)
+                        <div class="row mb-2 repeater-row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="problem_solution[{{$i}}][title]" placeholder="Title (e.g. The Challenge)">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="problem_solution[{{$i}}][icon]" placeholder="SVG Code or Icon">
+                            </div>
+                            <div class="col-md-5">
+                                <textarea class="form-control" name="problem_solution[{{$i}}][content]" placeholder="Description" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Feature Highlights</h6>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRepeaterRow('features')">+ Add Feature</button>
+                    </div>
+                    <div class="mb-4" id="features_container">
+                        @foreach(range(0, 2) as $i)
+                        <div class="row mb-2 repeater-row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="features[{{$i}}][title]" placeholder="Feature Title">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="features[{{$i}}][icon]" placeholder="SVG Code or Icon">
+                            </div>
+                            <div class="col-md-5">
+                                <textarea class="form-control" name="features[{{$i}}][content]" placeholder="Feature Description" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <hr>
                     <h6>SEO</h6>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -184,5 +236,27 @@
                 }
             });
         })(window.jQuery || jQuery || $);
+
+        function addRepeaterRow(prefix) {
+            const container = document.getElementById(prefix + '_container');
+            const idx = Date.now();
+            const template = `
+                <div class="row mb-2 repeater-row">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="${prefix}[${idx}][title]" placeholder="Title">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="${prefix}[${idx}][icon]" placeholder="SVG Code or Icon">
+                    </div>
+                    <div class="col-md-5">
+                        <textarea class="form-control" name="${prefix}[${idx}][content]" placeholder="Description" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', template);
+        }
     </script>
 @endsection

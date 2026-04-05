@@ -44,7 +44,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS (compiled) -->
@@ -55,12 +55,65 @@
             --theme-color:
                 {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
                 !important;
+            --secondary-color:
+                {{ \App\Helpers\ThemeHelper::getSecondaryColor() }}
+                !important;
+            --secondary-color-light:
+                rgba({{ \App\Helpers\ThemeHelper::getSecondaryColorRgb() }}, 0.1)
+                !important;
             --body-color:
                 {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
             --title-color:
                 {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
+            --card-bg-color:
+                {{ \App\Helpers\ThemeHelper::getCardColor() }}
+                !important;
+            --border-color:
+                {{ \App\Helpers\ThemeHelper::getBorderColor() }}
+                !important;
+            --footer-bg-color:
+                {{ \App\Helpers\ThemeHelper::getFooterColor() }}
+                !important;
+            --icon-bg-color:
+                {{ \App\Helpers\ThemeHelper::getIconBgColor() }}
+                !important;
+        }
+
+        /* Generic generic utility classes for secondary colors */
+        .text-secondary { color: var(--secondary-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+        .bg-secondary-light { background-color: var(--secondary-color-light) !important; }
+        .border-secondary { border-color: var(--secondary-color) !important; }
+
+        /* Custom Admin Theme Utilities */
+        .bg-card { background-color: var(--card-bg-color) !important; }
+        .bg-footer { background-color: var(--footer-bg-color) !important; }
+        .bg-icon-box { background-color: var(--icon-bg-color) !important; }
+        .border-gray-100, .border-slate-100, .border-gray-200 { border-color: var(--border-color) !important; }
+
+        /* Override static secondary colors */
+        .text-yellow-500,
+        .text-orange-400 {
+            color: var(--secondary-color) !important;
+        }
+
+        .bg-yellow-500,
+        .bg-orange-400 {
+            background-color: var(--secondary-color) !important;
+        }
+
+        .border-[#xxxxxx],
+        .border-yellow-500,
+        .border-orange-400 {
+            border-color: var(--secondary-color) !important;
+        }
+
+        .hover\:bg-yellow-600:hover,
+        .hover\:bg-orange-500:hover {
+            background-color: var(--secondary-color) !important;
+            opacity: 0.9;
         }
 
         body,
@@ -71,6 +124,20 @@
             color:
                 {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
+            font-family: 'Neuton', serif !important;
+        }
+
+        /* Enforce Neuton font universally override tailwind util classes */
+        .font-sans, .font-serif, h1, h2, h3, h4, h5, h6, p, a, span, button, div, li {
+            font-family: 'Neuton', serif !important;
+            letter-spacing: 0.035em !important;
+        }
+
+        /* Increase description text size globally for editor content since Neuton runs small */
+        .ckeditor-content p, .ckeditor-content span, .ckeditor-content li {
+            font-size: 1.2rem !important;
+            line-height: 1.8 !important;
+            letter-spacing: 0.025em !important;
         }
 
         /* Override Tailwind UI primary colors with dynamic theme color */
@@ -128,11 +195,11 @@
         .marquee-track {
             display: flex;
             width: max-content;
-            animation: marquee-scroll 25s linear infinite;
+            animation: marquee-scroll 12s linear infinite;
         }
 
         .client-marquee:hover .marquee-track {
-            /* animation-play-state: paused; */
+            animation-play-state: paused;
         }
 
         .logo-item {
@@ -152,13 +219,8 @@
         }
 
         @keyframes marquee-scroll {
-            0% {
-                transform: translateX(100vw);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
+            0%   { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
         }
 
         /* Global Responsive Containers Overrides */
@@ -171,6 +233,13 @@
             padding-right: 1.5rem !important;
             margin-left: auto !important;
             margin-right: auto !important;
+        }
+        /* ── Global H1 font size: text-5xl font-bold tracking-tight ── */
+        main h1 {
+            font-size: 3rem !important;       /* text-5xl = 48px */
+            font-weight: 700 !important;      /* font-bold */
+            letter-spacing: -0.025em !important; /* tracking-tight */
+            line-height: 1.1 !important;
         }
     </style>
 

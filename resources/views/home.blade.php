@@ -2,10 +2,65 @@
 
 @section('title', 'Home - ' . ($siteSettings['site_name'] ?? 'VM CORE'))
 
+@push('styles')
+  <style>
+    /* Project card hover overlay */
+    .proj-card {
+      cursor: pointer;
+    }
+
+    .proj-card .proj-img {
+      transition: transform 0.5s ease;
+    }
+
+    .proj-card:hover .proj-img {
+      transform: scale(1.05);
+    }
+
+    .proj-card .proj-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .proj-card:hover .proj-overlay {
+      opacity: 1;
+    }
+
+    .proj-card .proj-btn {
+      background: #fff;
+      color: #0f172a;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+      transform: translateY(12px);
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .proj-card:hover .proj-btn {
+      transform: translateY(0);
+    }
+
+    /* Home page hero H1 — slightly larger than global 3rem */
+    .home-hero h1 {
+      font-size: 4.5rem !important;
+      /* ~72px */
+    }
+  </style>
+@endpush
+
 @section('content')
 
   <!-- Hero Section -->
-  <section class="pt-0 pb-12">
+  <section class="pt-0 pb-12 home-hero">
     <div class="container-custom grid md:grid-cols-2 gap-12 items-center">
       <div class="animate-fade-in-left">
         <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] text-slate-900 mb-6">
@@ -17,7 +72,7 @@
             EVERYDAY
           @endif
         </h1>
-        <p class="text-lg text-slate-600 mb-8 max-w-md leading-relaxed">
+        <p class="text-xl tracking-wide text-slate-600 mb-8 max-w-md leading-relaxed">
           @if(isset($hero) && $hero)
             {!! $hero->description !!}
           @else
@@ -41,15 +96,15 @@
   <section id="services" class="py-12">
     <div class="container-custom">
       <div class="mb-14">
-        <span class="text-[15px] font-medium text-slate-600 mb-3 block">Services</span>
+        <span class="text-[15px] font-medium text-secondary mb-3 block">Services</span>
         <h2 class="text-[44px] font-bold text-slate-900 leading-tight tracking-tight">What We Can Do for Our Clients</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         @if(isset($services) && $services->count() > 0)
           @foreach($services as $index => $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
-              <div class="bg-[#F7F7F2] p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
+              class="bg-card p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              <div class="bg-icon-box p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
                 @if($service->icon_image)
                   <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
                 @else
@@ -64,7 +119,7 @@
               </div>
               <div class="pt-2">
                 <h3 class="text-[22px] font-bold text-slate-900 mb-3">{{ $service->title }}</h3>
-                <div class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px] line-clamp-2">
+                <div class="text-slate-500 tracking-wide text-[1.15rem] mb-5 leading-relaxed max-w-[340px] line-clamp-2">
                   {{ \Illuminate\Support\Str::limit(strip_tags($service->description), 80) }}
                 </div>
                 <div
@@ -81,8 +136,8 @@
           @endforeach
         @else
           <div
-            class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer">
-            <p class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px]">No services found.</p>
+            class="bg-card p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer">
+            <p class="text-slate-500 tracking-wide text-[1.15rem] mb-5 leading-relaxed max-w-[340px]">No services found.</p>
           </div>
         @endif
       </div>
@@ -93,30 +148,29 @@
   <section id="portfolio" class="py-24">
     <div class="container-custom">
       <div class="mb-14">
-        <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Projects</span>
-        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mt-2 uppercase tracking-tight leading-tight">Discover Our Selected Projects</h2>
+        <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Projects</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mt-2 uppercase tracking-tight leading-tight">Discover Our
+          Selected Projects</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-12">
         @if(isset($projects) && $projects->count() > 0)
           @foreach($projects as $project)
-            <div class="group cursor-pointer animate-on-scroll">
+            <div class="proj-card animate-on-scroll">
               <a href="{{ route('portfolio.detail', $project->slug ?? '') }}" class="block">
                 <div class="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
                   <img
                     src="{{ $project->image ? asset($project->image) : 'https://picsum.photos/seed/project-' . $project->id . '/600/800' }}"
-                    alt="{{ $project->title }}"
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    alt="{{ $project->title }}" class="proj-img w-full h-full object-cover" />
                   {{-- Hover Overlay --}}
-                  <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                    <span class="bg-white text-slate-900 px-6 py-2 rounded-md text-sm font-bold shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        View Project
-                    </span>
+                  <div class="proj-overlay">
+                    <span class="proj-btn">View Project</span>
                   </div>
                 </div>
               </a>
               <div class="mt-6">
                 <h3 class="text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $project->title }}</h3>
-                <p class="text-sm text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}</p>
+                <p class="text-[1.1rem] tracking-wide text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}
+                </p>
               </div>
             </div>
           @endforeach

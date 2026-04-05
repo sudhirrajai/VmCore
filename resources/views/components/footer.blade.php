@@ -1,6 +1,7 @@
+@if(!request()->routeIs('contact'))
 <!-- CTA Section -->
 <section class="px-6 py-24 w-full animate-on-scroll">
-  <div class="max-w-[1440px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 items-center bg-[#F2F1ED] p-8 md:p-20 rounded-sm">
+  <div class="max-w-[1440px] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 items-center bg-card p-8 md:p-20 rounded-sm border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
     <div>
       <h2 class="text-4xl md:text-5xl xl:text-7xl font-bold tracking-tighter mb-8 leading-[1.1] text-slate-900 uppercase max-w-xl">
         Let's Create <br class="hidden xl:block" /> Something Great
@@ -16,8 +17,9 @@
     </div>
   </div>
 </section>
+@endif
 
-<footer class="bg-[#F2F1ED] py-12 px-6">
+<footer class="bg-footer py-12 px-6">
   <div class="max-w-[1440px] mx-auto w-full">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
       <div class="col-span-1 md:col-span-5">

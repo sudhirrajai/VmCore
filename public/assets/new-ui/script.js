@@ -28,3 +28,44 @@ document.addEventListener("DOMContentLoaded", function () {
       intObserver.observe(el);
     });
   });
+
+// Contact Page Specific Interactivity
+document.addEventListener('DOMContentLoaded', function() {
+    const revealElements = document.querySelectorAll('.motion-reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Consolidated Newsletter Handling
+    const newsletterForms = document.querySelectorAll('.newsletter-form');
+    newsletterForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[name="email"]').value;
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Subscribed successfully!');
+                    this.reset();
+                } else {
+                    alert(data.message || 'Subscription failed.');
+                }
+            });
+        });
+    });
+});
