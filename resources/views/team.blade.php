@@ -1,10 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Team - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', \App\Models\Setting::get('team_meta_description', 'Meet our talented team of professionals.'))
-@section('meta_keywords', \App\Models\Setting::get('team_meta_keywords', 'team, professionals, experts, creative team, VMCore team'))
+@section('title', setting('team_meta_title', 'Team - ' . ($siteSettings['site_name'] ?? 'VMCore')))
+@section('meta_description', setting('team_meta_description', 'Meet our talented team of professionals.'))
+@section('meta_keywords', setting('team_meta_keywords', 'team, professionals, experts, creative team, VMCore team'))
 @section('canonical', route('team'))
 
+@push('structured_data')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ url('/') }}"
+            },
+            {
+                "@@type": "ListItem",
+                "position": 2,
+                "name": "Team",
+                "item": "{{ route('team') }}"
+            }
+        ]
+    }
+    </script>
+@endpush
 @section('content')
 
     <!--==============================
@@ -14,14 +36,14 @@
         data-bg-src="{!! \App\Models\Setting::get('team_hero_image') ? asset(\App\Models\Setting::get('team_hero_image')) : asset('assets/img/bg/breadcumb-bg1-4.jpg') !!}">
         <div class="container">
             <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{!! \App\Models\Setting::get('team_breadcrumb_title', 'Our Team') !!}</h1>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight breadcumb-title">{!! \App\Models\Setting::get('team_breadcrumb_title', 'Our Team') !!}</h1>
             </div>
         </div>
     </div>
 
     @if(\App\Models\Setting::get('team_page_intro'))
         <div class="container text-center py-4">
-            <p class="lead">{!! \App\Models\Setting::get('team_page_intro') !!}</p>
+            <p class="text-base leading-relaxed text-slate-500">{!! \App\Models\Setting::get('team_page_intro') !!}</p>
         </div>
     @endif
 
@@ -41,9 +63,9 @@
                                 </a>
                             </div>
                             <div class="team-card_content">
-                                <h4 class="team-card_title"><a
+                                <h4 class="text-xl lg:text-2xl font-semibold mb-2 team-card_title text-slate-900"><a
                                         href="{{ route('team.detail', $member->slug) }}">{{ $member->name }}</a></h4>
-                                <span class="team-card_desig">{{ $member->designation }}</span>
+                                <span class="text-sm text-slate-500 team-card_desig">{{ $member->designation }}</span>
                                 @if(is_array($member->social_links) && count($member->social_links))
                                     <div class="social-btn mt-15">
                                         @foreach($member->social_links as $platform => $url)
@@ -58,7 +80,7 @@
                     </div>
                 @empty
                     <div class="col-12 text-center">
-                        <p>No team members to display.</p>
+                        <p class="text-base leading-relaxed text-slate-500">No team members to display.</p>
                     </div>
                 @endforelse
             </div>

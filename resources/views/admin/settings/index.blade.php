@@ -34,16 +34,6 @@
                                         website.</div>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="theme_secondary_color" class="form-label">Secondary Color</label>
-                                    <div class="input-group">
-                                        <input type="color" class="form-control form-control-color" id="theme_secondary_color"
-                                            name="theme_secondary_color" value="{{ $secondaryColor }}"
-                                            title="Choose your secondary color">
-                                        <input type="text" class="form-control" value="{{ $secondaryColor }}" readonly>
-                                    </div>
-                                    <div class="form-text">Select the secondary color for accents and highlights.</div>
-                                </div>
-                                <div class="mb-3 col-md-6">
                                     <label for="theme_font_color" class="form-label">Font Color</label>
                                     <div class="input-group">
                                         <input type="color" class="form-control form-control-color" id="theme_font_color"
@@ -114,7 +104,7 @@
     </div>
 
     <script>
-        ['theme_primary_color', 'theme_secondary_color', 'theme_font_color', 'theme_bg_color', 'theme_card_color', 'theme_border_color', 'theme_footer_color', 'theme_icon_bg_color'].forEach(id => {
+        ['theme_primary_color', 'theme_font_color', 'theme_bg_color', 'theme_card_color', 'theme_border_color', 'theme_footer_color', 'theme_icon_bg_color'].forEach(id => {
             document.getElementById(id).addEventListener('input', function () {
                 this.nextElementSibling.value = this.value;
             });

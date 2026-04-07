@@ -195,19 +195,19 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-            {
-                "@@context": "https://schema.org",
-                "@@type": "Service",
-                "name": "{{ addslashes($service->title) }}",
-                "description": "{{ addslashes($service->meta_description ?? $service->short_description ?? '') }}",
-                "provider": {
-                    "@@type": "Organization",
-                    "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-                    "url": "{{ url('/') }}"
-                },
-                "url": "{{ route('service.detail', $service->slug) }}"
-            }
-        </script>
+                                    {
+                                        "@@context": "https://schema.org",
+                                        "@@type": "Service",
+                                        "name": "{{ addslashes($service->title) }}",
+                                        "description": "{{ addslashes($service->meta_description ?? $service->short_description ?? '') }}",
+                                        "provider": {
+                                            "@@type": "Organization",
+                                            "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                                            "url": "{{ url('/') }}"
+                                        },
+                                        "url": "{{ route('service.detail', $service->slug) }}"
+                                    }
+                                </script>
 @endpush
 
 @section('content')
@@ -241,11 +241,12 @@
 
                 {{-- Related Projects --}}
                 @if($service->projects->count())
-                    <div class="mt-12 pt-12 border-t border-gray-100">
+                    <div class="border-t border-gray-100" style="margin-top: 50px; padding-top: 50px;">
                         <h3 class="text-3xl font-bold mb-10 text-slate-900 border-b-2 inline-block pb-1"
                             style="border-color: var(--theme-color, #c5a059);">
-                            {!! setting('service_related_projects_title', 'Related Projects') !!}</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            {!! setting('service_related_projects_title', 'Related Projects') !!}
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8" style="margin-top: 10px;">
                             @foreach($service->projects->take(4) as $project)
                                 <a href="{{ route('portfolio.detail', $project->slug) }}" class="group pd-rel-card block">
                                     <div
@@ -257,9 +258,11 @@
                                         </div>
                                     </div>
                                     <h4 class="text-xl font-bold text-slate-900 group-hover:text-[#4E7CC1] transition-colors mb-1">
-                                        {{ $project->title }}</h4>
+                                        {{ $project->title }}
+                                    </h4>
                                     <p class="text-[1.1rem] tracking-wide text-slate-500">
-                                        {{ $project->categories->first()->name ?? 'Portfolio' }}</p>
+                                        {{ $project->categories->first()->name ?? 'Portfolio' }}
+                                    </p>
                                 </a>
                             @endforeach
                         </div>
@@ -335,105 +338,180 @@
     </section>
 
     <!-- Process Section -->
-    <section class="container-custom pt-12 pb-24">
-        <div class="border-t border-gray-100 pt-16 mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6 animate-on-scroll">
+    <section class="container-custom border-t border-gray-100" style="padding-top: 50px;">
+        <div class="pt-16 mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-6 animate-on-scroll">
             <div>
-                <span class="text-sm font-semibold uppercase tracking-wider" style="color: var(--theme-color, #c5a059);">How We Work</span>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tighter mt-2" style="color: var(--title-color, #1a1a1a);">Our Process</h2>
+                <span class="text-sm font-medium uppercase tracking-wider" style="color: var(--theme-color, #c5a059);">How
+                    We
+                    Work</span>
+                <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2"
+                    style="color: var(--title-color, #1a1a1a);">Our
+                    Process</h2>
             </div>
-            <p class="text-slate-500 max-w-sm text-sm leading-relaxed">A proven framework that transforms your vision into measurable results, step by step.</p>
         </div>
+        <!-- <p class="text-base leading-relaxed text-slate-500 max-w-sm mb-6">A proven framework that transforms your vision into
+                    measurable results, step by step.</p> -->
 
-        <div class="mx-auto" style="max-width: 1100px;">
-        <style>
-            .process-card {
-                /* ensure transition is smooth */
-                transition: all 0.3s ease;
-            }
-            .process-card:hover {
-                border-color: var(--theme-color, #c5a059) !important;
-            }
-            .process-card:hover .process-icon {
-                background: var(--theme-color, #c5a059) !important;
-                color: #ffffff !important;
-            }
-        </style>
-        <div class="flex flex-col md:flex-row flex-nowrap gap-4">
+        <div class="mx-auto" style="max-width: 95%;">
+            <style>
+                .process-card {
+                    /* ensure transition is smooth */
+                    transition: all 0.3s ease;
+                }
 
-            {{-- Step 1: Discovery --}}
-            <div class="group relative animate-on-scroll border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card" style="--step-color: var(--theme-color, #c5a059);">
-                <div class="flex items-start gap-2 mb-2">
-                    <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity" style="color: var(--theme-color, #c5a059); font-family: 'Neuton', serif;">01</span>
+                .process-card:hover {
+                    border-color: var(--theme-color, #c5a059) !important;
+                }
+
+                .process-card:hover .process-icon {
+                    background: var(--theme-color, #c5a059) !important;
+                    color: #ffffff !important;
+                }
+            </style>
+            <div class="flex flex-col md:flex-row flex-nowrap gap-4">
+
+                {{-- Step 1: Discovery --}}
+                <div class="group relative animate-on-scroll border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card"
+                    style="--step-color: var(--theme-color, #c5a059);">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">01</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Discovery
+                    </h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Understanding your goals, audience, and
+                        challenges.</p>
                 </div>
-                <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300" style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
-                    <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-                    </svg>
+
+                {{-- Step 2: Strategy --}}
+                <div
+                    class="group relative animate-on-scroll delay-100 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">02</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                            <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Strategy
+                    </h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Crafting a data-driven roadmap aligned with
+                        your objectives.</p>
                 </div>
-                <h3 class="font-bold mb-1" style="font-size: 1.1rem; color: var(--title-color, #1a1a1a);">Discovery</h3>
-                <p class="text-slate-500 leading-relaxed" style="font-size: 0.8rem;">Understanding your goals, audience, and challenges.</p>
+
+                {{-- Step 3: Design --}}
+                <div
+                    class="group relative animate-on-scroll delay-200 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">03</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Design
+                    </h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Creating intuitive interfaces that engage
+                        and elevate.</p>
+                </div>
+
+                {{-- Step 4: Development --}}
+                <div
+                    class="group relative animate-on-scroll delay-300 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">04</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">
+                        Development</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Building high-performance systems with
+                        clean code.</p>
+                </div>
+
+                {{-- Step 5: QA and Testing --}}
+                <div
+                    class="group relative animate-on-scroll delay-[350ms] border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">05</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">QA &
+                        Testing</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Rigorous testing to ensure flawless performance and
+                        security.
+                    </p>
+                </div>
+
+                {{-- Step 6: Launch --}}
+                <div
+                    class="group relative animate-on-scroll delay-400 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity"
+                            style="color: var(--theme-color, #c5a059);">06</span>
+                    </div>
+                    <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300"
+                        style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
+                        <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path
+                                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                            <path
+                                d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Launch
+                    </h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">Deploying with precision and monitoring
+                        performance.</p>
+                </div>
+
             </div>
-
-            {{-- Step 2: Strategy --}}
-            <div class="group relative animate-on-scroll delay-100 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
-                <div class="flex items-start gap-2 mb-2">
-                    <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity" style="color: var(--theme-color, #c5a059); font-family: 'Neuton', serif;">02</span>
-                </div>
-                <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300" style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
-                    <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83" /><path d="M22 12A10 10 0 0 0 12 2v10z" />
-                    </svg>
-                </div>
-                <h3 class="font-bold mb-1" style="font-size: 1.1rem; color: var(--title-color, #1a1a1a);">Strategy</h3>
-                <p class="text-slate-500 leading-relaxed" style="font-size: 0.8rem;">Crafting a data-driven roadmap aligned with your objectives.</p>
-            </div>
-
-            {{-- Step 3: Design --}}
-            <div class="group relative animate-on-scroll delay-200 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
-                <div class="flex items-start gap-2 mb-2">
-                    <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity" style="color: var(--theme-color, #c5a059); font-family: 'Neuton', serif;">03</span>
-                </div>
-                <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300" style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
-                    <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-                    </svg>
-                </div>
-                <h3 class="font-bold mb-1" style="font-size: 1.1rem; color: var(--title-color, #1a1a1a);">Design</h3>
-                <p class="text-slate-500 leading-relaxed" style="font-size: 0.8rem;">Creating intuitive interfaces that engage and elevate.</p>
-            </div>
-
-            {{-- Step 4: Development --}}
-            <div class="group relative animate-on-scroll delay-300 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
-                <div class="flex items-start gap-2 mb-2">
-                    <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity" style="color: var(--theme-color, #c5a059); font-family: 'Neuton', serif;">04</span>
-                </div>
-                <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300" style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
-                    <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
-                    </svg>
-                </div>
-                <h3 class="font-bold mb-1" style="font-size: 1.1rem; color: var(--title-color, #1a1a1a);">Development</h3>
-                <p class="text-slate-500 leading-relaxed" style="font-size: 0.8rem;">Building high-performance systems with clean code.</p>
-            </div>
-
-            {{-- Step 5: Launch --}}
-            <div class="group relative animate-on-scroll delay-400 border border-gray-100 p-4 lg:p-5 transition-all duration-300 hover:shadow-lg hover:z-10 flex-1 min-w-0 process-card">
-                <div class="flex items-start gap-2 mb-2">
-                    <span class="text-3xl font-bold leading-none opacity-10 group-hover:opacity-20 transition-opacity" style="color: var(--theme-color, #c5a059); font-family: 'Neuton', serif;">05</span>
-                </div>
-                <div class="process-icon rounded-lg flex items-center justify-center border-none transition-colors duration-300" style="width: 45px; height: 45px; margin-bottom: 15px; background: color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent); color: var(--theme-color, #c5a059);">
-                    <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-                        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-                    </svg>
-                </div>
-                <h3 class="font-bold mb-1" style="font-size: 1.1rem; color: var(--title-color, #1a1a1a);">Launch</h3>
-                <p class="text-slate-500 leading-relaxed" style="font-size: 0.8rem;">Deploying with precision and monitoring performance.</p>
-            </div>
-
-        </div>
         </div>
     </section>
 

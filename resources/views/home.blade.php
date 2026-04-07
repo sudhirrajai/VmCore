@@ -1,6 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Home - ' . ($siteSettings['site_name'] ?? 'VM CORE'))
+@section('title', setting('home_meta_title', 'Home - ' . ($siteSettings['site_name'] ?? 'VM CORE')))
+@section('meta_description', setting('home_meta_description', 'We are a digital agency that helps build immersive and engaging user experiences that drive results.'))
+@section('meta_keywords', setting('home_meta_keywords', 'digital agency, web design, branding, creative studio'))
+@section('og_type', 'website')
+@section('canonical', url('/'))
+
+@push('structured_data')
+  <script type="application/ld+json">
+      {
+          "@@context": "https://schema.org",
+          "@@type": "WebSite",
+          "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+          "url": "{{ url('/') }}",
+          "potentialAction": {
+              "@@type": "SearchAction",
+              "target": "{{ url('/blog') }}?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+          }
+      }
+      </script>
+@endpush
 
 @push('styles')
   <style>
@@ -49,10 +69,9 @@
       transform: translateY(0);
     }
 
-    /* Home page hero H1 — slightly larger than global 3rem */
-    .home-hero h1 {
-      font-size: 4.5rem !important;
-      /* ~72px */
+
+
+    @media (min-width: 768px) {
     }
   </style>
 @endpush
@@ -60,10 +79,10 @@
 @section('content')
 
   <!-- Hero Section -->
-  <section class="pt-0 pb-12 home-hero">
+  <section class="pb-12 home-hero">
     <div class="container-custom grid md:grid-cols-2 gap-12 items-center">
       <div class="animate-fade-in-left">
-        <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] text-slate-900 mb-6">
+        <h1 class="text-5xl lg:text-7xl font-bold leading-tight text-slate-900 mb-6">
           @if(isset($hero) && $hero)
             {!! $hero->title !!}
           @else
@@ -72,7 +91,7 @@
             EVERYDAY
           @endif
         </h1>
-        <p class="text-xl tracking-wide text-slate-600 mb-8 max-w-md leading-relaxed">
+        <p class="text-base leading-relaxed text-slate-600 mb-6 max-w-md">
           @if(isset($hero) && $hero)
             {!! $hero->description !!}
           @else
@@ -80,14 +99,15 @@
           @endif
         </p>
         <a href="{{ route('portfolio') }}"
-          class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md font-semibold items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
+          class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md text-sm font-medium items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
           VIEW OUR WORKS
         </a>
       </div>
       <div class="relative animate-fade-in-up delay-200">
         <img
           src="{{ isset($hero) && $hero->image ? asset($hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}"
-          alt="Team Meeting" class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" />
+          alt="{{ isset($hero) && $hero->image_alt ? $hero->image_alt : ($siteSettings['site_name'] ?? 'VMCore') . ' - Digital Agency Team' }}"
+          class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" loading="eager" />
       </div>
     </div>
   </section>
@@ -96,14 +116,16 @@
   <section id="services" class="py-12">
     <div class="container-custom">
       <div class="mb-14">
-        <span class="text-[15px] font-medium text-secondary mb-3 block">Services</span>
-        <h2 class="text-[44px] font-bold text-slate-900 leading-tight tracking-tight">What We Can Do for Our Clients</h2>
+        <span
+          class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_services_label', 'Services') !!}</span>
+        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mb-6">
+          {!! setting('home_services_heading', 'What We Can Do for Our Clients') !!}</h2>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         @if(isset($services) && $services->count() > 0)
           @foreach($services as $index => $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="bg-card p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              class="bg-card p-6 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
               <div class="bg-icon-box p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
                 @if($service->icon_image)
                   <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
@@ -118,12 +140,12 @@
                 @endif
               </div>
               <div class="pt-2">
-                <h3 class="text-[22px] font-bold text-slate-900 mb-3">{{ $service->title }}</h3>
-                <div class="text-slate-500 tracking-wide text-[1.15rem] mb-5 leading-relaxed max-w-[340px] line-clamp-2">
+                <h3 class="text-xl lg:text-2xl font-semibold text-slate-900 mb-4">{{ $service->title }}</h3>
+                <div class="text-base leading-relaxed text-slate-500 mb-4 max-w-[340px] line-clamp-2">
                   {{ \Illuminate\Support\Str::limit(strip_tags($service->description), 80) }}
                 </div>
                 <div
-                  class="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
+                  class="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
                   VIEW DETAILS
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -136,8 +158,8 @@
           @endforeach
         @else
           <div
-            class="bg-card p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer">
-            <p class="text-slate-500 tracking-wide text-[1.15rem] mb-5 leading-relaxed max-w-[340px]">No services found.</p>
+            class="bg-card p-6 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer">
+            <p class="text-base leading-relaxed text-slate-500 mb-4 max-w-[340px]">No services found.</p>
           </div>
         @endif
       </div>
@@ -148,9 +170,10 @@
   <section id="portfolio" class="py-24">
     <div class="container-custom">
       <div class="mb-14">
-        <span class="text-sm font-semibold text-secondary uppercase tracking-wider">Projects</span>
-        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mt-2 uppercase tracking-tight leading-tight">Discover Our
-          Selected Projects</h2>
+        <span
+          class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_projects_label', 'Projects') !!}</span>
+        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-6 uppercase tracking-tight">
+          {!! setting('home_projects_heading', 'Discover Our Selected Projects') !!}</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-12">
         @if(isset($projects) && $projects->count() > 0)
@@ -168,8 +191,8 @@
                 </div>
               </a>
               <div class="mt-6">
-                <h3 class="text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $project->title }}</h3>
-                <p class="text-[1.1rem] tracking-wide text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}
+                <h3 class="text-xl lg:text-2xl font-semibold text-slate-900 mb-2">{{ $project->title }}</h3>
+                <p class="text-sm text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}
                 </p>
               </div>
             </div>

@@ -44,8 +44,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS (compiled) -->
     <link rel="stylesheet" href="{{ asset('assets/new-ui/style.css') }}">
@@ -56,11 +55,12 @@
                 {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
                 !important;
             --secondary-color:
-                {{ \App\Helpers\ThemeHelper::getSecondaryColor() }}
+                {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
             --secondary-color-light:
-                rgba({{ \App\Helpers\ThemeHelper::getSecondaryColorRgb() }}, 0.1)
-                !important;
+                color-mix(in srgb,
+                    {{ \App\Helpers\ThemeHelper::getFontColor() }}
+                    10%, transparent) !important;
             --body-color:
                 {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
@@ -82,16 +82,40 @@
         }
 
         /* Generic generic utility classes for secondary colors */
-        .text-secondary { color: var(--secondary-color) !important; }
-        .bg-secondary { background-color: var(--secondary-color) !important; }
-        .bg-secondary-light { background-color: var(--secondary-color-light) !important; }
-        .border-secondary { border-color: var(--secondary-color) !important; }
+        .text-secondary {
+            color: var(--secondary-color) !important;
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary-color) !important;
+        }
+
+        .bg-secondary-light {
+            background-color: var(--secondary-color-light) !important;
+        }
+
+        .border-secondary {
+            border-color: var(--secondary-color) !important;
+        }
 
         /* Custom Admin Theme Utilities */
-        .bg-card { background-color: var(--card-bg-color) !important; }
-        .bg-footer { background-color: var(--footer-bg-color) !important; }
-        .bg-icon-box { background-color: var(--icon-bg-color) !important; }
-        .border-gray-100, .border-slate-100, .border-gray-200 { border-color: var(--border-color) !important; }
+        .bg-card {
+            background-color: var(--card-bg-color) !important;
+        }
+
+        .bg-footer {
+            background-color: var(--footer-bg-color) !important;
+        }
+
+        .bg-icon-box {
+            background-color: var(--icon-bg-color) !important;
+        }
+
+        .border-gray-100,
+        .border-slate-100,
+        .border-gray-200 {
+            border-color: var(--border-color) !important;
+        }
 
         /* Override static secondary colors */
         .text-yellow-500,
@@ -124,17 +148,52 @@
             color:
                 {{ \App\Helpers\ThemeHelper::getFontColor() }}
                 !important;
-            font-family: 'Neuton', serif !important;
+            font-family: 'Inter', sans-serif !important;
         }
 
         /* Enforce Neuton font universally override tailwind util classes */
-        .font-sans, .font-serif, h1, h2, h3, h4, h5, h6, p, a, span, button, div, li {
-            font-family: 'Neuton', serif !important;
-            letter-spacing: 0.035em !important;
+        .font-sans,
+        .font-serif,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        a,
+        span,
+        button,
+        div,
+        li {
+            font-family: 'Inter', sans-serif !important;
+            letter-spacing: normal !important;
+        }
+
+        /* Essential safeguard for ALL screens and ALL typography */
+        /* Refined typography safeguards */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+
+        p,
+        span,
+        a,
+        div {
+            overflow-wrap: break-word;
+            word-break: normal;
         }
 
         /* Increase description text size globally for editor content since Neuton runs small */
-        .ckeditor-content p, .ckeditor-content span, .ckeditor-content li {
+        .ckeditor-content p,
+        .ckeditor-content span,
+        .ckeditor-content li {
             font-size: 1.2rem !important;
             line-height: 1.8 !important;
             letter-spacing: 0.025em !important;
@@ -219,8 +278,13 @@
         }
 
         @keyframes marquee-scroll {
-            0%   { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
+            0% {
+                transform: translateX(100vw);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* Global Responsive Containers Overrides */
@@ -234,13 +298,8 @@
             margin-left: auto !important;
             margin-right: auto !important;
         }
-        /* ── Global H1 font size: text-5xl font-bold tracking-tight ── */
-        main h1 {
-            font-size: 3rem !important;       /* text-5xl = 48px */
-            font-weight: 700 !important;      /* font-bold */
-            letter-spacing: -0.025em !important; /* tracking-tight */
-            line-height: 1.1 !important;
-        }
+
+
     </style>
 
     @stack('styles')
@@ -263,22 +322,31 @@
             "@@type": "PostalAddress",
             "streetAddress": "{{ addslashes($siteSettings['site_address'] ?? '') }}"
         }
+        @if(!empty($siteSettings['social_links']))
+            @php
+                $socialUrls = is_array($siteSettings['social_links']) ? $siteSettings['social_links'] : json_decode($siteSettings['social_links'], true);
+                $sameAs = collect($socialUrls ?? [])->pluck('url')->filter()->values();
+            @endphp
+            @if($sameAs->count())
+                ,"sameAs": {!! $sameAs->toJson() !!}
+            @endif
+        @endif
     }
     </script>
     @stack('structured_data')
 
     {{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
-    @php $headerCode = setting('header_code'); @endphp
-    @if(!empty($headerCode))
-        {!! $headerCode !!}
-    @endif
+        @php $headerCode = setting('header_code'); @endphp
+@if(!empty($headerCode))
+    {!! $headerCode !!}
+@endif
 </head>
 
-<body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30">
+<body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30 overflow-x-hidden relative w-full">
 
     @include('components.navbar')
 
-    <main class="flex-grow">
+    <main class="flex-grow" style="padding-top: 110px;">
         @yield('content')
     </main>
 
@@ -288,6 +356,12 @@
     <script src="{{ asset('assets/new-ui/script.js') }}"></script>
 
     @stack('scripts')
+
+    {{-- Custom Footer Code (from Admin > Settings > Global Settings) --}}
+        @php $footerCode = setting('footer_code'); @endphp
+@if(!empty($footerCode))
+    {!! $footerCode !!}
+@endif
 </body>
 
 </html>

@@ -27,10 +27,7 @@
 @endpush
 
 @push('styles')
-    {{-- Neuton serif font — matches the reference design --}}
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-        rel="stylesheet">
+
 
     <style>
         /* ══════════════════════════════════════════
@@ -38,9 +35,7 @@
                Font: Neuton (serif) for headings
                Accent: theme-color mapped to gold role
             ══════════════════════════════════════════ */
-        .pd-serif {
-            font-family: 'Neuton', ui-serif, Georgia, 'Times New Roman', serif;
-        }
+
 
         /* ── SECTION 1: HERO ── */
         .pd-hero {
@@ -57,19 +52,10 @@
         }
 
         .pd-hero-title {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem); /* Reduced from 3.5rem...6rem */
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
-            line-height: 1.05;
-            margin-bottom: 0.75rem;
         }
 
         .pd-hero-subtitle {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: clamp(1.1rem, 2vw, 1.35rem); /* Slightly reduced */
-            font-style: italic;
-            font-weight: 400;
             color: var(--theme-color, #c5a059);
         }
 
@@ -149,17 +135,10 @@
         }
 
         .pd-story-heading {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: clamp(2rem, 3.5vw, 2.5rem);
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
-            margin-bottom: 2rem;
         }
 
         .pd-story-text {
-            font-size: 1.2rem; /* Increased description size */
-            line-height: 1.85;
-            letter-spacing: 0.025em;
             color: var(--body-color, #666666);
         }
 
@@ -188,11 +167,7 @@
         }
 
         .pd-facts-title {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: 1.25rem;
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
-            margin-bottom: 1.25rem;
         }
 
         .pd-fact-row {
@@ -227,13 +202,8 @@
 
         /* ── SECTION 3: PROBLEM & SOLUTION ── */
         .pd-ps-section-title {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: clamp(2rem, 3.5vw, 2.5rem);
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
             text-align: center;
-            margin-bottom: 2rem;
-            /* Reduced from 4rem */
         }
 
         .pd-ps-grid {
@@ -278,18 +248,11 @@
         }
 
         .pd-ps-card-title {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: 1.4rem;
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
-            margin-bottom: 1rem;
         }
 
         .pd-ps-card-text {
             color: var(--body-color, #666666);
-            line-height: 1.7;
-            letter-spacing: 0.025em;
-            font-size: 1.15rem; /* Increased description size */
         }
 
         /* ── SECTION 4: FEATURE HIGHLIGHTS ── */
@@ -336,17 +299,10 @@
         }
 
         .pd-feat-title {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: 1.2rem;
-            font-weight: 400;
             color: var(--title-color, #1a1a1a);
-            margin-bottom: 0.85rem;
         }
 
         .pd-feat-desc {
-            font-size: 1.1rem; /* Increased description size */
-            line-height: 1.7;
-            letter-spacing: 0.025em;
             color: var(--body-color, #666666);
         }
 
@@ -463,13 +419,7 @@
         }
 
         .pd-test-quote {
-            font-family: 'Neuton', ui-serif, Georgia, serif;
-            font-size: 1.3rem; /* Increased description size */
-            font-style: italic;
-            line-height: 1.75;
-            letter-spacing: 0.025em;
             color: var(--body-color, #666666);
-            margin-bottom: 1.5rem;
         }
 
         .pd-test-avatar {
@@ -576,11 +526,11 @@
 
             {{-- Centered title block --}}
             <div class="pd-hero-center animate-on-scroll">
-                <h1 class="pd-hero-title">{{ $project->title }}</h1>
+                <h1 class="pd-hero-title text-5xl lg:text-7xl font-bold leading-tight mb-6">{{ $project->title }}</h1>
                 @if($project->short_description)
-                    <p class="pd-hero-subtitle">{{ $project->short_description }}</p>
+                    <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $project->short_description }}</p>
                 @elseif($project->categories->count())
-                    <p class="pd-hero-subtitle">{{ $project->categories->pluck('title')->implode(' · ') }}</p>
+                    <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $project->categories->pluck('title')->implode(' · ') }}</p>
                 @endif
             </div>
 
@@ -607,14 +557,14 @@
 
                 {{-- Left: The Story --}}
                 <div class="animate-on-scroll">
-                    <h2 class="pd-story-heading">The Story</h2>
+                    <h2 class="pd-story-heading text-2xl lg:text-4xl font-semibold leading-tight mb-6">The Story</h2>
                     @if($project->short_description)
-                        <div class="pd-story-text">
+                        <div class="pd-story-text text-base leading-relaxed text-slate-500 mb-4">
                             <p>{{ $project->short_description }}</p>
                         </div>
                     @endif
                     @if($project->description)
-                        <div class="pd-story-text ckeditor-content" style="margin-top: 1.25rem;">
+                        <div class="pd-story-text ckeditor-content text-base leading-relaxed text-slate-500">
                             {!! $project->description !!}
                         </div>
                     @endif
@@ -624,7 +574,7 @@
                 <div class="pd-sticky-sidebar">
                     <div class="animate-on-scroll" style="transition-delay: 120ms;">
                         <div class="pd-facts-card">
-                            <h3 class="pd-facts-title">Quick Facts</h3>
+                            <h3 class="pd-facts-title text-xl lg:text-2xl font-semibold mb-4">Quick Facts</h3>
                         <div>
                             @if($project->client)
                                 <div class="pd-fact-row">
@@ -698,7 +648,7 @@
         <section class="py-12 md:py-16">
                     <div class="container-custom">
 
-                        <h2 class="pd-ps-section-title animate-on-scroll">Problem &amp; Solution</h2>
+                        <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Problem &amp; Solution</h2>
 
                         <div class="pd-ps-grid">
                             @foreach($project->problem_solution as $index => $item)
@@ -708,8 +658,8 @@
                                             {!! $item['icon'] !!}
                                         </div>
                                     @endif
-                                    <h3 class="pd-ps-card-title">{{ $item['title'] }}</h3>
-                                    <p class="pd-ps-card-text">
+                                    <h3 class="pd-ps-card-title text-xl lg:text-2xl font-semibold mb-2">{{ $item['title'] }}</h3>
+                                    <p class="pd-ps-card-text text-base leading-relaxed text-slate-500">
                                         {{ $item['content'] ?? '' }}
                                     </p>
                                 </div>
@@ -727,7 +677,7 @@
             <section class="py-12 md:py-16" style="background: var(--card-bg-color, #ffffff);">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll">Feature Highlights</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Feature Highlights</h2>
 
                     <div class="pd-feat-grid">
                         @foreach($project->features as $index => $feature)
@@ -737,8 +687,8 @@
                                         {!! $feature['icon'] !!}
                                     </div>
                                 @endif
-                                <h3 class="pd-feat-title">{{ $feature['title'] }}</h3>
-                                <p class="pd-feat-desc">{{ $feature['content'] ?? '' }}</p>
+                                <h3 class="pd-feat-title text-xl lg:text-2xl font-semibold mb-2">{{ $feature['title'] }}</h3>
+                                <p class="pd-feat-desc text-base leading-relaxed text-slate-500">{{ $feature['content'] ?? '' }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -754,7 +704,7 @@
             <section class="py-20 md:py-24">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll">UI Gallery</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">UI Gallery</h2>
 
                     <div class="pd-gallery-grid">
                         @foreach($project->images as $index => $image)
@@ -786,19 +736,19 @@
             <section class="py-20 md:py-24" style="background: var(--card-bg-color, #ffffff);">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll">Client Feedback</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Client Feedback</h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($project->testimonials as $testimonial)
                             <div class="pd-test-card animate-on-scroll">
-                                <p class="pd-test-quote">"{{ $testimonial->content }}"</p>
+                                <p class="pd-test-quote text-base leading-relaxed text-slate-500 mb-6 italic">"{{ $testimonial->content }}"</p>
                                 <div class="flex items-center gap-3.5">
                                     <div class="pd-test-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
                                     <div>
-                                        <h4 class="font-bold text-sm" style="color: var(--title-color, #1a1a1a);">
+                                        <h4 class="font-bold text-sm">
                                             {{ $testimonial->name }}</h4>
                                         @if($testimonial->designation)
-                                            <p class="text-xs mt-0.5" style="color: var(--body-color, #666);">
+                                            <p class="text-xs text-slate-500 mt-0.5">
                                                 {{ $testimonial->designation }}@if($testimonial->company), {{ $testimonial->company }}@endif
                                             </p>
                                         @endif
@@ -820,9 +770,9 @@
                 <div class="container-custom">
 
                     <div class="mb-14 animate-on-scroll">
-                        <span class="text-sm font-semibold uppercase tracking-wider"
+                        <span class="text-sm font-medium uppercase tracking-wider"
                             style="color: var(--theme-color, #c5a059);">Projects</span>
-                        <h2 class="text-4xl md:text-5xl font-bold mt-2 uppercase tracking-tight leading-tight"
+                        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2 mb-6 uppercase tracking-tight"
                             style="color: var(--title-color, #0f172a);">Discover Related Work</h2>
                     </div>
 
@@ -838,9 +788,9 @@
                                     </div>
                                 </a>
                                 <div class="mt-1">
-                                    <h3 class="text-xl font-bold mb-1 leading-tight" style="color: var(--title-color, #0f172a);">
+                                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #0f172a);">
                                         {{ $related->title }}</h3>
-                                    <p class="text-sm" style="color: var(--body-color, #64748b);">
+                                    <p class="text-sm text-slate-500">
                                         {{ $related->categories->first()->name ?? 'Portfolio' }}</p>
                                 </div>
                             </div>

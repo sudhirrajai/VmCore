@@ -1,10 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', \App\Models\Setting::get('portfolio_meta_description', 'Explore our portfolio of projects and case studies.'))
-@section('meta_keywords', \App\Models\Setting::get('portfolio_meta_keywords', 'portfolio, case studies, projects, creative work, design'))
+@section('title', setting('portfolio_meta_title', 'Portfolio - ' . ($siteSettings['site_name'] ?? 'VMCore')))
+@section('meta_description', setting('portfolio_meta_description', 'Explore our portfolio of projects and case studies.'))
+@section('meta_keywords', setting('portfolio_meta_keywords', 'portfolio, case studies, projects, creative work, design'))
 @section('canonical', route('portfolio'))
 
+@push('structured_data')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ url('/') }}"
+            },
+            {
+                "@@type": "ListItem",
+                "position": 2,
+                "name": "Portfolio",
+                "item": "{{ route('portfolio') }}"
+            }
+        ]
+    }
+    </script>
+@endpush
 @push('styles')
 <style>
     /* Portfolio Grid Layout */
@@ -77,10 +99,10 @@
 
     <!-- Hero Section -->
     <section class="pt-20 pb-12 px-8 text-center max-w-4xl mx-auto animate-fade-in-up">
-        <h1 class="text-5xl font-bold tracking-tight text-gray-900 mb-6">
+        <h1 class="text-5xl lg:text-7xl font-bold leading-tight text-slate-900 mb-6">
             {!! \App\Models\Setting::get('portfolio_hero_title', 'Our Impactful Work') !!}
         </h1>
-        <p class="text-lg text-gray-500 leading-relaxed">
+        <p class="text-base leading-relaxed text-slate-500">
             {!! \App\Models\Setting::get('portfolio_hero_subtitle', 'We partner with forward-thinking companies to craft digital experiences that drive growth and innovation.') !!}
         </p>
     </section>
@@ -124,16 +146,16 @@
                         </div>
                     </a>
                     <div class="mt-4">
-                        <h3 class="text-lg font-bold text-gray-900">{{ $project->title }}</h3>
-                        <p class="text-sm text-gray-500 mt-1">
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">{{ $project->title }}</h3>
+                        <p class="text-sm text-slate-500 mt-1">
                             {{ $project->categories->count() ? $project->categories->pluck('name')->implode(', ') : 'Uncategorized' }}
                         </p>
                     </div>
                 </div>
             @empty
                 <div class="col-span-full text-center py-20">
-                    <p class="text-gray-500 text-lg">No projects found for this category.</p>
-                    <a href="{{ route('portfolio') }}" class="portfolio-empty-link font-bold underline mt-2 block">View all projects</a>
+                    <p class="text-base leading-relaxed text-slate-500 mb-4">No projects found for this category.</p>
+                    <a href="{{ route('portfolio') }}" class="text-sm font-medium portfolio-empty-link underline block">View all projects</a>
                 </div>
             @endforelse
         </div>

@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'FAQ - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', \App\Models\Setting::get('faq_meta_description', 'Frequently asked questions about our services.'))
-@section('meta_keywords', \App\Models\Setting::get('faq_meta_keywords', 'FAQ, frequently asked questions, help, support'))
+@section('title', setting('faq_meta_title', 'FAQ - ' . ($siteSettings['site_name'] ?? 'VMCore')))
+@section('meta_description', setting('faq_meta_description', 'Frequently asked questions about our services.'))
+@section('meta_keywords', setting('faq_meta_keywords', 'FAQ, frequently asked questions, help, support'))
 @section('canonical', route('faq'))
 
 @push('structured_data')
     <script type="application/ld+json">
-                {
-                    "@@context": "https://schema.org",
-                    "@@type": "FAQPage",
-                    "mainEntity": [
-                        @foreach($faqs as $i => $faq)
-                            {
-                                "@@type": "Question",
-                                "name": "{{ addslashes($faq->question) }}",
-                                "acceptedAnswer": {
-                                    "@@type": "Answer",
-                                    "text": "{{ addslashes(strip_tags($faq->answer)) }}"
+                                {
+                                    "@@context": "https://schema.org",
+                                    "@@type": "FAQPage",
+                                    "mainEntity": [
+                                        @foreach($faqs as $i => $faq)
+                                            {
+                                                "@@type": "Question",
+                                                "name": "{{ addslashes($faq->question) }}",
+                                                "acceptedAnswer": {
+                                                    "@@type": "Answer",
+                                                    "text": "{{ addslashes(strip_tags($faq->answer)) }}"
+                                                }
+                                            }{{ !$loop->last ? ',' : '' }}
+                                        @endforeach
+                                    ]
                                 }
-                            }{{ !$loop->last ? ',' : '' }}
-                        @endforeach
-                    ]
-                }
-                </script>
+                                </script>
 @endpush
 
 @php
@@ -131,9 +131,6 @@
         }
 
         .faq-group-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1e293b;
             margin-bottom: 20px;
         }
 
@@ -161,9 +158,6 @@
             align-items: center;
             padding: 18px 22px;
             cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            color: #1e293b;
             outline: none;
             gap: 16px;
         }
@@ -184,9 +178,6 @@
 
         .faq-answer {
             padding: 0 22px 20px;
-            font-size: 14px;
-            line-height: 1.75;
-            color: #64748b;
             border-top: 1px solid #f1f5f9;
             padding-top: 16px;
         }
@@ -262,25 +253,26 @@
 
         /* Hero section */
         .faq-hero {
-            padding: 80px 24px 40px;
+            padding: 0px 24px 30px;
+            padding: 48px 24px 64px;
             text-align: center;
             max-width: 1440px;
             margin: 0 auto;
         }
 
         .faq-hero h1 {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 700;
-            letter-spacing: -0.03em;
-            color: #1e293b;
-            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 16px;
         }
 
         .faq-hero p {
-            font-size: 16px;
+            font-size: 18px;
             color: #64748b;
-            margin-bottom: 32px;
-            max-width: 560px;
+            margin-bottom: 0;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -354,17 +346,17 @@
 
     <!-- Hero -->
     <div class="faq-hero">
-        <h1 style="color: var(--title-color, #1e293b);">{!! setting('faq_title', 'Frequently Asked Questions') !!}</h1>
-        <p>{!! setting('faq_intro_text', "Find answers to the most common questions about VM Core's services, pricing, and support.") !!}
+        <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-slate-900">{!! setting('faq_title', 'Frequently Asked Questions') !!}</h1>
+        <p class="text-base leading-relaxed text-slate-500 max-w-2xl mx-auto mb-10">{!! setting('faq_intro_text', "Find answers to the most common questions about VM Core's services, pricing, and support.") !!}
         </p>
         <!-- <div class="faq-search-wrap">
-                <svg class="faq-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" class="faq-search" placeholder="Search for answers..." id="faqSearch" />
-            </div> -->
+                                <svg class="faq-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" class="faq-search" placeholder="Search for answers..." id="faqSearch" />
+                            </div> -->
     </div>
 
     <!-- Main FAQ Layout -->
@@ -387,17 +379,17 @@
         <div class="faq-content">
             @forelse($groupedFaqs as $category => $items)
                 <div id="faq-{{ strtolower($category) }}">
-                    <div class="faq-group-title">{{ $category }}</div>
+                    <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mb-6 text-slate-900">{{ $category }}</h2>
                     @foreach($items as $faq)
                         <details class="faq-item">
-                            <summary>
+                            <summary class="text-lg font-semibold text-slate-900">
                                 <span>{{ $faq->question }}</span>
                                 <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </summary>
-                            <div class="faq-answer ckeditor-content">
+                            <div class="faq-answer ckeditor-content text-base leading-relaxed text-slate-500">
                                 {!! $faq->answer !!}
                             </div>
                         </details>
@@ -412,21 +404,7 @@
 
     </div>
 
-    <!-- Still Have Questions CTA -->
-    <div class="faq-cta">
-        <div class="faq-cta-inner">
-            <div>
-                <h3>Still have questions?</h3>
-                <p>Our team is here to help. Reach out to us for personalized assistance.</p>
-            </div>
-            <div class="faq-cta-actions">
-                <a href="{{ route('contact') }}" class="btn-dark">Get in touch</a>
-                <a href="mailto:{{ $siteSettings['site_email'] ?? 'support@vmcore.com' }}" class="faq-email-link">
-                    {{ $siteSettings['site_email'] ?? 'support@vmcore.com' }}
-                </a>
-            </div>
-        </div>
-    </div>
+
 
     <script>
         // Live search filter
