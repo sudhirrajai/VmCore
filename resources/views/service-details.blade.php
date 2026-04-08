@@ -294,7 +294,7 @@
                     <div>
                         @if(!empty($siteSettings['site_phone']))
                             <div class="sd-contact-row">
-                                <span class="flex items-center justify-center w-12 h-12 rounded bg-icon-box text-[#4E7CC1]">
+                                <span class="flex items-center justify-center w-5 h-5 text-[#4E7CC1]">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2">
                                         <path
@@ -307,7 +307,7 @@
                         @endif
                         @if(!empty($siteSettings['site_email']))
                             <div class="sd-contact-row mt-4">
-                                <span class="flex items-center justify-center w-12 h-12 rounded bg-icon-box text-[#4E7CC1]">
+                                <span class="flex items-center justify-center w-5 h-5 text-[#4E7CC1]">
                                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2">
                                         <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -341,12 +341,9 @@
     <section class="container-custom border-t border-gray-100" style="padding-top: 50px;">
         <div class="pt-16 mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-6 animate-on-scroll">
             <div>
-                <span class="text-sm font-medium uppercase tracking-wider" style="color: var(--theme-color, #c5a059);">How
-                    We
-                    Work</span>
+                <span class="text-sm font-medium uppercase tracking-wider" style="color: var(--theme-color, #c5a059);">{!! setting('process_section_label', 'How We Work') !!}</span>
                 <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2"
-                    style="color: var(--title-color, #1a1a1a);">Our
-                    Process</h2>
+                    style="color: var(--title-color, #1a1a1a);">{!! setting('process_section_heading', 'Our Process') !!}</h2>
             </div>
         </div>
         <!-- <p class="text-base leading-relaxed text-slate-500 max-w-sm mb-6">A proven framework that transforms your vision into
@@ -386,10 +383,9 @@
                             <path d="m21 21-4.3-4.3" />
                         </svg>
                     </div>
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Discovery
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">{!! setting('process_step_1_title', 'Discovery') !!}
                     </h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Understanding your goals, audience, and
-                        challenges.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_1_description', 'Understanding your goals, audience, and challenges.') !!}</p>
                 </div>
 
                 {{-- Step 2: Strategy --}}
@@ -408,10 +404,9 @@
                             <path d="M22 12A10 10 0 0 0 12 2v10z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Strategy
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">{!! setting('process_step_2_title', 'Strategy') !!}
                     </h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Crafting a data-driven roadmap aligned with
-                        your objectives.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_2_description', 'Crafting a data-driven roadmap aligned with your objectives.') !!}</p>
                 </div>
 
                 {{-- Step 3: Design --}}
@@ -434,10 +429,9 @@
                                 d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Design
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">{!! setting('process_step_3_title', 'Design') !!}
                     </h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Creating intuitive interfaces that engage
-                        and elevate.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_3_description', 'Creating intuitive interfaces that engage and elevate.') !!}</p>
                 </div>
 
                 {{-- Step 4: Development --}}
@@ -457,9 +451,8 @@
                         </svg>
                     </div>
                     <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">
-                        Development</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Building high-performance systems with
-                        clean code.</p>
+                        {!! setting('process_step_4_title', 'Development') !!}</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_4_description', 'Building high-performance systems with clean code.') !!}</p>
                 </div>
 
                 {{-- Step 5: QA and Testing --}}
@@ -478,11 +471,8 @@
                             <path d="m9 12 2 2 4-4" />
                         </svg>
                     </div>
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">QA &
-                        Testing</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Rigorous testing to ensure flawless performance and
-                        security.
-                    </p>
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">{!! setting('process_step_5_title', 'QA & Testing') !!}</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_5_description', 'Rigorous testing to ensure flawless performance and security.') !!}</p>
                 </div>
 
                 {{-- Step 6: Launch --}}
@@ -505,10 +495,9 @@
                             <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
                         </svg>
                     </div>
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">Launch
+                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #1a1a1a);">{!! setting('process_step_6_title', 'Launch') !!}
                     </h3>
-                    <p class="text-sm text-slate-500 leading-relaxed">Deploying with precision and monitoring
-                        performance.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">{!! setting('process_step_6_description', 'Deploying with precision and monitoring performance.') !!}</p>
                 </div>
 
             </div>

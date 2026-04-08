@@ -2,22 +2,24 @@
   <!-- CTA Section -->
   <section class="py-24 w-full animate-on-scroll" aria-label="Call to Action">
     <div
-      class="container-custom bg-card p-10 md:p-20 rounded-sm border border-slate-100 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex flex-col gap-10 items-center">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
-        <div class="text-left">
-          <h2 class="text-4xl lg:text-6xl font-bold leading-tight text-slate-900 uppercase">
-            {!! setting('cta_heading', "Let's Create Something Great") !!}
-          </h2>
-        </div>
-        <div class="text-left">
-          <p class="text-base lg:text-lg leading-relaxed text-slate-500">
-            {!! setting('cta_description', "We are a digital agency that helps build immersive and engaging user experiences that drive results. Our team of experts is dedicated to pushing the boundaries of what's possible.") !!}
-          </p>
+      class="container-custom bg-card p-10 md:p-16 lg:p-20 rounded-sm border border-slate-100 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex flex-col lg:flex-row gap-12 items-center">
+      <div class="w-full" style="width:75%; margin-left:5%">
+        <div class="flex flex-col gap-4 lg:gap-6 w-full">
+          <div class="text-left">
+            <h2 class="text-4xl lg:text-6xl font-bold leading-tight text-slate-900 uppercase">
+              {!! setting('cta_heading', "Let's Create Something Great") !!}
+            </h2>
+          </div>
+          <div class="text-left max-w-4xl">
+            <p class="text-base lg:text-lg leading-relaxed text-slate-500">
+              {!! setting('cta_description', "We are a digital agency that helps build immersive and engaging user experiences that drive results. Our team of experts is dedicated to pushing the boundaries of what's possible.") !!}
+            </p>
+          </div>
         </div>
       </div>
-      <div class="pt-4">
+      <div class="w-full flex justify-center" style="width:25%;margin-right:5%">
         <a href="{{ route('contact') }}"
-          class="footer-cta-btn inline-flex items-center gap-6 text-white rounded-sm text-sm font-bold tracking-widest uppercase transition-all shadow-xl group"
+          class="footer-cta-btn inline-flex items-center gap-6 text-white rounded-sm text-sm font-bold tracking-widest uppercase transition-all shadow-xl group text-center justify-center whitespace-nowrap"
           style="padding: 20px 48px; background-color: var(--theme-color, #000000);">
           {!! setting('cta_button_text', "LET'S TALK WITH US") !!}
         </a>
@@ -64,20 +66,32 @@
       </div>
 
       <nav class="md:col-span-2" aria-label="Footer navigation">
-        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">Links</h4>
+        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">{!! setting('footer_links_title', 'Links') !!}</h4>
         <ul class="space-y-2 text-base text-slate-500">
           <li><a href="{{ route('home') }}" class="hover:text-black">Home</a></li>
-          <li><a href="{{ route('about') }}" class="hover:text-black">About</a></li>
-          <li><a href="{{ route('services') }}" class="hover:text-black">Services</a></li>
-          <li><a href="{{ route('portfolio') }}" class="hover:text-black">Portfolio</a></li>
-          <li><a href="{{ route('blog') }}" class="hover:text-black">Blog</a></li>
-          <li><a href="{{ route('faq') }}" class="hover:text-black">FAQ</a></li>
-          <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+          @if(setting('show_about_page', 1))
+            <li><a href="{{ route('about') }}" class="hover:text-black">About</a></li>
+          @endif
+          @if(setting('show_services_page', 1))
+            <li><a href="{{ route('services') }}" class="hover:text-black">Services</a></li>
+          @endif
+          @if(setting('show_portfolio_page', 1))
+            <li><a href="{{ route('portfolio') }}" class="hover:text-black">Portfolio</a></li>
+          @endif
+          @if(setting('show_blog_page', 1))
+            <li><a href="{{ route('blog') }}" class="hover:text-black">Blog</a></li>
+          @endif
+          @if(setting('show_faq_page', 1))
+            <li><a href="{{ route('faq') }}" class="hover:text-black">FAQ</a></li>
+          @endif
+          @if(setting('show_contact_page', 1))
+            <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+          @endif
         </ul>
       </nav>
 
       <div class="md:col-span-2">
-        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">Services</h4>
+        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">{!! setting('footer_services_title', 'Services') !!}</h4>
         <ul class="space-y-2 text-base text-slate-500">
           @php $footerServices = \App\Models\Service::where('status', true)->orderBy('order')->take(4)->get(); @endphp
           @forelse($footerServices as $footerService)
@@ -88,12 +102,14 @@
             <li><a href="{{ route('services') }}" class="hover:text-black">Graphic Design</a></li>
             <li><a href="{{ route('services') }}" class="hover:text-black">Web Development</a></li>
           @endforelse
-          <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+          @if(setting('show_contact_page', 1))
+            <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+          @endif
         </ul>
       </div>
 
       <div class="md:col-span-3">
-        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">Contact</h4>
+        <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">{!! setting('footer_contact_title', 'Contact') !!}</h4>
         <div class="flex space-x-4 mb-4">
           @if(isset($socialLinks) && $socialLinks->count() > 0)
             @foreach($socialLinks as $social)
@@ -166,7 +182,7 @@
         </div>
         <address class="not-italic text-base text-slate-500 space-y-1">
           <p>Address: {{ $siteSettings['site_address'] ?? setting('address', 'Risstih Road, VelCore, FY 37028') }}</p>
-          <p class="mt-2 text-sm text-slate-400">Support information</p>
+          <p class="mt-2 text-sm text-slate-400">{!! setting('footer_support_label', 'Support information') !!}</p>
           <p class="font-medium text-slate-900">
             @if(!empty($siteSettings['site_email']))
               <a href="mailto:{{ $siteSettings['site_email'] }}">{{ $siteSettings['site_email'] }}</a>

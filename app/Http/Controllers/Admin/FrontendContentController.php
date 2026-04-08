@@ -35,6 +35,11 @@ class FrontendContentController extends Controller
             'home_blog_title' => 'home_blog_title',
             'home_cta_title' => 'home_cta_title',
             'home_cta_subtitle' => 'home_cta_subtitle',
+            'home_hero_fallback_title' => 'home_hero_fallback_title',
+            'home_hero_fallback_description' => 'home_hero_fallback_description',
+            'home_hero_button_text' => 'home_hero_button_text',
+            'home_service_link_text' => 'home_service_link_text',
+            'home_project_overlay_text' => 'home_project_overlay_text',
 
             // About section titles
             'about_skills_title' => 'about_skills_title',
@@ -56,14 +61,84 @@ class FrontendContentController extends Controller
             'portfolio_tags_title' => 'portfolio_tags_title',
             'portfolio_testimonials_title' => 'portfolio_testimonials_title',
             'portfolio_related_title' => 'portfolio_related_title',
+            'portfolio_story_title' => 'portfolio_story_title',
+            'portfolio_facts_title' => 'portfolio_facts_title',
+            'portfolio_fact_client_label' => 'portfolio_fact_client_label',
+            'portfolio_fact_industry_label' => 'portfolio_fact_industry_label',
+            'portfolio_fact_tech_label' => 'portfolio_fact_tech_label',
+            'portfolio_fact_services_label' => 'portfolio_fact_services_label',
+            'portfolio_fact_date_label' => 'portfolio_fact_date_label',
+            'portfolio_visit_button_text' => 'portfolio_visit_button_text',
+            'portfolio_view_button_text' => 'portfolio_view_button_text',
+            'portfolio_problem_title' => 'portfolio_problem_title',
+            'portfolio_features_title' => 'portfolio_features_title',
+            'portfolio_gallery_section_title' => 'portfolio_gallery_section_title',
+            'portfolio_feedback_title' => 'portfolio_feedback_title',
+            'portfolio_related_label' => 'portfolio_related_label',
+            'portfolio_related_heading' => 'portfolio_related_heading',
+            'portfolio_filter_all_text' => 'portfolio_filter_all_text',
 
             // Service Details
             'service_related_projects_title' => 'service_related_projects_title',
+            'services_link_text' => 'services_link_text',
 
-            // Contact & FAQ
+            // Process Section (shared by services + service-details)
+            'process_section_label' => 'process_section_label',
+            'process_section_heading' => 'process_section_heading',
+            'process_step_1_title' => 'process_step_1_title',
+            'process_step_1_description' => 'process_step_1_description',
+            'process_step_2_title' => 'process_step_2_title',
+            'process_step_2_description' => 'process_step_2_description',
+            'process_step_3_title' => 'process_step_3_title',
+            'process_step_3_description' => 'process_step_3_description',
+            'process_step_4_title' => 'process_step_4_title',
+            'process_step_4_description' => 'process_step_4_description',
+            'process_step_5_title' => 'process_step_5_title',
+            'process_step_5_description' => 'process_step_5_description',
+            'process_step_6_title' => 'process_step_6_title',
+            'process_step_6_description' => 'process_step_6_description',
+
+            // Contact Page
             'contact_form_title' => 'contact_form_title',
             'contact_form_subtitle' => 'contact_form_subtitle',
+            'contact_label_address' => 'contact_label_address',
+            'contact_label_phone' => 'contact_label_phone',
+            'contact_label_email' => 'contact_label_email',
+            'contact_label_social' => 'contact_label_social',
+            'contact_fallback_phone' => 'contact_fallback_phone',
+            'contact_fallback_email' => 'contact_fallback_email',
+            'contact_submit_text' => 'contact_submit_text',
+            'contact_field_name' => 'contact_field_name',
+            'contact_field_email' => 'contact_field_email',
+            'contact_field_phone' => 'contact_field_phone',
+            'contact_field_subject' => 'contact_field_subject',
+            'contact_field_message' => 'contact_field_message',
+
+            // FAQ
             'faq_title' => 'faq_title',
+            'faq_intro_text' => 'faq_intro_text',
+
+            // Blog
+            'blog_read_more_text' => 'blog_read_more_text',
+            'blog_tags_label' => 'blog_tags_label',
+            'blog_related_title' => 'blog_related_title',
+
+            // Team
+            'team_contact_info_title' => 'team_contact_info_title',
+            'team_testimonials_title' => 'team_testimonials_title',
+
+            // Navigation & Footer
+            'navbar_cta_text' => 'navbar_cta_text',
+            'footer_links_title' => 'footer_links_title',
+            'footer_services_title' => 'footer_services_title',
+            'footer_contact_title' => 'footer_contact_title',
+            'footer_support_label' => 'footer_support_label',
+            'cta_heading' => 'cta_heading',
+            'cta_description' => 'cta_description',
+            'cta_button_text' => 'cta_button_text',
+            'footer_newsletter_title' => 'footer_newsletter_title',
+            'footer_newsletter_disclaimer' => 'footer_newsletter_disclaimer',
+            'marquee_text' => 'marquee_text',
 
             // ── Page Header Text Keys ───────────────────────────────
             // About

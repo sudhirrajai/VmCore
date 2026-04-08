@@ -70,37 +70,37 @@
             <div class="motion-reveal" style="transition-delay: 0.2s;">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-8 mt-4 lg:mt-0">
                     <div>
-                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">Office Address</h3>
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">{!! setting('contact_label_address', 'Office Address') !!}</h3>
                         <p class="text-base leading-relaxed text-slate-500">
                             {!! nl2br(e($siteSettings['site_address'] ?? 'Address Address, Rissttin Road, VMCore, FY 37028')) !!}
                         </p>
                     </div>
                     <div>
-                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">Phone</h3>
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">{!! setting('contact_label_phone', 'Phone') !!}</h3>
                         <p class="text-base leading-relaxed text-slate-500">
                             @if(!empty($siteSettings['site_phone']))
                                 <a href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings['site_phone']) }}" class="hover:text-[#4A76B2] transition-colors">
                                     {{ $siteSettings['site_phone'] }}
                                 </a>
                             @else
-                                +1 (285) 335-5200
+                                {{ setting('contact_fallback_phone', '+1 (285) 335-5200') }}
                             @endif
                         </p>
                     </div>
                     <div>
-                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">Email</h3>
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-2 text-slate-900">{!! setting('contact_label_email', 'Email') !!}</h3>
                         <p class="text-base leading-relaxed text-slate-500">
                             @if(!empty($siteSettings['site_email']))
                                 <a href="mailto:{{ $siteSettings['site_email'] }}" class="hover:text-[#4A76B2] transition-colors">
                                     {{ $siteSettings['site_email'] }}
                                 </a>
                             @else
-                                wmventl@vmcore.com
+                                {{ setting('contact_fallback_email', 'wmventl@vmcore.com') }}
                             @endif
                         </p>
                     </div>
                     <div>
-                        <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">Social Media</h3>
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">{!! setting('contact_label_social', 'Social Media') !!}</h3>
                         <div class="flex gap-4">
                             @if(isset($socialLinks) && $socialLinks->count() > 0)
                                 @foreach($socialLinks as $social)
@@ -172,7 +172,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 gap-2">
                             <div>
                                 <label class="block text-sm font-medium mb-3 uppercase tracking-tight text-slate-900">
-                                    Name <span class="text-red-500">*</span>
+                                    {!! setting('contact_field_name', 'Name') !!} <span class="text-red-500">*</span>
                                 </label>
                                 <input 
                                     required
@@ -186,7 +186,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-3 uppercase tracking-tight text-slate-900">
-                                    Email <span class="text-red-500">*</span>
+                                    {!! setting('contact_field_email', 'Email') !!} <span class="text-red-500">*</span>
                                 </label>
                                 <input 
                                     required
@@ -202,7 +202,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 gap-2">
                             <div class="mt-3">
                                 <label class="block text-sm font-medium mb-3 uppercase tracking-tight text-slate-900">
-                                    Phone No
+                                    {!! setting('contact_field_phone', 'Phone No') !!}
                                 </label>
                                 <input 
                                     type="tel" 
@@ -214,7 +214,7 @@
                             </div>
                             <div class="mt-3">
                                 <label class="block text-sm font-medium mb-3 uppercase tracking-tight text-slate-900">
-                                    Subject <span class="text-red-500">*</span>
+                                    {!! setting('contact_field_subject', 'Subject') !!} <span class="text-red-500">*</span>
                                 </label>
                                 <input 
                                     required
@@ -229,7 +229,7 @@
                         </div>
                         <div class="mt-3">
                             <label class="block text-sm font-medium mb-3 uppercase tracking-tight text-slate-900">
-                                Message <span class="text-red-500">*</span>
+                                {!! setting('contact_field_message', 'Message') !!} <span class="text-red-500">*</span>
                             </label>
                             <textarea 
                                 required
@@ -242,7 +242,7 @@
                         </div>
                         
                         <button type="submit" class="w-full bg-[#4A76B2] text-white py-4 rounded-sm text-sm font-medium uppercase tracking-widest cursor-pointer hover:bg-[#3A6096] hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(74,118,178,0.3)] transition-all duration-300 shadow-md mt-4">
-                            Send Message
+                            {!! setting('contact_submit_text', 'Send Message') !!}
                         </button>
                     </form>
                 </div>

@@ -76,8 +76,8 @@
                                                 <p class="text-base leading-relaxed text-slate-500 mb-4">{{ Str::limit($post->excerpt, 150) }}</p>@endif
                                                 <a href="{{ route('blog.detail', $post->slug) }}" class="link-btn">
                                                     <span class="link-effect text-sm font-medium">
-                                                        <span class="effect-1">READ MORE</span>
-                                                        <span class="effect-1">READ MORE</span>
+                                                        <span class="effect-1">{!! setting('blog_read_more_text', 'READ MORE') !!}</span>
+                                                        <span class="effect-1">{!! setting('blog_read_more_text', 'READ MORE') !!}</span>
                                                     </span>
                                                     <img src="{{ asset('assets/img/icon/arrow-left-top.svg') }}" alt="icon">
                                                 </a>

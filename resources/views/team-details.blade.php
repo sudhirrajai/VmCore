@@ -54,7 +54,7 @@
 
                     <aside class="custom-sidebar">
                         <div class="custom-widget-box mt-30">
-                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 custom-widget-title text-slate-900">Contact Info</h4>
+                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 custom-widget-title text-slate-900">{!! setting('team_contact_info_title', 'Contact Info') !!}</h4>
                             <ul class="custom-info-list team-details-info text-sm text-slate-500">
                                 @if($member->email)
                                     <li>
@@ -109,7 +109,7 @@
 
                     @if($member->testimonials->count())
                         <div class="mt-50">
-                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">What Clients Say</h4>
+                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">{!! setting('team_testimonials_title', 'What Clients Say') !!}</h4>
                             @foreach($member->testimonials as $testimonial)
                                 <div class="testi-card p-4 border rounded mb-20">
                                     <p class="text-base leading-relaxed text-slate-500 italic mb-4">"{{ $testimonial->content }}"</p>

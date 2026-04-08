@@ -83,7 +83,7 @@
                         </div>
                         @if($post->tags->count())
                             <div class="blog-details-tags mt-30">
-                                <strong>Tags:</strong>
+                                <strong>{!! setting('blog_tags_label', 'Tags:') !!}</strong>
                                 @foreach($post->tags as $tag)
                                     <a href="javascript:void(0)" class="badge bg-secondary text-white ms-1">{{ $tag->title }}</a>
                                 @endforeach
@@ -94,7 +94,7 @@
                     {{-- Related Posts --}}
                     @if($relatedPosts->count())
                         <div class="related-posts mt-50">
-                            <h3 class="text-xl lg:text-2xl font-semibold mb-30 text-slate-900">Related Posts</h3>
+                            <h3 class="text-xl lg:text-2xl font-semibold mb-30 text-slate-900">{!! setting('blog_related_title', 'Related Posts') !!}</h3>
                             <div class="row gy-30">
                                 @foreach($relatedPosts as $related)
                                     <div class="col-md-4">

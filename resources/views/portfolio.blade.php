@@ -114,7 +114,7 @@
             <a href="{{ route('portfolio') }}" 
                class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ !request('category') ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
                style="{{ !request('category') ? 'background-color: #111827;' : '' }}">
-                All
+                {!! setting('portfolio_filter_all_text', 'All') !!}
             </a>
             @foreach($categories as $cat)
                 <a href="{{ route('portfolio', ['category' => $cat->slug]) }}"
@@ -141,7 +141,7 @@
                             />
                             {{-- Hover Overlay --}}
                             <div class="card-overlay">
-                                <span class="view-btn">View Project</span>
+                                <span class="view-btn">{!! setting('portfolio_view_button_text', 'View Project') !!}</span>
                             </div>
                         </div>
                     </a>

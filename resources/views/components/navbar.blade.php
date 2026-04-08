@@ -320,7 +320,7 @@
 
       <a href="{{ route('contact') }}"
         class="desktop-cta-btn text-white px-6 py-2.5 rounded-sm text-sm font-medium tracking-widest uppercase transition-all duration-300 inline-block hover:-translate-y-0.5">
-        WORK WITH US
+        {!! setting('navbar_cta_text', 'WORK WITH US') !!}
       </a>
     </div>
 
@@ -452,7 +452,7 @@
   {{-- CTA Button --}}
   <div class="mobile-menu-cta">
     <a href="{{ route('contact') }}" class="mobile-cta-btn">
-      WORK WITH US
+      {!! setting('navbar_cta_text', 'WORK WITH US') !!}
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14" />

@@ -557,7 +557,7 @@
 
                 {{-- Left: The Story --}}
                 <div class="animate-on-scroll">
-                    <h2 class="pd-story-heading text-2xl lg:text-4xl font-semibold leading-tight mb-6">The Story</h2>
+                    <h2 class="pd-story-heading text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_story_title', 'The Story') !!}</h2>
                     @if($project->short_description)
                         <div class="pd-story-text text-base leading-relaxed text-slate-500 mb-4">
                             <p>{{ $project->short_description }}</p>
@@ -574,35 +574,35 @@
                 <div class="pd-sticky-sidebar">
                     <div class="animate-on-scroll" style="transition-delay: 120ms;">
                         <div class="pd-facts-card">
-                            <h3 class="pd-facts-title text-xl lg:text-2xl font-semibold mb-4">Quick Facts</h3>
+                            <h3 class="pd-facts-title text-xl lg:text-2xl font-semibold mb-4">{!! setting('portfolio_facts_title', 'Quick Facts') !!}</h3>
                         <div>
                             @if($project->client)
                                 <div class="pd-fact-row">
-                                    <span class="pd-fact-label">Client</span>
+                                    <span class="pd-fact-label">{!! setting('portfolio_fact_client_label', 'Client') !!}</span>
                                     <span class="pd-fact-value">{{ $project->client }}</span>
                                 </div>
                             @endif
                             @if($project->categories->count())
                                 <div class="pd-fact-row">
-                                    <span class="pd-fact-label">Industry</span>
+                                    <span class="pd-fact-label">{!! setting('portfolio_fact_industry_label', 'Industry') !!}</span>
                                     <span class="pd-fact-value">{{ $project->categories->pluck('title')->implode(', ') }}</span>
                                 </div>
                             @endif
                             @if($project->tags->count())
                                 <div class="pd-fact-row">
-                                    <span class="pd-fact-label">Tech</span>
+                                    <span class="pd-fact-label">{!! setting('portfolio_fact_tech_label', 'Tech') !!}</span>
                                     <span class="pd-fact-value">{{ $project->tags->pluck('title')->implode(', ') }}</span>
                                 </div>
                             @endif
                             @if($project->services->count())
                                 <div class="pd-fact-row">
-                                    <span class="pd-fact-label">Services</span>
+                                    <span class="pd-fact-label">{!! setting('portfolio_fact_services_label', 'Services') !!}</span>
                                     <span class="pd-fact-value">{{ $project->services->pluck('title')->implode(', ') }}</span>
                                 </div>
                             @endif
                             @if($project->project_date)
                                 <div class="pd-fact-row">
-                                    <span class="pd-fact-label">Date</span>
+                                    <span class="pd-fact-label">{!! setting('portfolio_fact_date_label', 'Date') !!}</span>
                                     <span class="pd-fact-value">{{ \Carbon\Carbon::parse($project->project_date)->format('M Y') }}</span>
                                 </div>
                             @endif
@@ -612,7 +612,7 @@
                             <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center justify-center gap-2 w-full mt-5 px-5 py-3 rounded-lg text-sm font-bold tracking-wide text-white transition-all hover:-translate-y-0.5"
                                 style="background-color: var(--theme-color, #c5a059); box-shadow: 0 4px 14px color-mix(in srgb, var(--theme-color) 35%, transparent);">
-                                Visit Project
+                                {!! setting('portfolio_visit_button_text', 'Visit Project') !!}
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M7 17 17 7" />
@@ -648,7 +648,7 @@
         <section class="py-12 md:py-16">
                     <div class="container-custom">
 
-                        <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Problem &amp; Solution</h2>
+                        <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_problem_title', 'Problem &amp; Solution') !!}</h2>
 
                         <div class="pd-ps-grid">
                             @foreach($project->problem_solution as $index => $item)
@@ -677,7 +677,7 @@
             <section class="py-12 md:py-16" style="background: var(--card-bg-color, #ffffff);">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Feature Highlights</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_features_title', 'Feature Highlights') !!}</h2>
 
                     <div class="pd-feat-grid">
                         @foreach($project->features as $index => $feature)
@@ -704,7 +704,7 @@
             <section class="py-20 md:py-24">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">UI Gallery</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_gallery_section_title', 'UI Gallery') !!}</h2>
 
                     <div class="pd-gallery-grid">
                         @foreach($project->images as $index => $image)
@@ -736,7 +736,7 @@
             <section class="py-20 md:py-24" style="background: var(--card-bg-color, #ffffff);">
                 <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">Client Feedback</h2>
+                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_feedback_title', 'Client Feedback') !!}</h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($project->testimonials as $testimonial)
@@ -771,9 +771,9 @@
 
                     <div class="mb-14 animate-on-scroll">
                         <span class="text-sm font-medium uppercase tracking-wider"
-                            style="color: var(--theme-color, #c5a059);">Projects</span>
+                            style="color: var(--theme-color, #c5a059);">{!! setting('portfolio_related_label', 'Projects') !!}</span>
                         <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2 mb-6 uppercase tracking-tight"
-                            style="color: var(--title-color, #0f172a);">Discover Related Work</h2>
+                            style="color: var(--title-color, #0f172a);">{!! setting('portfolio_related_heading', 'Discover Related Work') !!}</h2>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -783,7 +783,7 @@
                                     <div class="pd-rel-img-wrap">
                                         <img src="{{ $related->image ? asset($related->image) : '' }}" alt="{{ $related->title }}" />
                                         <div class="pd-rel-overlay">
-                                            <span class="pd-rel-btn">View Project</span>
+                                            <span class="pd-rel-btn">{!! setting('portfolio_view_button_text', 'View Project') !!}</span>
                                         </div>
                                     </div>
                                 </a>
