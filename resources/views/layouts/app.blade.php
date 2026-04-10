@@ -297,6 +297,21 @@
             padding-right: 1.5rem !important;
             margin-left: auto !important;
             margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Mobile-specific overrides */
+        @media (max-width: 767px) {
+            main[style*="padding-top"] {
+                padding-top: 75px !important;
+            }
+
+            .container,
+            .container-fluid,
+            .container-custom {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
         }
 
 
@@ -342,11 +357,11 @@
 @endif
 </head>
 
-<body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30 overflow-x-hidden relative w-full">
+<body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30 overflow-x-hidden relative w-full" style="max-width: 100vw;">
 
     @include('components.navbar')
 
-    <main class="flex-grow" style="padding-top: 110px;">
+    <main class="flex-grow" style="padding-top: 90px;">
         @yield('content')
     </main>
 

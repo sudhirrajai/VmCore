@@ -69,9 +69,80 @@
       transform: translateY(0);
     }
 
+    /* ── Mobile Responsiveness ── */
+    @media (max-width: 767px) {
+      /* Prevent horizontal overflow */
+      body, html {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+      }
 
+      /* Hero Section — single column, centered on mobile */
+      .home-hero .hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center;
+      }
 
-    @media (min-width: 768px) {
+      .home-hero .hero-grid > div:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .home-hero h1 {
+        font-size: 2.25rem !important; /* text-4xl */
+        line-height: 1.2 !important;
+      }
+
+      .home-hero p {
+        max-width: 100% !important;
+        text-align: center;
+      }
+
+      /* Services — single column */
+      .services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+
+      /* Projects — single column */
+      .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2.5rem !important;
+      }
+
+      /* Project aspect ratio for mobile */
+      .projects-grid .aspect-\[3\/4\] {
+        aspect-ratio: 4/3 !important;
+      }
+
+      /* Reduce section padding on mobile */
+      section.py-24 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+
+      section.py-12 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+      }
+
+      section.pb-12 {
+        padding-bottom: 2rem !important;
+      }
+
+      /* Reduce heading font sizes for mobile */
+      h2.text-4xl, h2.text-2xl {
+        font-size: 1.5rem !important;
+      }
+
+      /* Service card layout — stack vertically */
+      .service-card {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        padding: 1.25rem !important;
+      }
     }
   </style>
 @endpush
@@ -80,32 +151,34 @@
 
   <!-- Hero Section -->
   <section class="pb-12 home-hero">
-    <div class="container-custom grid md:grid-cols-2 gap-12 items-center">
-      <div class="animate-fade-in-left">
-        <h1 class="text-5xl lg:text-7xl font-bold leading-tight text-slate-900 mb-6">
-          @if(isset($hero) && $hero)
-            {!! $hero->title !!}
-          @else
-            {!! setting('home_hero_fallback_title', 'WE MAKE <br /> CREATIVE THINGS <br /> EVERYDAY') !!}
-          @endif
-        </h1>
-        <p class="text-base leading-relaxed text-slate-600 mb-6 max-w-md">
-          @if(isset($hero) && $hero)
-            {!! $hero->description !!}
-          @else
-            {!! setting('home_hero_fallback_description', 'We are a digital agency that helps build immersive and engaging user experiences that drive results.') !!}
-          @endif
-        </p>
-        <a href="{{ route('portfolio') }}"
-          class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md text-sm font-medium items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
-          {!! setting('home_hero_button_text', 'VIEW OUR WORKS') !!}
-        </a>
-      </div>
-      <div class="relative animate-fade-in-up delay-200">
-        <img
-          src="{{ isset($hero) && $hero->image ? asset($hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}"
-          alt="{{ isset($hero) && $hero->image_alt ? $hero->image_alt : ($siteSettings['site_name'] ?? 'VMCore') . ' - Digital Agency Team' }}"
-          class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" loading="eager" />
+    <div class="container-custom">
+      <div class="hero-grid grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-fade-in-left">
+          <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-slate-900 mb-6">
+            @if(isset($hero) && $hero)
+              {!! $hero->title !!}
+            @else
+              {!! setting('home_hero_fallback_title', 'WE MAKE <br /> CREATIVE THINGS <br /> EVERYDAY') !!}
+            @endif
+          </h1>
+          <p class="text-base leading-relaxed text-slate-600 mb-6 max-w-md">
+            @if(isset($hero) && $hero)
+              {!! $hero->description !!}
+            @else
+              {!! setting('home_hero_fallback_description', 'We are a digital agency that helps build immersive and engaging user experiences that drive results.') !!}
+            @endif
+          </p>
+          <a href="{{ route('portfolio') }}"
+            class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md text-sm font-medium items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
+            {!! setting('home_hero_button_text', 'VIEW OUR WORKS') !!}
+          </a>
+        </div>
+        <div class="relative animate-fade-in-up delay-200">
+          <img
+            src="{{ isset($hero) && $hero->image ? asset($hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}"
+            alt="{{ isset($hero) && $hero->image_alt ? $hero->image_alt : ($siteSettings['site_name'] ?? 'VMCore') . ' - Digital Agency Team' }}"
+            class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" loading="eager" />
+        </div>
       </div>
     </div>
   </section>
@@ -113,17 +186,17 @@
   <!-- Services Section -->
   <section id="services" class="py-12">
     <div class="container-custom">
-      <div class="mb-14">
+      <div class="mb-8 md:mb-14">
         <span
           class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_services_label', 'Services') !!}</span>
-        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mb-6">
+        <h2 class="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-4 md:mb-6">
           {!! setting('home_services_heading', 'What We Can Do for Our Clients') !!}</h2>
       </div>
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="services-grid grid md:grid-cols-2 gap-6 md:gap-8">
         @if(isset($services) && $services->count() > 0)
           @foreach($services as $index => $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="bg-card p-6 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              class="service-card bg-card p-5 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
               <div class="bg-icon-box p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
                 @if($service->icon_image)
                   <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
@@ -165,20 +238,20 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="portfolio" class="py-24">
+  <section id="portfolio" class="py-12 md:py-24">
     <div class="container-custom">
-      <div class="mb-14">
+      <div class="mb-8 md:mb-14">
         <span
           class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_projects_label', 'Projects') !!}</span>
-        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-6 uppercase tracking-tight">
+        <h2 class="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-4 md:mb-6 uppercase tracking-tight">
           {!! setting('home_projects_heading', 'Discover Our Selected Projects') !!}</h2>
       </div>
-      <div class="grid md:grid-cols-3 gap-12">
+      <div class="projects-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
         @if(isset($projects) && $projects->count() > 0)
           @foreach($projects as $project)
             <div class="proj-card animate-on-scroll">
               <a href="{{ route('portfolio.detail', $project->slug ?? '') }}" class="block">
-                <div class="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
+                <div class="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
                   <img
                     src="{{ $project->image ? asset($project->image) : 'https://picsum.photos/seed/project-' . $project->id . '/600/800' }}"
                     alt="{{ $project->title }}" class="proj-img w-full h-full object-cover" />
@@ -188,10 +261,9 @@
                   </div>
                 </div>
               </a>
-              <div class="mt-6">
-                <h3 class="text-xl lg:text-2xl font-semibold text-slate-900 mb-2">{{ $project->title }}</h3>
-                <p class="text-sm text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}
-                </p>
+              <div class="mt-4">
+                <h3 class="text-lg md:text-xl lg:text-2xl font-semibold text-slate-900 mb-1">{{ $project->title }}</h3>
+                <p class="text-sm text-slate-500">{{ $project->categories->first()->name ?? 'Portfolio' }}</p>
               </div>
             </div>
           @endforeach
