@@ -144,17 +144,6 @@
     font-weight: 700;
   }
 
-  .mobile-nav-link svg {
-    width: 16px;
-    height: 16px;
-    color: #94a3b8;
-    transition: transform 0.2s ease;
-  }
-
-  .mobile-nav-link:hover svg {
-    transform: translateX(3px);
-    color: #64748b;
-  }
 
   .mobile-menu-cta {
     padding: 1.25rem 1.5rem 2rem;
@@ -365,63 +354,35 @@
     <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
       style="animation-delay: 0.05s;">
       Home
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
     <a href="{{ route('about') }}" class="mobile-nav-link {{ request()->routeIs('about') ? 'active' : '' }}"
       style="animation-delay: 0.1s;">
       About
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
     <a href="{{ route('services') }}"
       class="mobile-nav-link {{ request()->routeIs('services', 'service.detail') ? 'active' : '' }}"
       style="animation-delay: 0.15s;">
       Services
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
     <a href="{{ route('portfolio') }}"
       class="mobile-nav-link {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'active' : '' }}"
       style="animation-delay: 0.2s;">
       Portfolio
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
     @if(\App\Models\Setting::get('show_blog_page', 1))
       <a href="{{ route('blog') }}"
         class="mobile-nav-link {{ request()->routeIs('blog', 'blog.detail') ? 'active' : '' }}"
         style="animation-delay: 0.25s;">
         Blog
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="m9 18 6-6-6-6" />
-        </svg>
       </a>
     @endif
     <a href="{{ route('faq') }}" class="mobile-nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"
       style="animation-delay: 0.3s;">
       FAQ
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
     <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
       style="animation-delay: 0.35s;">
       Contact
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
     </a>
   </div>
 
