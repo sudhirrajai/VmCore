@@ -555,7 +555,7 @@
         <div class="sd-layout-grid">
 
             {{-- Left Content --}}
-            <div class="animate-on-scroll delay-100">
+            <div class="delay-100">
                 {{-- Service Description --}}
                 @if($service->description)
                     <div class="sd-description">
