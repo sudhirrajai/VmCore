@@ -572,7 +572,7 @@
                             <span class="sd-accent-bar"></span>
                             <h3>{!! setting('service_related_projects_title', 'Related Projects') !!}</h3>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             @foreach($service->projects->take(4) as $project)
                                 <a href="{{ route('portfolio.detail', $project->slug) }}" class="group pd-rel-card">
                                     <div class="pd-rel-img-wrap">
