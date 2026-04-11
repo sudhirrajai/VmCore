@@ -216,7 +216,7 @@
     <section class="sd-hero container-custom">
         <h1 class="sd-hero-title animate-on-scroll" style="font-family: 'Neuton', serif;">{{ $service->title }}</h1>
         @if($service->short_description)
-            <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $service->short_description }}</p>
+            <p class="sd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $service->short_description }}</p>
         @endif
     </section>
 
