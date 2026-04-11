@@ -199,6 +199,8 @@
             letter-spacing: 0.025em !important;
         }
 
+        .ckeditor-content h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; } .ckeditor-content h3 { font-size: 1.5rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; } .ckeditor-content h4 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; } .ckeditor-content p { margin-bottom: 1rem; line-height: 1.7; } .ckeditor-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; } .ckeditor-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; } .ckeditor-content li { margin-bottom: 0.5rem; } .ckeditor-content strong { font-weight: 600; } .ckeditor-content img { max-width: 100%; height: auto; margin: 1rem 0; } 
+
         /* Override Tailwind UI primary colors with dynamic theme color */
         .bg-\[\#4A76B2\],
         .bg-\[\#4E7CC1\] {
