@@ -8,18 +8,18 @@
 
 @push('structured_data')
   <script type="application/ld+json">
-            {
-                "@@context": "https://schema.org",
-                "@@type": "WebSite",
-                "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-                "url": "{{ url('/') }}",
-                "potentialAction": {
-                    "@@type": "SearchAction",
-                    "target": "{{ url('/blog') }}?search={search_term_string}",
-                    "query-input": "required name=search_term_string"
+                {
+                    "@@context": "https://schema.org",
+                    "@@type": "WebSite",
+                    "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                    "url": "{{ url('/') }}",
+                    "potentialAction": {
+                        "@@type": "SearchAction",
+                        "target": "{{ url('/blog') }}?search={search_term_string}",
+                        "query-input": "required name=search_term_string"
+                    }
                 }
-            }
-            </script>
+                </script>
 @endpush
 
 @push('styles')
@@ -201,7 +201,7 @@
         @if(isset($services) && $services->count() > 0)
           @foreach($services as $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="flex flex-col gap-4 px-6 py-4 bg-card rounded-sm border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll w-full h-full block">
+              class="flex flex-col gap-4 px-6 py-4 bg-card rounded-2xl border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll w-full h-full block">
               <div class="flex-shrink-0">
                 <div
                   class="w-16 h-16 bg-icon-box rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
