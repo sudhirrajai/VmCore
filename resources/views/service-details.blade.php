@@ -216,7 +216,7 @@
     <section class="sd-hero container-custom">
         <h1 class="sd-hero-title animate-on-scroll" style="font-family: 'Neuton', serif;">{{ $service->title }}</h1>
         @if($service->short_description)
-            <p class="sd-hero-subtitle animate-on-scroll delay-100">{{ $service->short_description }}</p>
+            <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $service->short_description }}</p>
         @endif
     </section>
 
@@ -225,7 +225,7 @@
         <div class="sd-layout-grid">
 
             {{-- Left Content --}}
-            <div class="animate-on-scroll delay-200">
+            <div class="animate-on-scroll delay-100">
                 @if($service->image || $service->banner_image)
                     <div class="mb-14 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                         <img src="{{ asset($service->image ?? $service->banner_image) }}" alt="{{ $service->title }}"
