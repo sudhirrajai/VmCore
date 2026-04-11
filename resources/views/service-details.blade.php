@@ -244,7 +244,7 @@
             background: color-mix(in srgb, var(--theme-color, #c5a059) 8%, transparent);
             color: var(--theme-color, #c5a059);
             padding: 0.35rem 0.85rem;
-            border-radius: 2rem;
+            border-radius: 0.5rem;
             font-size: 0.8rem;
             font-weight: 600;
             margin: 0 0.4rem 0.5rem 0;
