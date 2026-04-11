@@ -192,15 +192,11 @@
         }
 
         /* Increase description text size globally for editor content since Neuton runs small */
-        .ckeditor-content p,
-        .ckeditor-content span,
-        .ckeditor-content li {
-            font-size: 1.2rem !important;
-            line-height: 1.8 !important;
-            letter-spacing: 0.025em !important;
+        .ckeditor-content,
+        .ckeditor-content * {
+            all: unset;
+            box-sizing: border-box;
         }
-
-        .ckeditor-content h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; } .ckeditor-content h3 { font-size: 1.5rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; } .ckeditor-content h4 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; } .ckeditor-content p { margin-bottom: 1rem; line-height: 1.7; } .ckeditor-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; } .ckeditor-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; } .ckeditor-content li { margin-bottom: 0.5rem; } .ckeditor-content strong { font-weight: 600; } .ckeditor-content img { max-width: 100%; height: auto; margin: 1rem 0; } 
 
         /* Override Tailwind UI primary colors with dynamic theme color */
         .bg-\[\#4A76B2\],
@@ -316,8 +312,6 @@
                 padding-right: 1rem !important;
             }
         }
-
-
     </style>
 
     @stack('styles')
@@ -353,14 +347,15 @@
     </script>
     @stack('structured_data')
 
-    {{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
-        @php $headerCode = setting('header_code'); @endphp
+{{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
+            @php $headerCode = setting('header_code'); @endphp
 @if(!empty($headerCode))
     {!! $headerCode !!}
 @endif
 </head>
 
-<body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30 overflow-x-hidden relative w-full" style="max-width: 100vw;">
+
+   <body class="font-sans bg-[#F9F9F7] text-slate-900 selection:bg-[#4E7CC1]/30 overflow-x-hidden relative w-full" style="max-width: 100vw;">
 
     @include('components.navbar')
 
@@ -375,8 +370,8 @@
 
     @stack('scripts')
 
-    {{-- Custom Footer Code (from Admin > Settings > Global Settings) --}}
-        @php $footerCode = setting('footer_code'); @endphp
+{{-- Custom Footer Code (from Admin > Settings > Global Settings) --}}
+            @php $footerCode = setting('footer_code'); @endphp
 @if(!empty($footerCode))
     {!! $footerCode !!}
 @endif
