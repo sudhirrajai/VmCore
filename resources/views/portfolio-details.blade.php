@@ -56,7 +56,7 @@
         }
 
         .pd-hero-subtitle {
-            color: var(--title-color, #c5a059);
+            color: var(--theme-color, #c5a059);
         }
 
         /* Image showcase frame */
