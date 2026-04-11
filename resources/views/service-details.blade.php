@@ -22,9 +22,8 @@
         }
 
         .sd-hero-subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.35rem);
             color: var(--theme-color, #c5a059);
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -216,7 +215,7 @@
     <section class="sd-hero container-custom">
         <h1 class="sd-hero-title animate-on-scroll" style="font-family: 'Neuton', serif;">{{ $service->title }}</h1>
         @if($service->short_description)
-            <p class="sd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $service->short_description }}</p>
+            <p class="sd-hero-subtitle animate-on-scroll text-base leading-relaxed delay-100">{{ $service->short_description }}</p>
         @endif
     </section>
 
