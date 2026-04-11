@@ -8,18 +8,18 @@
 
 @push('structured_data')
   <script type="application/ld+json">
-          {
-              "@@context": "https://schema.org",
-              "@@type": "WebSite",
-              "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-              "url": "{{ url('/') }}",
-              "potentialAction": {
-                  "@@type": "SearchAction",
-                  "target": "{{ url('/blog') }}?search={search_term_string}",
-                  "query-input": "required name=search_term_string"
-              }
-          }
-          </script>
+            {
+                "@@context": "https://schema.org",
+                "@@type": "WebSite",
+                "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                "url": "{{ url('/') }}",
+                "potentialAction": {
+                    "@@type": "SearchAction",
+                    "target": "{{ url('/blog') }}?search={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            }
+            </script>
 @endpush
 
 @push('styles')
@@ -197,45 +197,89 @@
           {!! setting('home_services_heading', 'What We Can Do for Our Clients') !!}
         </h2>
       </div>
-      <div class="services-grid grid md:grid-cols-2 gap-6 md:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @if(isset($services) && $services->count() > 0)
-          @foreach($services as $index => $service)
+          @foreach($services as $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="service-card bg-card py-5 px-5 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
-              <div class="bg-icon-box p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
-                @if($service->icon_image)
-                  <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
-                @else
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="1.5">
-                    <rect width="8" height="8" x="3" y="3" rx="2" ry="2" />
-                    <rect width="8" height="8" x="13" y="3" rx="2" ry="2" />
-                    <rect width="8" height="8" x="13" y="13" rx="2" ry="2" />
-                    <rect width="8" height="8" x="3" y="13" rx="2" ry="2" />
-                  </svg>
-                @endif
-              </div>
-              <div class="pt-2">
-                <h3 class="text-xl lg:text-2xl font-semibold text-slate-900 mb-4">{{ $service->title }}</h3>
-                <div class="text-base leading-relaxed text-slate-500 mb-4 max-w-[340px] line-clamp-2">
-                  {{ \Illuminate\Support\Str::limit(strip_tags($service->description), 80) }}
-                </div>
+              class="flex flex-col gap-4 px-6 py-4 bg-card rounded-sm border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll w-full h-full block">
+              <div class="flex-shrink-0">
                 <div
-                  class="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
-                  {!! setting('home_service_link_text', 'VIEW DETAILS') !!}
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M7 17 17 7" />
-                    <path d="M7 7h10v10" />
+                  class="w-16 h-16 bg-icon-box rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
+                  @if(Str::startsWith($service->icon, 'fa'))
+                    <i
+                      class="{{ $service->icon }} text-3xl w-8 h-8 object-contain filter group-hover:brightness-0 group-hover:invert transition-colors"></i>
+                  @else
+                    <svg class="w-8 h-8 text-black group-hover:text-white transition-colors" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <rect width="8" height="8" x="3" y="3" rx="2" ry="2" />
+                      <rect width="8" height="8" x="13" y="3" rx="2" ry="2" />
+                      <rect width="8" height="8" x="13" y="13" rx="2" ry="2" />
+                      <rect width="8" height="8" x="3" y="13" rx="2" ry="2" />
+                    </svg>
+                  @endif
+                </div>
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-2">{{ $service->title }}</h3>
+                <div class="text-base leading-relaxed text-slate-500 mb-4 line-clamp-2"
+                  title="{{ strip_tags($service->description) }}">
+                  {{ \Illuminate\Support\Str::limit(strip_tags($service->description), 200) }}
+                </div>
+
+                <div
+                  class="mt-4 flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
+                  {!! setting('services_link_text', 'VIEW DETAILS') !!}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
                   </svg>
                 </div>
               </div>
             </a>
           @endforeach
         @else
+          {{-- Static Fallbacks --}}
           <div
-            class="bg-card p-6 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer">
-            <p class="text-base leading-relaxed text-slate-500 mb-4 max-w-[340px]">No services found.</p>
+            class="flex flex-col gap-4 px-6 py-4 bg-card rounded-sm border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll">
+            <div class="flex-shrink-0">
+              <div
+                class="w-16 h-16 bg-icon-box rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
+                <svg class="w-8 h-8 text-black group-hover:text-white transition-colors" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect width="8" height="8" x="3" y="3" rx="2" ry="2" />
+                  <rect width="8" height="8" x="13" y="3" rx="2" ry="2" />
+                  <rect width="8" height="8" x="13" y="13" rx="2" ry="2" />
+                  <rect width="8" height="8" x="3" y="13" rx="2" ry="2" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl lg:text-2xl font-semibold mb-2">Business Consultancy</h3>
+              <p class="text-base leading-relaxed text-slate-500 mb-4">
+                Business consultancy, team skills and engaging user experiences that deliver results.
+              </p>
+              <ul class="grid grid-cols-1 gap-y-1">
+                <li class="flex items-center text-sm font-medium"><span
+                    class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Strategic Planning</li>
+                <li class="flex items-center text-sm font-medium"><span
+                    class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Digital Transformation</li>
+                <li class="flex items-center text-sm font-medium"><span
+                    class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Operations Scaling</li>
+              </ul>
+
+              <div
+                class="mt-4 flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
+                VIEW DETAILS
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </div>
+            </div>
           </div>
         @endif
       </div>
