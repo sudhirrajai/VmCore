@@ -233,8 +233,9 @@
                     </div>
                 @endif
 
+
                 @if($service->description)
-                    <div class="ckeditor-content text-slate-600 leading-relaxed text-lg pb-10">
+                    <div class="ckeditor-content text-slate-700 leading-relaxed text-base md:text-lg pb-8 prose prose-slate">
                         {!! $service->description !!}
                     </div>
                 @endif
