@@ -8,18 +8,18 @@
 
 @push('structured_data')
   <script type="application/ld+json">
-      {
-          "@@context": "https://schema.org",
-          "@@type": "WebSite",
-          "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-          "url": "{{ url('/') }}",
-          "potentialAction": {
-              "@@type": "SearchAction",
-              "target": "{{ url('/blog') }}?search={search_term_string}",
-              "query-input": "required name=search_term_string"
+          {
+              "@@context": "https://schema.org",
+              "@@type": "WebSite",
+              "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+              "url": "{{ url('/') }}",
+              "potentialAction": {
+                  "@@type": "SearchAction",
+                  "target": "{{ url('/blog') }}?search={search_term_string}",
+                  "query-input": "required name=search_term_string"
+              }
           }
-      }
-      </script>
+          </script>
 @endpush
 
 @push('styles')
@@ -71,8 +71,10 @@
 
     /* ── Mobile Responsiveness ── */
     @media (max-width: 767px) {
+
       /* Prevent horizontal overflow */
-      body, html {
+      body,
+      html {
         overflow-x: hidden !important;
         max-width: 100vw !important;
       }
@@ -84,14 +86,15 @@
         text-align: center;
       }
 
-      .home-hero .hero-grid > div:first-child {
+      .home-hero .hero-grid>div:first-child {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
 
       .home-hero h1 {
-        font-size: 2.25rem !important; /* text-4xl */
+        font-size: 2.25rem !important;
+        /* text-4xl */
         line-height: 1.2 !important;
       }
 
@@ -133,7 +136,8 @@
       }
 
       /* Reduce heading font sizes for mobile */
-      h2.text-4xl, h2.text-2xl {
+      h2.text-4xl,
+      h2.text-2xl {
         font-size: 1.5rem !important;
       }
 
@@ -190,13 +194,14 @@
         <span
           class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_services_label', 'Services') !!}</span>
         <h2 class="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-4 md:mb-6">
-          {!! setting('home_services_heading', 'What We Can Do for Our Clients') !!}</h2>
+          {!! setting('home_services_heading', 'What We Can Do for Our Clients') !!}
+        </h2>
       </div>
       <div class="services-grid grid md:grid-cols-2 gap-6 md:gap-8">
         @if(isset($services) && $services->count() > 0)
           @foreach($services as $index => $service)
             <a href="{{ route('service.detail', $service->slug ?? '') }}"
-              class="service-card bg-card p-5 md:p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              class="service-card bg-card py-5 px-5 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 md:gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
               <div class="bg-icon-box p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
                 @if($service->icon_image)
                   <img src="{{ asset($service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
@@ -243,8 +248,10 @@
       <div class="mb-8 md:mb-14">
         <span
           class="text-sm font-medium text-secondary uppercase tracking-wider">{!! setting('home_projects_label', 'Projects') !!}</span>
-        <h2 class="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-4 md:mb-6 uppercase tracking-tight">
-          {!! setting('home_projects_heading', 'Discover Our Selected Projects') !!}</h2>
+        <h2
+          class="text-xl md:text-2xl lg:text-4xl font-semibold leading-tight text-slate-900 mt-2 mb-4 md:mb-6 uppercase tracking-tight">
+          {!! setting('home_projects_heading', 'Discover Our Selected Projects') !!}
+        </h2>
       </div>
       <div class="projects-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
         @if(isset($projects) && $projects->count() > 0)
