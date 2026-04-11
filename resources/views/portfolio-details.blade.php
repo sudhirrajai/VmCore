@@ -11,19 +11,19 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-            {
-                "@@context": "https://schema.org",
-                "@@type": "CreativeWork",
-                "name": "{{ addslashes($project->title) }}",
-                "description": "{{ addslashes($project->meta_description ?? $project->short_description ?? '') }}",
-                "image": "{{ $project->image ? asset($project->image) : '' }}",
-                "url": "{{ route('portfolio.detail', $project->slug) }}",
-                "creator": {
-                    "@@type": "Organization",
-                    "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
-                }{{ $project->project_date ? ', "dateCreated": "' . $project->project_date->toDateString() . '"' : '' }}
-            }
-            </script>
+                {
+                    "@@context": "https://schema.org",
+                    "@@type": "CreativeWork",
+                    "name": "{{ addslashes($project->title) }}",
+                    "description": "{{ addslashes($project->meta_description ?? $project->short_description ?? '') }}",
+                    "image": "{{ $project->image ? asset($project->image) : '' }}",
+                    "url": "{{ route('portfolio.detail', $project->slug) }}",
+                    "creator": {
+                        "@@type": "Organization",
+                        "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}"
+                    }{{ $project->project_date ? ', "dateCreated": "' . $project->project_date->toDateString() . '"' : '' }}
+                }
+                </script>
 @endpush
 
 @push('styles')
@@ -31,15 +31,16 @@
 
     <style>
         /* ══════════════════════════════════════════
-               DESIGN SYSTEM — matching reference exactly
-               Font: Neuton (serif) for headings
-               Accent: theme-color mapped to gold role
-            ══════════════════════════════════════════ */
+                   DESIGN SYSTEM — matching reference exactly
+                   Font: Neuton (serif) for headings
+                   Accent: theme-color mapped to gold role
+                ══════════════════════════════════════════ */
 
 
         /* ── SECTION 1: HERO ── */
         .pd-hero {
-            padding: 3.5rem 0 2rem; /* Reduced from 5rem 0 3rem */
+            padding: 3.5rem 0 2rem;
+            /* Reduced from 5rem 0 3rem */
             overflow: hidden;
         }
 
@@ -48,7 +49,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 2.5rem; /* Reduced from 4rem */
+            margin-bottom: 2.5rem;
+            /* Reduced from 4rem */
         }
 
         .pd-hero-title {
@@ -62,7 +64,8 @@
         /* Image showcase frame */
         .pd-hero-showcase {
             position: relative;
-            max-width: 900px; /* Reduced from 1080px to make hero more compact */
+            max-width: 900px;
+            /* Reduced from 1080px to make hero more compact */
             margin: 0 auto;
         }
 
@@ -122,7 +125,8 @@
 
         .pd-sticky-sidebar {
             position: sticky;
-            top: 8rem; /* Enough room for headers/nav */
+            top: 8rem;
+            /* Enough room for headers/nav */
             padding-bottom: 2rem;
             z-index: 10;
         }
@@ -155,7 +159,8 @@
             background: var(--card-bg-color, #fdfbf7);
             border: 1px solid color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent);
             border-radius: 1rem;
-            padding: 2.5rem; /* Increased spacing inside */
+            padding: 2.5rem;
+            /* Increased spacing inside */
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
@@ -174,7 +179,8 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            padding-bottom: 0.85rem; /* Increased vertical spacing */
+            padding-bottom: 0.85rem;
+            /* Increased vertical spacing */
             margin-bottom: 0.85rem;
             border-bottom: 1px solid color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent);
             gap: 1rem;
@@ -182,7 +188,8 @@
 
         .pd-fact-row:last-child {
             border-bottom: none;
-            margin-bottom: 1.25rem; /* Bottom spacing before button */
+            margin-bottom: 1.25rem;
+            /* Bottom spacing before button */
             padding-bottom: 0;
         }
 
@@ -530,7 +537,8 @@
                 @if($project->short_description)
                     <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $project->short_description }}</p>
                 @elseif($project->categories->count())
-                    <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">{{ $project->categories->pluck('title')->implode(' · ') }}</p>
+                    <p class="pd-hero-subtitle text-base leading-relaxed text-slate-500">
+                        {{ $project->categories->pluck('title')->implode(' · ') }}</p>
                 @endif
             </div>
 
@@ -557,12 +565,6 @@
 
                 {{-- Left: The Story --}}
                 <div class="animate-on-scroll">
-                    <h2 class="pd-story-heading text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_story_title', 'The Story') !!}</h2>
-                    @if($project->short_description)
-                        <div class="pd-story-text text-base leading-relaxed text-slate-500 mb-4">
-                            <p>{{ $project->short_description }}</p>
-                        </div>
-                    @endif
                     @if($project->description)
                         <div class="pd-story-text ckeditor-content text-base leading-relaxed text-slate-500">
                             {!! $project->description !!}
@@ -574,55 +576,62 @@
                 <div class="pd-sticky-sidebar">
                     <div class="animate-on-scroll" style="transition-delay: 120ms;">
                         <div class="pd-facts-card">
-                            <h3 class="pd-facts-title text-xl lg:text-2xl font-semibold mb-4">{!! setting('portfolio_facts_title', 'Quick Facts') !!}</h3>
-                        <div>
-                            @if($project->client)
-                                <div class="pd-fact-row">
-                                    <span class="pd-fact-label">{!! setting('portfolio_fact_client_label', 'Client') !!}</span>
-                                    <span class="pd-fact-value">{{ $project->client }}</span>
-                                </div>
-                            @endif
-                            @if($project->categories->count())
-                                <div class="pd-fact-row">
-                                    <span class="pd-fact-label">{!! setting('portfolio_fact_industry_label', 'Industry') !!}</span>
-                                    <span class="pd-fact-value">{{ $project->categories->pluck('title')->implode(', ') }}</span>
-                                </div>
-                            @endif
-                            @if($project->tags->count())
-                                <div class="pd-fact-row">
-                                    <span class="pd-fact-label">{!! setting('portfolio_fact_tech_label', 'Tech') !!}</span>
-                                    <span class="pd-fact-value">{{ $project->tags->pluck('title')->implode(', ') }}</span>
-                                </div>
-                            @endif
-                            @if($project->services->count())
-                                <div class="pd-fact-row">
-                                    <span class="pd-fact-label">{!! setting('portfolio_fact_services_label', 'Services') !!}</span>
-                                    <span class="pd-fact-value">{{ $project->services->pluck('title')->implode(', ') }}</span>
-                                </div>
-                            @endif
-                            @if($project->project_date)
-                                <div class="pd-fact-row">
-                                    <span class="pd-fact-label">{!! setting('portfolio_fact_date_label', 'Date') !!}</span>
-                                    <span class="pd-fact-value">{{ \Carbon\Carbon::parse($project->project_date)->format('M Y') }}</span>
-                                </div>
+                            <h3 class="pd-facts-title text-xl lg:text-2xl font-semibold mb-4">
+                                {!! setting('portfolio_facts_title', 'Quick Facts') !!}</h3>
+                            <div>
+                                @if($project->client)
+                                    <div class="pd-fact-row">
+                                        <span
+                                            class="pd-fact-label">{!! setting('portfolio_fact_client_label', 'Client') !!}</span>
+                                        <span class="pd-fact-value">{{ $project->client }}</span>
+                                    </div>
+                                @endif
+                                @if($project->categories->count())
+                                    <div class="pd-fact-row">
+                                        <span
+                                            class="pd-fact-label">{!! setting('portfolio_fact_industry_label', 'Industry') !!}</span>
+                                        <span
+                                            class="pd-fact-value">{{ $project->categories->pluck('title')->implode(', ') }}</span>
+                                    </div>
+                                @endif
+                                @if($project->tags->count())
+                                    <div class="pd-fact-row">
+                                        <span class="pd-fact-label">{!! setting('portfolio_fact_tech_label', 'Tech') !!}</span>
+                                        <span class="pd-fact-value">{{ $project->tags->pluck('title')->implode(', ') }}</span>
+                                    </div>
+                                @endif
+                                @if($project->services->count())
+                                    <div class="pd-fact-row">
+                                        <span
+                                            class="pd-fact-label">{!! setting('portfolio_fact_services_label', 'Services') !!}</span>
+                                        <span
+                                            class="pd-fact-value">{{ $project->services->pluck('title')->implode(', ') }}</span>
+                                    </div>
+                                @endif
+                                @if($project->project_date)
+                                    <div class="pd-fact-row">
+                                        <span class="pd-fact-label">{!! setting('portfolio_fact_date_label', 'Date') !!}</span>
+                                        <span
+                                            class="pd-fact-value">{{ \Carbon\Carbon::parse($project->project_date)->format('M Y') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if($project->project_url)
+                                <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center justify-center gap-2 w-full mt-5 px-5 py-3 rounded-lg text-sm font-bold tracking-wide text-white transition-all hover:-translate-y-0.5"
+                                    style="background-color: var(--theme-color, #c5a059); box-shadow: 0 4px 14px color-mix(in srgb, var(--theme-color) 35%, transparent);">
+                                    {!! setting('portfolio_visit_button_text', 'Visit Project') !!}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M7 17 17 7" />
+                                        <path d="M7 7h10v10" />
+                                    </svg>
+                                </a>
                             @endif
                         </div>
-
-                        @if($project->project_url)
-                            <a href="{{ $project->project_url }}" target="_blank" rel="noopener noreferrer"
-                                class="inline-flex items-center justify-center gap-2 w-full mt-5 px-5 py-3 rounded-lg text-sm font-bold tracking-wide text-white transition-all hover:-translate-y-0.5"
-                                style="background-color: var(--theme-color, #c5a059); box-shadow: 0 4px 14px color-mix(in srgb, var(--theme-color) 35%, transparent);">
-                                {!! setting('portfolio_visit_button_text', 'Visit Project') !!}
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M7 17 17 7" />
-                                    <path d="M7 7h10v10" />
-                                </svg>
-                            </a>
-                        @endif
                     </div>
                 </div>
-            </div>
 
             </div>
         </div>
@@ -646,159 +655,169 @@
     ════════════════════════════════════════════════════════ --}}
     @if(!empty($project->problem_solution))
         <section class="py-12 md:py-16">
-                    <div class="container-custom">
+            <div class="container-custom">
 
-                        <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_problem_title', 'Problem &amp; Solution') !!}</h2>
+                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
+                    {!! setting('portfolio_problem_title', 'Problem &amp; Solution') !!}</h2>
 
-                        <div class="pd-ps-grid">
-                            @foreach($project->problem_solution as $index => $item)
-                                <div class="pd-ps-card animate-on-scroll" style="transition-delay: {{ $index * 100 }}ms;">
-                                    @if(!empty($item['icon']))
-                                        <div class="pd-ps-icon">
-                                            {!! $item['icon'] !!}
-                                        </div>
-                                    @endif
-                                    <h3 class="pd-ps-card-title text-xl lg:text-2xl font-semibold mb-2">{{ $item['title'] }}</h3>
-                                    <p class="pd-ps-card-text text-base leading-relaxed text-slate-500">
-                                        {{ $item['content'] ?? '' }}
-                                    </p>
+                <div class="pd-ps-grid">
+                    @foreach($project->problem_solution as $index => $item)
+                        <div class="pd-ps-card animate-on-scroll" style="transition-delay: {{ $index * 100 }}ms;">
+                            @if(!empty($item['icon']))
+                                <div class="pd-ps-icon">
+                                    {!! $item['icon'] !!}
                                 </div>
-                            @endforeach
+                            @endif
+                            <h3 class="pd-ps-card-title text-xl lg:text-2xl font-semibold mb-2">{{ $item['title'] }}</h3>
+                            <p class="pd-ps-card-text text-base leading-relaxed text-slate-500">
+                                {{ $item['content'] ?? '' }}
+                            </p>
                         </div>
+                    @endforeach
+                </div>
 
-                    </div>
-                </section>
+            </div>
+        </section>
     @endif
 
-        {{-- ════════════════════════════════════════════════════════
-        4. FEATURE HIGHLIGHTS
-        ════════════════════════════════════════════════════════ --}}
-        @if(!empty($project->features))
-            <section class="py-12 md:py-16" style="background: var(--card-bg-color, #ffffff);">
-                <div class="container-custom">
+    {{-- ════════════════════════════════════════════════════════
+    4. FEATURE HIGHLIGHTS
+    ════════════════════════════════════════════════════════ --}}
+    @if(!empty($project->features))
+        <section class="py-12 md:py-16" style="background: var(--card-bg-color, #ffffff);">
+            <div class="container-custom">
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_features_title', 'Feature Highlights') !!}</h2>
+                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
+                    {!! setting('portfolio_features_title', 'Feature Highlights') !!}</h2>
 
-                    <div class="pd-feat-grid">
-                        @foreach($project->features as $index => $feature)
-                            <div class="pd-feat-card animate-on-scroll" style="transition-delay: {{ $index * 80 }}ms;">
-                                @if(!empty($feature['icon']))
-                                    <div class="pd-feat-icon">
-                                        {!! $feature['icon'] !!}
-                                    </div>
-                                @endif
-                                <h3 class="pd-feat-title text-xl lg:text-2xl font-semibold mb-2">{{ $feature['title'] }}</h3>
-                                <p class="pd-feat-desc text-base leading-relaxed text-slate-500">{{ $feature['content'] ?? '' }}</p>
-                            </div>
-                        @endforeach
-                    </div>
-
+                <div class="pd-feat-grid">
+                    @foreach($project->features as $index => $feature)
+                        <div class="pd-feat-card animate-on-scroll" style="transition-delay: {{ $index * 80 }}ms;">
+                            @if(!empty($feature['icon']))
+                                <div class="pd-feat-icon">
+                                    {!! $feature['icon'] !!}
+                                </div>
+                            @endif
+                            <h3 class="pd-feat-title text-xl lg:text-2xl font-semibold mb-2">{{ $feature['title'] }}</h3>
+                            <p class="pd-feat-desc text-base leading-relaxed text-slate-500">{{ $feature['content'] ?? '' }}</p>
+                        </div>
+                    @endforeach
                 </div>
-            </section>
-        @endif
 
-        {{-- ════════════════════════════════════════════════════════
-        5. UI GALLERY
-        ════════════════════════════════════════════════════════ --}}
-        @if($project->images->count())
-            <section class="py-20 md:py-24">
-                <div class="container-custom">
+            </div>
+        </section>
+    @endif
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_gallery_section_title', 'UI Gallery') !!}</h2>
+    {{-- ════════════════════════════════════════════════════════
+    5. UI GALLERY
+    ════════════════════════════════════════════════════════ --}}
+    @if($project->images->count())
+        <section class="py-20 md:py-24">
+            <div class="container-custom">
 
-                    <div class="pd-gallery-grid">
-                        @foreach($project->images as $index => $image)
-                            <div class="pd-gallery-item {{ ($index % 4 == 0) ? 'pd-gallery-wide' : '' }} group animate-on-scroll"
-                                style="transition-delay: {{ ($index % 3) * 60 }}ms;">
-                                <img src="{{ asset($image->image) }}" alt="Gallery Image {{ $index + 1 }}" />
-                                <div class="pd-gallery-overlay">
-                                    <div class="pd-gallery-pill">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="11" cy="11" r="8"></circle>
-                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                        </svg>
-                                        View
-                                    </div>
+                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
+                    {!! setting('portfolio_gallery_section_title', 'UI Gallery') !!}</h2>
+
+                <div class="pd-gallery-grid">
+                    @foreach($project->images as $index => $image)
+                        <div class="pd-gallery-item {{ ($index % 4 == 0) ? 'pd-gallery-wide' : '' }} group animate-on-scroll"
+                            style="transition-delay: {{ ($index % 3) * 60 }}ms;">
+                            <img src="{{ asset($image->image) }}" alt="Gallery Image {{ $index + 1 }}" />
+                            <div class="pd-gallery-overlay">
+                                <div class="pd-gallery-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    View
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-
+                        </div>
+                    @endforeach
                 </div>
-            </section>
-        @endif
 
-        {{-- ════════════════════════════════════════════════════════
-        6. CLIENT TESTIMONIALS (kept from original, matches style)
-        ════════════════════════════════════════════════════════ --}}
-        @if($project->testimonials->count())
-            <section class="py-20 md:py-24" style="background: var(--card-bg-color, #ffffff);">
-                <div class="container-custom">
+            </div>
+        </section>
+    @endif
 
-                    <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">{!! setting('portfolio_feedback_title', 'Client Feedback') !!}</h2>
+    {{-- ════════════════════════════════════════════════════════
+    6. CLIENT TESTIMONIALS (kept from original, matches style)
+    ════════════════════════════════════════════════════════ --}}
+    @if($project->testimonials->count())
+        <section class="py-20 md:py-24" style="background: var(--card-bg-color, #ffffff);">
+            <div class="container-custom">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        @foreach($project->testimonials as $testimonial)
-                            <div class="pd-test-card animate-on-scroll">
-                                <p class="pd-test-quote text-base leading-relaxed text-slate-500 mb-6 italic">"{{ $testimonial->content }}"</p>
-                                <div class="flex items-center gap-3.5">
-                                    <div class="pd-test-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
-                                    <div>
-                                        <h4 class="font-bold text-sm">
-                                            {{ $testimonial->name }}</h4>
-                                        @if($testimonial->designation)
-                                            <p class="text-xs text-slate-500 mt-0.5">
-                                                {{ $testimonial->designation }}@if($testimonial->company), {{ $testimonial->company }}@endif
-                                            </p>
-                                        @endif
-                                    </div>
+                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
+                    {!! setting('portfolio_feedback_title', 'Client Feedback') !!}</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach($project->testimonials as $testimonial)
+                        <div class="pd-test-card animate-on-scroll">
+                            <p class="pd-test-quote text-base leading-relaxed text-slate-500 mb-6 italic">
+                                "{{ $testimonial->content }}"</p>
+                            <div class="flex items-center gap-3.5">
+                                <div class="pd-test-avatar">{{ strtoupper(substr($testimonial->name, 0, 1)) }}</div>
+                                <div>
+                                    <h4 class="font-bold text-sm">
+                                        {{ $testimonial->name }}
+                                    </h4>
+                                    @if($testimonial->designation)
+                                        <p class="text-xs text-slate-500 mt-0.5">
+                                            {{ $testimonial->designation }}@if($testimonial->company), {{ $testimonial->company }}@endif
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-
+                        </div>
+                    @endforeach
                 </div>
-            </section>
-        @endif
 
-        {{-- ════════════════════════════════════════════════════════
-        7. RELATED PROJECTS (matching home page card style)
-        ════════════════════════════════════════════════════════ --}}
-        @if($relatedProjects->count())
-            <section class="py-20 md:py-24">
-                <div class="container-custom">
+            </div>
+        </section>
+    @endif
 
-                    <div class="mb-14 animate-on-scroll">
-                        <span class="text-sm font-medium uppercase tracking-wider"
-                            style="color: var(--theme-color, #c5a059);">{!! setting('portfolio_related_label', 'Projects') !!}</span>
-                        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2 mb-6 uppercase tracking-tight"
-                            style="color: var(--title-color, #0f172a);">{!! setting('portfolio_related_heading', 'Discover Related Work') !!}</h2>
-                    </div>
+    {{-- ════════════════════════════════════════════════════════
+    7. RELATED PROJECTS (matching home page card style)
+    ════════════════════════════════════════════════════════ --}}
+    @if($relatedProjects->count())
+        <section class="py-20 md:py-24">
+            <div class="container-custom">
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        @foreach($relatedProjects as $index => $related)
-                            <div class="pd-rel-card animate-on-scroll" style="transition-delay: {{ $index * 100 }}ms;">
-                                <a href="{{ route('portfolio.detail', $related->slug) }}" class="block">
-                                    <div class="pd-rel-img-wrap">
-                                        <img src="{{ $related->image ? asset($related->image) : '' }}" alt="{{ $related->title }}" />
-                                        <div class="pd-rel-overlay">
-                                            <span class="pd-rel-btn">{!! setting('portfolio_view_button_text', 'View Project') !!}</span>
-                                        </div>
+                <div class="mb-14 animate-on-scroll">
+                    <span class="text-sm font-medium uppercase tracking-wider"
+                        style="color: var(--theme-color, #c5a059);">{!! setting('portfolio_related_label', 'Projects') !!}</span>
+                    <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2 mb-6 uppercase tracking-tight"
+                        style="color: var(--title-color, #0f172a);">
+                        {!! setting('portfolio_related_heading', 'Discover Related Work') !!}</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    @foreach($relatedProjects as $index => $related)
+                        <div class="pd-rel-card animate-on-scroll" style="transition-delay: {{ $index * 100 }}ms;">
+                            <a href="{{ route('portfolio.detail', $related->slug) }}" class="block">
+                                <div class="pd-rel-img-wrap">
+                                    <img src="{{ $related->image ? asset($related->image) : '' }}" alt="{{ $related->title }}" />
+                                    <div class="pd-rel-overlay">
+                                        <span
+                                            class="pd-rel-btn">{!! setting('portfolio_view_button_text', 'View Project') !!}</span>
                                     </div>
-                                </a>
-                                <div class="mt-1">
-                                    <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #0f172a);">
-                                        {{ $related->title }}</h3>
-                                    <p class="text-sm text-slate-500">
-                                        {{ $related->categories->first()->name ?? 'Portfolio' }}</p>
                                 </div>
+                            </a>
+                            <div class="mt-1">
+                                <h3 class="text-xl lg:text-2xl font-semibold mb-2" style="color: var(--title-color, #0f172a);">
+                                    {{ $related->title }}
+                                </h3>
+                                <p class="text-sm text-slate-500">
+                                    {{ $related->categories->first()->name ?? 'Portfolio' }}
+                                </p>
                             </div>
-                        @endforeach
-                    </div>
-
+                        </div>
+                    @endforeach
                 </div>
-            </section>
-        @endif
+
+            </div>
+        </section>
+    @endif
 
 @endsection
