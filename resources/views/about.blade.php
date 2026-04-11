@@ -7,39 +7,39 @@
 
 @push('structured_data')
   <script type="application/ld+json">
-      {
-          "@@context": "https://schema.org",
-          "@@type": "AboutPage",
-          "name": "About {{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-          "description": "{{ addslashes(setting('about_meta_description', 'Learn about our story, leadership team, and the core values that drive our digital agency forward.')) }}",
-          "url": "{{ route('about') }}",
-          "mainEntity": {
-              "@@type": "Organization",
-              "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-              "url": "{{ url('/') }}"
-          }
-      }
-      </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "AboutPage",
+            "name": "About {{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+            "description": "{{ addslashes(setting('about_meta_description', 'Learn about our story, leadership team, and the core values that drive our digital agency forward.')) }}",
+            "url": "{{ route('about') }}",
+            "mainEntity": {
+                "@@type": "Organization",
+                "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                "url": "{{ url('/') }}"
+            }
+        }
+        </script>
   <script type="application/ld+json">
-      {
-          "@@context": "https://schema.org",
-          "@@type": "BreadcrumbList",
-          "itemListElement": [
-              {
-                  "@@type": "ListItem",
-                  "position": 1,
-                  "name": "Home",
-                  "item": "{{ url('/') }}"
-              },
-              {
-                  "@@type": "ListItem",
-                  "position": 2,
-                  "name": "About Us",
-                  "item": "{{ route('about') }}"
-              }
-          ]
-      }
-      </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ url('/') }}"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 2,
+                    "name": "About Us",
+                    "item": "{{ route('about') }}"
+                }
+            ]
+        }
+        </script>
 @endpush
 
 @push('styles')
@@ -70,10 +70,9 @@
 
   <!-- Page Header -->
   <section class="container-custom pt-20 pb-12 px-8 text-center max-w-4xl mx-auto animate-fade-in-up">
-    <span
-      class="text-sm font-medium text-secondary uppercase tracking-widest block mb-4">{!! setting('about_hero_label', 'About Us') !!}</span>
     <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6 text-slate-900">
-      {!! setting('about_hero_title', 'Our Story') !!}</h1>
+      {!! setting('about_hero_title', 'Our Story') !!}
+    </h1>
     <p class="text-base leading-relaxed text-slate-500 max-w-2xl mx-auto">
       {!! setting('about_hero_description', 'We are a digital agency dedicated to driving digital transformation, building immersive experiences that empower businesses and connect with audiences. Our passion is innovation, and our mission is your success.') !!}
     </p>
@@ -151,7 +150,8 @@
       <span
         class="text-sm font-medium text-secondary uppercase tracking-widest">{!! setting('about_values_label', 'Core Values') !!}</span>
       <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mt-2 mb-6 text-slate-900">
-        {!! setting('about_values_heading', 'Core Values') !!}</h2>
+        {!! setting('about_values_heading', 'Core Values') !!}
+      </h2>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="about-card bg-card p-10 rounded-xl shadow-sm border border-gray-100 animate-on-scroll">
@@ -165,7 +165,8 @@
           </svg>
         </div>
         <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">
-          {!! setting('about_value_1_title', 'Innovation') !!}</h3>
+          {!! setting('about_value_1_title', 'Innovation') !!}
+        </h3>
         <p class="text-base leading-relaxed text-slate-500">
           {!! setting('about_value_1_description', 'Pushing boundaries with creative solutions and cutting-edge technology to deliver exceptional results.') !!}
         </p>
@@ -183,7 +184,8 @@
           </svg>
         </div>
         <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">
-          {!! setting('about_value_2_title', 'Integrity') !!}</h3>
+          {!! setting('about_value_2_title', 'Integrity') !!}
+        </h3>
         <p class="text-base leading-relaxed text-slate-500">
           {!! setting('about_value_2_description', 'Building trust through transparent communication, honest partnerships, and delivering on our promises.') !!}
         </p>

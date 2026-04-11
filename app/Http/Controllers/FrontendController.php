@@ -89,7 +89,11 @@ class FrontendController extends Controller
     {
         abort_if(!Setting::get('show_portfolio_page', 1), 404);
 
-        $categories = ProjectCategory::where('status', true)->withCount('projects')->get();
+        $categories = ProjectCategory::where('status', true)
+            ->whereHas('projects', function ($q) {
+                $q->where('status', true);
+            })
+            ->get();
 
         $query = Project::where('status', true)->with('categories', 'images');
 
