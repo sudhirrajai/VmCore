@@ -230,7 +230,7 @@
             padding: 3.5rem 2.5rem;
             /* Massive spacing inside */
             border-radius: 1.5rem;
-            border: 1.5px solid color-mix(in srgb, var(--border-color, #c5a059) 50%, transparent);
+            border: 1.5px solid var(--border-color, #c5a059);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
