@@ -277,12 +277,10 @@
 
         .pd-feat-card {
             background: var(--card-bg-color, #ffffff);
-            border: 1px solid transparent;
-            /* invisible border until hover */
+            border: 1px solid var(--border-color, #f1f5f9);
             border-radius: 1.25rem;
             text-align: center;
             padding: 3.5rem 2.5rem;
-            /* Massive spacing inside */
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
@@ -692,7 +690,7 @@
 
                 <div class="pd-feat-grid">
                     @foreach($project->features as $index => $feature)
-                        <div class="pd-feat-card animate-on-scroll" style="transition-delay: {{ $index * 80 }}ms;">
+                        <div class="pd-feat-card animate-on-scroll " style="transition-delay: {{ $index * 80 }}ms;">
                             @if(!empty($feature['icon']))
                                 <div class="pd-feat-icon">
                                     {!! $feature['icon'] !!}
