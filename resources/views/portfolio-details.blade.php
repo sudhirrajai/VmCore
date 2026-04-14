@@ -230,7 +230,7 @@
             padding: 3.5rem 2.5rem;
             /* Massive spacing inside */
             border-radius: 1.5rem;
-            border: 1px solid color-mix(in srgb, var(--theme-color, #c5a059) 10%, transparent);
+            border: 1.5px solid color-mix(in srgb, var(--border-color, #c5a059) 30%, transparent);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -239,7 +239,7 @@
         .pd-ps-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-            border-color: color-mix(in srgb, var(--theme-color, #c5a059) 60%, transparent);
+            border-color: color-mix(in srgb, var(--border-color, #c5a059) 60%, transparent);
         }
 
         .pd-ps-icon {
@@ -690,7 +690,7 @@
 
                 <div class="pd-feat-grid">
                     @foreach($project->features as $index => $feature)
-                        <div class="pd-feat-card animate-on-scroll " style="transition-delay: {{ $index * 80 }}ms;">
+                        <div class="pd-ps-card animate-on-scroll is-visible" style="transition-delay: {{ $index * 80 }}ms;">
                             @if(!empty($feature['icon']))
                                 <div class="pd-feat-icon">
                                     {!! $feature['icon'] !!}
