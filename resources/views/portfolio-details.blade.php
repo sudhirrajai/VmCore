@@ -564,7 +564,7 @@
             <div class="pd-story-grid">
 
                 {{-- Left: The Story --}}
-                <div class="animate-on-scroll">
+                <div>
                     @if($project->description)
                         <div class="pd-story-text ckeditor-content text-base leading-relaxed text-slate-500">
                             {!! $project->description !!}
