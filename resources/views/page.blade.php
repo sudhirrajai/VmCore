@@ -7,31 +7,31 @@
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@@context": "https://schema.org",
-        "@@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "{{ url('/') }}"
-            },
-            {
-                "@@type": "ListItem",
-                "position": 2,
-                "name": "{{ addslashes($page->title) }}",
-                "item": "{{ url()->current() }}"
-            }
-        ]
-    }
-    </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ url('/') }}"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 2,
+                    "name": "{{ addslashes($page->title) }}",
+                    "item": "{{ url()->current() }}"
+                }
+            ]
+        }
+        </script>
 @endpush
 @section('content')
     <!--==============================
-        Breadcumb
-        ============================== -->
-    <div class="breadcumb-wrapper">
+            Breadcumb
+            ============================== -->
+    {{-- <div class="breadcumb-wrapper">
         <div class="container z-index-common">
             <div class="breadcumb-content">
                 <h1 class="breadcumb-title">{{ $page->title }}</h1>
@@ -43,11 +43,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!--==============================
-        Page Area
-        ==============================-->
+            Page Area
+            ==============================-->
     <section class="space-top space-extra-bottom">
         <div class="container">
             @if($page->featured_image)
@@ -55,7 +55,7 @@
                     <img src="{{ asset($page->featured_image) }}" alt="{{ $page->title }}" class="img-fluid rounded">
                 </div>
             @endif
-            <div class="page-content">
+            <div class="page-content ckeditor-content">
                 {!! $page->content !!}
             </div>
         </div>

@@ -78,7 +78,7 @@
                         @if($post->excerpt)
                             <p class="text-base leading-relaxed text-slate-500 mt-15 mb-30">{{ $post->excerpt }}</p>
                         @endif
-                        <div class="blog-details-content mt-30">
+                        <div class="blog-details-content ckeditor-content mt-30">
                             {!! $post->body !!}
                         </div>
                         @if($post->tags->count())

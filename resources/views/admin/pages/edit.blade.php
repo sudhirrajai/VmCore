@@ -31,7 +31,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="content">Content</label>
                                     <textarea name="content" id="editor"
-                                        class="form-control">{{ old('content', $page->content) }}</textarea>
+                                        class="form-control ckeditor">{{ old('content', $page->content) }}</textarea>
                                 </div>
                             </div>
 
@@ -88,32 +88,5 @@
 @endsection
 
 @section('page-script')
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-    <script>
-        class Base64UploadAdapter {
-            constructor(loader) { this.loader = loader; }
-            upload() {
-                return this.loader.file.then(file => new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve({ default: reader.result });
-                    reader.onerror = error => reject(error);
-                    reader.readAsDataURL(file);
-                }));
-            }
-            abort() { }
-        }
-
-        function Base64UploadAdapterPlugin(editor) {
-            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-                return new Base64UploadAdapter(loader);
-            };
-        }
-
-        ClassicEditor
-            .create(document.querySelector('#editor'), {
-                licenseKey: '',
-                extraPlugins: [Base64UploadAdapterPlugin]
-            })
-            .catch(error => { console.error(error); });
-    </script>
+    @include('admin._partials.ckeditor')
 @endsection
