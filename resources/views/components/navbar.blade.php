@@ -292,20 +292,36 @@
 
     {{-- Desktop Navigation --}}
     <div class="hidden md:flex items-center space-x-8 text-base font-medium">
-      <a href="{{ route('home') }}"
-        class="transition-all {{ request()->routeIs('home') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Home</a>
-      <a href="{{ route('about') }}"
-        class="transition-all {{ request()->routeIs('about') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">About</a>
-      <a href="{{ route('services') }}"
-        class="transition-all {{ request()->routeIs('services', 'service.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Services</a>
-      <a href="{{ route('portfolio') }}"
-        class="transition-all {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Portfolio</a>
-      @if(\App\Models\Setting::get('show_blog_page', 1))
-        <a href="{{ route('blog') }}"
-          class="transition-all {{ request()->routeIs('blog', 'blog.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Blog</a>
+      @if(isset($headerMenu) && $headerMenu->count() > 0)
+        @foreach($headerMenu as $item)
+          @php
+            $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#');
+            $path = parse_url($url, PHP_URL_PATH);
+            $path = $path ? ltrim($path, '/') : '';
+            $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
+            if($path === '' && request()->path() === '/') $isActive = true;
+          @endphp
+          <a href="{{ $url }}" target="{{ $item->target ?? '_self' }}"
+            class="transition-all {{ $isActive ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">
+            {{ $item->title }}
+          </a>
+        @endforeach
+      @else
+        <a href="{{ route('home') }}"
+          class="transition-all {{ request()->routeIs('home') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Home</a>
+        <a href="{{ route('about') }}"
+          class="transition-all {{ request()->routeIs('about') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">About</a>
+        <a href="{{ route('services') }}"
+          class="transition-all {{ request()->routeIs('services', 'service.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Services</a>
+        <a href="{{ route('portfolio') }}"
+          class="transition-all {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Portfolio</a>
+        @if(\App\Models\Setting::get('show_blog_page', 1))
+          <a href="{{ route('blog') }}"
+            class="transition-all {{ request()->routeIs('blog', 'blog.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Blog</a>
+        @endif
+        <a href="{{ route('faq') }}"
+          class="transition-all {{ request()->routeIs('faq') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">FAQ</a>
       @endif
-      <a href="{{ route('faq') }}"
-        class="transition-all {{ request()->routeIs('faq') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">FAQ</a>
 
       <a href="{{ route('contact') }}"
         class="desktop-cta-btn text-white px-6 py-2.5 rounded-sm text-sm font-medium tracking-widest uppercase transition-all duration-300 inline-block hover:-translate-y-0.5">
@@ -351,39 +367,56 @@
 
   {{-- Navigation Links --}}
   <div class="mobile-menu-links">
-    <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
-      style="animation-delay: 0.05s;">
-      Home
-    </a>
-    <a href="{{ route('about') }}" class="mobile-nav-link {{ request()->routeIs('about') ? 'active' : '' }}"
-      style="animation-delay: 0.1s;">
-      About
-    </a>
-    <a href="{{ route('services') }}"
-      class="mobile-nav-link {{ request()->routeIs('services', 'service.detail') ? 'active' : '' }}"
-      style="animation-delay: 0.15s;">
-      Services
-    </a>
-    <a href="{{ route('portfolio') }}"
-      class="mobile-nav-link {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'active' : '' }}"
-      style="animation-delay: 0.2s;">
-      Portfolio
-    </a>
-    @if(\App\Models\Setting::get('show_blog_page', 1))
-      <a href="{{ route('blog') }}"
-        class="mobile-nav-link {{ request()->routeIs('blog', 'blog.detail') ? 'active' : '' }}"
-        style="animation-delay: 0.25s;">
-        Blog
+    @if(isset($headerMenu) && $headerMenu->count() > 0)
+      @foreach($headerMenu as $index => $item)
+        @php
+          $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#');
+          $path = parse_url($url, PHP_URL_PATH);
+          $path = $path ? ltrim($path, '/') : '';
+          $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
+          if($path === '' && request()->path() === '/') $isActive = true;
+          $delay = 0.05 * ($index + 1);
+        @endphp
+        <a href="{{ $url }}" target="{{ $item->target ?? '_self' }}" class="mobile-nav-link {{ $isActive ? 'active' : '' }}"
+          style="animation-delay: {{ $delay }}s;">
+          {{ $item->title }}
+        </a>
+      @endforeach
+    @else
+      <a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
+        style="animation-delay: 0.05s;">
+        Home
+      </a>
+      <a href="{{ route('about') }}" class="mobile-nav-link {{ request()->routeIs('about') ? 'active' : '' }}"
+        style="animation-delay: 0.1s;">
+        About
+      </a>
+      <a href="{{ route('services') }}"
+        class="mobile-nav-link {{ request()->routeIs('services', 'service.detail') ? 'active' : '' }}"
+        style="animation-delay: 0.15s;">
+        Services
+      </a>
+      <a href="{{ route('portfolio') }}"
+        class="mobile-nav-link {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'active' : '' }}"
+        style="animation-delay: 0.2s;">
+        Portfolio
+      </a>
+      @if(\App\Models\Setting::get('show_blog_page', 1))
+        <a href="{{ route('blog') }}"
+          class="mobile-nav-link {{ request()->routeIs('blog', 'blog.detail') ? 'active' : '' }}"
+          style="animation-delay: 0.25s;">
+          Blog
+        </a>
+      @endif
+      <a href="{{ route('faq') }}" class="mobile-nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"
+        style="animation-delay: 0.3s;">
+        FAQ
+      </a>
+      <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+        style="animation-delay: 0.35s;">
+        Contact
       </a>
     @endif
-    <a href="{{ route('faq') }}" class="mobile-nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"
-      style="animation-delay: 0.3s;">
-      FAQ
-    </a>
-    <a href="{{ route('contact') }}" class="mobile-nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
-      style="animation-delay: 0.35s;">
-      Contact
-    </a>
   </div>
 
   {{-- Contact Info --}}

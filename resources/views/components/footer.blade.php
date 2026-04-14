@@ -68,24 +68,31 @@
       <nav class="md:col-span-2" aria-label="Footer navigation">
         <h4 class="font-semibold text-lg uppercase tracking-widest mb-4 text-slate-900">{!! setting('footer_links_title', 'Links') !!}</h4>
         <ul class="space-y-2 text-base text-slate-500">
-          <li><a href="{{ route('home') }}" class="hover:text-black">Home</a></li>
-          @if(setting('show_about_page', 1))
-            <li><a href="{{ route('about') }}" class="hover:text-black">About</a></li>
-          @endif
-          @if(setting('show_services_page', 1))
-            <li><a href="{{ route('services') }}" class="hover:text-black">Services</a></li>
-          @endif
-          @if(setting('show_portfolio_page', 1))
-            <li><a href="{{ route('portfolio') }}" class="hover:text-black">Portfolio</a></li>
-          @endif
-          @if(setting('show_blog_page', 1))
-            <li><a href="{{ route('blog') }}" class="hover:text-black">Blog</a></li>
-          @endif
-          @if(setting('show_faq_page', 1))
-            <li><a href="{{ route('faq') }}" class="hover:text-black">FAQ</a></li>
-          @endif
-          @if(setting('show_contact_page', 1))
-            <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+          @if(isset($footerMenu) && $footerMenu->count() > 0)
+            @foreach($footerMenu as $item)
+              @php $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#'); @endphp
+              <li><a href="{{ $url }}" target="{{ $item->target ?? '_self' }}" class="hover:text-black">{{ $item->title }}</a></li>
+            @endforeach
+          @else
+            <li><a href="{{ route('home') }}" class="hover:text-black">Home</a></li>
+            @if(setting('show_about_page', 1))
+              <li><a href="{{ route('about') }}" class="hover:text-black">About</a></li>
+            @endif
+            @if(setting('show_services_page', 1))
+              <li><a href="{{ route('services') }}" class="hover:text-black">Services</a></li>
+            @endif
+            @if(setting('show_portfolio_page', 1))
+              <li><a href="{{ route('portfolio') }}" class="hover:text-black">Portfolio</a></li>
+            @endif
+            @if(setting('show_blog_page', 1))
+              <li><a href="{{ route('blog') }}" class="hover:text-black">Blog</a></li>
+            @endif
+            @if(setting('show_faq_page', 1))
+              <li><a href="{{ route('faq') }}" class="hover:text-black">FAQ</a></li>
+            @endif
+            @if(setting('show_contact_page', 1))
+              <li><a href="{{ route('contact') }}" class="hover:text-black">Contact</a></li>
+            @endif
           @endif
         </ul>
       </nav>
