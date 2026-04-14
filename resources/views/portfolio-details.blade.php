@@ -239,7 +239,7 @@
         .pd-ps-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-            border-color: color-mix(in srgb, var(--border-color, #c5a059) 60%, transparent);
+            border-color: color-mix(in srgb, var(--theme-color, #c5a059) 60%, transparent);
         }
 
         .pd-ps-icon {
