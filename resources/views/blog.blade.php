@@ -1,9 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Blog - ' . ($siteSettings['site_name'] ?? 'VMCore'))
-@section('meta_description', \App\Models\Setting::get('blog_meta_description', 'Read the latest articles and insights.'))
-@section('meta_keywords', \App\Models\Setting::get('blog_meta_keywords', 'blog, articles, insights, news, digital agency blog'))
+@section('title', setting('blog_meta_title', 'Blog - ' . ($siteSettings['site_name'] ?? 'VMCore')))
+@section('meta_description', setting('blog_meta_description', 'Read the latest articles and insights.'))
+@section('meta_keywords', setting('blog_meta_keywords', 'blog, articles, insights, news, digital agency blog'))
 @section('canonical', route('blog'))
+
+@push('structured_data')
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ url('/') }}"
+            },
+            {
+                "@@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "{{ route('blog') }}"
+            }
+        ]
+    }
+    </script>
+@endpush
 
 @section('content')
 
@@ -13,8 +36,7 @@
     <div class="breadcumb-wrapper"
         data-bg-src="{!! \App\Models\Setting::get('blog_hero_image') ? asset(\App\Models\Setting::get('blog_hero_image')) : asset('assets/img/bg/breadcumb-bg1-8.jpg') !!}">
         <div class="container">
-            <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{!! \App\Models\Setting::get('blog_breadcrumb_title', 'Blog') !!}</h1>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight breadcumb-title">{!! \App\Models\Setting::get('blog_breadcrumb_title', 'Blog') !!}</h1>
             </div>
         </div>
     </div>
@@ -29,17 +51,17 @@
                             <div class="row gy-50 gutter-24">
                                 @forelse($posts as $post)
                                     <div class="col-md-12">
-                                        <div class="blog-post-item">
+                                        <article class="blog-post-item" itemscope itemtype="https://schema.org/BlogPosting">
                                             <div class="blog-post-thumb">
                                                 <a href="{{ route('blog.detail', $post->slug) }}">
                                                     <img src="{{ $post->image ? asset($post->image) : asset('assets/img/blog/blog_post1_1.png') }}"
-                                                        alt="{{ $post->title }}">
+                                                        alt="{{ $post->title }}" loading="lazy" itemprop="image">
                                                 </a>
                                             </div>
                                             <div class="blog-post-content">
                                                 <div class="blog-post-meta">
-                                                    <ul class="list-wrap">
-                                                        <li>{{ ($post->published_at ?? $post->created_at)->format('F d, Y') }}
+                                                    <ul class="list-wrap text-sm text-slate-500 mb-2">
+                                                        <li><time datetime="{{ ($post->published_at ?? $post->created_at)->toIso8601String() }}" itemprop="datePublished">{{ ($post->published_at ?? $post->created_at)->format('F d, Y') }}</time>
                                                         </li>
                                                         <li>
                                                             <a
@@ -47,24 +69,24 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <h2 class="title"><a
+                                                <h2 class="text-2xl lg:text-4xl font-semibold leading-tight title mb-2"><a
                                                         href="{{ route('blog.detail', $post->slug) }}">{{ $post->title }}</a>
                                                 </h2>
                                                 @if($post->excerpt)
-                                                <p>{{ Str::limit($post->excerpt, 150) }}</p>@endif
+                                                <p class="text-base leading-relaxed text-slate-500 mb-4">{{ Str::limit($post->excerpt, 150) }}</p>@endif
                                                 <a href="{{ route('blog.detail', $post->slug) }}" class="link-btn">
-                                                    <span class="link-effect">
-                                                        <span class="effect-1">READ MORE</span>
-                                                        <span class="effect-1">READ MORE</span>
+                                                    <span class="link-effect text-sm font-medium">
+                                                        <span class="effect-1">{!! setting('blog_read_more_text', 'READ MORE') !!}</span>
+                                                        <span class="effect-1">{!! setting('blog_read_more_text', 'READ MORE') !!}</span>
                                                     </span>
                                                     <img src="{{ asset('assets/img/icon/arrow-left-top.svg') }}" alt="icon">
                                                 </a>
                                             </div>
-                                        </div>
+                                        </article>
                                     </div>
                                 @empty
                                     <div class="col-12 text-center">
-                                        <p>No blog posts found.</p>
+                                        <p class="text-base leading-relaxed text-slate-500">No blog posts found.</p>
                                     </div>
                                 @endforelse
                             </div>

@@ -48,8 +48,7 @@
     <div class="breadcumb-wrapper"
         data-bg-src="{{ $post->banner_image ? asset($post->banner_image) : asset($post->image) }}">
         <div class="container">
-            <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{{ $post->title }}</h1>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight breadcumb-title">{{ $post->title }}</h1>
             </div>
         </div>
     </div>
@@ -59,15 +58,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-70">
-                    <div class="blog-details-wrap">
+                    <article class="blog-details-wrap" itemscope itemtype="https://schema.org/BlogPosting">
                         @if($post->image)
                             <div class="blog-details-thumb mb-30">
-                                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="w-100">
+                                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="w-100" loading="eager" itemprop="image">
                             </div>
                         @endif
-                        <div class="blog-post-meta mb-20">
+                        <div class="blog-post-meta mb-20 text-sm text-slate-500">
                             <ul class="list-wrap">
-                                <li>{{ ($post->published_at ?? $post->created_at)->format('F d, Y') }}</li>
+                                <li><time datetime="{{ ($post->published_at ?? $post->created_at)->toIso8601String() }}" itemprop="datePublished">{{ ($post->published_at ?? $post->created_at)->format('F d, Y') }}</time></li>
                                 <li><a
                                         href="{{ route('blog', ['category' => $post->category->slug ?? '']) }}">{{ $post->category->name ?? 'Uncategorized' }}</a>
                                 </li>
@@ -75,27 +74,27 @@
                                 <li>By {{ $post->author->name }}</li>@endif
                             </ul>
                         </div>
-                        <h2 class="blog-details-title">{{ $post->title }}</h2>
+                        <h2 class="text-2xl lg:text-4xl font-semibold leading-tight blog-details-title mb-4">{{ $post->title }}</h2>
                         @if($post->excerpt)
-                            <p class="lead mt-15 mb-30">{{ $post->excerpt }}</p>
+                            <p class="text-base leading-relaxed text-slate-500 mt-15 mb-30">{{ $post->excerpt }}</p>
                         @endif
-                        <div class="blog-details-content mt-30">
+                        <div class="blog-details-content ckeditor-content mt-30">
                             {!! $post->body !!}
                         </div>
                         @if($post->tags->count())
                             <div class="blog-details-tags mt-30">
-                                <strong>Tags:</strong>
+                                <strong>{!! setting('blog_tags_label', 'Tags:') !!}</strong>
                                 @foreach($post->tags as $tag)
                                     <a href="javascript:void(0)" class="badge bg-secondary text-white ms-1">{{ $tag->title }}</a>
                                 @endforeach
                             </div>
                         @endif
-                    </div>
+                    </article>
 
                     {{-- Related Posts --}}
                     @if($relatedPosts->count())
                         <div class="related-posts mt-50">
-                            <h3 class="mb-30">Related Posts</h3>
+                            <h3 class="text-xl lg:text-2xl font-semibold mb-30 text-slate-900">{!! setting('blog_related_title', 'Related Posts') !!}</h3>
                             <div class="row gy-30">
                                 @foreach($relatedPosts as $related)
                                     <div class="col-md-4">
@@ -105,10 +104,10 @@
                                                     alt="{{ $related->title }}">
                                             </div>
                                             <div class="blog-content">
-                                                <div class="post-meta-item blog-meta">
+                                                <div class="post-meta-item blog-meta text-sm text-slate-500 mb-2">
                                                     <span>{{ ($related->published_at ?? $related->created_at)->format('F d, Y') }}</span>
                                                 </div>
-                                                <h4 class="blog-title">{{ $related->title }}</h4>
+                                                <h4 class="text-lg font-semibold leading-tight blog-title text-slate-900">{{ $related->title }}</h4>
                                             </div>
                                         </a>
                                     </div>

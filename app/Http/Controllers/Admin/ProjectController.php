@@ -55,6 +55,9 @@ class ProjectController extends AdminBaseController
             'services.*' => 'exists:services,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
+            'dynamic_content' => 'nullable|string',
+            'problem_solution' => 'nullable|array',
+            'features' => 'nullable|array',
             'client' => 'nullable|string|max:255',
             'project_date' => 'nullable|date',
             'project_url' => 'nullable|url|max:255',
@@ -78,6 +81,13 @@ class ProjectController extends AdminBaseController
         }
 
         unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
+        if (isset($data['problem_solution'])) {
+            $data['problem_solution'] = array_values(array_filter($data['problem_solution'], fn($item) => !empty($item['title'])));
+        }
+        if (isset($data['features'])) {
+            $data['features'] = array_values(array_filter($data['features'], fn($item) => !empty($item['title'])));
+        }
+
         $project = Project::create($data);
 
         if ($request->has('categories')) {
@@ -137,6 +147,9 @@ class ProjectController extends AdminBaseController
             'services.*' => 'exists:services,id',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
+            'dynamic_content' => 'nullable|string',
+            'problem_solution' => 'nullable|array',
+            'features' => 'nullable|array',
             'client' => 'nullable|string|max:255',
             'project_date' => 'nullable|date',
             'project_url' => 'nullable|url|max:255',
@@ -162,6 +175,14 @@ class ProjectController extends AdminBaseController
         }
 
         unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
+        
+        if (isset($data['problem_solution'])) {
+            $data['problem_solution'] = array_values(array_filter($data['problem_solution'], fn($item) => !empty($item['title'])));
+        }
+        if (isset($data['features'])) {
+            $data['features'] = array_values(array_filter($data['features'], fn($item) => !empty($item['title'])));
+        }
+
         $project->update($data);
 
         $project->categories()->sync($request->categories ?? []);

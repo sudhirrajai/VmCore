@@ -1,0 +1,164 @@
+@extends('layouts.app')
+
+@section('title', 'Home - ' . ($siteSettings['site_name'] ?? 'VM CORE'))
+
+@section('content')
+
+<!-- Hero Section -->
+<section class="pt-0 pb-12">
+  <div class="container-custom grid md:grid-cols-2 gap-12 items-center">
+    <div class="animate-fade-in-left">
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] text-slate-900 mb-6">
+        @if(isset($hero) && $hero)
+            {!! nl2br(e($hero->title)) !!}
+        @else
+            WE MAKE <br />
+            CREATIVE THINGS <br />
+            EVERYDAY
+        @endif
+      </h1>
+      <p class="text-lg text-slate-600 mb-8 max-w-md leading-relaxed">
+        @if(isset($hero) && $hero)
+            {{ $hero->description }}
+        @else
+            We are a digital agency that helps build immersive and engaging user experiences that drive results.
+        @endif
+      </p>
+      <a href="{{ route('portfolio') }}" class="inline-flex bg-[#4E7CC1] text-white px-8 py-4 rounded-md font-semibold items-center gap-2 hover:bg-[#3d66a3] transition-all shadow-md">
+        VIEW OUR WORKS
+      </a>
+    </div>
+    <div class="relative animate-fade-in-up delay-200">
+      <img 
+        src="{{ isset($hero) && $hero->image ? asset('storage/' . $hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}" 
+        alt="Team Meeting" 
+        class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-12">
+  <div class="container-custom">
+    <div class="mb-14">
+      <span class="text-[15px] font-medium text-slate-600 mb-3 block">Services</span>
+      <h2 class="text-[44px] font-bold text-slate-900 leading-tight tracking-tight">What We Can Do for Our Clients</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      @if(isset($services) && $services->count() > 0)
+          @foreach($services as $index => $service)
+            <a href="{{ route('service.detail', $service->slug ?? '') }}" class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer hover:-translate-y-1 transition-transform animate-on-scroll">
+              <div class="bg-[#F7F7F2] p-6 rounded-2xl group-hover:bg-slate-100 transition-colors flex-shrink-0">
+                @if($service->icon_image)
+                    <img src="{{ asset('storage/' . $service->icon_image) }}" alt="{{ $service->title }}" class="w-7 h-7 object-contain">
+                @else
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="13" rx="2" ry="2"/><rect width="8" height="8" x="3" y="13" rx="2" ry="2"/></svg>
+                @endif
+              </div>
+              <div class="pt-2">
+                <h3 class="text-[22px] font-bold text-slate-900 mb-3">{{ $service->title }}</h3>
+                <p class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px]">{{ \Str::limit($service->description, 100) }}</p>
+                <div class="flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-wider text-slate-900 group-hover:text-[#4E7CC1] transition-colors">
+                  VIEW DETAILS 
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                </div>
+              </div>
+            </a>
+          @endforeach
+      @else
+        <div class="bg-white p-10 rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex gap-8 items-start group cursor-pointer">
+          <p class="text-slate-500 text-[15px] mb-5 leading-relaxed max-w-[340px]">No services found.</p>
+        </div>
+      @endif
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="portfolio" class="py-12">
+  <div class="container-custom">
+    <div class="mb-12">
+      <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Projects</span>
+      <h2 class="text-4xl font-bold text-slate-900 mt-2">Discover Our Selected Projects</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      @if(isset($projects) && $projects->count() > 0)
+          @foreach($projects as $project)
+            <a href="{{ route('portfolio.detail', $project->slug ?? '') }}" class="relative group rounded-2xl overflow-hidden cursor-pointer aspect-[3/4] animate-on-scroll">
+              <img 
+                src="{{ $project->images->count() > 0 ? asset('storage/' . $project->images->first()->image_path) : 'https://picsum.photos/seed/project-'.$project->id.'/600/800' }}" 
+                alt="{{ $project->title }}" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-white font-bold text-xl">{{ $project->title }}</h3>
+                  <div class="bg-white/20 backdrop-blur-md p-2 rounded-full text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </div>
+                </div>
+              </div>
+            </a>
+          @endforeach
+      @endif
+    </div>
+  </div>
+</section>
+
+<!-- Clients Section -->
+<section class="py-12 border-y border-slate-100 overflow-hidden bg-white/50">
+  <div class="relative flex overflow-hidden group">
+    <div class="flex gap-20 items-center whitespace-nowrap opacity-40 grayscale group-hover:grayscale-0 transition-all animate-marquee">
+      @if(isset($clients) && $clients->count() > 0)
+          @foreach($clients as $client)
+              <div class="flex-shrink-0 px-4">
+                  <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name ?? 'Client' }}" style="height:40px; width:auto; object-fit:contain;">
+              </div>
+          @endforeach
+          {{-- Duplicate loop for seamless marquee --}}
+          @foreach($clients as $client)
+              <div class="flex-shrink-0 px-4">
+                  <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name ?? 'Client' }}" style="height:40px; width:auto; object-fit:contain;">
+              </div>
+          @endforeach
+      @else
+          {{-- Fallbacks --}}
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">Z</div>
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">C</div>
+          <div class="text-2xl font-bold uppercase tracking-[0.2em] flex-shrink-0 px-4">CLOTHEEO</div>
+          <div class="text-3xl font-serif font-bold italic flex-shrink-0 px-4">Smriti</div>
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">V</div>
+          <div class="text-2xl font-bold uppercase tracking-[0.2em] flex-shrink-0 px-4">TECHWAVE</div>
+          
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">Z</div>
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">C</div>
+          <div class="text-2xl font-bold uppercase tracking-[0.2em] flex-shrink-0 px-4">CLOTHEEO</div>
+          <div class="text-3xl font-serif font-bold italic flex-shrink-0 px-4">Smriti</div>
+          <div class="text-4xl font-black tracking-tighter flex-shrink-0 px-4">V</div>
+          <div class="text-2xl font-bold uppercase tracking-[0.2em] flex-shrink-0 px-4">TECHWAVE</div>
+      @endif
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="px-6 py-24 max-w-7xl mx-auto w-full animate-on-scroll">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-[#F2F1ED] p-12 md:p-20 rounded-sm">
+    <div>
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-tight text-slate-900">
+        Let's Create Something Great
+      </h2>
+      <a href="{{ route('contact') }}" class="inline-block bg-black text-white px-10 py-4 rounded-sm text-sm font-bold tracking-widest uppercase hover:bg-opacity-90 transition-all shadow-lg">
+        LET'S TALK WITH US
+      </a>
+    </div>
+    <div>
+      <p class="text-xl text-slate-600 leading-relaxed">
+        We are a digital agency that helps build immersive and engaging user experiences that drive results. Our team of experts is dedicated to pushing the boundaries of what's possible in the digital space.
+      </p>
+    </div>
+  </div>
+</section>
+
+@endsection

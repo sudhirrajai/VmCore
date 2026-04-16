@@ -18,7 +18,7 @@
     {{-- Categories --}}
     @if(isset($categories) && $categories->count())
         <div class="sidebar__widget custom-widget-box">
-            <h4 class="sidebar__widget-title custom-widget-title">Categories</h4>
+            <h4 class="sidebar__widget-title custom-widget-title">{!! setting('sidebar_categories_title', 'Categories') !!}</h4>
             <div class="sidebar__cat-list">
                 <ul class="list-wrap">
                     @foreach($categories as $cat)
@@ -35,7 +35,7 @@
     {{-- Recent Posts --}}
     @if(isset($recentPosts) && $recentPosts->count())
         <div class="sidebar__widget custom-widget-box">
-            <h4 class="sidebar__widget-title custom-widget-title">Recent Posts</h4>
+            <h4 class="sidebar__widget-title custom-widget-title">{!! setting('sidebar_recent_posts_title', 'Recent Posts') !!}</h4>
             <div class="sidebar__post-list">
                 @foreach($recentPosts as $recent)
                     <div class="sidebar__post-item">
@@ -61,7 +61,7 @@
     {{-- Tags --}}
     @if(isset($tags) && $tags->count())
         <div class="sidebar__widget custom-widget-box">
-            <h4 class="sidebar__widget-title custom-widget-title">Tags</h4>
+            <h4 class="sidebar__widget-title custom-widget-title">{!! setting('sidebar_tags_title', 'Tags') !!}</h4>
             <div class="sidebar__tag-list">
                 <ul class="list-wrap">
                     @foreach($tags as $tag)

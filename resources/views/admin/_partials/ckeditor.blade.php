@@ -60,6 +60,16 @@
                     },
                     placeholder: 'Start writing your content here...',
                     licenseKey: '',
+                    htmlSupport: {
+                        allow: [
+                            {
+                                name: /.*/,   // allow all tags
+                                attributes: true,
+                                classes: true,
+                                styles: true
+                            }
+                        ]
+                    },
                 })
                 .then(editor => {
                     // Sync CKEditor content to textarea before form submit

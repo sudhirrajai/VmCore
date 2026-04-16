@@ -18,6 +18,8 @@ use App\Models\Skill;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\Setting;
+use App\Models\SocialLink;
+use App\Models\ProjectImage;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -87,7 +89,11 @@ class FrontendController extends Controller
     {
         abort_if(!Setting::get('show_portfolio_page', 1), 404);
 
-        $categories = ProjectCategory::where('status', true)->withCount('projects')->get();
+        $categories = ProjectCategory::where('status', true)
+            ->whereHas('projects', function ($q) {
+                $q->where('status', true);
+            })
+            ->get();
 
         $query = Project::where('status', true)->with('categories', 'images');
 
@@ -192,8 +198,10 @@ class FrontendController extends Controller
     {
         abort_if(!Setting::get('show_contact_page', 1), 404);
 
+        $socialLinks = SocialLink::where('status', true)->orderBy('order', 'asc')->get();
         $siteSettings = Setting::pluck('value', 'key')->toArray();
-        return view('contact', compact('siteSettings'));
+
+        return view('contact', compact('siteSettings', 'socialLinks'));
     }
 
     public function contactStore(ContactFormRequest $request)

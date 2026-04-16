@@ -1,0 +1,146 @@
+@extends('layouts.app')
+
+@section('title', 'Services - ' . ($siteSettings['site_name'] ?? 'VM CORE'))
+
+@section('content')
+
+<!-- Services Header -->
+<section class="px-6 py-20 max-w-7xl mx-auto w-full">
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <h2 class="text-5xl md:text-6xl font-bold tracking-tighter">What We Excel At</h2>
+    <p class="text-gray-500 max-w-xs text-sm uppercase tracking-widest font-bold">
+      Our Specialized Services
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    @if(isset($services) && $services->count() > 0)
+        @foreach($services as $service)
+            <a href="{{ route('service.detail', $service->slug ?? '') }}" class="flex flex-col gap-6 p-8 bg-white rounded-sm border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll shrink-0 w-full h-full block">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 bg-[#F2F1ED] rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
+                  @if($service->icon_image)
+                      <img src="{{ asset('storage/' . $service->icon_image) }}" alt="{{ $service->title }}" class="w-8 h-8 object-contain filter group-hover:brightness-0 group-hover:invert transition-colors">
+                  @else
+                      <svg class="w-8 h-8 text-black group-hover:text-white transition-colors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="13" rx="2" ry="2"/><rect width="8" height="8" x="3" y="13" rx="2" ry="2"/></svg>
+                  @endif
+                </div>
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-2xl font-bold mb-3">{{ $service->title }}</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                  {{ $service->description }}
+                </p>
+                <ul class="grid grid-cols-1 gap-y-2">
+                  {{-- Hardcoded for aesthetic if service features don't exist in DB, else use a relation --}}
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>
+                    Strategic Planning
+                  </li>
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>
+                    Modern Execution
+                  </li>
+                </ul>
+              </div>
+            </a>
+        @endforeach
+    @else
+        {{-- Static Fallbacks --}}
+        <div class="flex flex-col gap-6 p-8 bg-white rounded-sm border border-gray-100 hover:border-[#4A76B2] transition-colors group animate-on-scroll">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-[#F2F1ED] rounded-lg flex items-center justify-center group-hover:bg-[#4A76B2] transition-colors">
+              <svg class="w-8 h-8 text-black group-hover:text-white transition-colors" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="3" rx="2" ry="2"/><rect width="8" height="8" x="13" y="13" rx="2" ry="2"/><rect width="8" height="8" x="3" y="13" rx="2" ry="2"/></svg>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-2xl font-bold mb-3">Business Consultancy</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Business consultancy, team skills and engaging user experiences that deliver results.
+            </p>
+            <ul class="grid grid-cols-1 gap-y-2">
+              <li class="flex items-center text-sm font-medium"><span class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Strategic Planning</li>
+              <li class="flex items-center text-sm font-medium"><span class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Digital Transformation</li>
+              <li class="flex items-center text-sm font-medium"><span class="w-1.5 h-1.5 bg-black rounded-full mr-3"></span>Operations Scaling</li>
+            </ul>
+          </div>
+        </div>
+    @endif
+  </div>
+</section>
+
+<!-- Process Section -->
+<section class="px-6 pt-24 pb-0 max-w-7xl mx-auto w-full">
+  <h2 class="text-5xl md:text-6xl font-bold tracking-tighter mb-20 animate-on-scroll">Our Process</h2>
+  <div class="relative">
+    <!-- Connecting Line -->
+    <div class="hidden md:block absolute top-7 left-0 w-full h-[1px] bg-gray-200 -z-0"></div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
+      <div class="relative flex flex-col items-start text-left group animate-on-scroll">
+        <div class="mb-6 relative z-10">
+          <div class="w-14 h-14 bg-[#F2F1ED] rounded-full flex items-center justify-center group-hover:bg-[#4A76B2] group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-gray-400 mb-1 uppercase tracking-widest">01</div>
+        <h3 class="text-xl font-bold mb-3">Discovery</h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-[200px]">Discovery and make concepts in measures with business needs.</p>
+      </div>
+
+      <div class="relative flex flex-col items-start text-left group animate-on-scroll delay-100">
+        <div class="mb-6 relative z-10">
+          <div class="w-14 h-14 bg-[#F2F1ED] rounded-full flex items-center justify-center group-hover:bg-[#4A76B2] group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-gray-400 mb-1 uppercase tracking-widest">02</div>
+        <h3 class="text-xl font-bold mb-3">Strategy</h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-[200px]">We are a digital agency team, team skills are smarter and engaging user drives experiences.</p>
+      </div>
+
+      <div class="relative flex flex-col items-start text-left group animate-on-scroll delay-200">
+        <div class="mb-6 relative z-10">
+          <div class="w-14 h-14 bg-[#F2F1ED] rounded-full flex items-center justify-center group-hover:bg-[#4A76B2] group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-gray-400 mb-1 uppercase tracking-widest">03</div>
+        <h3 class="text-xl font-bold mb-3">Design</h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-[200px]">Design concepts for engagement, meticulous, design, and digital marketing.</p>
+      </div>
+
+      <div class="relative flex flex-col items-start text-left group animate-on-scroll delay-300">
+        <div class="mb-6 relative z-10">
+          <div class="w-14 h-14 bg-[#F2F1ED] rounded-full flex items-center justify-center group-hover:bg-[#4A76B2] group-hover:text-white transition-colors duration-300">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-gray-400 mb-1 uppercase tracking-widest">04</div>
+        <h3 class="text-xl font-bold mb-3">Launch</h3>
+        <p class="text-sm text-gray-500 leading-relaxed max-w-[200px]">Launch for innovative contents and involving, social media, and digital results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hero CTA -->
+<section class="px-6 pt-24 pb-24 max-w-7xl mx-auto w-full">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-[#F2F1ED] p-12 md:p-20 rounded-sm animate-on-scroll">
+    <div>
+      <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-tight">
+        Let's Create Something Great
+      </h2>
+      <a href="{{ route('contact') }}" class="inline-block bg-[#4A76B2] text-white px-10 py-4 rounded-sm text-sm font-bold tracking-widest uppercase hover:bg-opacity-90 transition-all shadow-lg">
+        LET'S TALK WITH US
+      </a>
+    </div>
+    <div>
+      <p class="text-xl text-gray-600 leading-relaxed">
+        We are a digital agency that helps build immersive and engaging user experiences that drive results. Our team of experts is dedicated to pushing the boundaries of what's possible in the digital space.
+      </p>
+    </div>
+  </div>
+</section>
+
+@endsection

@@ -21,6 +21,7 @@ class Project extends Model
         'slug',
         'short_description',
         'description',
+        'dynamic_content',
         'client',
         'project_date',
         'project_url',
@@ -31,12 +32,16 @@ class Project extends Model
         'order',
         'meta_title',
         'meta_description',
+        'problem_solution',
+        'features',
     ];
 
     protected $casts = [
         'status' => 'boolean',
         'is_featured' => 'boolean',
         'project_date' => 'date',
+        'problem_solution' => 'array',
+        'features' => 'array',
     ];
 
     public function categories()

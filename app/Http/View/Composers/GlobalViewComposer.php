@@ -20,6 +20,8 @@ class GlobalViewComposer
 
     public function compose(View $view)
     {
+        $socialLinks = \App\Models\SocialLink::where('status', true)->orderBy('order', 'asc')->get();
+
         $view->with('siteSettings', [
             'site_name' => $this->settingService->get('site_name', 'VMCore'),
             'logo' => $this->settingService->get('logo', 'assets/img/logo.svg'),
@@ -32,14 +34,19 @@ class GlobalViewComposer
             'site_address' => $this->settingService->get('address'),
             'site_description' => $this->settingService->get('site_description', $this->settingService->get('default_meta_description', '')),
             'og_image' => $this->settingService->get('og_image', $this->settingService->get('logo', '')),
-            'social_links' => json_decode($this->settingService->get('social_links', '[]')),
+            'social_links' => $socialLinks,
             'default_meta_title' => $this->settingService->get('default_meta_title'),
             'default_meta_description' => $this->settingService->get('default_meta_description'),
             'meta_keywords' => $this->settingService->get('meta_keywords'),
+            // Individual social URLs for contact page
+            'facebook_url' => $this->settingService->get('facebook_url'),
+            'twitter_url' => $this->settingService->get('twitter_url'),
+            'instagram_url' => $this->settingService->get('instagram_url'),
+            'linkedin_url' => $this->settingService->get('linkedin_url'),
+            'youtube_url' => $this->settingService->get('youtube_url'),
         ]);
 
-        $socialLinksInfo = json_decode($this->settingService->get('social_links', '[]'));
-        $view->with('socialLinks', is_array($socialLinksInfo) ? $socialLinksInfo : []);
+        $view->with('socialLinks', $socialLinks);
 
         $view->with('headerMenu', $this->menuService->getMenuByLocation(MenuLocationEnum::HEADER));
         $view->with('footerMenu', $this->menuService->getMenuByLocation(MenuLocationEnum::FOOTER));

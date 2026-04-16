@@ -35,8 +35,7 @@
                             ============================== -->
     <div class="breadcumb-wrapper" data-bg-src="{{ asset('assets/img/bg/breadcumb-bg1-4.jpg') }}">
         <div class="container">
-            <div class="breadcumb-content">
-                <h1 class="breadcumb-title">{{ $member->name }}</h1>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight breadcumb-title">{{ $member->name }}</h1>
             </div>
         </div>
     </div>
@@ -55,8 +54,8 @@
 
                     <aside class="custom-sidebar">
                         <div class="custom-widget-box mt-30">
-                            <h4 class="custom-widget-title pb-2 mb-20">Contact Info</h4>
-                            <ul class="custom-info-list team-details-info">
+                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 custom-widget-title text-slate-900">{!! setting('team_contact_info_title', 'Contact Info') !!}</h4>
+                            <ul class="custom-info-list team-details-info text-sm text-slate-500">
                                 @if($member->email)
                                     <li>
                                         <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
@@ -100,8 +99,8 @@
                     </aside>
                 </div>
                 <div class="col-lg-8">
-                    <h2>{{ $member->name }}</h2>
-                    <span class="text-muted">{{ $member->designation }}</span>
+                    <h2 class="text-2xl lg:text-4xl font-semibold leading-tight mb-2 text-slate-900">{{ $member->name }}</h2>
+                    <span class="text-sm text-slate-500">{{ $member->designation }}</span>
                     @if($member->bio)
                         <div class="team-details-bio mt-30">
                             {!! $member->bio !!}
@@ -110,12 +109,12 @@
 
                     @if($member->testimonials->count())
                         <div class="mt-50">
-                            <h4 class="mb-20">What Clients Say</h4>
+                            <h4 class="text-xl lg:text-2xl font-semibold mb-4 text-slate-900">{!! setting('team_testimonials_title', 'What Clients Say') !!}</h4>
                             @foreach($member->testimonials as $testimonial)
                                 <div class="testi-card p-4 border rounded mb-20">
-                                    <p>"{{ $testimonial->content }}"</p>
-                                    <strong>{{ $testimonial->name }}</strong>
-                                    @if($testimonial->company)<br><small>{{ $testimonial->designation }},
+                                    <p class="text-base leading-relaxed text-slate-500 italic mb-4">"{{ $testimonial->content }}"</p>
+                                    <strong class="text-sm font-medium text-slate-900 mb-1 block">{{ $testimonial->name }}</strong>
+                                    @if($testimonial->company)<small class="text-xs text-slate-500 block">{{ $testimonial->designation }},
                                     {{ $testimonial->company }}</small>@endif
                                 </div>
                             @endforeach
