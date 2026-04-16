@@ -7,39 +7,39 @@
 
 @push('structured_data')
   <script type="application/ld+json">
-                {
-                    "@@context": "https://schema.org",
-                    "@@type": "AboutPage",
-                    "name": "About {{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-                    "description": "{{ addslashes(setting('about_meta_description', 'Learn about our story, leadership team, and the core values that drive our digital agency forward.')) }}",
-                    "url": "{{ route('about') }}",
-                    "mainEntity": {
-                        "@@type": "Organization",
-                        "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
-                        "url": "{{ url('/') }}"
-                    }
-                }
-                </script>
+                  {
+                      "@@context": "https://schema.org",
+                      "@@type": "AboutPage",
+                      "name": "About {{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                      "description": "{{ addslashes(setting('about_meta_description', 'Learn about our story, leadership team, and the core values that drive our digital agency forward.')) }}",
+                      "url": "{{ route('about') }}",
+                      "mainEntity": {
+                          "@@type": "Organization",
+                          "name": "{{ addslashes($siteSettings['site_name'] ?? 'VMCore') }}",
+                          "url": "{{ url('/') }}"
+                      }
+                  }
+                  </script>
   <script type="application/ld+json">
-                {
-                    "@@context": "https://schema.org",
-                    "@@type": "BreadcrumbList",
-                    "itemListElement": [
-                        {
-                            "@@type": "ListItem",
-                            "position": 1,
-                            "name": "Home",
-                            "item": "{{ url('/') }}"
-                        },
-                        {
-                            "@@type": "ListItem",
-                            "position": 2,
-                            "name": "About Us",
-                            "item": "{{ route('about') }}"
-                        }
-                    ]
-                }
-                </script>
+                  {
+                      "@@context": "https://schema.org",
+                      "@@type": "BreadcrumbList",
+                      "itemListElement": [
+                          {
+                              "@@type": "ListItem",
+                              "position": 1,
+                              "name": "Home",
+                              "item": "{{ url('/') }}"
+                          },
+                          {
+                              "@@type": "ListItem",
+                              "position": 2,
+                              "name": "About Us",
+                              "item": "{{ route('about') }}"
+                          }
+                      ]
+                  }
+                  </script>
 @endpush
 
 @push('styles')
@@ -74,7 +74,7 @@
       {!! setting('about_hero_title', 'Our Story') !!}
     </h1>
     <p class="text-base leading-relaxed text-slate-500 max-w-2xl mx-auto">
-      {!! setting('about_hero_description', 'We are a digital agency dedicated to driving digital transformation, building immersive experiences that empower businesses and connect with audiences. Our passion is innovation, and our mission is your success.') !!}
+      {!! setting('about_meta_description', 'We are a digital agency dedicated to driving digital transformation, building immersive experiences that empower businesses and connect with audiences. Our passion is innovation, and our mission is your success.') !!}
     </p>
   </section>
 
