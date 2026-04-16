@@ -340,12 +340,6 @@
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
         }
 
-        @media (min-width: 768px) {
-            .pd-gallery-wide {
-                grid-column: span 2;
-            }
-        }
-
         .pd-gallery-item img {
             width: 100%;
             height: 100%;
@@ -360,17 +354,7 @@
 
         /* Gallery fixed heights for consistent look */
         .pd-gallery-item {
-            min-height: 240px;
-        }
-
-        @media (min-width: 768px) {
-            .pd-gallery-item {
-                min-height: 320px;
-            }
-
-            .pd-gallery-wide {
-                min-height: 400px;
-            }
+            aspect-ratio: 1 / 1;
         }
 
         /* Hover overlay */
@@ -649,6 +633,40 @@
     @endif
 
     {{-- ════════════════════════════════════════════════════════
+    5. UI GALLERY
+    ════════════════════════════════════════════════════════ --}}
+    @if($project->images->count())
+        <section class="py-20 md:py-24">
+            <div class="container-custom">
+
+                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
+                    {!! setting('portfolio_gallery_section_title', 'UI Gallery') !!}</h2>
+
+                <div class="pd-gallery-grid">
+                    @foreach($project->images as $index => $image)
+                        <div class="pd-gallery-item group animate-on-scroll cursor-pointer"
+                            style="transition-delay: {{ ($index % 3) * 60 }}ms;"
+                            onclick="openLightbox({{ $index }})">
+                            <img src="{{ asset($image->image) }}" alt="Gallery Image {{ $index + 1 }}" />
+                            <div class="pd-gallery-overlay">
+                                <div class="pd-gallery-pill">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    View
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
+    @endif
+
+    {{-- ════════════════════════════════════════════════════════
     3. PROBLEM & SOLUTION
     ════════════════════════════════════════════════════════ --}}
     @if(!empty($project->problem_solution))
@@ -706,38 +724,7 @@
         </section>
     @endif
 
-    {{-- ════════════════════════════════════════════════════════
-    5. UI GALLERY
-    ════════════════════════════════════════════════════════ --}}
-    @if($project->images->count())
-        <section class="py-20 md:py-24">
-            <div class="container-custom">
-
-                <h2 class="pd-ps-section-title animate-on-scroll text-2xl lg:text-4xl font-semibold leading-tight mb-6">
-                    {!! setting('portfolio_gallery_section_title', 'UI Gallery') !!}</h2>
-
-                <div class="pd-gallery-grid">
-                    @foreach($project->images as $index => $image)
-                        <div class="pd-gallery-item {{ ($index % 4 == 0) ? 'pd-gallery-wide' : '' }} group animate-on-scroll"
-                            style="transition-delay: {{ ($index % 3) * 60 }}ms;">
-                            <img src="{{ asset($image->image) }}" alt="Gallery Image {{ $index + 1 }}" />
-                            <div class="pd-gallery-overlay">
-                                <div class="pd-gallery-pill">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                    </svg>
-                                    View
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-            </div>
-        </section>
-    @endif
+    
 
     {{-- ════════════════════════════════════════════════════════
     6. CLIENT TESTIMONIALS (kept from original, matches style)
@@ -817,5 +804,126 @@
             </div>
         </section>
     @endif
+
+    {{-- Lightbox Modal --}}
+    <div id="gallery-lightbox" style="position: fixed; inset: 0; z-index: 99999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
+        <div style="position: absolute; inset: 0; background-color: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); cursor: pointer;" onclick="closeLightbox()"></div>
+        
+        <button onclick="closeLightbox()" style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100000; padding: 0.5rem; background: rgba(0,0,0,0.5); border-radius: 50%; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <button id="lightbox-prev" onclick="navigateLightbox(-1); event.stopPropagation();" style="position: absolute; top: 50%; left: 1.5rem; transform: translateY(-50%); z-index: 100000; padding: 0.75rem; background: rgba(0,0,0,0.5); border-radius: 50%; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <button id="lightbox-next" onclick="navigateLightbox(1); event.stopPropagation();" style="position: absolute; top: 50%; right: 1.5rem; transform: translateY(-50%); z-index: 100000; padding: 0.75rem; background: rgba(0,0,0,0.5); border-radius: 50%; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+        
+        <img id="lightbox-image" src="" alt="Full Width Gallery Image" style="position: relative; z-index: 100000; max-width: 90%; max-height: 90vh; border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); object-fit: contain; transform: scale(0.95); transition: transform 0.3s ease, opacity 0.2s ease;">
+    </div>
+
+    @push('scripts')
+    <script>
+        const galleryImages = [];
+        @if(isset($project->images))
+            @foreach($project->images as $image)
+                galleryImages.push(@json(asset($image->image)));
+            @endforeach
+        @endif
+        
+        let currentLightboxIndex = 0;
+
+        function openLightbox(index) {
+            if (galleryImages.length === 0) return;
+            
+            currentLightboxIndex = parseInt(index);
+            const imageSrc = galleryImages[currentLightboxIndex];
+            
+            const lightbox = document.getElementById('gallery-lightbox');
+            const lightboxImg = document.getElementById('lightbox-image');
+            
+            if (!lightbox || !lightboxImg) return;
+            
+            lightboxImg.src = imageSrc;
+            
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Hidden if gallery logic is bare (1 image only)
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+            if (galleryImages.length <= 1) {
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(nextBtn) nextBtn.style.display = 'none';
+            } else {
+                if(prevBtn) prevBtn.style.display = 'flex';
+                if(nextBtn) nextBtn.style.display = 'flex';
+            }
+            
+            setTimeout(() => {
+                lightbox.style.opacity = '1';
+                lightboxImg.style.transform = 'scale(1)';
+            }, 50);
+        }
+
+        function navigateLightbox(direction) {
+            if (galleryImages.length <= 1) return;
+            
+            currentLightboxIndex += direction;
+            
+            if (currentLightboxIndex < 0) {
+                currentLightboxIndex = galleryImages.length - 1;
+            } else if (currentLightboxIndex >= galleryImages.length) {
+                currentLightboxIndex = 0;
+            }
+            
+            const lightboxImg = document.getElementById('lightbox-image');
+            
+            // Fast crossfade animation
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                lightboxImg.src = galleryImages[currentLightboxIndex];
+                lightboxImg.style.opacity = '1';
+            }, 200);
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('gallery-lightbox');
+            const lightboxImg = document.getElementById('lightbox-image');
+            
+            if (!lightbox || !lightboxImg) return;
+            
+            lightbox.style.opacity = '0';
+            lightboxImg.style.transform = 'scale(0.95)';
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('gallery-lightbox');
+            if (lightbox && lightbox.style.display === 'flex') {
+                if (event.key === "Escape") {
+                    closeLightbox();
+                } else if (event.key === "ArrowLeft") {
+                    navigateLightbox(-1);
+                } else if (event.key === "ArrowRight") {
+                    navigateLightbox(1);
+                }
+            }
+        });
+    </script>
+    @endpush
 
 @endsection
