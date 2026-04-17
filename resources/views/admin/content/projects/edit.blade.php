@@ -175,8 +175,12 @@
                                         <label class="form-label" style="font-size: 0.75rem;">Change Thumbnail</label>
                                         <input type="file" class="form-control form-control-sm" name="existing_gallery[{{ $img->id }}][thumbnail]" accept="image/*">
                                     </div>
-                                    <div class="col-md-2 text-end">
-                                        <button type="button" class="btn btn-sm btn-danger mt-3" onclick="deleteGalleryImage({{ $img->id }}, this)">Delete</button>
+                                    <div class="col-md-1">
+                                        <label class="form-label" style="font-size: 0.75rem;">Order</label>
+                                        <input type="number" class="form-control form-control-sm" name="existing_gallery[{{ $img->id }}][order]" value="{{ $img->order }}">
+                                    </div>
+                                    <div class="col-md-1 text-end">
+                                        <button type="button" class="btn btn-sm btn-danger mt-3" onclick="deleteGalleryImage({{ $img->id }}, this)">X</button>
                                     </div>
                                 </div>
                             @endforeach
@@ -317,13 +321,17 @@
             const idx = Date.now();
             const template = `
                 <div class="row mb-2 repeater-row align-items-end p-2 border rounded" style="border-color: #d9dee3 !important;">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
                         <input type="file" class="form-control form-control-sm" name="new_gallery[${idx}][image]" accept="image/*">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
                         <input type="file" class="form-control form-control-sm" name="new_gallery[${idx}][thumbnail]" accept="image/*">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" style="font-size: 0.75rem;">Order</label>
+                        <input type="number" class="form-control form-control-sm" name="new_gallery[${idx}][order]" value="0">
                     </div>
                     <div class="col-md-2 text-end">
                         <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>

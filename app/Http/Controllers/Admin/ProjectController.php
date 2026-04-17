@@ -114,39 +114,40 @@ class ProjectController extends AdminBaseController
         }
 
         // Upload gallery images
-        if (is_array($request->file('new_gallery'))) {
-            $orderCounter = 0;
-            foreach ($request->file('new_gallery') as $index => $files) {
-                if (isset($files['image'])) {
-                    $imageFile = $files['image'];
-                    $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
-                    $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
-                    $imagePath = 'uploads/projects/gallery/' . $imageFilename;
-                    
-                    $thumbPath = null;
-                    if (isset($files['thumbnail'])) {
-                        $thumbFile = $files['thumbnail'];
-                        $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
-                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
-                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                    } else {
-                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
-                        if (!file_exists($thumbDir)) {
-                            mkdir($thumbDir, 0777, true);
-                        }
-                        $thumbFilename = 'thumb_' . basename($imagePath);
-                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
-                            $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                        }
-                    }
+        $newGalleryFiles = $request->file('new_gallery') ?? [];
+        $newGalleryData = $request->input('new_gallery') ?? [];
+        $allNewIndices = array_unique(array_merge(array_keys($newGalleryFiles), array_keys($newGalleryData)));
 
-                    ProjectImage::create([
-                        'project_id' => $project->id,
-                        'image' => $imagePath,
-                        'thumbnail' => $thumbPath,
-                        'order' => $orderCounter++,
-                    ]);
+        foreach ($allNewIndices as $index) {
+            if (isset($newGalleryFiles[$index]['image'])) {
+                $imageFile = $newGalleryFiles[$index]['image'];
+                $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                
+                $thumbPath = null;
+                if (isset($newGalleryFiles[$index]['thumbnail'])) {
+                    $thumbFile = $newGalleryFiles[$index]['thumbnail'];
+                    $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
+                    $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                    $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                } else {
+                    $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                    if (!file_exists($thumbDir)) {
+                        mkdir($thumbDir, 0777, true);
+                    }
+                    $thumbFilename = 'thumb_' . basename($imagePath);
+                    if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    }
                 }
+
+                ProjectImage::create([
+                    'project_id' => $project->id,
+                    'image' => $imagePath,
+                    'thumbnail' => $thumbPath,
+                    'order' => $newGalleryData[$index]['order'] ?? 0,
+                ]);
             }
         }
 
@@ -236,82 +237,89 @@ class ProjectController extends AdminBaseController
         }
 
         // Update existing gallery images
-        if (is_array($request->file('existing_gallery'))) {
-            foreach ($request->file('existing_gallery') as $id => $files) {
-                $projectImage = ProjectImage::find($id);
-                if ($projectImage) {
-                    $newImageUploaded = false;
-                    $imagePath = $projectImage->image;
+        $existingGalleryFiles = $request->file('existing_gallery') ?? [];
+        $existingGalleryData = $request->input('existing_gallery') ?? [];
+        $allExistingIds = array_unique(array_merge(array_keys($existingGalleryFiles), array_keys($existingGalleryData)));
 
-                    if (isset($files['image'])) {
-                        $this->deleteImage($projectImage->image);
-                        $imageFile = $files['image'];
-                        $imageFilename = time() . '_img_upd_' . $id . '.' . $imageFile->getClientOriginalExtension();
-                        $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
-                        $imagePath = 'uploads/projects/gallery/' . $imageFilename;
-                        $projectImage->image = $imagePath;
-                        $newImageUploaded = true;
-                    }
-                    if (isset($files['thumbnail'])) {
-                        if ($projectImage->thumbnail) {
-                            $this->deleteImage($projectImage->thumbnail);
-                        }
-                        $thumbFile = $files['thumbnail'];
-                        $thumbFilename = time() . '_thumb_upd_' . $id . '.' . $thumbFile->getClientOriginalExtension();
-                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
-                        $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                    } elseif ($newImageUploaded) {
-                        if ($projectImage->thumbnail) {
-                            $this->deleteImage($projectImage->thumbnail);
-                        }
-                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
-                        if (!file_exists($thumbDir)) {
-                            mkdir($thumbDir, 0777, true);
-                        }
-                        $thumbFilename = 'thumb_' . basename($imagePath);
-                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
-                            $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                        }
-                    }
-                    $projectImage->save();
+        foreach ($allExistingIds as $id) {
+            $projectImage = ProjectImage::find($id);
+            if ($projectImage) {
+                if (isset($existingGalleryData[$id]['order'])) {
+                    $projectImage->order = $existingGalleryData[$id]['order'];
                 }
+
+                $newImageUploaded = false;
+                $imagePath = $projectImage->image;
+
+                if (isset($existingGalleryFiles[$id]['image'])) {
+                    $this->deleteImage($projectImage->image);
+                    $imageFile = $existingGalleryFiles[$id]['image'];
+                    $imageFilename = time() . '_img_upd_' . $id . '.' . $imageFile->getClientOriginalExtension();
+                    $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                    $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                    $projectImage->image = $imagePath;
+                    $newImageUploaded = true;
+                }
+                if (isset($existingGalleryFiles[$id]['thumbnail'])) {
+                    if ($projectImage->thumbnail) {
+                        $this->deleteImage($projectImage->thumbnail);
+                    }
+                    $thumbFile = $existingGalleryFiles[$id]['thumbnail'];
+                    $thumbFilename = time() . '_thumb_upd_' . $id . '.' . $thumbFile->getClientOriginalExtension();
+                    $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                    $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                } elseif ($newImageUploaded) {
+                    if ($projectImage->thumbnail) {
+                        $this->deleteImage($projectImage->thumbnail);
+                    }
+                    $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                    if (!file_exists($thumbDir)) {
+                        mkdir($thumbDir, 0777, true);
+                    }
+                    $thumbFilename = 'thumb_' . basename($imagePath);
+                    if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                        $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    }
+                }
+                $projectImage->save();
             }
         }
 
         // Upload additional new gallery images
-        if (is_array($request->file('new_gallery'))) {
-            $orderCounter = $project->images()->count();
-            foreach ($request->file('new_gallery') as $index => $files) {
-                if (isset($files['image'])) {
-                    $imageFile = $files['image'];
-                    $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
-                    $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
-                    $imagePath = 'uploads/projects/gallery/' . $imageFilename;
-                    
-                    $thumbPath = null;
-                    if (isset($files['thumbnail'])) {
-                        $thumbFile = $files['thumbnail'];
-                        $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
-                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
-                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                    } else {
-                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
-                        if (!file_exists($thumbDir)) {
-                            mkdir($thumbDir, 0777, true);
-                        }
-                        $thumbFilename = 'thumb_' . basename($imagePath);
-                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
-                            $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
-                        }
-                    }
+        $newGalleryFiles = $request->file('new_gallery') ?? [];
+        $newGalleryData = $request->input('new_gallery') ?? [];
+        $allNewIndices = array_unique(array_merge(array_keys($newGalleryFiles), array_keys($newGalleryData)));
 
-                    ProjectImage::create([
-                        'project_id' => $project->id,
-                        'image' => $imagePath,
-                        'thumbnail' => $thumbPath,
-                        'order' => $orderCounter++,
-                    ]);
+        foreach ($allNewIndices as $index) {
+            if (isset($newGalleryFiles[$index]['image'])) {
+                $imageFile = $newGalleryFiles[$index]['image'];
+                $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
+                $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                
+                $thumbPath = null;
+                if (isset($newGalleryFiles[$index]['thumbnail'])) {
+                    $thumbFile = $newGalleryFiles[$index]['thumbnail'];
+                    $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
+                    $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                    $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                } else {
+                    $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                    if (!file_exists($thumbDir)) {
+                        mkdir($thumbDir, 0777, true);
+                    }
+                    $thumbFilename = 'thumb_' . basename($imagePath);
+                    if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    }
                 }
+
+                ProjectImage::create([
+                    'project_id' => $project->id,
+                    'image' => $imagePath,
+                    'thumbnail' => $thumbPath,
+                    'order' => $newGalleryData[$index]['order'] ?? 0,
+                ]);
             }
         }
 

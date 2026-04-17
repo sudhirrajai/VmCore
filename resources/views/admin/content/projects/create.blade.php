@@ -153,15 +153,19 @@
                     <div class="mb-4" id="gallery_container">
                         @foreach(range(0, 0) as $i)
                         <div class="row mb-2 repeater-row align-items-end">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
                                 <input type="file" class="form-control" name="new_gallery[{{$i}}][image]" accept="image/*">
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
                                 <input type="file" class="form-control" name="new_gallery[{{$i}}][thumbnail]" accept="image/*">
                             </div>
                             <div class="col-md-2">
+                                <label class="form-label" style="font-size: 0.75rem;">Order</label>
+                                <input type="number" class="form-control" name="new_gallery[{{$i}}][order]" value="0">
+                            </div>
+                            <div class="col-md-2 text-end">
                                 <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>
                             </div>
                         </div>
@@ -284,15 +288,19 @@
             const idx = Date.now();
             const template = `
                 <div class="row mb-2 repeater-row align-items-end">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
                         <input type="file" class="form-control" name="new_gallery[${idx}][image]" accept="image/*">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
                         <input type="file" class="form-control" name="new_gallery[${idx}][thumbnail]" accept="image/*">
                     </div>
                     <div class="col-md-2">
+                        <label class="form-label" style="font-size: 0.75rem;">Order</label>
+                        <input type="number" class="form-control" name="new_gallery[${idx}][order]" value="0">
+                    </div>
+                    <div class="col-md-2 text-end">
                         <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>
                     </div>
                 </div>
