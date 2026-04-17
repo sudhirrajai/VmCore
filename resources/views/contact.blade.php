@@ -164,7 +164,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('contact.store') }}" method="POST" class="space-y-10">
+                    <form id="contactForm" action="{{ route('contact.store') }}" method="POST" class="space-y-10">
                         @csrf
                         {{-- Honeypot Field --}}
                         <input type="hidden" name="company_name_hp" tabindex="-1" autocomplete="off" class="hidden" hidden>
@@ -307,4 +307,51 @@
 
 @push('scripts')
     {{-- Contact Page Specific Scripts are now in global script.js --}}
+    @if(setting('google_verification_enabled', '0') == '1')
+        <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.getElementById('contactForm');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        var submitBtn = form.querySelector('button[type="submit"]');
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            submitBtn.innerHTML = 'Sending...';
+                        }
+                        
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'submit'}).then(function(token) {
+                                var input = form.querySelector('input[name="g-recaptcha-response"]');
+                                if (!input) {
+                                    input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = 'g-recaptcha-response';
+                                    form.appendChild(input);
+                                }
+                                input.value = token;
+                                form.submit();
+                            });
+                        });
+                    });
+                }
+            });
+        </script>
+    @else
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.getElementById('contactForm');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        var submitBtn = form.querySelector('button[type="submit"]');
+                        if (submitBtn && !submitBtn.disabled) {
+                            submitBtn.disabled = true;
+                            submitBtn.innerHTML = 'Sending...';
+                        }
+                    });
+                }
+            });
+        </script>
+    @endif
 @endpush

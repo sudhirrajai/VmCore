@@ -42,7 +42,7 @@
         <h4 class="font-semibold text-lg uppercase tracking-widest mb-6 text-slate-900">
           {!! setting('footer_newsletter_title', 'Newsletter Subscription') !!}
         </h4>
-        <form action="{{ route('newsletter.subscribe') }}" method="POST" class="relative"
+        <form id="footerNewsletterForm" action="{{ route('newsletter.subscribe') }}" method="POST" class="relative"
           aria-label="Newsletter subscription">
           @csrf
           <!-- <label for="newsletter-email" class="sr-only">Email address</label> -->
@@ -63,6 +63,99 @@
         <p class="text-sm text-slate-500 mt-4 leading-relaxed">
           {!! setting('footer_newsletter_disclaimer', 'You can unsubscribe at any time and your data is protected by our privacy policy.') !!}
         </p>
+        
+        @if(setting('google_verification_enabled', '0') == '1')
+          <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  var form = document.getElementById('footerNewsletterForm');
+                  if (form) {
+                      form.addEventListener('submit', function(e) {
+                          e.preventDefault();
+                          var emailInput = form.querySelector('input[name="email"]');
+                          var submitBtn = form.querySelector('button[type="submit"]');
+                          
+                          if (submitBtn) {
+                              submitBtn.disabled = true;
+                              submitBtn.style.opacity = '0.5';
+                          }
+                          
+                          grecaptcha.ready(function() {
+                              grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
+                                  var input = form.querySelector('input[name="g-recaptcha-response"]');
+                                  if (!input) {
+                                      input = document.createElement('input');
+                                      input.type = 'hidden';
+                                      input.name = 'g-recaptcha-response';
+                                      form.appendChild(input);
+                                  }
+                                  input.value = token;
+                                  
+                                  // Since this might be an AJAX form logic later, or handled by current JS, just let it submit.
+                                  // Note: The form has no custom JS bound inside the blade, but maybe new-ui/script.js intercepts it.
+                                  // Wait, if it's intercepted by other listeners, e.preventDefault() here might stop them.
+                                  // Actually, the easiest is to just submit it natively or via fetch.
+                                  
+                                  fetch(form.action, {
+                                      method: 'POST',
+                                      body: new FormData(form),
+                                      headers: {
+                                          'headers': 'application/json, text-plain, */*',
+                                          'X-Requested-With': 'XMLHttpRequest'
+                                      }
+                                  }).then(r => r.json()).then(data => {
+                                      if(data.success) {
+                                          emailInput.value = '';
+                                          alert(data.message || 'Subscribed successfully!');
+                                      } else {
+                                          alert(data.message || 'Error occurred.');
+                                      }
+                                  }).catch(err => {
+                                      alert('Something went wrong. Please try again.');
+                                  }).finally(() => {
+                                      if (submitBtn) {
+                                          submitBtn.disabled = false;
+                                          submitBtn.style.opacity = '1';
+                                      }
+                                  });
+                              });
+                          });
+                      });
+                  }
+              });
+          </script>
+        @else
+          {{-- Newsletter form Ajax submission without Captcha --}}
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.getElementById('footerNewsletterForm');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        var emailInput = form.querySelector('input[name="email"]');
+                        var submitBtn = form.querySelector('button[type="submit"]');
+                        if(submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.5'; }
+                        fetch(form.action, {
+                            method: 'POST',
+                            body: new FormData(form),
+                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                        }).then(r => r.json()).then(data => {
+                            if(data.success) {
+                                emailInput.value = '';
+                                alert(data.message || 'Subscribed successfully!');
+                            } else {
+                                alert(data.message || 'Error occurred.');
+                            }
+                        }).catch(err => {
+                            alert('Something went wrong. Please try again.');
+                        }).finally(() => {
+                            if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; }
+                        });
+                    });
+                }
+            });
+          </script>
+        @endif
       </div>
 
       <nav class="md:col-span-2" aria-label="Footer navigation">

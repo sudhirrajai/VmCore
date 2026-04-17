@@ -238,7 +238,35 @@ class FrontendController extends Controller
     // ── Newsletter ────────────────────────────────────────────
     public function newsletterSubscribe(Request $request)
     {
-        $request->validate(['email' => 'required|email|unique:newsletter_subscribers,email']);
+        $rules = ['email' => 'required|email|unique:newsletter_subscribers,email'];
+        
+        if (Setting::get('google_verification_enabled', '0') == '1') {
+            $rules['g-recaptcha-response'] = 'required';
+        }
+
+        $request->validate($rules, [
+            'g-recaptcha-response.required' => 'Please complete the reCAPTCHA.'
+        ]);
+
+        if (Setting::get('google_verification_enabled', '0') == '1') {
+            $secret = Setting::get('google_recaptcha_secret_key');
+            if ($secret) {
+                try {
+                    $response = \Illuminate\Support\Facades\Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                        'secret' => $secret,
+                        'response' => $request->input('g-recaptcha-response'),
+                        'remoteip' => $request->ip(),
+                    ]);
+                    if (!$response->json('success')) {
+                        return response()->json(['success' => false, 'message' => 'reCAPTCHA verification failed. Please try again.'], 422);
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Newsletter reCAPTCHA verification failed: ' . $e->getMessage());
+                    return response()->json(['success' => false, 'message' => 'reCAPTCHA verification failed. Please try again.'], 422);
+                }
+            }
+        }
+
         Subscriber::create(['email' => $request->email]);
 
         try {
