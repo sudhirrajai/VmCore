@@ -647,7 +647,7 @@
                         <div class="pd-gallery-item group animate-on-scroll cursor-pointer"
                             style="transition-delay: {{ ($index % 3) * 60 }}ms;"
                             onclick="openLightbox({{ $index }})">
-                            <img src="{{ asset($image->image) }}" alt="Gallery Image {{ $index + 1 }}" />
+                            <img src="{{ asset($image->thumbnail ?? $image->image) }}" alt="Gallery Image {{ $index + 1 }}" loading="lazy" />
                             <div class="pd-gallery-overlay">
                                 <div class="pd-gallery-pill">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"

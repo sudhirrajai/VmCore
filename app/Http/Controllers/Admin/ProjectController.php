@@ -69,7 +69,9 @@ class ProjectController extends AdminBaseController
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'tags' => 'nullable|array',
-            'gallery.*' => 'nullable|image|max:2048',
+            'new_gallery' => 'nullable|array',
+            'new_gallery.*.image' => 'nullable|image|max:4096',
+            'new_gallery.*.thumbnail' => 'nullable|image|max:2048',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'projects')) {
@@ -80,7 +82,7 @@ class ProjectController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
-        unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
+        unset($data['tags'], $data['new_gallery'], $data['categories'], $data['services']);
         if (isset($data['problem_solution'])) {
             $data['problem_solution'] = array_values(array_filter($data['problem_solution'], fn($item) => !empty($item['title'])));
         }
@@ -112,15 +114,39 @@ class ProjectController extends AdminBaseController
         }
 
         // Upload gallery images
-        if ($request->hasFile('gallery')) {
-            foreach ($request->file('gallery') as $index => $file) {
-                $filename = time() . '_' . $index . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/projects/gallery'), $filename);
-                ProjectImage::create([
-                    'project_id' => $project->id,
-                    'image' => 'uploads/projects/gallery/' . $filename,
-                    'order' => $index,
-                ]);
+        if (is_array($request->file('new_gallery'))) {
+            $orderCounter = 0;
+            foreach ($request->file('new_gallery') as $index => $files) {
+                if (isset($files['image'])) {
+                    $imageFile = $files['image'];
+                    $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
+                    $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                    $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                    
+                    $thumbPath = null;
+                    if (isset($files['thumbnail'])) {
+                        $thumbFile = $files['thumbnail'];
+                        $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
+                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    } else {
+                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                        if (!file_exists($thumbDir)) {
+                            mkdir($thumbDir, 0777, true);
+                        }
+                        $thumbFilename = 'thumb_' . basename($imagePath);
+                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                            $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                        }
+                    }
+
+                    ProjectImage::create([
+                        'project_id' => $project->id,
+                        'image' => $imagePath,
+                        'thumbnail' => $thumbPath,
+                        'order' => $orderCounter++,
+                    ]);
+                }
             }
         }
 
@@ -161,7 +187,12 @@ class ProjectController extends AdminBaseController
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'tags' => 'nullable|array',
-            'gallery.*' => 'nullable|image|max:2048',
+            'new_gallery' => 'nullable|array',
+            'new_gallery.*.image' => 'nullable|image|max:4096',
+            'new_gallery.*.thumbnail' => 'nullable|image|max:2048',
+            'existing_gallery' => 'nullable|array',
+            'existing_gallery.*.image' => 'nullable|image|max:4096',
+            'existing_gallery.*.thumbnail' => 'nullable|image|max:2048',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'projects')) {
@@ -174,7 +205,7 @@ class ProjectController extends AdminBaseController
             $data['banner_image'] = $path;
         }
 
-        unset($data['tags'], $data['gallery'], $data['categories'], $data['services']);
+        unset($data['tags'], $data['new_gallery'], $data['existing_gallery'], $data['categories'], $data['services']);
         
         if (isset($data['problem_solution'])) {
             $data['problem_solution'] = array_values(array_filter($data['problem_solution'], fn($item) => !empty($item['title'])));
@@ -204,16 +235,83 @@ class ProjectController extends AdminBaseController
             $project->tags()->detach();
         }
 
-        // Upload additional gallery images
-        if ($request->hasFile('gallery')) {
-            foreach ($request->file('gallery') as $index => $file) {
-                $filename = time() . '_' . $index . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/projects/gallery'), $filename);
-                ProjectImage::create([
-                    'project_id' => $project->id,
-                    'image' => 'uploads/projects/gallery/' . $filename,
-                    'order' => $project->images()->count() + $index,
-                ]);
+        // Update existing gallery images
+        if (is_array($request->file('existing_gallery'))) {
+            foreach ($request->file('existing_gallery') as $id => $files) {
+                $projectImage = ProjectImage::find($id);
+                if ($projectImage) {
+                    $newImageUploaded = false;
+                    $imagePath = $projectImage->image;
+
+                    if (isset($files['image'])) {
+                        $this->deleteImage($projectImage->image);
+                        $imageFile = $files['image'];
+                        $imageFilename = time() . '_img_upd_' . $id . '.' . $imageFile->getClientOriginalExtension();
+                        $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                        $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                        $projectImage->image = $imagePath;
+                        $newImageUploaded = true;
+                    }
+                    if (isset($files['thumbnail'])) {
+                        if ($projectImage->thumbnail) {
+                            $this->deleteImage($projectImage->thumbnail);
+                        }
+                        $thumbFile = $files['thumbnail'];
+                        $thumbFilename = time() . '_thumb_upd_' . $id . '.' . $thumbFile->getClientOriginalExtension();
+                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                        $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    } elseif ($newImageUploaded) {
+                        if ($projectImage->thumbnail) {
+                            $this->deleteImage($projectImage->thumbnail);
+                        }
+                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                        if (!file_exists($thumbDir)) {
+                            mkdir($thumbDir, 0777, true);
+                        }
+                        $thumbFilename = 'thumb_' . basename($imagePath);
+                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                            $projectImage->thumbnail = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                        }
+                    }
+                    $projectImage->save();
+                }
+            }
+        }
+
+        // Upload additional new gallery images
+        if (is_array($request->file('new_gallery'))) {
+            $orderCounter = $project->images()->count();
+            foreach ($request->file('new_gallery') as $index => $files) {
+                if (isset($files['image'])) {
+                    $imageFile = $files['image'];
+                    $imageFilename = time() . '_img_' . $index . '.' . $imageFile->getClientOriginalExtension();
+                    $imageFile->move(public_path('uploads/projects/gallery'), $imageFilename);
+                    $imagePath = 'uploads/projects/gallery/' . $imageFilename;
+                    
+                    $thumbPath = null;
+                    if (isset($files['thumbnail'])) {
+                        $thumbFile = $files['thumbnail'];
+                        $thumbFilename = time() . '_thumb_' . $index . '.' . $thumbFile->getClientOriginalExtension();
+                        $thumbFile->move(public_path('uploads/projects/gallery/thumbnails'), $thumbFilename);
+                        $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                    } else {
+                        $thumbDir = public_path('uploads/projects/gallery/thumbnails');
+                        if (!file_exists($thumbDir)) {
+                            mkdir($thumbDir, 0777, true);
+                        }
+                        $thumbFilename = 'thumb_' . basename($imagePath);
+                        if ($this->createThumbnail(public_path($imagePath), $thumbDir . '/' . $thumbFilename)) {
+                            $thumbPath = 'uploads/projects/gallery/thumbnails/' . $thumbFilename;
+                        }
+                    }
+
+                    ProjectImage::create([
+                        'project_id' => $project->id,
+                        'image' => $imagePath,
+                        'thumbnail' => $thumbPath,
+                        'order' => $orderCounter++,
+                    ]);
+                }
             }
         }
 
@@ -226,6 +324,9 @@ class ProjectController extends AdminBaseController
         $this->deleteImage($project->banner_image);
         foreach ($project->images as $img) {
             $this->deleteImage($img->image);
+            if ($img->thumbnail) {
+                $this->deleteImage($img->thumbnail);
+            }
         }
         $project->tags()->detach();
         $project->delete();
@@ -237,8 +338,76 @@ class ProjectController extends AdminBaseController
     {
         $image = ProjectImage::findOrFail($id);
         $this->deleteImage($image->image);
+        if ($image->thumbnail) {
+            $this->deleteImage($image->thumbnail);
+        }
         $image->delete();
 
         return response()->json(['success' => true, 'message' => 'Image deleted.']);
+    }
+
+    protected function createThumbnail($sourcePath, $destinationPath, $maxWidth = 600, $maxHeight = 600)
+    {
+        if (!file_exists($sourcePath)) return false;
+        
+        list($origWidth, $origHeight, $type) = getimagesize($sourcePath);
+        if (!$origWidth || !$origHeight) return false;
+
+        $ratio = $origWidth / $origHeight;
+        if ($maxWidth / $maxHeight > $ratio) {
+            $maxWidth = $maxHeight * $ratio;
+        } else {
+            $maxHeight = $maxWidth / $ratio;
+        }
+
+        $image = null;
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                $image = imagecreatefromjpeg($sourcePath);
+                break;
+            case IMAGETYPE_PNG:
+                $image = imagecreatefrompng($sourcePath);
+                break;
+            case IMAGETYPE_GIF:
+                $image = imagecreatefromgif($sourcePath);
+                break;
+            case IMAGETYPE_WEBP:
+                $image = imagecreatefromwebp($sourcePath);
+                break;
+        }
+
+        if (!$image) return false;
+
+        $thumbnail = imagecreatetruecolor((int)$maxWidth, (int)$maxHeight);
+
+        if ($type == IMAGETYPE_PNG || $type == IMAGETYPE_WEBP) {
+            imagealphablending($thumbnail, false);
+            imagesavealpha($thumbnail, true);
+            $transparent = imagecolorallocatealpha($thumbnail, 255, 255, 255, 127);
+            imagefilledrectangle($thumbnail, 0, 0, (int)$maxWidth, (int)$maxHeight, $transparent);
+        }
+
+        imagecopyresampled($thumbnail, $image, 0, 0, 0, 0, (int)$maxWidth, (int)$maxHeight, $origWidth, $origHeight);
+
+        $success = false;
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                $success = imagejpeg($thumbnail, $destinationPath, 85);
+                break;
+            case IMAGETYPE_PNG:
+                $success = imagepng($thumbnail, $destinationPath, 8);
+                break;
+            case IMAGETYPE_GIF:
+                $success = imagegif($thumbnail, $destinationPath);
+                break;
+            case IMAGETYPE_WEBP:
+                $success = imagewebp($thumbnail, $destinationPath, 85);
+                break;
+        }
+
+        imagedestroy($image);
+        imagedestroy($thumbnail);
+
+        return $success;
     }
 }

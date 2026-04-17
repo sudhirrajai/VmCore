@@ -125,10 +125,7 @@
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => null])
                             @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => null, 'label' => 'Details Page Banner Image'])
-                            <div class="mb-3">
-                                <label class="form-label">Gallery Images</label>
-                                <input type="file" class="form-control" name="gallery[]" multiple accept="image/*">
-                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Order</label>
                                 <input type="number" class="form-control" name="order" value="{{ old('order', 0) }}">
@@ -146,6 +143,29 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Gallery Images</h6>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addGalleryRow()">+ Add Image Pair</button>
+                    </div>
+                    <div class="mb-4" id="gallery_container">
+                        @foreach(range(0, 0) as $i)
+                        <div class="row mb-2 repeater-row align-items-end">
+                            <div class="col-md-5">
+                                <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
+                                <input type="file" class="form-control" name="new_gallery[{{$i}}][image]" accept="image/*">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
+                                <input type="file" class="form-control" name="new_gallery[{{$i}}][thumbnail]" accept="image/*">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
 
                     <hr>
@@ -253,6 +273,27 @@
                     </div>
                     <div class="col-md-1">
                         <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', template);
+        }
+
+        function addGalleryRow() {
+            const container = document.getElementById('gallery_container');
+            const idx = Date.now();
+            const template = `
+                <div class="row mb-2 repeater-row align-items-end">
+                    <div class="col-md-5">
+                        <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
+                        <input type="file" class="form-control" name="new_gallery[${idx}][image]" accept="image/*">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
+                        <input type="file" class="form-control" name="new_gallery[${idx}][thumbnail]" accept="image/*">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>
                     </div>
                 </div>
             `;

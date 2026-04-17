@@ -122,29 +122,13 @@
                                 <input type="text" class="form-control" name="tags[]" value="{{ $project->tags->pluck('title')->implode(',') }}" placeholder="web, design">
                             </div>
 
-                            @if($project->images->count())
-                                <div class="mb-3">
-                                    <label class="form-label">Existing Gallery</label>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        @foreach($project->images as $img)
-                                            <div class="position-relative" style="width:80px;">
-                                                <img src="{{ asset($img->image) }}" class="img-thumbnail" style="width:80px;height:80px;object-fit:cover;">
-                                                <button type="button" class="btn btn-xs btn-danger position-absolute top-0 end-0"
-                                                    onclick="deleteGalleryImage({{ $img->id }}, this)" style="font-size:10px;padding:2px 5px;">&times;</button>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
                         </div>
 
                         <div class="col-md-4">
                             @include('admin.content._partials.image-preview', ['field' => 'image', 'existing' => $project->image])
                             @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => $project->banner_image, 'label' => 'Details Page Banner Image'])
-                            <div class="mb-3">
-                                <label class="form-label">Add Gallery Images</label>
-                                <input type="file" class="form-control" name="gallery[]" multiple accept="image/*">
-                            </div>
+                            @include('admin.content._partials.image-preview', ['field' => 'banner_image', 'existing' => $project->banner_image, 'label' => 'Details Page Banner Image'])
+
                             <div class="mb-3">
                                 <label class="form-label">Order</label>
                                 <input type="number" class="form-control" name="order" value="{{ old('order', $project->order) }}">
@@ -162,6 +146,45 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Gallery Images</h6>
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addGalleryRow()">+ Add Image Pair</button>
+                    </div>
+                    
+                    @if($project->images->count())
+                        <div class="mb-4">
+                            <label class="form-label text-muted small">Update Existing Images</label>
+                            @foreach($project->images as $img)
+                                <div class="row mb-3 align-items-center border p-2 rounded position-relative" style="border-color: #d9dee3 !important;">
+                                    <div class="col-md-2 text-center">
+                                        <img src="{{ asset($img->image) }}" class="img-thumbnail d-block mx-auto mb-1" style="height: 60px; object-fit: cover;">
+                                        <div style="font-size: 0.65rem;" class="text-muted">Full Image</div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <img src="{{ asset($img->thumbnail ?? $img->image) }}" class="img-thumbnail d-block mx-auto mb-1" style="height: 60px; object-fit: cover;">
+                                        <div style="font-size: 0.65rem;" class="text-muted">Thumbnail</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label" style="font-size: 0.75rem;">Change Full Image</label>
+                                        <input type="file" class="form-control form-control-sm" name="existing_gallery[{{ $img->id }}][image]" accept="image/*">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label" style="font-size: 0.75rem;">Change Thumbnail</label>
+                                        <input type="file" class="form-control form-control-sm" name="existing_gallery[{{ $img->id }}][thumbnail]" accept="image/*">
+                                    </div>
+                                    <div class="col-md-2 text-end">
+                                        <button type="button" class="btn btn-sm btn-danger mt-3" onclick="deleteGalleryImage({{ $img->id }}, this)">Delete</button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="mb-4" id="gallery_container">
+                        <!-- New image rows will be added here -->
                     </div>
 
                     <hr>
@@ -283,6 +306,27 @@
                     </div>
                     <div class="col-md-1">
                         <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.closest('.repeater-row').remove()">X</button>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', template);
+        }
+
+        function addGalleryRow() {
+            const container = document.getElementById('gallery_container');
+            const idx = Date.now();
+            const template = `
+                <div class="row mb-2 repeater-row align-items-end p-2 border rounded" style="border-color: #d9dee3 !important;">
+                    <div class="col-md-5">
+                        <label class="form-label" style="font-size: 0.75rem;">Full Image *</label>
+                        <input type="file" class="form-control form-control-sm" name="new_gallery[${idx}][image]" accept="image/*">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label" style="font-size: 0.75rem;">Thumbnail (Optional)</label>
+                        <input type="file" class="form-control form-control-sm" name="new_gallery[${idx}][thumbnail]" accept="image/*">
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="this.closest('.repeater-row').remove()">X</button>
                     </div>
                 </div>
             `;
