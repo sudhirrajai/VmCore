@@ -14,7 +14,7 @@ class TestimonialController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = Testimonial::with('project', 'teamMember')->ordered()->paginate(10);
+        $items = Testimonial::with('project', 'teamMember')->ordered()->paginate(request('per_page', 10));
         return view('admin.content.testimonials.index', compact('items'));
     }
 

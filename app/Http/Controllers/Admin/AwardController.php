@@ -12,7 +12,7 @@ class AwardController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = Award::ordered()->paginate(10);
+        $items = Award::ordered()->paginate(request('per_page', 10));
         return view('admin.content.awards.index', compact('items'));
     }
 

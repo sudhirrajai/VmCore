@@ -11,6 +11,16 @@
             <div class="card mb-4">
                 <h5 class="card-header">Create Menu</h5>
                 <div class="card-body">
+                <form method="GET" class="row g-3 mb-3">
+                    <div class="col-auto">
+                        <select name="per_page" class="form-select" onchange="this.form.submit()">
+                            <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10 Per Page</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25 Per Page</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 Per Page</option>
+                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 Per Page</option>
+                        </select>
+                    </div>
+                </form>
                     <form action="{{ route('admin.menus.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">

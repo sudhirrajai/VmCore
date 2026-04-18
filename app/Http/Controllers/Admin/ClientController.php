@@ -12,7 +12,7 @@ class ClientController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = Client::ordered()->paginate(10);
+        $items = Client::ordered()->paginate(request('per_page', 10));
         return view('admin.content.clients.index', compact('items'));
     }
 

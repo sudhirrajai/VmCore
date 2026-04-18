@@ -30,7 +30,7 @@ class ProjectController extends AdminBaseController
             });
         }
 
-        $items = $query->ordered()->paginate(10);
+        $items = $query->ordered()->paginate(request('per_page', 10));
         $categories = ProjectCategory::active()->ordered()->get();
 
         return view('admin.content.projects.index', compact('items', 'categories'));

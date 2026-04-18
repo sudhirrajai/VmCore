@@ -11,7 +11,7 @@ class NewsletterTemplateController extends Controller
 {
     public function index()
     {
-        $templates = NewsletterTemplate::latest()->paginate(20);
+        $templates = NewsletterTemplate::latest()->paginate(request('per_page', 20));
         return view('admin.newsletter.templates.index', compact('templates'));
     }
 

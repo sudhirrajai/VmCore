@@ -21,7 +21,7 @@ class NewsletterController extends Controller
 
     public function index()
     {
-        $newsletters = Newsletter::latest()->paginate(20);
+        $newsletters = Newsletter::latest()->paginate(request('per_page', 20));
         return view('admin.newsletter.newsletters.index', compact('newsletters'));
     }
 
@@ -74,14 +74,14 @@ class NewsletterController extends Controller
             'logs as failed_count' => function ($query) {
                 $query->where('status', 'failed');
             }
-        ])->latest()->paginate(20);
+        ])->latest()->paginate(request('per_page', 20));
 
         return view('admin.newsletter.newsletters.history', compact('newsletters'));
     }
 
     public function report(Newsletter $newsletter)
     {
-        $logs = $newsletter->logs()->with('subscriber')->paginate(50);
+        $logs = $newsletter->logs()->with('subscriber')->paginate(request('per_page', 50));
         return view('admin.newsletter.newsletters.report', compact('newsletter', 'logs'));
     }
 

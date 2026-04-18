@@ -21,7 +21,7 @@ class ServiceController extends AdminBaseController
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        $items = $query->ordered()->paginate(10);
+        $items = $query->ordered()->paginate(request('per_page', 10));
 
         return view('admin.content.services.index', compact('items'));
     }

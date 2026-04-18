@@ -104,6 +104,8 @@ Route::middleware('auth')->group(function () {
   // ------------------------------------------------------------
   // Inquiries & Newsletter
   // ------------------------------------------------------------
+  Route::post('inquiries/bulk-delete', [ContactSubmissionController::class, 'bulkDelete'])->name('inquiries.bulk-delete');
+  Route::post('inquiries/delete-all', [ContactSubmissionController::class, 'deleteAll'])->name('inquiries.delete-all');
   Route::resource('inquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
   Route::post('inquiries/{inquiry}/mark-read', [ContactSubmissionController::class, 'markAsRead'])->name('inquiries.mark-read');
 

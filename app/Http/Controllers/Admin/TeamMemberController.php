@@ -20,7 +20,7 @@ class TeamMemberController extends AdminBaseController
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $items = $query->ordered()->paginate(10);
+        $items = $query->ordered()->paginate(request('per_page', 10));
 
         return view('admin.content.team.index', compact('items'));
     }

@@ -12,7 +12,7 @@ class NewsletterSubscriberController extends Controller
 {
     public function index()
     {
-        $subscribers = Subscriber::latest()->paginate(20);
+        $subscribers = Subscriber::latest()->paginate(request('per_page', 20));
         return view('admin.newsletter.subscribers.index', compact('subscribers'));
     }
 

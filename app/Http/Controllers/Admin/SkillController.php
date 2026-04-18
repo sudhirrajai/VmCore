@@ -12,7 +12,7 @@ class SkillController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = Skill::ordered()->paginate(10);
+        $items = Skill::ordered()->paginate(request('per_page', 10));
         return view('admin.content.skills.index', compact('items'));
     }
 

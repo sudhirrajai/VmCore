@@ -27,7 +27,7 @@ class BlogPostController extends AdminBaseController
             $query->where('category_id', $request->category_id);
         }
 
-        $items = $query->latest()->paginate(10);
+        $items = $query->latest()->paginate(request('per_page', 10));
         $categories = BlogCategory::active()->ordered()->get();
 
         return view('admin.content.blog.index', compact('items', 'categories'));

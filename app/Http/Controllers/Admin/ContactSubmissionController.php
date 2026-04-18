@@ -23,7 +23,7 @@ class ContactSubmissionController extends AdminBaseController
             $query->where('is_read', $request->status === 'read');
         }
 
-        $items = $query->latest()->paginate(10);
+        $items = $query->latest()->paginate(request('per_page', 10));
         $unreadCount = ContactSubmission::unread()->count();
 
         return view('admin.content.inquiries.index', compact('items', 'unreadCount'));
@@ -45,5 +45,23 @@ class ContactSubmissionController extends AdminBaseController
     {
         $inquiry->markAsRead();
         return back()->with('success', 'Marked as read.');
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:contact_submissions,id',
+        ]);
+
+        ContactSubmission::whereIn('id', $request->ids)->delete();
+
+        return back()->with('success', 'Selected inquiries deleted successfully.');
+    }
+
+    public function deleteAll()
+    {
+        ContactSubmission::truncate();
+        return back()->with('success', 'All inquiries deleted successfully.');
     }
 }

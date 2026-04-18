@@ -12,7 +12,7 @@ class ProjectCategoryController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = ProjectCategory::withCount('projects')->ordered()->paginate(10);
+        $items = ProjectCategory::withCount('projects')->ordered()->paginate(request('per_page', 10));
         return view('admin.content.project-categories.index', compact('items'));
     }
 

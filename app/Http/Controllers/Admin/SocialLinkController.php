@@ -12,7 +12,7 @@ class SocialLinkController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = SocialLink::ordered()->paginate(10);
+        $items = SocialLink::ordered()->paginate(request('per_page', 10));
         return view('admin.content.social-links.index', compact('items'));
     }
 

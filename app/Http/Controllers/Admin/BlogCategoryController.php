@@ -12,7 +12,7 @@ class BlogCategoryController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = BlogCategory::withCount('posts')->ordered()->paginate(10);
+        $items = BlogCategory::withCount('posts')->ordered()->paginate(request('per_page', 10));
         return view('admin.content.blog-categories.index', compact('items'));
     }
 

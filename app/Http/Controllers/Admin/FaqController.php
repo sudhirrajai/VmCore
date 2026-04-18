@@ -12,7 +12,7 @@ class FaqController extends AdminBaseController
 
     public function index(Request $request)
     {
-        $items = Faq::ordered()->paginate(10);
+        $items = Faq::ordered()->paginate(request('per_page', 10));
         return view('admin.content.faqs.index', compact('items'));
     }
 
