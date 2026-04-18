@@ -60,11 +60,17 @@
             </svg>
           </button>
         </form>
+        <p id="footer-newsletter-message" style="display:none;" class="mt-3 text-sm font-medium"></p>
         <p class="text-sm text-slate-500 mt-4 leading-relaxed">
           {!! setting('footer_newsletter_disclaimer', 'You can unsubscribe at any time and your data is protected by our privacy policy.') !!}
         </p>
         
         @if(setting('google_verification_enabled', '0') == '1')
+          <p class="text-xs text-slate-400 mt-2">
+            This site is protected by reCAPTCHA and the Google 
+            <a href="https://policies.google.com/privacy" target="_blank" class="hover:text-black hover:underline">Privacy Policy</a> and 
+            <a href="https://policies.google.com/terms" target="_blank" class="hover:text-black hover:underline">Terms of Service</a> apply.
+          </p>
           <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
           <script>
               document.addEventListener('DOMContentLoaded', function() {
@@ -100,18 +106,22 @@
                                       method: 'POST',
                                       body: new FormData(form),
                                       headers: {
-                                          'headers': 'application/json, text-plain, */*',
+                                          'Accept': 'application/json, text/plain, */*',
                                           'X-Requested-With': 'XMLHttpRequest'
                                       }
                                   }).then(r => r.json()).then(data => {
+                                      var msg = document.getElementById('footer-newsletter-message');
+                                      msg.style.display = 'block';
+                                      msg.className = 'mt-3 text-sm font-medium ' + (data.success ? 'text-green-600' : 'text-red-500');
+                                      msg.textContent = data.message || (data.errors?.email?.[0] ?? (data.success ? 'Subscribed successfully!' : 'Error occurred.'));
                                       if(data.success) {
                                           emailInput.value = '';
-                                          alert(data.message || 'Subscribed successfully!');
-                                      } else {
-                                          alert(data.message || 'Error occurred.');
                                       }
                                   }).catch(err => {
-                                      alert('Something went wrong. Please try again.');
+                                      var msg = document.getElementById('footer-newsletter-message');
+                                      msg.style.display = 'block';
+                                      msg.className = 'mt-3 text-sm font-medium text-red-500';
+                                      msg.textContent = 'Something went wrong. Please try again.';
                                   }).finally(() => {
                                       if (submitBtn) {
                                           submitBtn.disabled = false;
@@ -138,16 +148,23 @@
                         fetch(form.action, {
                             method: 'POST',
                             body: new FormData(form),
-                            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                            headers: { 
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest' 
+                            }
                         }).then(r => r.json()).then(data => {
+                            var msg = document.getElementById('footer-newsletter-message');
+                            msg.style.display = 'block';
+                            msg.className = 'mt-3 text-sm font-medium ' + (data.success ? 'text-green-600' : 'text-red-500');
+                            msg.textContent = data.message || (data.errors?.email?.[0] ?? (data.success ? 'Subscribed successfully!' : 'Error occurred.'));
                             if(data.success) {
                                 emailInput.value = '';
-                                alert(data.message || 'Subscribed successfully!');
-                            } else {
-                                alert(data.message || 'Error occurred.');
                             }
                         }).catch(err => {
-                            alert('Something went wrong. Please try again.');
+                            var msg = document.getElementById('footer-newsletter-message');
+                            msg.style.display = 'block';
+                            msg.className = 'mt-3 text-sm font-medium text-red-500';
+                            msg.textContent = 'Something went wrong. Please try again.';
                         }).finally(() => {
                             if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; }
                         });

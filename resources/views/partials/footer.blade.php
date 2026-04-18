@@ -23,6 +23,13 @@
                         <p>By signing up to receive emails from {{ $siteSettings['site_name'] ?? 'VMCore' }}, you agree
                             to our Privacy Policy. We treat your
                             info responsibly.</p>
+                        @if(setting('google_verification_enabled', '0') == '1')
+                            <p class="text-xs text-secondary mt-2" style="font-size: 0.75rem;">
+                                This site is protected by reCAPTCHA and the Google 
+                                <a href="https://policies.google.com/privacy" target="_blank" class="text-decoration-underline">Privacy Policy</a> and 
+                                <a href="https://policies.google.com/terms" target="_blank" class="text-decoration-underline">Terms of Service</a> apply.
+                            </p>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-3 col-xl-2 col-lg-3">
@@ -92,20 +99,71 @@
 </footer>
 
 @push('scripts')
-    <script>
-        document.getElementById('newsletter-form')?.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const form = this;
-            const msg = document.getElementById('newsletter-message');
-            fetch('{{ route("newsletter.subscribe") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ email: form.querySelector('[name=email]').value })
-            })
+    @if(setting('google_verification_enabled', '0') == '1')
+        <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
+        <script>
+            document.getElementById('newsletter-form')?.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const form = this;
+                const msg = document.getElementById('newsletter-message');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                
+                if (submitBtn) { submitBtn.style.opacity = '0.5'; submitBtn.disabled = true; }
+                
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
+                        fetch('{{ route("newsletter.subscribe") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({ 
+                                email: form.querySelector('[name=email]').value,
+                                'g-recaptcha-response': token
+                            })
+                        })
+                        .then(r => r.json())
+                        .then(data => {
+                            msg.style.display = 'block';
+                            msg.className = 'mt-2 ' + (data.success ? 'text-success' : 'text-danger');
+                            msg.textContent = data.message || (data.errors?.email?.[0] ?? 'Something went wrong');
+                            if (data.success) form.reset();
+                        })
+                        .catch(() => {
+                            msg.style.display = 'block';
+                            msg.className = 'mt-2 text-danger';
+                            msg.textContent = 'Something went wrong. Please try again.';
+                        })
+                        .finally(() => {
+                            if (submitBtn) { submitBtn.style.opacity = '1'; submitBtn.disabled = false; }
+                        });
+                    });
+                });
+            });
+        </script>
+    @else
+        <script>
+            document.getElementById('newsletter-form')?.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const form = this;
+                const msg = document.getElementById('newsletter-message');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                
+                if (submitBtn) { submitBtn.style.opacity = '0.5'; submitBtn.disabled = true; }
+
+                fetch('{{ route("newsletter.subscribe") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ email: form.querySelector('[name=email]').value })
+                })
                 .then(r => r.json())
                 .then(data => {
                     msg.style.display = 'block';
@@ -117,7 +175,11 @@
                     msg.style.display = 'block';
                     msg.className = 'mt-2 text-danger';
                     msg.textContent = 'Something went wrong. Please try again.';
+                })
+                .finally(() => {
+                    if (submitBtn) { submitBtn.style.opacity = '1'; submitBtn.disabled = false; }
                 });
-        });
-    </script>
+            });
+        </script>
+    @endif
 @endpush
