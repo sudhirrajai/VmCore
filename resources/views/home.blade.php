@@ -22,6 +22,12 @@
                 </script>
 @endpush
 
+@push('preload_assets')
+  @if(isset($hero) && $hero->image)
+    <link rel="preload" as="image" href="{{ asset($hero->image) }}">
+  @endif
+@endpush
+
 @push('styles')
   <style>
     /* Project card hover overlay */

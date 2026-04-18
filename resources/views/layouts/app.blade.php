@@ -54,8 +54,9 @@
 
     <!-- Tailwind CSS (compiled) -->
     <link rel="preload" href="{{ asset('assets/new-ui/style.css') }}" as="style">
-    <link rel="stylesheet" href="{{ asset('assets/new-ui/style.css') }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ asset('assets/new-ui/style.css') }}"></noscript>
+    <link rel="stylesheet" href="{{ asset('assets/new-ui/style.css') }}">
+    
+    @stack('preload_assets')
 
     <style>
         :root {
