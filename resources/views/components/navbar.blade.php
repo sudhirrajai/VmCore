@@ -8,6 +8,8 @@
     z-index: 1000;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: transparent;
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
   }
 
   .header-sticky.scrolled {
@@ -19,8 +21,8 @@
   }
 
   .header-sticky.scrolled nav {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
   }
 
   /* Scroll Progress Bar */
@@ -252,6 +254,7 @@
       opacity: 0;
       transform: translateX(20px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
@@ -269,7 +272,7 @@
 </style>
 
 <header class="header-sticky" id="mainHeader">
-  <nav class="flex items-center justify-between py-6 container-custom mx-auto w-full bg-transparent"
+  <nav class="flex items-center justify-between py-8 container-custom mx-auto w-full bg-transparent"
     aria-label="Main navigation" role="navigation">
     {{-- Scroll Progress --}}
     <div class="scroll-progress-container">
@@ -299,7 +302,8 @@
             $path = parse_url($url, PHP_URL_PATH);
             $path = $path ? ltrim($path, '/') : '';
             $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
-            if($path === '' && request()->path() === '/') $isActive = true;
+            if ($path === '' && request()->path() === '/')
+              $isActive = true;
           @endphp
           <a href="{{ $url }}" target="{{ $item->target ?? '_self' }}"
             class="transition-all {{ $isActive ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">
@@ -374,7 +378,8 @@
           $path = parse_url($url, PHP_URL_PATH);
           $path = $path ? ltrim($path, '/') : '';
           $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
-          if($path === '' && request()->path() === '/') $isActive = true;
+          if ($path === '' && request()->path() === '/')
+            $isActive = true;
           $delay = 0.05 * ($index + 1);
         @endphp
         <a href="{{ $url }}" target="{{ $item->target ?? '_self' }}" class="mobile-nav-link {{ $isActive ? 'active' : '' }}"
