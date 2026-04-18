@@ -181,7 +181,7 @@
           <img
             src="{{ isset($hero) && $hero->image ? asset($hero->image) : 'https://picsum.photos/seed/vmcore-meeting/800/600' }}"
             alt="{{ isset($hero) && $hero->image_alt ? $hero->image_alt : ($siteSettings['site_name'] ?? 'VMCore') . ' - Digital Agency Team' }}"
-            class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" loading="eager" />
+            class="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]" width="800" height="600" loading="eager" />
         </div>
       </div>
     </div>
@@ -305,7 +305,7 @@
                 <div class="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-sm">
                   <img
                     src="{{ $project->image ? asset($project->image) : 'https://picsum.photos/seed/project-' . $project->id . '/600/800' }}"
-                    alt="{{ $project->title }}" class="proj-img w-full h-full object-cover" />
+                    alt="{{ $project->title }}" class="proj-img w-full h-full object-cover" width="600" height="800" loading="lazy" />
                   {{-- Hover Overlay --}}
                   <div class="proj-overlay">
                     <span class="proj-btn">{!! setting('home_project_overlay_text', 'View Project') !!}</span>
