@@ -308,11 +308,29 @@
 @push('scripts')
     {{-- Contact Page Specific Scripts are now in global script.js --}}
     @if(setting('google_verification_enabled', '0') == '1')
-        <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                var recaptchaLoaded = false;
+                function loadRecaptcha() {
+                    if (recaptchaLoaded) return;
+                    recaptchaLoaded = true;
+                    var script = document.createElement('script');
+                    script.src = "https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}";
+                    script.async = true;
+                    script.defer = true;
+                    document.head.appendChild(script);
+                }
+                
+                // Load on first interaction to improve PageSpeed
+                ['mousemove', 'scroll', 'touchstart', 'keydown'].forEach(function(e) {
+                    window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
+                });
+
                 var form = document.getElementById('contactForm');
                 if (form) {
+                    form.addEventListener('focusin', loadRecaptcha);
+                    form.addEventListener('mouseenter', loadRecaptcha);
+                    
                     form.addEventListener('submit', function(e) {
                         e.preventDefault();
                         var submitBtn = form.querySelector('button[type="submit"]');
@@ -321,19 +339,25 @@
                             submitBtn.innerHTML = 'Sending...';
                         }
                         
-                        grecaptcha.ready(function() {
-                            grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'submit'}).then(function(token) {
-                                var input = form.querySelector('input[name="g-recaptcha-response"]');
-                                if (!input) {
-                                    input = document.createElement('input');
-                                    input.type = 'hidden';
-                                    input.name = 'g-recaptcha-response';
-                                    form.appendChild(input);
-                                }
-                                input.value = token;
-                                form.submit();
-                            });
-                        });
+                        loadRecaptcha();
+                        var checkInterval = setInterval(function() {
+                            if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                                clearInterval(checkInterval);
+                                grecaptcha.ready(function() {
+                                    grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'submit'}).then(function(token) {
+                                        var input = form.querySelector('input[name="g-recaptcha-response"]');
+                                        if (!input) {
+                                            input = document.createElement('input');
+                                            input.type = 'hidden';
+                                            input.name = 'g-recaptcha-response';
+                                            form.appendChild(input);
+                                        }
+                                        input.value = token;
+                                        form.submit();
+                                    });
+                                });
+                            }
+                        }, 100);
                     });
                 }
             });

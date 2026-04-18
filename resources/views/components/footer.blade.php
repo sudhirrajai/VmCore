@@ -71,11 +71,29 @@
             <a href="https://policies.google.com/privacy" target="_blank" class="hover:text-black hover:underline">Privacy Policy</a> and 
             <a href="https://policies.google.com/terms" target="_blank" class="hover:text-black hover:underline">Terms of Service</a> apply.
           </p>
-          <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
           <script>
               document.addEventListener('DOMContentLoaded', function() {
+                  var recaptchaLoaded = false;
+                  function loadRecaptcha() {
+                      if (recaptchaLoaded) return;
+                      recaptchaLoaded = true;
+                      var script = document.createElement('script');
+                      script.src = "https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}";
+                      script.async = true;
+                      script.defer = true;
+                      document.head.appendChild(script);
+                  }
+                  
+                  // Load on first interaction to improve PageSpeed
+                  ['mousemove', 'scroll', 'touchstart', 'keydown'].forEach(function(e) {
+                      window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
+                  });
+
                   var form = document.getElementById('footerNewsletterForm');
                   if (form) {
+                      form.addEventListener('focusin', loadRecaptcha);
+                      form.addEventListener('mouseenter', loadRecaptcha);
+                      
                       form.addEventListener('submit', function(e) {
                           e.preventDefault();
                           var emailInput = form.querySelector('input[name="email"]');
@@ -86,50 +104,51 @@
                               submitBtn.style.opacity = '0.5';
                           }
                           
-                          grecaptcha.ready(function() {
-                              grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
-                                  var input = form.querySelector('input[name="g-recaptcha-response"]');
-                                  if (!input) {
-                                      input = document.createElement('input');
-                                      input.type = 'hidden';
-                                      input.name = 'g-recaptcha-response';
-                                      form.appendChild(input);
-                                  }
-                                  input.value = token;
-                                  
-                                  // Since this might be an AJAX form logic later, or handled by current JS, just let it submit.
-                                  // Note: The form has no custom JS bound inside the blade, but maybe new-ui/script.js intercepts it.
-                                  // Wait, if it's intercepted by other listeners, e.preventDefault() here might stop them.
-                                  // Actually, the easiest is to just submit it natively or via fetch.
-                                  
-                                  fetch(form.action, {
-                                      method: 'POST',
-                                      body: new FormData(form),
-                                      headers: {
-                                          'Accept': 'application/json, text/plain, */*',
-                                          'X-Requested-With': 'XMLHttpRequest'
-                                      }
-                                  }).then(r => r.json()).then(data => {
-                                      var msg = document.getElementById('footer-newsletter-message');
-                                      msg.style.display = 'block';
-                                      msg.className = 'mt-3 text-sm font-medium ' + (data.success ? 'text-green-600' : 'text-red-500');
-                                      msg.textContent = data.message || (data.errors?.email?.[0] ?? (data.success ? 'Subscribed successfully!' : 'Error occurred.'));
-                                      if(data.success) {
-                                          emailInput.value = '';
-                                      }
-                                  }).catch(err => {
-                                      var msg = document.getElementById('footer-newsletter-message');
-                                      msg.style.display = 'block';
-                                      msg.className = 'mt-3 text-sm font-medium text-red-500';
-                                      msg.textContent = 'Something went wrong. Please try again.';
-                                  }).finally(() => {
-                                      if (submitBtn) {
-                                          submitBtn.disabled = false;
-                                          submitBtn.style.opacity = '1';
-                                      }
+                          loadRecaptcha();
+                          var checkInterval = setInterval(function() {
+                              if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                                  clearInterval(checkInterval);
+                                  grecaptcha.ready(function() {
+                                      grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
+                                          var input = form.querySelector('input[name="g-recaptcha-response"]');
+                                          if (!input) {
+                                              input = document.createElement('input');
+                                              input.type = 'hidden';
+                                              input.name = 'g-recaptcha-response';
+                                              form.appendChild(input);
+                                          }
+                                          input.value = token;
+                                          
+                                          fetch(form.action, {
+                                              method: 'POST',
+                                              body: new FormData(form),
+                                              headers: {
+                                                  'Accept': 'application/json, text/plain, */*',
+                                                  'X-Requested-With': 'XMLHttpRequest'
+                                              }
+                                          }).then(r => r.json()).then(data => {
+                                              var msg = document.getElementById('footer-newsletter-message');
+                                              msg.style.display = 'block';
+                                              msg.className = 'mt-3 text-sm font-medium ' + (data.success ? 'text-green-600' : 'text-red-500');
+                                              msg.textContent = data.message || (data.errors?.email?.[0] ?? (data.success ? 'Subscribed successfully!' : 'Error occurred.'));
+                                              if(data.success) {
+                                                  emailInput.value = '';
+                                              }
+                                          }).catch(err => {
+                                              var msg = document.getElementById('footer-newsletter-message');
+                                              msg.style.display = 'block';
+                                              msg.className = 'mt-3 text-sm font-medium text-red-500';
+                                              msg.textContent = 'Something went wrong. Please try again.';
+                                          }).finally(() => {
+                                              if (submitBtn) {
+                                                  submitBtn.disabled = false;
+                                                  submitBtn.style.opacity = '1';
+                                              }
+                                          });
+                                      });
                                   });
-                              });
-                          });
+                              }
+                          }, 100);
                       });
                   }
               });

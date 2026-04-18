@@ -100,48 +100,76 @@
 
 @push('scripts')
     @if(setting('google_verification_enabled', '0') == '1')
-        <script src="https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}"></script>
         <script>
-            document.getElementById('newsletter-form')?.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const form = this;
-                const msg = document.getElementById('newsletter-message');
-                const submitBtn = form.querySelector('button[type="submit"]');
+            document.addEventListener('DOMContentLoaded', function() {
+                var recaptchaLoaded = false;
+                function loadRecaptcha() {
+                    if (recaptchaLoaded) return;
+                    recaptchaLoaded = true;
+                    var script = document.createElement('script');
+                    script.src = "https://www.google.com/recaptcha/api.js?render={{ setting('google_recaptcha_site_key') }}";
+                    script.async = true;
+                    script.defer = true;
+                    document.head.appendChild(script);
+                }
                 
-                if (submitBtn) { submitBtn.style.opacity = '0.5'; submitBtn.disabled = true; }
-                
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
-                        fetch('{{ route("newsletter.subscribe") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
-                                'Accept': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
-                            body: JSON.stringify({ 
-                                email: form.querySelector('[name=email]').value,
-                                'g-recaptcha-response': token
-                            })
-                        })
-                        .then(r => r.json())
-                        .then(data => {
-                            msg.style.display = 'block';
-                            msg.className = 'mt-2 ' + (data.success ? 'text-success' : 'text-danger');
-                            msg.textContent = data.message || (data.errors?.email?.[0] ?? 'Something went wrong');
-                            if (data.success) form.reset();
-                        })
-                        .catch(() => {
-                            msg.style.display = 'block';
-                            msg.className = 'mt-2 text-danger';
-                            msg.textContent = 'Something went wrong. Please try again.';
-                        })
-                        .finally(() => {
-                            if (submitBtn) { submitBtn.style.opacity = '1'; submitBtn.disabled = false; }
-                        });
-                    });
+                // Load on first interaction to improve PageSpeed
+                ['mousemove', 'scroll', 'touchstart', 'keydown'].forEach(function(e) {
+                    window.addEventListener(e, loadRecaptcha, { once: true, passive: true });
                 });
+
+                var form = document.getElementById('newsletter-form');
+                if (form) {
+                    form.addEventListener('focusin', loadRecaptcha);
+                    form.addEventListener('mouseenter', loadRecaptcha);
+                    
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const msg = document.getElementById('newsletter-message');
+                        const submitBtn = form.querySelector('button[type="submit"]');
+                        
+                        if (submitBtn) { submitBtn.style.opacity = '0.5'; submitBtn.disabled = true; }
+                        
+                        loadRecaptcha();
+                        var checkInterval = setInterval(function() {
+                            if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                                clearInterval(checkInterval);
+                                grecaptcha.ready(function() {
+                                    grecaptcha.execute('{{ setting('google_recaptcha_site_key') }}', {action: 'newsletter_subscribe'}).then(function(token) {
+                                        fetch('{{ route("newsletter.subscribe") }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
+                                                'Accept': 'application/json',
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                            },
+                                            body: JSON.stringify({ 
+                                                email: form.querySelector('[name=email]').value,
+                                                'g-recaptcha-response': token
+                                            })
+                                        })
+                                        .then(r => r.json())
+                                        .then(data => {
+                                            msg.style.display = 'block';
+                                            msg.className = 'mt-2 ' + (data.success ? 'text-success' : 'text-danger');
+                                            msg.textContent = data.message || (data.errors?.email?.[0] ?? 'Something went wrong');
+                                            if (data.success) form.reset();
+                                        })
+                                        .catch(() => {
+                                            msg.style.display = 'block';
+                                            msg.className = 'mt-2 text-danger';
+                                            msg.textContent = 'Something went wrong. Please try again.';
+                                        })
+                                        .finally(() => {
+                                            if (submitBtn) { submitBtn.style.opacity = '1'; submitBtn.disabled = false; }
+                                        });
+                                    });
+                                });
+                            }
+                        }, 100);
+                    });
+                }
             });
         </script>
     @else
