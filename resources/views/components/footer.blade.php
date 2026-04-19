@@ -335,7 +335,11 @@
       class="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4 bg-transparent">
       <div class="container-custom flex flex-col md:flex-row justify-between items-center w-full gap-4 px-0">
         <p class="text-sm text-gray-500">Copyright &copy; {{ date('Y') }} {{ $siteSettings['site_name'] ?? 'VM CORE' }}.
-          All rights reserved.</p>
+          All rights reserved.
+          @if(setting('sitemap_enabled', '1') == '1')
+            | <a href="{{ route('sitemap') }}" target="_blank" class="hover:text-black">Sitemap</a>
+          @endif
+        </p>
         <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
           class="w-10 h-10 bg-white rounded-sm flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
           aria-label="Scroll to top">
