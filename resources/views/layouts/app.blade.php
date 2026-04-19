@@ -99,6 +99,15 @@
             background-color: var(--secondary-color) !important;
         }
 
+        /* Remove hover delay on all interactive elements, especially cards */
+        .animate-on-scroll:hover,
+        [class*="card"]:hover,
+        [class*="item"]:hover,
+        .sd-step:hover {
+            transition-delay: 0s !important;
+            animation-delay: 0s !important;
+        }
+
         .bg-secondary-light {
             background-color: var(--secondary-color-light) !important;
         }
@@ -303,8 +312,8 @@
         .container-custom {
             max-width: 1440px !important;
             width: 100% !important;
-            padding-left: 1.5rem !important;
-            padding-right: 1.5rem !important;
+            padding-left: 2.5rem !important;
+            padding-right: 2.5rem !important;
             margin-left: auto !important;
             margin-right: auto !important;
             box-sizing: border-box !important;
@@ -319,8 +328,8 @@
             .container,
             .container-fluid,
             .container-custom {
-                padding-left: 1rem !important;
-                padding-right: 1rem !important;
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
             }
         }
 
