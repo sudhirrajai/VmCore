@@ -182,6 +182,12 @@
       "url": "admin/settings/google-verification",
       "icon": "menu-icon icon-base bx bx-check-shield",
       "slug": "admin.settings.google-verification"
+    },
+    {
+      "name": "SEO & Sitemap",
+      "url": "admin/settings/seo",
+      "icon": "menu-icon icon-base bx bx-search-alt",
+      "slug": "admin.settings.seo"
     }
   ]
 }

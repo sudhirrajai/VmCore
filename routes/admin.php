@@ -161,6 +161,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'index'])->name('google-verification');
     Route::post('/google-verification', [\App\Http\Controllers\Admin\GoogleVerificationController::class, 'update'])->name('google-verification.update');
+
+    Route::get('/seo', [\App\Http\Controllers\Admin\SeoSettingController::class, 'index'])->name('seo');
+    Route::post('/seo', [\App\Http\Controllers\Admin\SeoSettingController::class, 'update'])->name('seo.update');
   });
 
   // ------------------------------------------------------------

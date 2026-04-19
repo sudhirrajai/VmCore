@@ -22,5 +22,9 @@ Route::get('/unsubscribe/{email}/{token}', [\App\Http\Controllers\NewsletterCont
 
 Route::get('/error', fn() => view('error'))->name('error');
 
+// ── SEO Routes ───────────────────────────────────────────────
+Route::get('/sitemap.xml', [\App\Http\Controllers\SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/robots.txt', [\App\Http\Controllers\SeoController::class, 'robots'])->name('robots');
+
 // ── Dynamic CMS Pages ────────────────────────────────────────
 Route::fallback([FrontendController::class, 'page'])->name('page');
