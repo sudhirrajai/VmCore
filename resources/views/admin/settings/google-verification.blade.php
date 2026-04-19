@@ -7,12 +7,6 @@
         <span class="text-muted fw-light">Settings /</span> Google Verification
     </h4>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
     <div class="row">
         <div class="col-md-8 mx-auto">

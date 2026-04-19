@@ -51,15 +51,9 @@
                 <!-- END: Navbar-->
 
                 {{-- Flash notifications --}}
-                @if(session('cache_cleared') || session('success'))
-                    <div class="container-xxl">
-                        <div class="alert alert-success alert-dismissible d-flex align-items-center mt-3 mb-0" role="alert">
-                            <i class="bx bx-check-circle me-2 fs-5"></i>
-                            <span>{{ session('cache_cleared') ?? session('success') }}</span>
-                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-                        </div>
-                    </div>
-                @endif
+                <div class="container-xxl mt-3 mb-0">
+                    @include('admin.content._partials.flash-messages')
+                </div>
 
 
                 <!-- Content wrapper -->
