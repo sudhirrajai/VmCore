@@ -28,6 +28,7 @@ class BlogPost extends Model
         'published_at',
         'meta_title',
         'meta_description',
+        'faq_schema_script',
     ];
 
     protected $casts = [

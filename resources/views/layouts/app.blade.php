@@ -359,6 +359,7 @@
     }
     </script>
     @stack('structured_data')
+    
 
     {{-- Custom Header Code (from Admin > Settings > Global Settings) --}}
         @php $headerCode = setting('header_code'); @endphp

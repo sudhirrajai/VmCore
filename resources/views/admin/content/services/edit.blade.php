@@ -74,12 +74,17 @@
                                     value="{{ old('meta_title', $service->meta_title) }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="meta_description">Meta Description</label>
                                 <textarea class="form-control" id="meta_description" name="meta_description"
                                     rows="2">{{ old('meta_description', $service->meta_description) }}</textarea>
                             </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label class="form-label" for="faq_schema_script">FAQ & Search Schema (JSON-LD)</label>
+                            <textarea class="form-control font-monospace" id="faq_schema_script" name="faq_schema_script"
+                                rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ old('faq_schema_script', $service->faq_schema_script) }}</textarea>
+                            <div class="form-text">Paste JSON-LD script code here. <strong>Must include &lt;script&gt; tags.</strong></div>
                         </div>
                     </div>
 

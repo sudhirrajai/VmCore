@@ -522,6 +522,7 @@
                                         "url": "{{ route('service.detail', $service->slug) }}"
                                     }
                                 </script>
+    {!! $service->faq_schema_script !!}
 @endpush
 
 @section('content')

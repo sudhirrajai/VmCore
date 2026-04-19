@@ -133,6 +133,7 @@
                                     style="font-size:0.82rem;">{{ $settings['footer_code'] ?? '' }}</textarea>
                                 <div class="form-text">Ideal for scripts that must load at the bottom of the page.</div>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>

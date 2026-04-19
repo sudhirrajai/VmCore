@@ -21,6 +21,7 @@ class Page extends Model
         'meta_keywords',
         'featured_image',
         'published_at',
+        'faq_schema_script',
     ];
 
     protected $casts = [

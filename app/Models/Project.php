@@ -32,6 +32,7 @@ class Project extends Model
         'order',
         'meta_title',
         'meta_description',
+        'faq_schema_script',
         'problem_solution',
         'features',
     ];

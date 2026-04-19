@@ -37,6 +37,7 @@
             }
         }
         </script>
+    {!! $post->faq_schema_script !!}
 @endpush
 
 

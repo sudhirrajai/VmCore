@@ -27,6 +27,7 @@ class Service extends Model
         'order',
         'meta_title',
         'meta_description',
+        'faq_schema_script',
     ];
 
     protected $casts = [

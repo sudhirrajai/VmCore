@@ -178,6 +178,11 @@
                                     <textarea class="form-control" name="home_skills_subtitle"
                                         rows="2">{{ $settings['home_skills_subtitle'] ?? 'We are a creative agency working with brands building insightful strategy, creating unique designs and crafting value' }}</textarea>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="home_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['home_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the Home page here.</div>
+                                </div>
                                 <hr>
                                 <h6 class="fw-bold mt-3 mb-3 text-uppercase text-primary">Background Images</h6>
                                 <div class="row mb-3">
@@ -310,6 +315,11 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="about_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['about_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the About page here.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -381,6 +391,11 @@
                                         <textarea class="form-control" name="services_page_intro"
                                             rows="2">{{ $settings['services_page_intro'] ?? '' }}</textarea>
                                     </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="services_page_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['services_page_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the Services Hub page here.</div>
                                 </div>
 
                                 <hr>
@@ -503,6 +518,11 @@
                                         <input type="text" class="form-control" name="portfolio_view_button_text"
                                             value="{{ $settings['portfolio_view_button_text'] ?? 'View Project' }}">
                                     </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="portfolio_page_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['portfolio_page_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the Portfolio Hub page here.</div>
                                 </div>
 
                                 <hr>
@@ -691,6 +711,11 @@
                                             value="{{ $settings['sidebar_tags_title'] ?? 'Tags' }}">
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="blog_page_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['blog_page_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the Blog Hub page here.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -762,6 +787,11 @@
                                         <input type="text" class="form-control" name="team_testimonials_title"
                                             value="{{ $settings['team_testimonials_title'] ?? 'What Clients Say' }}">
                                     </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea class="form-control font-monospace" name="team_page_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['team_page_faq_schema'] ?? '' }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script for the Team Hub page here.</div>
                                 </div>
                             </div>
                         </div>
@@ -962,6 +992,23 @@
                                     <label class="form-label">FAQ Section Intro Text</label>
                                     <textarea class="form-control" name="faq_intro_text"
                                         rows="2">{{ $settings['faq_intro_text'] ?? '' }}</textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Contact Page FAQ & Search Schema (JSON-LD)</label>
+                                            <textarea class="form-control font-monospace" name="contact_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['contact_faq_schema'] ?? '' }}</textarea>
+                                            <div class="form-text small">Paste JSON-LD script for the Contact page here.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">FAQ Page FAQ & Search Schema (JSON-LD)</label>
+                                            <textarea class="form-control font-monospace" name="faq_page_faq_schema" rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ $settings['faq_page_faq_schema'] ?? '' }}</textarea>
+                                            <div class="form-text small">Paste JSON-LD script for the FAQ page here.</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

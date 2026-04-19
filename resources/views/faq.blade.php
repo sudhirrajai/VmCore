@@ -24,6 +24,7 @@
                                     ]
                                 }
                                 </script>
+    {!! setting('faq_page_faq_schema') !!}
 @endpush
 
 @php

@@ -46,6 +46,7 @@
         ]
     }
     </script>
+    {!! setting('contact_faq_schema') !!}
 @endpush
 @push('styles')
     {{-- Contact Page Specific Styles are now in global style.css --}}

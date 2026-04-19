@@ -40,6 +40,7 @@
                           ]
                       }
                       </script>
+  {!! setting('about_faq_schema') !!}
 @endpush
 
 @push('styles')

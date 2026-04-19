@@ -26,6 +26,7 @@
         ]
     }
     </script>
+    {!! setting('team_page_faq_schema') !!}
 @endpush
 @section('content')
 

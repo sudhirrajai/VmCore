@@ -152,6 +152,7 @@
               ]
           }
         </script>
+  {!! setting('services_page_faq_schema') !!}
 @endpush
 
 @section('content')

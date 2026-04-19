@@ -26,6 +26,7 @@
             ]
         }
         </script>
+    {!! $page->faq_schema_script !!}
 @endpush
 @section('content')
     <!--==============================

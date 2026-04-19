@@ -169,9 +169,18 @@ class FrontendContentController extends Controller
             'blog_breadcrumb_title' => 'blog_breadcrumb_title',
             'blog_meta_description' => 'blog_meta_description',
 
-            // Contact
             'contact_breadcrumb_title' => 'contact_breadcrumb_title',
             'contact_meta_description' => 'contact_meta_description',
+
+            // FAQ Schema Scripts (Page-wise)
+            'home_faq_schema' => 'home_faq_schema',
+            'about_faq_schema' => 'about_faq_schema',
+            'services_page_faq_schema' => 'services_page_faq_schema',
+            'portfolio_page_faq_schema' => 'portfolio_page_faq_schema',
+            'blog_page_faq_schema' => 'blog_page_faq_schema',
+            'contact_faq_schema' => 'contact_faq_schema',
+            'faq_page_faq_schema' => 'faq_page_faq_schema',
+            'team_page_faq_schema' => 'team_page_faq_schema',
         ];
 
         foreach ($keys as $field => $key) {

@@ -73,6 +73,13 @@
                                     <textarea name="meta_description" id="meta_description" class="form-control"
                                         rows="3">{{ old('meta_description', $page->meta_description) }}</textarea>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="faq_schema_script">FAQ & Search Schema (JSON-LD)</label>
+                                    <textarea name="faq_schema_script" id="faq_schema_script" class="form-control font-monospace"
+                                        rows="4" placeholder='<script type="application/ld+json">...</script>'>{{ old('faq_schema_script', $page->faq_schema_script) }}</textarea>
+                                    <div class="form-text small">Paste JSON-LD script code here. <strong>Must include &lt;script&gt; tags.</strong></div>
+                                </div>
                             </div>
                         </div>
 

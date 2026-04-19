@@ -20,6 +20,7 @@
                     }
                 }
                 </script>
+  {!! setting('home_faq_schema') !!}
 @endpush
 
 @push('preload_assets')

@@ -26,6 +26,7 @@
         ]
     }
     </script>
+    {!! setting('portfolio_page_faq_schema') !!}
 @endpush
 @push('styles')
 <style>

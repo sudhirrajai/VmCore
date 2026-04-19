@@ -24,6 +24,7 @@
                     }{{ $project->project_date ? ', "dateCreated": "' . $project->project_date->toDateString() . '"' : '' }}
                 }
                 </script>
+    {!! $project->faq_schema_script !!}
 @endpush
 
 @push('styles')
