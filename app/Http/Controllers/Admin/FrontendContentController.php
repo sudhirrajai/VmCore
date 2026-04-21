@@ -147,6 +147,14 @@ class FrontendContentController extends Controller
             'about_intro_description' => 'about_intro_description',
             'about_meta_description' => 'about_meta_description',
 
+            // About Statistics
+            'about_stat_1_value' => 'about_stat_1_value',
+            'about_stat_1_label' => 'about_stat_1_label',
+            'about_stat_2_value' => 'about_stat_2_value',
+            'about_stat_2_label' => 'about_stat_2_label',
+            'about_stat_3_value' => 'about_stat_3_value',
+            'about_stat_3_label' => 'about_stat_3_label',
+
             // Services
             'services_breadcrumb_title' => 'services_breadcrumb_title',
             'services_page_intro' => 'services_page_intro',

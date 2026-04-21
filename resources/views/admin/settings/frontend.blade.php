@@ -275,6 +275,41 @@
                                 </div>
 
                                 <hr>
+                                <h6 class="fw-bold mt-3 mb-3 text-uppercase text-primary">Company Statistics</h6>
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 1 Value</label>
+                                        <input type="text" class="form-control" name="about_stat_1_value"
+                                            value="{{ $settings['about_stat_1_value'] ?? '50+' }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 1 Label</label>
+                                        <input type="text" class="form-control" name="about_stat_1_label"
+                                            value="{{ $settings['about_stat_1_label'] ?? 'Projects Delivered' }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 2 Value</label>
+                                        <input type="text" class="form-control" name="about_stat_2_value"
+                                            value="{{ $settings['about_stat_2_value'] ?? '5+' }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 2 Label</label>
+                                        <input type="text" class="form-control" name="about_stat_2_label"
+                                            value="{{ $settings['about_stat_2_label'] ?? 'Years of Experience' }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 3 Value</label>
+                                        <input type="text" class="form-control" name="about_stat_3_value"
+                                            value="{{ $settings['about_stat_3_value'] ?? '98%' }}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Stat 3 Label</label>
+                                        <input type="text" class="form-control" name="about_stat_3_label"
+                                            value="{{ $settings['about_stat_3_label'] ?? 'Client Satisfaction' }}">
+                                    </div>
+                                </div>
+
+                                <hr>
                                 <h6 class="fw-bold mt-3 mb-3 text-uppercase text-primary">Page Content Labels</h6>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
