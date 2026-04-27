@@ -3,7 +3,7 @@
 @endisset
 
 
-@extends('layouts/commonMaster')
+@extends('admin.layouts.commonMaster')
 
 @section('layoutContent')
 <!-- Content -->

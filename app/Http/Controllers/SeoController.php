@@ -104,7 +104,7 @@ class SeoController extends Controller
         $content = Setting::get('robots_txt');
 
         if (!$content) {
-            $content = "User-agent: *\nAllow: /\n\nSitemap: " . route('sitemap');
+            $content = "User-agent: *\nDisallow: /admin\nAllow: /\n\nSitemap: " . route('sitemap');
         }
 
         return response($content, 200)->header('Content-Type', 'text/plain');
