@@ -4,6 +4,9 @@
 @section('meta_description', $project->meta_description ?? $project->short_description ?? '')
 @section('meta_keywords', $project->tags->count() ? $project->tags->pluck('title')->implode(', ') : '')
 @section('canonical', route('portfolio.detail', $project->slug))
+@if($project->meta_robots)
+    @section('robots', $project->meta_robots)
+@endif
 
 @if($project->image)
 @section('og_image', asset($project->image))

@@ -46,6 +46,9 @@ class TeamMemberController extends AdminBaseController
             'social_links.linkedin' => 'nullable|url',
             'status' => 'boolean',
             'order' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_robots' => 'nullable|string',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'team')) {
@@ -78,6 +81,9 @@ class TeamMemberController extends AdminBaseController
             'social_links.linkedin' => 'nullable|url',
             'status' => 'boolean',
             'order' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_robots' => 'nullable|string',
         ]);
 
         if ($path = $this->uploadImage($request, 'image', 'team')) {

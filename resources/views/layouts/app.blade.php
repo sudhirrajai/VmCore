@@ -7,7 +7,7 @@
     <title>@yield('title', $siteSettings['default_meta_title'] ?? ($siteSettings['site_name'] ?? 'VMCore'))</title>
     <meta name="description" content="@yield('meta_description', $siteSettings['default_meta_description'] ?? '')">
     <meta name="keywords" content="@yield('meta_keywords', $siteSettings['meta_keywords'] ?? '')">
-    <meta name="robots" content="INDEX,FOLLOW">
+    <meta name="robots" content="@yield('robots', $siteSettings['site_robots'] ?? 'INDEX,FOLLOW')">
     <meta name="author" content="{{ $siteSettings['site_name'] ?? 'VMCore' }}">
     <link rel="canonical" href="@yield('canonical', url()->current())">
 

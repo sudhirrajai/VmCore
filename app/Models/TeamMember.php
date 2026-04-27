@@ -27,6 +27,7 @@ class TeamMember extends Model
         'order',
         'meta_title',
         'meta_description',
+        'meta_robots',
     ];
 
     protected $casts = [

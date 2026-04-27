@@ -29,6 +29,7 @@ class BlogPost extends Model
         'meta_title',
         'meta_description',
         'faq_schema_script',
+        'meta_robots',
     ];
 
     protected $casts = [

@@ -5,6 +5,9 @@
 @section('meta_keywords', $post->tags->count() ? $post->tags->pluck('title')->implode(', ') : '')
 @section('og_type', 'article')
 @section('canonical', route('blog.detail', $post->slug))
+@if($post->meta_robots)
+    @section('robots', $post->meta_robots)
+@endif
 @if($post->image)
 @section('og_image', asset($post->image))
 @endif

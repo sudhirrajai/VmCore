@@ -4,6 +4,9 @@
 @section('meta_description', $page->meta_description)
 @section('meta_keywords', $page->meta_keywords)
 @section('canonical', url()->current())
+@if($page->meta_robots)
+    @section('robots', $page->meta_robots)
+@endif
 
 @push('structured_data')
     <script type="application/ld+json">

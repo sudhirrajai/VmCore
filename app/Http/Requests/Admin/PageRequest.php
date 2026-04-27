@@ -28,6 +28,7 @@ class PageRequest extends FormRequest
             'featured_image' => ['nullable', 'image', 'max:2048'],
             'status' => ['required', new Enum(StatusEnum::class)],
             'faq_schema_script' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string'],
         ];
     }
 

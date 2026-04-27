@@ -4,6 +4,9 @@
 @section('meta_description', $member->meta_description ?? Str::limit($member->bio, 160) ?? '')
 @section('meta_keywords', $member->designation ? $member->designation . ', ' . ($siteSettings['site_name'] ?? 'VMCore') . ' team' : '')
 @section('canonical', route('team.detail', $member->slug))
+@if($member->meta_robots)
+    @section('robots', $member->meta_robots)
+@endif
 @if($member->image)
 @section('og_image', asset($member->image))
 @endif

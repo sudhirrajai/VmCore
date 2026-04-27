@@ -4,6 +4,9 @@
 @section('meta_description', $service->meta_description ?? $service->short_description ?? '')
 @section('meta_keywords', $service->tags->count() ? $service->tags->pluck('title')->implode(', ') : '')
 @section('canonical', route('service.detail', $service->slug))
+@if($service->meta_robots)
+    @section('robots', $service->meta_robots)
+@endif
 
 @push('styles')
     <style>

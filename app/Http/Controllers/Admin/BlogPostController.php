@@ -56,6 +56,7 @@ class BlogPostController extends AdminBaseController
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'faq_schema_script' => 'nullable|string',
+            'meta_robots' => 'nullable|string',
             'tags' => 'nullable|array',
         ]);
 
@@ -116,6 +117,7 @@ class BlogPostController extends AdminBaseController
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'faq_schema_script' => 'nullable|string',
+            'meta_robots' => 'nullable|string',
             'tags' => 'nullable|array',
         ]);
 

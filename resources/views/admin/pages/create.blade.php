@@ -46,6 +46,17 @@
                                 <h6 class="mb-3">SEO Settings</h6>
 
                                 <div class="mb-3">
+                                    <label class="form-label fw-bold text-primary" for="meta_robots"><i class="bx bx-bot"></i> Search Engine Visibility</label>
+                                    <select name="meta_robots" id="meta_robots" class="form-select">
+                                        <option value="" {{ old('meta_robots') == '' ? 'selected' : '' }}>Default (Global Setting)</option>
+                                        <option value="INDEX,FOLLOW" {{ old('meta_robots') == 'INDEX,FOLLOW' ? 'selected' : '' }}>Index, Follow</option>
+                                        <option value="NOINDEX,FOLLOW" {{ old('meta_robots') == 'NOINDEX,FOLLOW' ? 'selected' : '' }}>Noindex, Follow</option>
+                                        <option value="NOINDEX,NOFOLLOW" {{ old('meta_robots') == 'NOINDEX,NOFOLLOW' ? 'selected' : '' }}>Noindex, Nofollow</option>
+                                    </select>
+                                    <div class="form-text small">Override the global search engine visibility for this specific page.</div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label class="form-label" for="meta_title">Meta Title</label>
                                     <input type="text" class="form-control" id="meta_title" name="meta_title"
                                         value="{{ old('meta_title') }}">

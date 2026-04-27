@@ -67,6 +67,16 @@
                     <hr>
                     <h6>SEO Settings</h6>
                     <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold text-primary" for="meta_robots"><i class="bx bx-bot"></i> Search Engine Visibility</label>
+                            <select name="meta_robots" id="meta_robots" class="form-select">
+                                <option value="" {{ old('meta_robots', $service->meta_robots) == '' ? 'selected' : '' }}>Default (Global Setting)</option>
+                                <option value="INDEX,FOLLOW" {{ old('meta_robots', $service->meta_robots) == 'INDEX,FOLLOW' ? 'selected' : '' }}>Index, Follow</option>
+                                <option value="NOINDEX,FOLLOW" {{ old('meta_robots', $service->meta_robots) == 'NOINDEX,FOLLOW' ? 'selected' : '' }}>Noindex, Follow</option>
+                                <option value="NOINDEX,NOFOLLOW" {{ old('meta_robots', $service->meta_robots) == 'NOINDEX,NOFOLLOW' ? 'selected' : '' }}>Noindex, Nofollow</option>
+                            </select>
+                            <div class="form-text small">Override the global search engine visibility for this specific service.</div>
+                        </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="meta_title">Meta Title</label>

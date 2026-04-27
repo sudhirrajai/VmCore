@@ -35,6 +35,7 @@ class Project extends Model
         'faq_schema_script',
         'problem_solution',
         'features',
+        'meta_robots',
     ];
 
     protected $casts = [
