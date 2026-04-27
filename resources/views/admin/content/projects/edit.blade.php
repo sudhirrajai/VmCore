@@ -42,8 +42,7 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @include('admin.content._partials.flash-messages')
-        <div class="card">
+<div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Edit Project: {{ $project->title }}</h5>
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary btn-sm">Back to List</a>

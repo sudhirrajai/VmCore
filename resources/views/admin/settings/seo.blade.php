@@ -4,10 +4,7 @@
 
 @section('content')
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Settings /</span> SEO & Sitemap</h4>
-
-    @include('admin.content._partials.flash-messages')
-
-    <form action="{{ route('admin.settings.seo.update') }}" method="POST">
+<form action="{{ route('admin.settings.seo.update') }}" method="POST">
         @csrf
         <div class="row">
             <!-- Sitemap Settings -->

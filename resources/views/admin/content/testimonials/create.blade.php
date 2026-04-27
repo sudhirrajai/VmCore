@@ -2,8 +2,7 @@
 @section('title', 'Add Testimonial')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @include('admin.content._partials.flash-messages')
-        <div class="card">
+<div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Add Testimonial</h5>
             </div>

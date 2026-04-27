@@ -2,8 +2,7 @@
 @section('title', 'Clients')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @include('admin.content._partials.flash-messages')
-        <div class="card">
+<div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Clients</h5>
                 <a href="{{ route('admin.clients.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i>

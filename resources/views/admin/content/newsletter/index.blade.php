@@ -2,8 +2,7 @@
 @section('title', 'Newsletter Subscribers')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @include('admin.content._partials.flash-messages')
-        <div class="card">
+<div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Newsletter Subscribers <span class="badge bg-primary ms-2">{{ $items->total() }}</span>
                 </h5>

@@ -4,9 +4,7 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        @include('admin.content._partials.flash-messages')
-
-        <div class="card">
+<div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Edit Service: {{ $service->title }}</h5>
             </div>
