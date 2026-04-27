@@ -23,9 +23,10 @@
                                     class="form-check-label">Active</label></div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="bx bx-save me-1"></i> Save</button>
-                    <a href="{{ route('admin.project-categories.index') }}"
-                        class="btn btn-outline-secondary ms-2">Cancel</a>
+                    @include('admin.content._partials.form-actions', [
+                        'back_route' => route('admin.project-categories.index'),
+                        'label' => 'Save Category'
+                    ])
                 </form>
             </div>
         </div>

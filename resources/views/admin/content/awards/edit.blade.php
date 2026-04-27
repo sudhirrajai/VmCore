@@ -33,8 +33,10 @@
                                     class="form-check-label">Active</label></div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="bx bx-save me-1"></i> Update</button>
-                    <a href="{{ route('admin.awards.index') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
+                    @include('admin.content._partials.form-actions', [
+                        'back_route' => route('admin.awards.index'),
+                        'label' => 'Update Award'
+                    ])
                 </form>
             </div>
         </div>

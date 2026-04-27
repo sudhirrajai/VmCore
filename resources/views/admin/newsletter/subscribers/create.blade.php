@@ -34,9 +34,10 @@
                                     Active (Subscribed)
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Save Subscriber</button>
-                            <a href="{{ route('admin.newsletter.subscribers.index') }}"
-                                class="btn btn-label-secondary">Cancel</a>
+                            @include('admin.content._partials.form-actions', [
+                                'back_route' => route('admin.newsletter.subscribers.index'),
+                                'label' => 'Save Subscriber'
+                            ])
                         </form>
                     </div>
                 </div>

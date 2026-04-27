@@ -1051,12 +1051,9 @@
                 </div>
             </div>
 
-            <div class="col-12 mt-2 sticky-bottom pb-4" style="z-index: 10;">
-                <div class="card shadow-md border border-primary">
-                    <button type="submit" class="btn btn-primary d-block w-100 p-3 fs-5 shadow">Save Frontend
-                        Content</button>
-                </div>
-            </div>
+            @include('admin.content._partials.form-actions', [
+                'label' => 'Save Frontend Content'
+            ])
         </div>
     </form>
 

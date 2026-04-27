@@ -55,11 +55,9 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-primary d-flex align-items-center">
-                                <i class="bx bx-save me-1"></i> Save Changes
-                            </button>
-                        </div>
+                        @include('admin.content._partials.form-actions', [
+                            'label' => 'Save Changes'
+                        ])
                     </form>
                 </div>
             </div>

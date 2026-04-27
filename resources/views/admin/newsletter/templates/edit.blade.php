@@ -35,9 +35,10 @@
                                 @error('html_structure')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update Template</button>
-                            <a href="{{ route('admin.newsletter.templates.index') }}"
-                                class="btn btn-label-secondary">Cancel</a>
+                            @include('admin.content._partials.form-actions', [
+                                'back_route' => route('admin.newsletter.templates.index'),
+                                'label' => 'Update Template'
+                            ])
                         </form>
                     </div>
                 </div>

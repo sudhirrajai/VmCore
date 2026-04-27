@@ -128,4 +128,21 @@
             {{ \App\Helpers\ThemeHelper::getPrimaryColor() }}
             !important;
     }
+
+    /* Sticky Form Action Bar */
+    .sticky-bottom-bar {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        margin: 0 -1.5rem; /* Adjust based on container padding */
+        padding-bottom: 0.5rem;
+    }
+    .sticky-bottom-bar .card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    [data-bs-theme=dark] .sticky-bottom-bar .card {
+        background: rgba(35, 35, 51, 0.7);
+    }
 </style>

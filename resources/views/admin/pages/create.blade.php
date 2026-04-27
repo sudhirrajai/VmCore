@@ -72,8 +72,10 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Save Page</button>
-                        <a href="{{ route('admin.pages.index') }}" class="btn btn-secondary mt-3 ms-2">Cancel</a>
+                        @include('admin.content._partials.form-actions', [
+                            'back_route' => route('admin.pages.index'),
+                            'label' => 'Save Page'
+                        ])
                     </form>
                 </div>
             </div>

@@ -259,9 +259,10 @@
                         </div>
                     </div>
                     
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-primary"><i class="bx bx-save me-1"></i> Update</button>
-                    </div>
+                    @include('admin.content._partials.form-actions', [
+                        'back_route' => route('admin.projects.index'),
+                        'label' => 'Update Project'
+                    ])
                 </form>
             </div>
         </div>

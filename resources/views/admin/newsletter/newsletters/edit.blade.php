@@ -68,17 +68,14 @@
 
                             <hr class="my-4">
 
-                            <div class="d-flex gap-2">
-                                <button type="submit" name="action" value="draft" class="btn btn-secondary">Save as
-                                    Draft</button>
-                                <button type="submit" name="action" value="schedule" class="btn btn-info"
-                                    onclick="return validateSchedule()">Schedule</button>
-                                <button type="submit" name="action" value="send_now" class="btn btn-success"
-                                    onclick="return confirm('Are you sure you want to send this immediately to all subscribers?')">Send
-                                    Immediately</button>
-                                <a href="{{ route('admin.newsletter.newsletters.index') }}"
-                                    class="btn btn-label-secondary ms-auto">Cancel</a>
-                            </div>
+                            @include('admin.content._partials.form-actions', [
+                                'buttons' => '
+                                    <button type="submit" name="action" value="draft" class="btn btn-secondary">Save Draft</button>
+                                    <button type="submit" name="action" value="schedule" class="btn btn-info" onclick="return validateSchedule()">Schedule</button>
+                                    <button type="submit" name="action" value="send_now" class="btn btn-success" onclick="return confirm(\'Send this immediately to all subscribers?\')">Send Now</button>
+                                    <a href="' . route('admin.newsletter.newsletters.index') . '" class="btn btn-outline-secondary ms-auto">Cancel</a>
+                                '
+                            ])
                         </form>
                     </div>
                 </div>

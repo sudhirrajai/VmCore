@@ -139,9 +139,9 @@
                 </div>
             </div>
 
-            <div class="col-12 mt-2">
-                <button type="submit" class="btn btn-primary d-block w-100 p-3 fs-5">Save Settings</button>
-            </div>
+            @include('admin.content._partials.form-actions', [
+                'label' => 'Save Settings'
+            ])
         </div>
     </form>
 @endsection

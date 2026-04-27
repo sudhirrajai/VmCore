@@ -87,10 +87,10 @@
                         </div>
                     </div>
 
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-primary"><i class="bx bx-save me-1"></i> Save Service</button>
-                        <a href="{{ route('admin.services.index') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
-                    </div>
+                    @include('admin.content._partials.form-actions', [
+                        'back_route' => route('admin.services.index'),
+                        'label' => 'Save Service'
+                    ])
                 </form>
             </div>
         </div>

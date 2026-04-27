@@ -56,9 +56,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3"><button type="submit" class="btn btn-primary"><i class="bx bx-save me-1"></i>
-                            Update</button> <a href="{{ route('admin.testimonials.index') }}"
-                            class="btn btn-outline-secondary ms-2">Cancel</a></div>
+                    @include('admin.content._partials.form-actions', [
+                        'back_route' => route('admin.testimonials.index'),
+                        'label' => 'Update Testimonial'
+                    ])
                 </form>
             </div>
         </div>

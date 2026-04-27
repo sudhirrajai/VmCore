@@ -83,9 +83,13 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Update Page</button>
-                        <a href="{{ route('admin.pages.index') }}" class="btn btn-secondary mt-3 ms-2">Cancel</a>
-                        <a href="{{ url($page->slug) }}" target="_blank" class="btn btn-outline-info mt-3 ms-2">Preview</a>
+                        @include('admin.content._partials.form-actions', [
+                            'buttons' => '
+                                <button type="submit" class="btn btn-primary btn-lg shadow-sm">Update Page</button>
+                                <a href="' . url($page->slug) . '" target="_blank" class="btn btn-outline-info">Preview</a>
+                                <a href="' . route('admin.pages.index') . '" class="btn btn-outline-secondary ms-auto">Cancel</a>
+                            '
+                        ])
                     </form>
                 </div>
             </div>
