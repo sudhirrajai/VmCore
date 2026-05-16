@@ -299,6 +299,14 @@
         @foreach($headerMenu as $item)
           @php
             $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#');
+            
+            // Guard for Blog Visibility
+            if ($url == route('blog') || str_contains($url, '/blog')) {
+                if (!\App\Models\Setting::get('show_blog_page', 1) || !\App\Models\BlogPost::published()->exists()) {
+                    continue;
+                }
+            }
+
             $path = parse_url($url, PHP_URL_PATH);
             $path = $path ? ltrim($path, '/') : '';
             $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
@@ -323,7 +331,7 @@
         @endif
         <a href="{{ route('portfolio') }}"
           class="transition-all {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Portfolio</a>
-        @if(\App\Models\Setting::get('show_blog_page', 1))
+        @if(\App\Models\Setting::get('show_blog_page', 1) && \App\Models\BlogPost::published()->exists())
           <a href="{{ route('blog') }}"
             class="transition-all {{ request()->routeIs('blog', 'blog.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Blog</a>
         @endif
@@ -379,6 +387,14 @@
       @foreach($headerMenu as $index => $item)
         @php
           $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#');
+
+          // Guard for Blog Visibility
+          if ($url == route('blog') || str_contains($url, '/blog')) {
+              if (!\App\Models\Setting::get('show_blog_page', 1) || !\App\Models\BlogPost::published()->exists()) {
+                  continue;
+              }
+          }
+
           $path = parse_url($url, PHP_URL_PATH);
           $path = $path ? ltrim($path, '/') : '';
           $isActive = request()->is($path) || ($path !== '' && request()->is($path . '/*'));
@@ -416,7 +432,7 @@
         style="animation-delay: 0.25s;">
         Portfolio
       </a>
-      @if(\App\Models\Setting::get('show_blog_page', 1))
+      @if(\App\Models\Setting::get('show_blog_page', 1) && \App\Models\BlogPost::published()->exists())
         <a href="{{ route('blog') }}"
           class="mobile-nav-link {{ request()->routeIs('blog', 'blog.detail') ? 'active' : '' }}"
           style="animation-delay: 0.25s;">

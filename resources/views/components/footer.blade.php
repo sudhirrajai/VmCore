@@ -199,7 +199,16 @@
         <ul class="space-y-2 text-base text-slate-500">
           @if(isset($footerMenu) && $footerMenu->count() > 0)
             @foreach($footerMenu as $item)
-              @php $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#'); @endphp
+              @php 
+                $url = $item->custom_url ?: ($item->page ? url($item->page->slug) : '#'); 
+                
+                // Guard for Blog Visibility
+                if ($url == route('blog') || str_contains($url, '/blog')) {
+                    if (!\App\Models\Setting::get('show_blog_page', 1) || !\App\Models\BlogPost::published()->exists()) {
+                        continue;
+                    }
+                }
+              @endphp
               <li><a href="{{ $url }}" target="{{ $item->target ?? '_self' }}" class="hover:text-black">{{ $item->title }}</a></li>
             @endforeach
           @else
@@ -213,7 +222,7 @@
             @if(setting('show_portfolio_page', 1))
               <li><a href="{{ route('portfolio') }}" class="hover:text-black">Portfolio</a></li>
             @endif
-            @if(setting('show_blog_page', 1))
+            @if(setting('show_blog_page', 1) && \App\Models\BlogPost::published()->exists())
               <li><a href="{{ route('blog') }}" class="hover:text-black">Blog</a></li>
             @endif
             @if(setting('show_faq_page', 1))

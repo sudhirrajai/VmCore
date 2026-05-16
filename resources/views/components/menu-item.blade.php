@@ -4,6 +4,15 @@
     $url = $item->page_id ? url($item->page->slug) : ($item->custom_url ?: '#');
     $path = parse_url($url, PHP_URL_PATH);
     $isActive = request()->is(ltrim($path ?: '', '/')) ? 'active' : '';
+    
+    // Guard for Blog Visibility
+    $isBlogLink = ($url == route('blog') || str_contains($url, '/blog'));
+    if ($isBlogLink) {
+        $shouldShowBlog = \App\Models\Setting::get('show_blog_page', 1) && \App\Models\BlogPost::published()->exists();
+        if (!$shouldShowBlog) {
+            return;
+        }
+    }
 @endphp
 
 <li class="{{ $isActive }} {{ $item->children->count() > 0 ? 'menu-item-has-children' : '' }}">
