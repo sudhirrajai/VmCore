@@ -91,11 +91,11 @@ class FrontendController extends Controller
 
         $categories = ProjectCategory::where('status', true)
             ->whereHas('projects', function ($q) {
-                $q->where('status', true);
+                $q->where('status', true)->where('is_product', false);
             })
             ->get();
 
-        $query = Project::where('status', true)->with('categories', 'images');
+        $query = Project::where('status', true)->where('is_product', false)->with('categories', 'images');
 
         if ($request->filled('category')) {
             $cat = ProjectCategory::where('slug', $request->category)->first();
@@ -106,7 +106,39 @@ class FrontendController extends Controller
         }
 
         $projects = $query->orderBy('order')->paginate(9);
-        return view('portfolio', compact('projects', 'categories'));
+        
+        $title = Setting::get('portfolio_hero_title', 'Our Impactful Work');
+        $subtitle = Setting::get('portfolio_hero_subtitle', 'We partner with forward-thinking companies to craft digital experiences that drive growth and innovation.');
+
+        return view('portfolio', compact('projects', 'categories', 'title', 'subtitle'));
+    }
+
+    public function shop(Request $request)
+    {
+        abort_if(!\App\Models\Project::where('status', true)->where('is_product', true)->exists(), 404);
+
+        $categories = ProjectCategory::where('status', true)
+            ->whereHas('projects', function ($q) {
+                $q->where('status', true)->where('is_product', true);
+            })
+            ->get();
+
+        $query = Project::where('status', true)->where('is_product', true)->with('categories', 'images');
+
+        if ($request->filled('category')) {
+            $cat = ProjectCategory::where('slug', $request->category)->first();
+            if ($cat)
+                $query->whereHas('categories', function ($q) use ($cat) {
+                    $q->where('project_categories.id', $cat->id);
+                });
+        }
+
+        $projects = $query->orderBy('order')->paginate(9);
+
+        $title = Setting::get('shop_hero_title', 'Our Products');
+        $subtitle = Setting::get('shop_hero_subtitle', 'Explore our curated collection of products.');
+
+        return view('portfolio', compact('projects', 'categories', 'title', 'subtitle'));
     }
 
     public function portfolioDetail(Project $project)
@@ -116,6 +148,7 @@ class FrontendController extends Controller
         $project->load('categories', 'images', 'services', 'tags', 'testimonials');
         $categoryIds = $project->categories->pluck('id');
         $relatedProjects = Project::where('status', true)
+            ->where('is_product', $project->is_product)
             ->where('id', '!=', $project->id)
             ->whereHas('categories', function ($q) use ($categoryIds) {
                 $q->whereIn('project_categories.id', $categoryIds);

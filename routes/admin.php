@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
 
   Route::resource('projects', ProjectController::class)->except(['show']);
   Route::post('projects/{project}/toggle-status', [ProjectController::class, 'toggleStatus'])->name('projects.toggle-status');
+  Route::post('projects/{project}/toggle-product', [ProjectController::class, 'toggleProduct'])->name('projects.toggle-product');
   Route::post('projects/bulk-delete', [ProjectController::class, 'bulkDelete'])->name('projects.bulk-delete');
   Route::delete('projects/gallery/{id}', [ProjectController::class, 'deleteGalleryImage'])->name('projects.delete-gallery');
 

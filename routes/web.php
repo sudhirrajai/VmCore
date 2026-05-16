@@ -11,6 +11,7 @@ Route::get('/services/{service:slug}', [FrontendController::class, 'serviceDetai
 Route::get('/team', [FrontendController::class, 'team'])->name('team');
 Route::get('/team/{member:slug}', [FrontendController::class, 'teamDetail'])->name('team.detail');
 Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
+Route::get('/products', [FrontendController::class, 'shop'])->name('products');
 Route::get('/portfolio', [FrontendController::class, 'portfolio'])->name('portfolio');
 Route::get('/portfolio/{project:slug}', [FrontendController::class, 'portfolioDetail'])->name('portfolio.detail');
 Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');

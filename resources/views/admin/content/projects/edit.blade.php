@@ -140,6 +140,12 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="is_product" value="1" {{ old('is_product', $project->is_product) ? 'checked' : '' }}>
+                                    <label class="form-check-label">Is Product</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" name="status" value="1" {{ old('status', $project->status) ? 'checked' : '' }}>
                                     <label class="form-check-label">Active</label>
                                 </div>

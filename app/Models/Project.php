@@ -36,6 +36,7 @@ class Project extends Model
         'problem_solution',
         'features',
         'meta_robots',
+        'is_product',
     ];
 
     protected $casts = [
@@ -44,6 +45,7 @@ class Project extends Model
         'project_date' => 'date',
         'problem_solution' => 'array',
         'features' => 'array',
+        'is_product' => 'boolean',
     ];
 
     public function categories()

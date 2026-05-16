@@ -37,6 +37,7 @@
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Category</th>
+                                <th>Product</th>
                                 <th>Featured</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -51,6 +52,8 @@
                                             class="badge bg-label-secondary">—</span> @endif</td>
                                     <td><strong>{{ $item->title }}</strong></td>
                                     <td>{{ $item->categories->count() ? $item->categories->pluck('title')->implode(', ') : '—' }}
+                                    </td>
+                                    <td>@include('admin.content._partials.product-toggle', ['item' => $item, 'route' => 'admin.projects.toggle-product'])
                                     </td>
                                     <td><span
                                             class="badge bg-label-{{ $item->is_featured ? 'warning' : 'secondary' }}">{{ $item->is_featured ? 'Yes' : 'No' }}</span>

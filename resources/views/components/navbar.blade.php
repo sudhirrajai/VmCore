@@ -317,6 +317,10 @@
           class="transition-all {{ request()->routeIs('about') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">About</a>
         <a href="{{ route('services') }}"
           class="transition-all {{ request()->routeIs('services', 'service.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Services</a>
+        @if(\App\Models\Project::where('status', true)->where('is_product', true)->exists())
+          <a href="{{ route('products') }}"
+            class="transition-all {{ request()->routeIs('products') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Products</a>
+        @endif
         <a href="{{ route('portfolio') }}"
           class="transition-all {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'border-b-2 border-black pb-1 text-slate-900' : 'text-slate-800 hover:opacity-60 transition-opacity' }}">Portfolio</a>
         @if(\App\Models\Setting::get('show_blog_page', 1))
@@ -401,9 +405,15 @@
         style="animation-delay: 0.15s;">
         Services
       </a>
+      @if(\App\Models\Project::where('status', true)->where('is_product', true)->exists())
+        <a href="{{ route('products') }}" class="mobile-nav-link {{ request()->routeIs('products') ? 'active' : '' }}"
+          style="animation-delay: 0.2s;">
+          Products
+        </a>
+      @endif
       <a href="{{ route('portfolio') }}"
         class="mobile-nav-link {{ request()->routeIs('portfolio', 'portfolio.detail') ? 'active' : '' }}"
-        style="animation-delay: 0.2s;">
+        style="animation-delay: 0.25s;">
         Portfolio
       </a>
       @if(\App\Models\Setting::get('show_blog_page', 1))

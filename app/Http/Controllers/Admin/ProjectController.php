@@ -64,6 +64,7 @@ class ProjectController extends AdminBaseController
             'image' => 'nullable|image|max:2048',
             'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
+            'is_product' => 'boolean',
             'status' => 'boolean',
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
@@ -185,6 +186,7 @@ class ProjectController extends AdminBaseController
             'image' => 'nullable|image|max:2048',
             'banner_image' => 'nullable|image|max:2048',
             'is_featured' => 'boolean',
+            'is_product' => 'boolean',
             'status' => 'boolean',
             'order' => 'nullable|integer',
             'meta_title' => 'nullable|string|max:255',
@@ -356,6 +358,19 @@ class ProjectController extends AdminBaseController
         $image->delete();
 
         return response()->json(['success' => true, 'message' => 'Image deleted.']);
+    }
+
+    public function toggleProduct($id)
+    {
+        $item = Project::findOrFail($id);
+        $item->is_product = !$item->is_product;
+        $item->save();
+
+        return response()->json([
+            'success' => true,
+            'is_product' => $item->is_product,
+            'message' => 'Project product status updated successfully.',
+        ]);
     }
 
     protected function createThumbnail($sourcePath, $destinationPath, $maxWidth = 600, $maxHeight = 600)

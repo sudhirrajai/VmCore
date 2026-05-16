@@ -20,8 +20,8 @@
             {
                 "@@type": "ListItem",
                 "position": 2,
-                "name": "Portfolio",
-                "item": "{{ route('portfolio') }}"
+                "name": "{{ $title }}",
+                "item": "{{ request()->url() }}"
             }
         ]
     }
@@ -101,10 +101,10 @@
     <!-- Hero Section -->
     <section class="pt-20 pb-12 px-8 text-center max-w-4xl mx-auto animate-fade-in-up">
         <h1 class="text-5xl lg:text-7xl font-bold leading-tight text-slate-900 mb-6">
-            {!! \App\Models\Setting::get('portfolio_hero_title', 'Our Impactful Work') !!}
+            {!! $title !!}
         </h1>
         <p class="text-base leading-relaxed text-slate-500">
-            {!! \App\Models\Setting::get('portfolio_hero_subtitle', 'We partner with forward-thinking companies to craft digital experiences that drive growth and innovation.') !!}
+            {!! $subtitle !!}
         </p>
     </section>
 
@@ -112,13 +112,13 @@
     <section class="px-8 pb-12 animate-fade-in-up delay-200">
         <div class="flex flex-wrap justify-center gap-3">
             {{-- "All" filter button --}}
-            <a href="{{ route('portfolio') }}" 
+            <a href="{{ request()->url() }}" 
                class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ !request('category') ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
                style="{{ !request('category') ? 'background-color: #111827;' : '' }}">
                 {!! setting('portfolio_filter_all_text', 'All') !!}
             </a>
             @foreach($categories as $cat)
-                <a href="{{ route('portfolio', ['category' => $cat->slug]) }}"
+                <a href="{{ request()->url() }}?category={{ $cat->slug }}"
                    class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ request('category') == $cat->slug ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
                    style="{{ request('category') == $cat->slug ? 'background-color: #111827;' : '' }}">
                     {{ $cat->name }}
@@ -155,8 +155,8 @@
                 </div>
             @empty
                 <div class="col-span-full text-center py-20">
-                    <p class="text-base leading-relaxed text-slate-500 mb-4">No projects found for this category.</p>
-                    <a href="{{ route('portfolio') }}" class="text-sm font-medium portfolio-empty-link underline block">View all projects</a>
+                    <p class="text-base leading-relaxed text-slate-500 mb-4">No items found for this category.</p>
+                    <a href="{{ request()->url() }}" class="text-sm font-medium portfolio-empty-link underline block">View all</a>
                 </div>
             @endforelse
         </div>
