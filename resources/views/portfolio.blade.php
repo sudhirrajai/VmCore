@@ -1,99 +1,108 @@
 @extends('layouts.app')
 
-@section('title', setting('portfolio_meta_title', 'Portfolio - ' . ($siteSettings['site_name'] ?? 'VMCore')))
+@section('title', ($title ?? 'Portfolio') . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 @section('meta_description', setting('portfolio_meta_description', 'Explore our portfolio of projects and case studies.'))
 @section('meta_keywords', setting('portfolio_meta_keywords', 'portfolio, case studies, projects, creative work, design'))
-@section('canonical', route('portfolio'))
+@section('canonical', request()->url())
 
 @push('structured_data')
     <script type="application/ld+json">
-    {
-        "@@context": "https://schema.org",
-        "@@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "{{ url('/') }}"
-            },
-            {
-                "@@type": "ListItem",
-                "position": 2,
-                "name": "{{ $title }}",
-                "item": "{{ request()->url() }}"
-            }
-        ]
-    }
-    </script>
+        {
+            "@@context": "https://schema.org",
+            "@@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ url('/') }}"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 2,
+                    "name": "{{ $title }}",
+                    "item": "{{ request()->url() }}"
+                }
+            ]
+        }
+        </script>
     {!! setting('portfolio_page_faq_schema') !!}
 @endpush
 @push('styles')
-<style>
-    /* Portfolio Grid Layout */
-    .portfolio-grid-container {
-        max-width: 1440px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        padding-bottom: 6rem;
-    }
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 3rem 2rem;
-    }
-    @media (min-width: 768px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
+    <style>
+        /* Portfolio Grid Layout */
+        .portfolio-grid-container {
+            max-width: 1440px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-bottom: 6rem;
         }
-    }
-    @media (min-width: 1024px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
 
-    /* Portfolio Card Hover Effects */
-    .portfolio-card .card-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    .portfolio-card:hover .card-overlay {
-        opacity: 1;
-    }
-    .portfolio-card .card-overlay .view-btn {
-        background: #fff;
-        color: #111827;
-        padding: 0.5rem 1.5rem;
-        border-radius: 0.375rem;
-        font-size: 0.875rem;
-        font-weight: 700;
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-        transform: translateY(8px);
-        transition: transform 0.3s ease;
-    }
-    .portfolio-card:hover .card-overlay .view-btn {
-        transform: translateY(-4px);
-    }
-    .portfolio-card .card-image {
-        transition: transform 0.5s ease;
-    }
-    .portfolio-card:hover .card-image {
-        transform: scale(1.05);
-    }
-    /* Empty state link color */
-    .portfolio-empty-link {
-        color: var(--color-primary, #4A76B2);
-    }
-</style>
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Portfolio Card Hover Effects */
+        .portfolio-card .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-card .card-overlay .view-btn {
+            background: #fff;
+            color: #111827;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            transform: translateY(8px);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover .card-overlay .view-btn {
+            transform: translateY(-4px);
+        }
+
+        .portfolio-card .card-image {
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        /* Empty state link color */
+        .portfolio-empty-link {
+            color: var(--color-primary, #4A76B2);
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -112,15 +121,15 @@
     <section class="px-8 pb-12 animate-fade-in-up delay-200">
         <div class="flex flex-wrap justify-center gap-3">
             {{-- "All" filter button --}}
-            <a href="{{ request()->url() }}" 
-               class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ !request('category') ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
-               style="{{ !request('category') ? 'background-color: #111827;' : '' }}">
+            <a href="{{ request()->url() }}"
+                class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ !request('category') ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
+                style="{{ !request('category') ? 'background-color: #111827;' : '' }}">
                 {!! setting('portfolio_filter_all_text', 'All') !!}
             </a>
             @foreach($categories as $cat)
                 <a href="{{ request()->url() }}?category={{ $cat->slug }}"
-                   class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ request('category') == $cat->slug ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
-                   style="{{ request('category') == $cat->slug ? 'background-color: #111827;' : '' }}">
+                    class="px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 {{ request('category') == $cat->slug ? 'text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200' }}"
+                    style="{{ request('category') == $cat->slug ? 'background-color: #111827;' : '' }}">
                     {{ $cat->name }}
                 </a>
             @endforeach
@@ -134,12 +143,9 @@
                 <div class="portfolio-card cursor-pointer animate-on-scroll">
                     <a href="{{ route('portfolio.detail', $project->slug) }}" class="block">
                         <div class="relative overflow-hidden rounded-lg bg-gray-200" style="aspect-ratio: 4/3;">
-                            <img 
-                                src="{{ $project->image ? asset($project->image) : asset('assets/img/portfolio/portfolio2_1.jpg') }}" 
-                                alt="{{ $project->title }}"
-                                class="card-image"
-                                style="height: 100%; width: 100%; object-fit: cover;"
-                            />
+                            <img src="{{ $project->image ? asset($project->image) : asset('assets/img/portfolio/portfolio2_1.jpg') }}"
+                                alt="{{ $project->title }}" class="card-image"
+                                style="height: 100%; width: 100%; object-fit: cover;" />
                             {{-- Hover Overlay --}}
                             <div class="card-overlay">
                                 <span class="view-btn">{!! setting('portfolio_view_button_text', 'View Project') !!}</span>
@@ -156,7 +162,8 @@
             @empty
                 <div class="col-span-full text-center py-20">
                     <p class="text-base leading-relaxed text-slate-500 mb-4">No items found for this category.</p>
-                    <a href="{{ request()->url() }}" class="text-sm font-medium portfolio-empty-link underline block">View all</a>
+                    <a href="{{ request()->url() }}" class="text-sm font-medium portfolio-empty-link underline block">View
+                        all</a>
                 </div>
             @endforelse
         </div>
