@@ -161,6 +161,7 @@ class FrontendController extends Controller
     public function blog(Request $request)
     {
         abort_if(!Setting::get('show_blog_page', 1), 404);
+        abort_if(!BlogPost::published()->exists(), 404);
 
         $query = BlogPost::published()->with('category', 'author');
 

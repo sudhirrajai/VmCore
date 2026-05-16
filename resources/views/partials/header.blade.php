@@ -47,7 +47,7 @@
                                         @if(\App\Models\Setting::get('show_portfolio_page', 1))
                                             <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
                                         @endif
-                                        @if(\App\Models\Setting::get('show_blog_page', 1))
+                                        @if(\App\Models\Setting::get('show_blog_page', 1) && \App\Models\BlogPost::published()->exists())
                                             <li><a href="{{ route('blog') }}">Blog</a></li>
                                         @endif
                                         @if(\App\Models\Setting::get('show_team_page', 1))
