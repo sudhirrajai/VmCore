@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($exception->getStatusCode() ?? 'Error') . ' - ' . ($siteSettings['site_name'] ?? 'VMCore'))
+@section('title', 'Page Not Found - ' . ($siteSettings['site_name'] ?? 'VMCore'))
 
 @push('styles')
 <style>
@@ -99,29 +99,46 @@
         border-color: #cbd5e1;
         transform: translateY(-2px);
     }
+
+    .floating-elements div {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: var(--theme-color, #4A76B2);
+        border-radius: 50%;
+        opacity: 0.2;
+        animation: float 6s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .float-1 { top: 20%; left: 10%; animation-delay: 0s; }
+    .float-2 { top: 60%; right: 15%; animation-delay: 1s; }
+    .float-3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+    .float-4 { top: 30%; right: 25%; animation-delay: 3s; }
 </style>
 @endpush
 
 @section('content')
 <section class="error-area">
-    <div class="error-bg-text">{{ $exception->getStatusCode() ?? 'Error' }}</div>
+    <div class="error-bg-text">404</div>
     
+    <div class="floating-elements d-none d-lg-block">
+        <div class="float-1"></div>
+        <div class="float-2"></div>
+        <div class="float-3"></div>
+        <div class="float-4"></div>
+    </div>
+
     <div class="container text-center">
         <div class="error-content mx-auto animate-on-scroll">
-            <div class="error-code">{{ $exception->getStatusCode() ?? 'Error' }}</div>
-            <h1 class="error-title">
-                @if($exception->getStatusCode() == 404)
-                    Oops! Page Not Found
-                @else
-                    Something Went Wrong
-                @endif
-            </h1>
+            <div class="error-code">404</div>
+            <h1 class="error-title">Oops! Page Not Found</h1>
             <p class="error-text">
-                @if($exception->getStatusCode() == 404)
-                    The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-                @else
-                    {{ $exception->getMessage() ?: 'An unexpected error has occurred. Please try again later.' }}
-                @endif
+                The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
             </p>
             
             <div class="error-btns">
