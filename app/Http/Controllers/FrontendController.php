@@ -176,8 +176,19 @@ class FrontendController extends Controller
                 ->orWhere('excerpt', 'like', "%{$s}%"));
         }
 
-        $posts = $query->latest('published_at')->paginate(6);
-        $categories = BlogCategory::where('status', true)->withCount('posts')->get();
+        $posts = $query->latest('published_at')->paginate(9);
+
+        // Only show categories that have at least one published post
+        $categories = BlogCategory::where('status', true)
+            ->whereHas('posts', function ($q) {
+                $q->where('status', true)
+                  ->where(function ($q2) {
+                      $q2->whereNull('published_at')->orWhere('published_at', '<=', now());
+                  });
+            })
+            ->withCount('posts')
+            ->get();
+
         $recentPosts = BlogPost::published()->latest('published_at')->take(3)->get();
         $tags = \App\Models\Tag::has('blogPosts')->get();
 
@@ -193,7 +204,15 @@ class FrontendController extends Controller
             ->where('id', '!=', $post->id)
             ->where('category_id', $post->category_id)
             ->take(3)->get();
-        $categories = BlogCategory::where('status', true)->withCount('posts')->get();
+        $categories = BlogCategory::where('status', true)
+            ->whereHas('posts', function ($q) {
+                $q->where('status', true)
+                  ->where(function ($q2) {
+                      $q2->whereNull('published_at')->orWhere('published_at', '<=', now());
+                  });
+            })
+            ->withCount('posts')
+            ->get();
         $recentPosts = BlogPost::published()->latest('published_at')->take(3)->get();
         $tags = \App\Models\Tag::has('blogPosts')->get();
 

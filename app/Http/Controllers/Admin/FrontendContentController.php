@@ -176,6 +176,8 @@ class FrontendContentController extends Controller
             // Blog
             'blog_breadcrumb_title' => 'blog_breadcrumb_title',
             'blog_meta_description' => 'blog_meta_description',
+            'blog_hero_title'       => 'blog_hero_title',
+            'blog_hero_subtitle'    => 'blog_hero_subtitle',
 
             'contact_breadcrumb_title' => 'contact_breadcrumb_title',
             'contact_meta_description' => 'contact_meta_description',

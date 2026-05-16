@@ -710,6 +710,19 @@
                                             rows="2">{{ $settings['blog_meta_description'] ?? '' }}</textarea>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Blog Page — Hero Title</label>
+                                        <input type="text" class="form-control" name="blog_hero_title"
+                                            value="{{ $settings['blog_hero_title'] ?? 'Latest Insights' }}">
+                                        <small class="text-muted">Supports HTML (e.g. <code>&lt;em&gt;</code>, <code>&lt;span&gt;</code>).</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Blog Page — Hero Subtitle</label>
+                                        <input type="text" class="form-control" name="blog_hero_subtitle"
+                                            value="{{ $settings['blog_hero_subtitle'] ?? 'Ideas, perspectives, and stories from our team.' }}">
+                                    </div>
+                                </div>
                                 <hr>
                                 <h6 class="fw-bold mt-3 mb-3 text-uppercase text-primary">Blog Labels & Sidebar</h6>
                                 <div class="row mb-3">
