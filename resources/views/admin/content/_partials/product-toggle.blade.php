@@ -1,11 +1,12 @@
 {{-- Reusable product toggle partial --}}
-{{-- Usage: @include('admin.content._partials.product-toggle', ['item' => $item, 'route' => 'admin.projects.toggle-product']) --}}
+{{-- Usage: @include('admin.content._partials.product-toggle', ['item' => $item, 'route' =>
+'admin.projects.toggle-product']) --}}
 <form action="{{ route($route, $item->id) }}" method="POST" class="d-inline product-toggle-form">
     @csrf
     <button type="submit" class="btn btn-sm toggle-btn {{ $item->is_product ? 'btn-info' : 'btn-secondary' }}"
         title="Toggle product status">
         <i class="bx icon-state {{ $item->is_product ? 'bx-shopping-bag' : 'bx-x-circle' }}"></i>
-        <span class="text-state">{{ $item->is_product ? 'Product' : 'Service/Project' }}</span>
+        <span class="text-state">{{ $item->is_product ? 'Product' : 'Service/Product' }}</span>
     </button>
 </form>
 
@@ -47,7 +48,7 @@
                                     btn.classList.add('btn-secondary');
                                     icon.classList.remove('bx-shopping-bag');
                                     icon.classList.add('bx-x-circle');
-                                    text.textContent = 'Service/Project';
+                                    text.textContent = 'Service/Product';
                                 }
                             } else {
                                 alert(data.message || 'An error occurred.');
