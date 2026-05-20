@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@vmcore.in'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('password'),
+                'password' => bcrypt('password'),
                 'email_verified_at' => now(),
             ]
         );
@@ -85,14 +85,14 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($socialLinks as $link) {
-            SocialLink::updateOrCreate(
+            SocialLink::withTrashed()->updateOrCreate(
                 ['platform' => $link['platform']],
-                array_merge($link, ['status' => true])
+                array_merge($link, ['status' => true, 'deleted_at' => null])
             );
         }
 
         // ── Hero Section ─────────────────────────────────────────
-        HeroSection::updateOrCreate(
+        HeroSection::withTrashed()->updateOrCreate(
             ['title' => "We Make\nCreative Things\nEveryday"],
             [
                 'subtitle' => 'We are a digital agency that helps build immersive and engaging user experiences that drive results.',
@@ -100,6 +100,7 @@ class DatabaseSeeder extends Seeder
                 'button_url' => '/portfolio',
                 'status' => true,
                 'order' => 1,
+                'deleted_at' => null,
             ]
         );
 
@@ -116,9 +117,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($skills as $skill) {
-            Skill::updateOrCreate(
+            Skill::withTrashed()->updateOrCreate(
                 ['title' => $skill['title']],
-                array_merge($skill, ['status' => true])
+                array_merge($skill, ['status' => true, 'deleted_at' => null])
             );
         }
 
@@ -133,9 +134,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($services as $s) {
-            Service::updateOrCreate(
+            Service::withTrashed()->updateOrCreate(
                 ['title' => $s['title']],
-                array_merge($s, ['slug' => Str::slug($s['title']), 'status' => true])
+                array_merge($s, ['slug' => Str::slug($s['title']), 'status' => true, 'deleted_at' => null])
             );
         }
 
@@ -147,9 +148,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($projectCategories as $cat) {
-            ProjectCategory::updateOrCreate(
+            ProjectCategory::withTrashed()->updateOrCreate(
                 ['title' => $cat['title']],
-                array_merge($cat, ['slug' => Str::slug($cat['title']), 'status' => true])
+                array_merge($cat, ['slug' => Str::slug($cat['title']), 'status' => true, 'deleted_at' => null])
             );
         }
 
@@ -170,7 +171,7 @@ class DatabaseSeeder extends Seeder
 
         $order = 1;
         foreach ($projects as $p) {
-            Project::updateOrCreate(
+            Project::withTrashed()->updateOrCreate(
                 ['title' => $p['title']],
                 [
                     'slug' => Str::slug($p['title']),
@@ -181,6 +182,7 @@ class DatabaseSeeder extends Seeder
                     'service_id' => $serviceModels[$p['service_idx']]->id ?? null,
                     'status' => true,
                     'order' => $order++,
+                    'deleted_at' => null,
                 ]
             );
         }
@@ -199,9 +201,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($blogCategories as $cat) {
-            BlogCategory::updateOrCreate(
+            BlogCategory::withTrashed()->updateOrCreate(
                 ['title' => $cat['title']],
-                array_merge($cat, ['slug' => Str::slug($cat['title']), 'status' => true])
+                array_merge($cat, ['slug' => Str::slug($cat['title']), 'status' => true, 'deleted_at' => null])
             );
         }
 
@@ -219,7 +221,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($blogPosts as $post) {
-            BlogPost::updateOrCreate(
+            BlogPost::withTrashed()->updateOrCreate(
                 ['title' => $post['title']],
                 [
                     'slug' => Str::slug($post['title']),
@@ -229,6 +231,7 @@ class DatabaseSeeder extends Seeder
                     'user_id' => $admin?->id,
                     'published_at' => $post['published_at'],
                     'status' => true,
+                    'deleted_at' => null,
                 ]
             );
         }
@@ -242,9 +245,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($teamMembers as $member) {
-            TeamMember::updateOrCreate(
+            TeamMember::withTrashed()->updateOrCreate(
                 ['name' => $member['name']],
-                array_merge($member, ['slug' => Str::slug($member['name']), 'status' => true])
+                array_merge($member, ['slug' => Str::slug($member['name']), 'status' => true, 'deleted_at' => null])
             );
         }
 
@@ -259,9 +262,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($testimonials as $t) {
-            Testimonial::updateOrCreate(
+            Testimonial::withTrashed()->updateOrCreate(
                 ['name' => $t['name']],
-                array_merge($t, ['status' => true])
+                array_merge($t, ['status' => true, 'deleted_at' => null])
             );
         }
 
@@ -274,9 +277,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($awards as $a) {
-            Award::updateOrCreate(
+            Award::withTrashed()->updateOrCreate(
                 ['title' => $a['title']],
-                array_merge($a, ['status' => true])
+                array_merge($a, ['status' => true, 'deleted_at' => null])
             );
         }
 
@@ -293,9 +296,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($clients as $c) {
-            Client::updateOrCreate(
+            Client::withTrashed()->updateOrCreate(
                 ['name' => $c['name']],
-                array_merge($c, ['status' => true])
+                array_merge($c, ['status' => true, 'deleted_at' => null])
             );
         }
 
@@ -309,9 +312,9 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($faqs as $faq) {
-            Faq::updateOrCreate(
+            Faq::withTrashed()->updateOrCreate(
                 ['question' => $faq['question']],
-                array_merge($faq, ['status' => true])
+                array_merge($faq, ['status' => true, 'deleted_at' => null])
             );
         }
     }

@@ -43,7 +43,7 @@ class ResetPasswordController extends Controller
             return back()->withErrors(['email' => 'User not found.']);
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = bcrypt($request->password);
         $user->save();
 
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
